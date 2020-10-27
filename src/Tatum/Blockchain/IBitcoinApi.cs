@@ -14,7 +14,7 @@ namespace Tatum.Blockchain
         Task<BitcoinInfo> GetBlockchainInfo();
 
         [Get("/v3/bitcoin/block/{hash}")]
-        Task<> GetBlock(string hash);
+        Task<BitcoinBlock> GetBlock(string hash);
 
     }
 }
