@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Responses
@@ -10,15 +7,15 @@ namespace Tatum.Model.Responses
     {
         [JsonPropertyName("hash")]
         public string Hash { get; set; }
-        
+
         [JsonPropertyName("height")]
-        public int Height { get; set; }
+        public long Height { get; set; }
 
         [JsonPropertyName("depth")]
-        public int Depth { get; set; }
+        public long Depth { get; set; }
 
         [JsonPropertyName("version")]
-        public int Version { get; set; }
+        public long Version { get; set; }
 
         [JsonPropertyName("prevBlock")]
         public string PreviousBlockHash { get; set; }
@@ -27,16 +24,15 @@ namespace Tatum.Model.Responses
         public string MerkleRoot { get; set; }
 
         [JsonPropertyName("time")]
-        public int Time { get; set; }
+        public long Time { get; set; }
 
         [JsonPropertyName("bits")]
-        public int Bits { get; set; }
+        public long Bits { get; set; }
 
-        [JsonPropertyName("bits")]
-        public int Nonce { get; set; }
+        [JsonPropertyName("nonce")]
+        public long Nonce { get; set; }
 
-
-
-
+        [JsonPropertyName("txs")]
+        public List<BitcoinTx> Txs { get; set; }
     }
 }

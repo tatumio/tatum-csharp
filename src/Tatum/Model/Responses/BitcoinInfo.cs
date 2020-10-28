@@ -8,10 +8,10 @@ namespace Tatum.Model.Responses
         public string Chain { get; set; }
 
         [JsonPropertyName("blocks")]
-        public int Blocks { get; set; }
+        public long Blocks { get; set; }
 
         [JsonPropertyName("headers")]
-        public int Headers { get; set; }
+        public long Headers { get; set; }
 
         [JsonPropertyName("bestblockhash")]
         public string BestBlockHash { get; set; }

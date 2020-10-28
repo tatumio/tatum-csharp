@@ -17,5 +17,10 @@ namespace Tatum.Clients
         {
             return bitcoinApi.GetBlockchainInfo();
         }
+
+        Task<BitcoinBlock> IBitcoinClient.GetBlock(string hash)
+        {
+            return bitcoinApi.GetBlock(hash);
+        }
     }
 }

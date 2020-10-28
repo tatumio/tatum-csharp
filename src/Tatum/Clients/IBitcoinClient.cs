@@ -6,5 +6,6 @@ namespace Tatum.Clients
     public interface IBitcoinClient
     {
         Task<BitcoinInfo> GetBlockchainInfo();
+        Task<BitcoinBlock> GetBlock(string hash);
     }
 }
