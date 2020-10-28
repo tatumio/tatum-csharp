@@ -28,7 +28,7 @@ namespace Tatum.Tests
         [Test]
         public async Task Test1()
         {
-            var info = await bitcoinClient.GetBlock("00000000000000afe6c7bf8e1fdda62295d34da525b5bb214fa1df120e14fff8");
+            var response = await bitcoinClient.GetTransaction("bd5d6f2a606f45be09c28744bc3b707bc885ee6f5ca0bd5e90ff54c0159b958c");
             Assert.Pass();
         }
     }

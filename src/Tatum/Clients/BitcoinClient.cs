@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tatum.Blockchain;
 using Tatum.Model.Responses;
 
@@ -21,6 +22,26 @@ namespace Tatum.Clients
         Task<BitcoinBlock> IBitcoinClient.GetBlock(string hash)
         {
             return bitcoinApi.GetBlock(hash);
+        }
+
+        Task<BlockHash> IBitcoinClient.GetBlockHash(int blockHeight)
+        {
+            return bitcoinApi.GetBlockHash(blockHeight);
+        }
+
+        Task<BitcoinUtxo> IBitcoinClient.GetUtxo(string txHash, int txOutputIndex)
+        {
+            return bitcoinApi.GetUtxo(txHash, txOutputIndex);
+        }
+
+        Task<List<BitcoinTx>> IBitcoinClient.GetTxForAccount(string address, int pageSize, int offset)
+        {
+            return bitcoinApi.GetTxForAccount(address, pageSize, offset);
+        }
+
+        Task<BitcoinTx> IBitcoinClient.GetTransaction(string hash)
+        {
+            return bitcoinApi.GetTransaction(hash);
         }
     }
 }
