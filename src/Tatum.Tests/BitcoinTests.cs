@@ -88,6 +88,5 @@ namespace Tatum.Tests
 
             Assert.That(expectedAddress, Is.EqualTo(address));
         }
-
     }
 }

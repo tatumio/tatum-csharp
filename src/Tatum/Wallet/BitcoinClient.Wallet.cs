@@ -38,6 +38,5 @@ namespace Tatum.Clients
                 .GetAddress(ScriptPubKeyType.Legacy, testnet ? Network.TestNet : Network.Main)
                 .ToString();
         }
-
     }
 }
