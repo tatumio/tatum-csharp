@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatum.Blockchain;
+using Tatum.Model.Requests;
 using Tatum.Model.Responses;
 
 namespace Tatum.Clients
@@ -12,6 +13,11 @@ namespace Tatum.Clients
         public BitcoinClient(string apiBaseUrl, string xApiKey)
         {
             bitcoinApi = RestClientFactory.Create<IBitcoinApi>(apiBaseUrl, xApiKey);
+        }
+
+        Task<TransactionHash> IBitcoinClient.Broadcast(BroadcastRequest request)
+        {
+            return bitcoinApi.BroadcastSignedTransaction(request);
         }
 
         Task<BitcoinInfo> IBitcoinClient.GetBlockchainInfo()
