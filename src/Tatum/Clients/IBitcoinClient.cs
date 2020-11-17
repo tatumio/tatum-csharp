@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tatum.Model.Requests;
 using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
     public interface IBitcoinClient
     {
+        Task<TransactionHash> Broadcast(BroadcastRequest request);
         Task<BitcoinInfo> GetBlockchainInfo();
         Task<BitcoinBlock> GetBlock(string hash);
         Task<BlockHash> GetBlockHash(int blockHeight);
@@ -16,5 +18,9 @@ namespace Tatum.Clients
         Wallet CreateWallet(string mnemonic, bool testnet);
         string GenerateAddress(string xPub, int index, bool testnet);
         string GeneratePrivateKey(string mnemonic, int index, bool testnet);
+
+        Task<string> SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet);
+        Task<string> PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet);
+        Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet);
     }
 }
