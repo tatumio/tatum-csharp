@@ -17,7 +17,7 @@ namespace Tatum.Model.Responses
         public string XPub { get; set; }
 
         [JsonPropertyName("destinationTag")]
-        public uint DestinationTag { get; set; }
+        public uint? DestinationTag { get; set; }
 
         [JsonPropertyName("memo")]
         public string Memo { get; set; }
