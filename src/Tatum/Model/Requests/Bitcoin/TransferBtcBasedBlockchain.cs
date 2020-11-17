@@ -59,7 +59,7 @@ namespace Tatum.Model.Requests
         public string Address { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 50)]
+        [StringLength(52, MinimumLength = 52)]
         public string PrivateKey { get; set; }
     }
 
