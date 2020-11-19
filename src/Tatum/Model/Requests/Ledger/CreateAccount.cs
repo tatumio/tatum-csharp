@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Requests
 {
@@ -14,7 +11,7 @@ namespace Tatum.Model.Requests
         public string Xpub { get; set; }
 
         [JsonPropertyName("customer")]
-        public Customer Customer { get; set; }
+        public CreateCustomer Customer { get; set; }
 
         [JsonPropertyName("compliant")]
         public bool Compliant { get; set; }

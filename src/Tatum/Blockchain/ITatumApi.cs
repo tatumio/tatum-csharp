@@ -40,7 +40,7 @@ namespace Tatum.Blockchain
         [Put("/v3/offchain/withdrawal/{id}/{txId}")]
         Task OffchainCompleteWithdrawal(string id, string txId);
 
-        //ledger
+        //ledger account
 
         [Get("/v3/ledger/account/{accountId}")]
         Task<Account> GetAccount(string accountId);
@@ -83,5 +83,28 @@ namespace Tatum.Blockchain
 
         [Get("/v3/ledger/account/${accountId}/balance")]
         Task<AccountBalance> GetAccountBalance(string accountId);
+
+        //ledger customer
+
+        [Get("/v3/ledger/customer/{customerId}")]
+        Task<Customer> GetCustomer(string customerId);
+
+        [Get("/v3/ledger/customer?pageSize=${pageSize}&offset=${offset}")]
+        Task<List<Customer>> GetCustomers(int pageSize = 50, int offset = 0);
+
+        [Put("/v3/ledger/customer/${customerInternalId}")]
+        Task<Customer> UpdateCustomer(string customerInternalId, UpdateCustomer updateCustomer);
+
+        [Put("/v3/ledger/customer/{customerInternalId}/activate")]
+        Task ActivateCustomer(string customerInternalId);
+
+        [Put("/v3/ledger/customer/{customerInternalId}/deactivate")]
+        Task DeactivateCustomer(string customerInternalId);
+
+        [Put("/v3/ledger/customer/{customerInternalId}/enable")]
+        Task EnableCustomer(string customerInternalId);
+
+        [Put("/v3/ledger/customer/{customerInternalId}/disable")]
+        Task DisableCustomer(string customerInternalId);
     }
 }

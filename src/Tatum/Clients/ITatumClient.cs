@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -23,5 +21,13 @@ namespace Tatum.Clients
         Task<List<Account>> GetAccounts(string customerId, int pageSize = 50, int offset = 0);
         Task<List<Account>> GetAccounts(int pageSize = 50, int offset = 0);
         Task<AccountBalance> GetAccountBalance(string accountId);
+
+        Task<Customer> GetCustomer(string customerId);
+        Task<List<Customer>> GetCustomers(int pageSize = 50, int offset = 0);
+        Task<Customer> UpdateCustomer(string customerInternalId, UpdateCustomer updateCustomer);
+        Task ActivateCustomer(string customerInternalId);
+        Task DeactivateCustomer(string customerInternalId);
+        Task EnableCustomer(string customerInternalId);
+        Task DisableCustomer(string customerInternalId);
     }
 }

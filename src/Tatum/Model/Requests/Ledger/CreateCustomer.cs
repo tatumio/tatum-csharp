@@ -2,7 +2,7 @@
 
 namespace Tatum.Model.Requests
 {
-    public class Customer
+    public class CreateCustomer
     {
         [JsonPropertyName("externalId")]
         public string ExternalId { get; set; }
