@@ -37,5 +37,10 @@ namespace Tatum.Clients
         Task<OrderBook> GetTrade(string tradeId);
         Task DeleteTrade(string tradeId);
         Task DeleteAccountTrades(string accountId);
+
+        Task<string> CreateSubscription(CreateSubscription data);
+        Task<List<Subscription>> GetActiveSubscriptions(int pageSize = 50, int offset = 0);
+        Task CancelExistingSubscription(string subscriptionId);
+        Task<object> ObtainReport(string subscriptionId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Refit;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -129,5 +130,20 @@ namespace Tatum.Blockchain
 
         [Delete("/v3/trade/account/{accountId}")]
         Task DeleteAccountTrades(string accountId);
+
+        //Ledger Subscription
+
+        [Post("/v3/subscription")]
+        Task<string> CreateSubscription(CreateSubscription data);
+
+        [Get("/v3/subscription?pageSize={pageSize}&offset={offset}")]
+        Task<List<Subscription>> GetActiveSubscriptions(int pageSize = 50, int offset = 0);
+
+        [Delete("/v3/subscription/{subscriptionId}")]
+        Task CancelExistingSubscription(string subscriptionId);
+
+        [Get("/v3/subscription/report/{subscriptionId}")]
+        Task<object> ObtainReport(string subscriptionId);
+
     }
 }
