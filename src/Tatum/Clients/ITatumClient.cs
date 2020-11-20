@@ -7,6 +7,21 @@ namespace Tatum.Clients
 {
     public interface ITatumClient
     {
+        Task<List<CreditUsage>> GetCreditUsageForLastMonth();
+        Task<Rate> GetExchangeRate(string currency, string basePair);
+        Task<string> GetTatumVersion();
+
+        Task<Address> GenerateDepositAddress(string accountId, int index);
+        Task<List<Address>> GenerateDepositAddresses(List<GenerateAddressRequest> addresses);
+        Task<Account> CheckAddressExists(string address, string currency, string index);
+        Task<Address> AssignDepositAddress(string id, string address);
+        Task RemoveDepositAddress(string id, string address);
+        Task<List<Address>> GetAddresses(string accountId);
+        Task<TxHash> OffchainBroadcast(BroadcastWithdrawal withdrawal);
+        Task<WithdrawalResponse> OffchainStoreWithdrawal(CreateWithdrawal withdrawal);
+        Task OffchainCancelWithdrawal(string withdrawalId, bool revert = true);
+        Task OffchainCompleteWithdrawal(string withdrawalId, string txId);
+
         Task<Account> GetAccount(string id);
         Task<Account> CreateAccount(CreateAccount createAccount);
         Task<List<Account>> CreateAccounts(List<CreateAccount> createAccounts);
@@ -57,5 +72,12 @@ namespace Tatum.Clients
         Task UpdateVirtualCurrency(UpdateVirtualCurrency currency);
         Task<string> MintVirtualCurrency(CurrencyOperation operation);
         Task<string> RevokeVirtualCurrency(CurrencyOperation operation);
+
+        Task<string> CheckMaliciousAddress(string address);
+        Task<TransactionKms> GetTransactionKms(string transactionId);
+        Task DeleteTransactionKms(string transactionId, bool revert = true);
+        Task CompletePendingTransactionKms(string transactionId, string txId);
+        Task<List<TransactionKms>> GetPendingTransactionsKms(string blockchain);
+
     }
 }

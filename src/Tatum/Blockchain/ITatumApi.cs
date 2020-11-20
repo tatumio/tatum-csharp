@@ -1,6 +1,5 @@
 ﻿using Refit;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -9,10 +8,19 @@ namespace Tatum.Blockchain
 {
     public interface ITatumApi
     {
+        [Get("/v3/tatum/usage")]
+        Task<List<CreditUsage>> GetCreditUsageForLastMonth();
+
+        [Get("/v3/tatum/rate/{currency}?basePair={basePair}")]
+        Task<Rate> GetExchangeRate(string currency, string basePair);
+
+        [Get("/v3/tatum/version")]
+        Task<string> GetTatumVersion();
+
         //Offchain
 
-        [Post("/v3/offchain/account/{id}/address?index={index}")]
-        Task<Address> GenerateDepositAddress(string id, int index);
+        [Post("/v3/offchain/account/{accountId}/address?index={index}")]
+        Task<Address> GenerateDepositAddress(string accountId, int index);
 
         [Post("/v3/offchain/account/address/batch")]
         Task<List<Address>> GenerateDepositAddresses(List<GenerateAddressRequest> addresses);
@@ -20,14 +28,14 @@ namespace Tatum.Blockchain
         [Get("/v3/offchain/account/address/{address}/{currency}?index={index}")]
         Task<Account> CheckAddressExists(string address, string currency, string index);
 
-        [Post("/v3/offchain/account/{id}/address/{address}")]
-        Task<Address> AssignDepositAddress(string id, string address);
+        [Post("/v3/offchain/account/{accountId}/address/{address}")]
+        Task<Address> AssignDepositAddress(string accountId, string address);
 
-        [Delete("/v3/offchain/account/{id}/address/{address}")]
-        Task RemoveDepositAddress(string id, string address);
+        [Delete("/v3/offchain/account/{accountId}/address/{address}")]
+        Task RemoveDepositAddress(string accountId, string address);
 
-        [Get("/v3/offchain/account/{id}/address")]
-        Task<List<Address>> GetAddressesForAccount(string id);
+        [Get("/v3/offchain/account/{accountId}/address")]
+        Task<List<Address>> GetAddresses(string accountId);
 
         [Post("/v3/offchain/withdrawal/broadcast")]
         Task<TxHash> OffchainBroadcast(BroadcastWithdrawal withdrawal);
@@ -35,11 +43,11 @@ namespace Tatum.Blockchain
         [Post("/v3/offchain/withdrawal")]
         Task<WithdrawalResponse> OffchainStoreWithdrawal(CreateWithdrawal withdrawal);
 
-        [Delete("/v3/offchain/withdrawal/{id}")]
-        Task OffchainCancelWithdrawal(string id, bool revert = true);
+        [Delete("/v3/offchain/withdrawal/{withdrawalId}")]
+        Task OffchainCancelWithdrawal(string withdrawalId, bool revert = true);
 
-        [Put("/v3/offchain/withdrawal/{id}/{txId}")]
-        Task OffchainCompleteWithdrawal(string id, string txId);
+        [Put("/v3/offchain/withdrawal/{withdrawalId}/{txId}")]
+        Task OffchainCompleteWithdrawal(string withdrawalId, string txId);
 
         //Ledger Account
 
@@ -187,5 +195,24 @@ namespace Tatum.Blockchain
 
         [Put("/v3/ledger/virtualCurrency/revoke")]
         Task<string> RevokeVirtualCurrency(CurrencyOperation operation);
+
+        //Security
+
+        [Get("/v3/security/address/{address}")]
+        Task<string> CheckMaliciousAddress(string address);
+
+        [Get("/v3/kms/{transactionId}")]
+        Task<TransactionKms> GetTransactionKms(string transactionId);
+
+        [Delete("/v3/kms/{transactionId}?revert={revert}")]
+        Task DeleteTransactionKms(string transactionId, bool revert = true);
+
+        [Put("/v3/kms/{transactionId}/{txId}")]
+        Task CompletePendingTransactionKms(string transactionId, string txId);
+
+        [Get("/v3/kms/pending/{blockchain}")]
+        Task<List<TransactionKms>> GetPendingTransactionsKms(string blockchain);
+        
+
     }
 }
