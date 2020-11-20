@@ -7,7 +7,6 @@ namespace Tatum.Clients
 {
     public partial class TatumClient : ITatumClient
     {
-
         Task<List<Transaction>> ITatumClient.GetTransactions(string reference)
         {
             return tatumApi.GetTransactions(reference);

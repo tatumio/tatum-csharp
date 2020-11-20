@@ -51,7 +51,7 @@ namespace Tatum.Clients
             var validationContext = new ValidationContext(body);
             Validator.ValidateObject(body, validationContext);
 
-            Transaction transaction = network.CreateTransaction();
+            NBitcoin.Transaction transaction = network.CreateTransaction();
             List<BitcoinSecret> privateKeysToSign = new List<BitcoinSecret>();
             List<Coin> coinsToSpent = new List<Coin>();
 

@@ -172,5 +172,20 @@ namespace Tatum.Blockchain
         Task<int> CountTransactionsForLedger(TransactionFilter filter);
 
         //Ledger Virtual Currency
+
+        [Get("/v3/ledger/virtualCurrency/{virtualCurrencyName}")]
+        Task<VirtualCurrency> GetVirtualCurrency(string virtualCurrencyName);
+
+        [Post("/v3/ledger/virtualCurrency")]
+        Task<Account> CreateVirtualCurrency(CreateVirtualCurrency currency);
+
+        [Put("/v3/ledger/virtualCurrency")]
+        Task UpdateVirtualCurrency(UpdateVirtualCurrency currency);
+
+        [Put("/v3/ledger/virtualCurrency/mint")]
+        Task<string> MintVirtualCurrency(CurrencyOperation operation);
+
+        [Put("/v3/ledger/virtualCurrency/revoke")]
+        Task<string> RevokeVirtualCurrency(CurrencyOperation operation);
     }
 }

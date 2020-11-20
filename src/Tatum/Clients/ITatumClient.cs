@@ -52,6 +52,10 @@ namespace Tatum.Clients
         Task<int> CountTransactionsForCustomer(TransactionFilter filter);
         Task<int> CountTransactionsForLedger(TransactionFilter filter);
 
-
+        Task<VirtualCurrency> GetVirtualCurrency(string virtualCurrencyName);
+        Task<Account> CreateVirtualCurrency(CreateVirtualCurrency currency);
+        Task UpdateVirtualCurrency(UpdateVirtualCurrency currency);
+        Task<string> MintVirtualCurrency(CurrencyOperation operation);
+        Task<string> RevokeVirtualCurrency(CurrencyOperation operation);
     }
 }
