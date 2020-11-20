@@ -29,5 +29,13 @@ namespace Tatum.Clients
         Task DeactivateCustomer(string customerInternalId);
         Task EnableCustomer(string customerInternalId);
         Task DisableCustomer(string customerInternalId);
+
+        Task<List<OrderBook>> GetHistoricalTrades(int pageSizes = 50, int offset = 0);
+        Task<List<OrderBook>> GetActiveBuyTrades(string accountId, int pageSize = 50, int offset = 0);
+        Task<List<OrderBook>> GetActiveSellTrades(string accountId, int pageSize = 50, int offset = 0);
+        Task<string> StoreTrade(OrderBookRequest data);
+        Task<OrderBook> GetTrade(string tradeId);
+        Task DeleteTrade(string tradeId);
+        Task DeleteAccountTrades(string accountId);
     }
 }

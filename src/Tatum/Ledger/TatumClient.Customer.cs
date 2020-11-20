@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -13,7 +11,7 @@ namespace Tatum.Clients
         {
             return tatumApi.GetCustomer(customerId);
         }
-        
+
         Task<List<Customer>> ITatumClient.GetCustomers(int pageSize, int offset)
         {
             return tatumApi.GetCustomers(pageSize, offset);
