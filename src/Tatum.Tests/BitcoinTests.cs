@@ -31,7 +31,7 @@ namespace Tatum.Tests
         }
 
         [Test]
-        public async Task Test1()
+        public async Task EndpointTest()
         {
             var response = await bitcoinClient.GetBlockchainInfo();
             Assert.Pass();
