@@ -42,5 +42,16 @@ namespace Tatum.Clients
         Task<List<Subscription>> GetActiveSubscriptions(int pageSize = 50, int offset = 0);
         Task CancelExistingSubscription(string subscriptionId);
         Task<object> ObtainReport(string subscriptionId);
+
+        Task<List<Transaction>> GetTransactions(string reference);
+        Task<string> StoreTransaction(CreateTransaction transaction);
+        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<int> CountTransactionsForAccount(TransactionFilter filter);
+        Task<int> CountTransactionsForCustomer(TransactionFilter filter);
+        Task<int> CountTransactionsForLedger(TransactionFilter filter);
+
+
     }
 }

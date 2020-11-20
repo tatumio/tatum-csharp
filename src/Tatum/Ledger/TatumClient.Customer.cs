@@ -17,9 +17,9 @@ namespace Tatum.Clients
             return tatumApi.GetCustomers(pageSize, offset);
         }
 
-        Task<Customer> ITatumClient.UpdateCustomer(string customerInternalId, UpdateCustomer updateCustomer)
+        Task<Customer> ITatumClient.UpdateCustomer(string customerInternalId, UpdateCustomer customer)
         {
-            return tatumApi.UpdateCustomer(customerInternalId, updateCustomer);
+            return tatumApi.UpdateCustomer(customerInternalId, customer);
         }
 
         Task ITatumClient.ActivateCustomer(string customerInternalId)

@@ -7,9 +7,9 @@ namespace Tatum.Clients
 {
     public partial class TatumClient : ITatumClient
     {
-        Task<string> ITatumClient.CreateSubscription(CreateSubscription data)
+        Task<string> ITatumClient.CreateSubscription(CreateSubscription subscription)
         {
-            return tatumApi.CreateSubscription(data);
+            return tatumApi.CreateSubscription(subscription);
         }
 
         Task<List<Subscription>> ITatumClient.GetActiveSubscriptions(int pageSize, int offset)
@@ -26,7 +26,5 @@ namespace Tatum.Clients
         {
             return tatumApi.ObtainReport(subscriptionId);
         }
-
-
     }
 }

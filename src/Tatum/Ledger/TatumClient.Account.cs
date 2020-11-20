@@ -12,14 +12,14 @@ namespace Tatum.Clients
             return tatumApi.GetAccount(accountId);
         }
 
-        Task<Account> ITatumClient.CreateAccount(CreateAccount createAccount)
+        Task<Account> ITatumClient.CreateAccount(CreateAccount account)
         {
-            return tatumApi.CreateAccount(createAccount);
+            return tatumApi.CreateAccount(account);
         }
 
-        Task<List<Account>> ITatumClient.CreateAccounts(List<CreateAccount> createAccounts)
+        Task<List<Account>> ITatumClient.CreateAccounts(List<CreateAccount> accounts)
         {
-            return tatumApi.CreateAccounts(createAccounts);
+            return tatumApi.CreateAccounts(accounts);
         }
 
         Task<List<Blockage>> ITatumClient.GetBlockedAmounts(string accountId, int pageSize, int offset)

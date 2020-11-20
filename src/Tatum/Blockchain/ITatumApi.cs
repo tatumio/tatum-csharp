@@ -30,10 +30,10 @@ namespace Tatum.Blockchain
         Task<List<Address>> GetAddressesForAccount(string id);
 
         [Post("/v3/offchain/withdrawal/broadcast")]
-        Task<TxHash> OffchainBroadcast(BroadcastWithdrawal data);
+        Task<TxHash> OffchainBroadcast(BroadcastWithdrawal withdrawal);
 
         [Post("/v3/offchain/withdrawal")]
-        Task<WithdrawalResponse> OffchainStoreWithdrawal(CreateWithdrawal data);
+        Task<WithdrawalResponse> OffchainStoreWithdrawal(CreateWithdrawal withdrawal);
 
         [Delete("/v3/offchain/withdrawal/{id}")]
         Task OffchainCancelWithdrawal(string id, bool revert = true);
@@ -47,10 +47,10 @@ namespace Tatum.Blockchain
         Task<Account> GetAccount(string accountId);
 
         [Post("/v3/ledger/account")]
-        Task<Account> CreateAccount(CreateAccount createAccount);
+        Task<Account> CreateAccount(CreateAccount account);
 
         [Post("/v3/ledger/account/batch")]
-        Task<List<Account>> CreateAccounts(List<CreateAccount> createAccounts);
+        Task<List<Account>> CreateAccounts(List<CreateAccount> accounts);
 
         [Get("/v3/ledger/account/block/{accountId}?pageSize={pageSize}&offset={offset}")]
         Task<List<Blockage>> GetBlockedAmounts(string accountId, int pageSize = 50, int offset = 0);
@@ -94,7 +94,7 @@ namespace Tatum.Blockchain
         Task<List<Customer>> GetCustomers(int pageSize = 50, int offset = 0);
 
         [Put("/v3/ledger/customer/{customerInternalId}")]
-        Task<Customer> UpdateCustomer(string customerInternalId, UpdateCustomer updateCustomer);
+        Task<Customer> UpdateCustomer(string customerInternalId, UpdateCustomer customer);
 
         [Put("/v3/ledger/customer/{customerInternalId}/activate")]
         Task ActivateCustomer(string customerInternalId);
@@ -134,7 +134,7 @@ namespace Tatum.Blockchain
         //Ledger Subscription
 
         [Post("/v3/subscription")]
-        Task<string> CreateSubscription(CreateSubscription data);
+        Task<string> CreateSubscription(CreateSubscription subscription);
 
         [Get("/v3/subscription?pageSize={pageSize}&offset={offset}")]
         Task<List<Subscription>> GetActiveSubscriptions(int pageSize = 50, int offset = 0);
@@ -145,5 +145,32 @@ namespace Tatum.Blockchain
         [Get("/v3/subscription/report/{subscriptionId}")]
         Task<object> ObtainReport(string subscriptionId);
 
+        //Ledger Transaction
+
+        [Get("/v3/ledger/transaction/reference/{reference}")]
+        Task<List<Transaction>> GetTransactions(string reference);
+
+        [Post("/v3/ledger/transaction")]
+        Task<string> StoreTransaction(CreateTransaction transaction);
+
+        [Post("/v3/ledger/transaction/account?pageSize={pageSize}&offset={offset}")]
+        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilter filter, int pageSize = 50, int offset = 0);
+
+        [Post("/v3/ledger/transaction/customer?pageSize={pageSize}&offset={offset}")]
+        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilter filter, int pageSize = 50, int offset = 0);
+
+        [Post("/v3/ledger/transaction/ledger?pageSize={pageSize}&offset={offset}")]
+        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilter filter, int pageSize = 50, int offset = 0);
+
+        [Post("/v3/ledger/transaction/account?count=true")]
+        Task<int> CountTransactionsForAccount(TransactionFilter filter);
+
+        [Post("/v3/ledger/transaction/customer?count=true")]
+        Task<int> CountTransactionsForCustomer(TransactionFilter filter);
+
+        [Post("/v3/ledger/transaction/ledger?count=true")]
+        Task<int> CountTransactionsForLedger(TransactionFilter filter);
+
+        //Ledger Virtual Currency
     }
 }
