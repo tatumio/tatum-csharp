@@ -27,9 +27,9 @@ namespace Tatum.Blockchain
         Task<EthereumAccountBalance> GetErc20AccountBalance(string address, string currency, string contractAddress);
 
         [Get("/v3/ethereum/transaction/{hash}")]
-        Task<EthereumTransaction> GetTransaction(string hash);
+        Task<EthereumTx> GetTransaction(string hash);
 
         [Get("/v3/ethereum/account/transaction/{address}?pageSize={pageSize}&offset={offset}")]
-        Task<List<EthereumTransaction>> GetAccountTransactions(string address, int pageSize = 50, int offset = 0);
+        Task<List<EthereumTx>> GetAccountTransactions(string address, int pageSize = 50, int offset = 0);
     }
 }

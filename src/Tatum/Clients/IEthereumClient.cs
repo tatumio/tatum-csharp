@@ -13,7 +13,7 @@ namespace Tatum.Clients
         Task<EthereumBlock> GetBlock(string hash);
         Task<EthereumAccountBalance> GetAccountBalance(string address);
         Task<EthereumAccountBalance> GetErc20AccountBalance(string address, string currency, string contractAddress);
-        Task<EthereumTransaction> GetTransaction(string hash);
-        Task<List<EthereumTransaction>> GetAccountTransactions(string address, int pageSize = 50, int offset = 0);
+        Task<EthereumTx> GetTransaction(string hash);
+        Task<List<EthereumTx>> GetAccountTransactions(string address, int pageSize = 50, int offset = 0);
     }
 }

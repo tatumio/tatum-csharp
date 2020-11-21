@@ -9,6 +9,7 @@ namespace Tatum.Clients
     public class EthereumClient : IEthereumClient
     {
         IEthereumApi ethereumApi;
+
         public EthereumClient(string apiBaseUrl, string xApiKey)
         {
             ethereumApi = RestClientFactory.Create<IEthereumApi>(apiBaseUrl, xApiKey);
@@ -24,7 +25,7 @@ namespace Tatum.Clients
             return ethereumApi.GetAccountBalance(address);
         }
 
-        Task<List<EthereumTransaction>> IEthereumClient.GetAccountTransactions(string address, int pageSize, int offset)
+        Task<List<EthereumTx>> IEthereumClient.GetAccountTransactions(string address, int pageSize, int offset)
         {
             return ethereumApi.GetAccountTransactions(address, pageSize, offset);
         }
@@ -44,7 +45,7 @@ namespace Tatum.Clients
             return ethereumApi.GetErc20AccountBalance(address, currency, contractAddress);
         }
 
-        Task<EthereumTransaction> IEthereumClient.GetTransaction(string hash)
+        Task<EthereumTx> IEthereumClient.GetTransaction(string hash)
         {
             return ethereumApi.GetTransaction(hash);
         }

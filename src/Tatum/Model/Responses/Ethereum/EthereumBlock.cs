@@ -57,7 +57,7 @@ namespace Tatum.Model.Responses
         public string TotalDifficulty { get; set; }
 
         [JsonPropertyName("transactions")]
-        public List<EthereumTransaction> Transactions { get; set; }
+        public List<EthereumTx> Transactions { get; set; }
 
         [JsonPropertyName("transactionsRoot")]
         public string TransactionsRoot { get; set; }
