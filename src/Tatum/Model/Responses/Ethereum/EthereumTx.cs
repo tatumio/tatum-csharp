@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Responses
 {
-    public class EthereumTransaction
+    public class EthereumTx
     {
         [JsonPropertyName("blockHash")]
         public string BlockHash { get; set; }
