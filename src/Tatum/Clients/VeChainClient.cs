@@ -7,7 +7,7 @@ namespace Tatum.Clients
 {
     public class VeChainClient : IVeChainClient
     {
-        IVeChainApi veChainApi;
+        private readonly IVeChainApi veChainApi;
 
         public VeChainClient(string apiBaseUrl, string xApiKey)
         {
