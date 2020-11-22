@@ -3,29 +3,31 @@ using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Requests
 {
-    public class CreateTransaction
+    public class TransactionFilterLedger
     {
-        [Required]
         [StringLength(24, MinimumLength = 24)]
-        [JsonPropertyName("senderAccountId")]
-        public string SenderAccountId { get; set; }
+        [JsonPropertyName("account")]
+        public string Account { get; set; }
 
-        [Required]
         [StringLength(24, MinimumLength = 24)]
-        [JsonPropertyName("recipientAccountId")]
-        public string RecipientAccountId { get; set; }
+        [JsonPropertyName("counterAccount")]
+        public string CounterAccount { get; set; }
 
-        [Required]
-        [StringLength(38)]
-        [RegularExpression(@"^[+]?((\d+(\.\d*)?)|(\.\d+))$")]
-        [JsonPropertyName("amount")]
-        public string Amount { get; set; }
+        [JsonPropertyName("from")]
+        public ulong From { get; set; }
 
-        [JsonPropertyName("anonymous")]
-        public bool Anonymous { get; set; }
+        [JsonPropertyName("to")]
+        public ulong To { get; set; }
 
-        [JsonPropertyName("compliant")]
-        public bool Compliant { get; set; }
+        [StringLength(50, MinimumLength = 1)]
+        [JsonPropertyName("currency")]
+        public string Currency { get; set; }
+
+        [JsonPropertyName("transactionType")]
+        public string TransactionType { get; set; }
+
+        [JsonPropertyName("opType")]
+        public string OpType { get; set; }
 
         [StringLength(100, MinimumLength = 1)]
         [JsonPropertyName("transactionCode")]
@@ -39,13 +41,8 @@ namespace Tatum.Model.Requests
         [JsonPropertyName("recipientNote")]
         public string RecipientNote { get; set; }
 
-        [Range(0, int.MaxValue)]
-        [JsonPropertyName("baseRate")]
-        public int BaseRate { get; set; }
-
         [StringLength(500, MinimumLength = 1)]
         [JsonPropertyName("senderNote")]
         public string SenderNote { get; set; }
     }
-
 }

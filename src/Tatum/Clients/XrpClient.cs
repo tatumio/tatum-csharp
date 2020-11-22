@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Blockchain;
 using Tatum.Model.Requests;
@@ -17,6 +17,9 @@ namespace Tatum.Clients
 
         Task<TransactionHash> IXrpClient.Broadcast(BroadcastRequest request)
         {
+            var validationContext = new ValidationContext(request);
+            Validator.ValidateObject(request, validationContext, validateAllProperties: true);
+
             return xrpApi.Broadcast(request);
         }
 

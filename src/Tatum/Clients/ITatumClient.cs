@@ -60,12 +60,12 @@ namespace Tatum.Clients
 
         Task<List<Transaction>> GetTransactions(string reference);
         Task<string> StoreTransaction(CreateTransaction transaction);
-        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilter filter, int pageSize = 50, int offset = 0);
-        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilter filter, int pageSize = 50, int offset = 0);
-        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilter filter, int pageSize = 50, int offset = 0);
-        Task<int> CountTransactionsForAccount(TransactionFilter filter);
-        Task<int> CountTransactionsForCustomer(TransactionFilter filter);
-        Task<int> CountTransactionsForLedger(TransactionFilter filter);
+        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilterAccount filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilterCustomer filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilterLedger filter, int pageSize = 50, int offset = 0);
+        Task<int> CountTransactionsForAccount(TransactionFilterAccount filter);
+        Task<int> CountTransactionsForCustomer(TransactionFilterCustomer filter);
+        Task<int> CountTransactionsForLedger(TransactionFilterLedger filter);
 
         Task<VirtualCurrency> GetVirtualCurrency(string virtualCurrencyName);
         Task<Account> CreateVirtualCurrency(CreateVirtualCurrency currency);

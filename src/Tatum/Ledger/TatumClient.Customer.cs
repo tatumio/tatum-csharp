@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -19,6 +20,9 @@ namespace Tatum.Clients
 
         Task<Customer> ITatumClient.UpdateCustomer(string customerInternalId, UpdateCustomer customer)
         {
+            var validationContext = new ValidationContext(customer);
+            Validator.ValidateObject(customer, validationContext, validateAllProperties: true);
+
             return tatumApi.UpdateCustomer(customerInternalId, customer);
         }
 

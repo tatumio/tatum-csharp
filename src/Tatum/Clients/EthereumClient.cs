@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Blockchain;
 using Tatum.Model.Requests;
@@ -17,6 +18,9 @@ namespace Tatum.Clients
 
         Task<TransactionHash> IEthereumClient.BroadcastSignedTransaction(BroadcastRequest request)
         {
+            var validationContext = new ValidationContext(request);
+            Validator.ValidateObject(request, validationContext, validateAllProperties: true);
+
             return ethereumApi.BroadcastSignedTransaction(request);
         }
 

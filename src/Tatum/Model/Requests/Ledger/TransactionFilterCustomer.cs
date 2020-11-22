@@ -1,21 +1,30 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Requests
 {
-    public class TransactionFilter
+    public class TransactionFilterCustomer
     {
+        [Required]
+        [StringLength(24, MinimumLength = 24)]
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
+        [StringLength(24, MinimumLength = 24)]
+        [JsonPropertyName("account")]
+        public string Account { get; set; }
+
+        [StringLength(24, MinimumLength = 24)]
         [JsonPropertyName("counterAccount")]
         public string CounterAccount { get; set; }
 
         [JsonPropertyName("from")]
-        public long From { get; set; }
+        public ulong From { get; set; }
 
         [JsonPropertyName("to")]
-        public long To { get; set; }
+        public ulong To { get; set; }
 
+        [StringLength(50, MinimumLength = 1)]
         [JsonPropertyName("currency")]
         public string Currency { get; set; }
 
@@ -25,15 +34,19 @@ namespace Tatum.Model.Requests
         [JsonPropertyName("opType")]
         public string OpType { get; set; }
 
+        [StringLength(100, MinimumLength = 1)]
         [JsonPropertyName("transactionCode")]
         public string TransactionCode { get; set; }
 
+        [StringLength(100, MinimumLength = 1)]
         [JsonPropertyName("paymentId")]
         public string PaymentId { get; set; }
 
+        [StringLength(500, MinimumLength = 1)]
         [JsonPropertyName("recipientNote")]
         public string RecipientNote { get; set; }
 
+        [StringLength(500, MinimumLength = 1)]
         [JsonPropertyName("senderNote")]
         public string SenderNote { get; set; }
     }

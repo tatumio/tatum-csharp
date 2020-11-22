@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Requests
 {
-    public class CreateWithdrawal : IValidatableObject
+    public class CreateWithdrawal
     {
         [Required]
         [StringLength(24, MinimumLength = 24)]
@@ -40,15 +40,5 @@ namespace Tatum.Model.Requests
         [StringLength(500, MinimumLength = 1)]
         [JsonPropertyName("senderNote")]
         public string SenderNote { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this);
-            Validator.TryValidateObject(this, context, results, validateAllProperties: true);
-
-            return results;
-        }
     }
 }

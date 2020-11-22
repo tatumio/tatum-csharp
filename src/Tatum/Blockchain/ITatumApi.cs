@@ -162,22 +162,22 @@ namespace Tatum.Blockchain
         Task<string> StoreTransaction(CreateTransaction transaction);
 
         [Post("/v3/ledger/transaction/account?pageSize={pageSize}&offset={offset}")]
-        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForAccount(TransactionFilterAccount filter, int pageSize = 50, int offset = 0);
 
         [Post("/v3/ledger/transaction/customer?pageSize={pageSize}&offset={offset}")]
-        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForCustomer(TransactionFilterCustomer filter, int pageSize = 50, int offset = 0);
 
         [Post("/v3/ledger/transaction/ledger?pageSize={pageSize}&offset={offset}")]
-        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilter filter, int pageSize = 50, int offset = 0);
+        Task<List<Transaction>> GetTransactionsForLedger(TransactionFilterLedger filter, int pageSize = 50, int offset = 0);
 
         [Post("/v3/ledger/transaction/account?count=true")]
-        Task<int> CountTransactionsForAccount(TransactionFilter filter);
+        Task<int> CountTransactionsForAccount(TransactionFilterAccount filter);
 
         [Post("/v3/ledger/transaction/customer?count=true")]
-        Task<int> CountTransactionsForCustomer(TransactionFilter filter);
+        Task<int> CountTransactionsForCustomer(TransactionFilterCustomer filter);
 
         [Post("/v3/ledger/transaction/ledger?count=true")]
-        Task<int> CountTransactionsForLedger(TransactionFilter filter);
+        Task<int> CountTransactionsForLedger(TransactionFilterLedger filter);
 
         //Ledger Virtual Currency
 
