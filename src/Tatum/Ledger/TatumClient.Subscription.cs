@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -9,6 +10,9 @@ namespace Tatum.Clients
     {
         Task<string> ITatumClient.CreateSubscription(CreateSubscription subscription)
         {
+            var validationContext = new ValidationContext(subscription);
+            Validator.ValidateObject(subscription, validationContext, validateAllProperties: true);
+
             return tatumApi.CreateSubscription(subscription);
         }
 

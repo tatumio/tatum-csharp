@@ -27,7 +27,7 @@ namespace Tatum.Tests
         [Test]
         public void EndpointTest()
         {
-            
+            var credits = tatumClient.GetCreditUsageForLastMonth();
         }
     }
 }

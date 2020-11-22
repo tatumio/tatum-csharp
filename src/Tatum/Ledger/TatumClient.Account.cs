@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -14,11 +15,20 @@ namespace Tatum.Clients
 
         Task<Account> ITatumClient.CreateAccount(CreateAccount account)
         {
+            var validationContext = new ValidationContext(account);
+            Validator.ValidateObject(account, validationContext, validateAllProperties: true);
+
             return tatumApi.CreateAccount(account);
         }
 
         Task<List<Account>> ITatumClient.CreateAccounts(List<CreateAccount> accounts)
         {
+            foreach (CreateAccount account in accounts)
+            {
+                var validationContext = new ValidationContext(account);
+                Validator.ValidateObject(account, validationContext, validateAllProperties: true);
+            }
+
             return tatumApi.CreateAccounts(accounts);
         }
 
@@ -29,6 +39,9 @@ namespace Tatum.Clients
 
         Task<string> ITatumClient.BlockAmount(string accountId, BlockAmount blockAmount)
         {
+            var validationContext = new ValidationContext(blockAmount);
+            Validator.ValidateObject(blockAmount, validationContext, validateAllProperties: true);
+
             return tatumApi.BlockAmount(accountId, blockAmount);
         }
 

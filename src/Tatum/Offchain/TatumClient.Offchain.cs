@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -24,6 +25,11 @@ namespace Tatum.Clients
 
         Task<List<Address>> ITatumClient.GenerateDepositAddresses(List<GenerateAddressRequest> addresses)
         {
+            foreach (GenerateAddressRequest address in addresses)
+            {
+                var validationContext = new ValidationContext(address);
+                Validator.ValidateObject(address, validationContext, validateAllProperties: true);
+            }
             return tatumApi.GenerateDepositAddresses(addresses);
         }
 
@@ -34,6 +40,9 @@ namespace Tatum.Clients
 
         Task<TxHash> ITatumClient.OffchainBroadcast(BroadcastWithdrawal withdrawal)
         {
+            var validationContext = new ValidationContext(withdrawal);
+            Validator.ValidateObject(withdrawal, validationContext, validateAllProperties: true);
+
             return tatumApi.OffchainBroadcast(withdrawal);
         }
 
@@ -49,6 +58,9 @@ namespace Tatum.Clients
 
         Task<WithdrawalResponse> ITatumClient.OffchainStoreWithdrawal(CreateWithdrawal withdrawal)
         {
+            var validationContext = new ValidationContext(withdrawal);
+            Validator.ValidateObject(withdrawal, validationContext, validateAllProperties: true);
+
             return tatumApi.OffchainStoreWithdrawal(withdrawal);
         }
 

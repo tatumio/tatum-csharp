@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Tatum.Blockchain;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
@@ -16,11 +17,17 @@ namespace Tatum.Clients
 
         Task<TransactionHash> IVeChainClient.Broadcast(BroadcastRequest request)
         {
+            var validationContext = new ValidationContext(request);
+            Validator.ValidateObject(request, validationContext, validateAllProperties: true);
+
             return veChainApi.Broadcast(request);
         }
 
         Task<long> IVeChainClient.EstimateGas(EstimateGasRequest request)
         {
+            var validationContext = new ValidationContext(request);
+            Validator.ValidateObject(request, validationContext, validateAllProperties: true);
+
             return veChainApi.EstimateGas(request);
         }
 

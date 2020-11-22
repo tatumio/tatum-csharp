@@ -5,11 +5,11 @@ namespace Tatum.Model.Requests
 {
     public class TransferBtcBasedBlockchain : IValidatableObject
     {
-        public List<FromAddress> FromAddresses { get; set; }                
-        public List<FromUtxo> FromUtxos { get; set; }        
+        public List<FromAddress> FromAddresses { get; set; }
+        public List<FromUtxo> FromUtxos { get; set; }
         public List<To> Tos { get; set; }
 
-        
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (FromAddresses != null && FromUtxos != null)
