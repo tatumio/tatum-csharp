@@ -8,7 +8,7 @@ namespace Tatum.Clients
 {
     public class XlmClient : IXlmClient
     {
-        IXlmApi xlmApi;
+        private readonly IXlmApi xlmApi;
 
         public XlmClient(string apiBaseUrl, string xApiKey)
         {

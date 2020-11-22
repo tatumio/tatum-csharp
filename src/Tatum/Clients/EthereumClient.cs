@@ -8,7 +8,7 @@ namespace Tatum.Clients
 {
     public class EthereumClient : IEthereumClient
     {
-        IEthereumApi ethereumApi;
+        private readonly IEthereumApi ethereumApi;
 
         public EthereumClient(string apiBaseUrl, string xApiKey)
         {
