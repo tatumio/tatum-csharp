@@ -11,7 +11,10 @@ namespace Tatum.Clients
         Task<BitcoinCashInfo> GetBlockchainInfo();
         Task<BitcoinCashBlock> GetBlock(string hash);
         Task<BlockHash> GetBlockHash(long blockHeight);
+        Wallet CreateWallet(string mnemonic, bool testnet);
         Task<List<BitcoinCashTx>> GetTxForAccount(string address, int skip = 0);
         Task<BitcoinCashTx> GetTransaction(string hash);
+        string GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        string GenerateAddress(string xPubString, int index, bool testnet);
     }
 }
