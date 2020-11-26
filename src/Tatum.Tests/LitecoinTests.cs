@@ -24,6 +24,7 @@ namespace Tatum.Tests
             string xApiKey = config.GetValue<string>("TatumApiSettings:xApiKey");
 
             litecoinClient = new LitecoinClient(baseUrl, xApiKey);
+
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace Tatum.Tests
         [Test]
         public void GeneratePrivateKeyMainNet()
         {
-            string expectedPrivateKey = "KwrYonf8pFfyQR87NTn124Ep9zoJsZMBCoVUi7mjMc1eTHDyLyBN";
+            string expectedPrivateKey = "T63MUovVt5GN5rmfwYMr4M6YqFmisjbrZrfZYZ53qWmCwiP6xCHa";
             var privateKey = litecoinClient.GeneratePrivateKey(mnemonic, 1, false);
 
             Assert.That(expectedPrivateKey, Is.EqualTo(privateKey));
@@ -74,8 +75,8 @@ namespace Tatum.Tests
         [Test]
         public void GenerateAddressMainNet()
         {
-            string expectedAddress = "1HWYaP13JKtaW2Mhq69NVeSLjRYGpD3aKv";
-            string address = litecoinClient.GenerateAddress("xpub6EsCk1uU6cJzqvP9CdsTiJwT2rF748YkPnhv5Qo8q44DG7nn2vbyt48YRsNSUYS44jFCW9gwvD9kLQu9AuqXpTpM1c5hgg9PsuBLdeNncid", 1, false);
+            string expectedAddress = "LepMzqfXSgQommH2qu3fk7Gf5xgoHQsP1b";
+            string address = litecoinClient.GenerateAddress("Ltub2aXe9g8RPgAcY6jb6FftNJfQXHMV6UNBeZwrWH1K3vjpua9u8uj95xkZyCC4utdEbfYeh9TwxcUiFy2mGzBCJVBwW3ezHmLX2fHxv7HUt8J", 1, false);
 
             Assert.That(expectedAddress, Is.EqualTo(address));
         }
@@ -84,7 +85,7 @@ namespace Tatum.Tests
         public void GenerateAddressTestNet()
         {
             string expectedAddress = "mjJotvHmzEuyXZJGJXXknS6N3PWQnw6jf5";
-            string address = litecoinClient.GenerateAddress("tpubDFjLw3ykn4aB7fFt96FaqRjSnvtDsU2wpVr8GQk3Eo612LS9jo9JgMkQRfYVG248J3pTBsxGg3PYUXFd7pReNLTeUzxFcUDL3zCvrp3H34a", 1, true);
+            string address = litecoinClient.GenerateAddress("ttub4giastL5S3AicjXRBEJt7uq22b611rJvVfTgJSRfYeyZkwXwKnZcctK3tEjMpqrgiNSnYAzkKPJDxGoKNWQzkzTJxSryHbaYxsYW9Vr6AYQ", 1, true);
 
             Assert.That(expectedAddress, Is.EqualTo(address));
         }
