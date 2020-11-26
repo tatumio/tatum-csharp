@@ -14,5 +14,9 @@ namespace Tatum.Clients
         Task<LitecoinUtxo> GetUtxo(string txHash, int txOutputIndex);
         Task<List<LitecoinTx>> GetTxForAccount(string address, int pageSize = 50, int offset = 0);
         Task<LitecoinTx> GetTransaction(string hash);
+
+        Wallet CreateWallet(string mnemonic, bool testnet);
+        string GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        string GenerateAddress(string xPubString, int index, bool testnet);
     }
 }
