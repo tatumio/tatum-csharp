@@ -15,25 +15,11 @@ namespace Tatum.Clients
             throw new NotImplementedException();
         }
 
-
-        /// <summary>
-        /// Sign Bitcoin transaction with private keys locally. Nothing is broadcasted to the blockchain.
-        /// </summary>        
-        /// <param name="body">content of the transaction to broadcast</param>
-        /// <param name="testnet">testnet or mainnet version</param>
-        /// <returns>Transaction data to be broadcast to blockchain.</returns>
         Task<string> IBitcoinClient.PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
             return PrepareSignedTransaction(testnet ? Network.TestNet : Network.Main, body);
         }
 
-        /// <summary>
-        /// Send Bitcoin transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
-        /// This operation is irreversible.
-        /// </summary>
-        /// <param name="body">content of the transaction to broadcast</param>
-        /// <param name="testnet">testnet or mainnet version</param>
-        /// <returns>transaction id of the transaction in the blockchain</returns>
         async Task<TransactionHash> IBitcoinClient.SendTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
             string txData = await (this as IBitcoinClient).PrepareSignedTransaction(body, testnet).ConfigureAwait(false);
@@ -44,7 +30,6 @@ namespace Tatum.Clients
 
             return await (this as IBitcoinClient).Broadcast(broadcastRequest).ConfigureAwait(false);
         }
-
 
         private async Task<string> PrepareSignedTransaction(Network network, TransferBtcBasedBlockchain body)
         {

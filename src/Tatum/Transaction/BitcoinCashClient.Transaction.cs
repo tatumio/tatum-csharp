@@ -16,13 +16,6 @@ namespace Tatum.Clients
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Send BitcoinCash transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
-        /// This operation is irreversible.
-        /// </summary>
-        /// <param name="body">content of the transaction to broadcast</param>
-        /// <param name="testnet">testnet or mainnet version</param>
-        /// <returns>transaction id of the transaction in the blockchain</returns>
         async Task<TransactionHash> IBitcoinCashClient.SendTransaction(TransferBchBlockchain body, bool testnet)
         {
             string txData = (this as IBitcoinCashClient).PrepareSignedTransaction(body, testnet);
@@ -34,12 +27,6 @@ namespace Tatum.Clients
             return await (this as IBitcoinCashClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Sign BitcoinCash transaction with private keys locally. Nothing is broadcasted to the blockchain.
-        /// </summary>        
-        /// <param name="body">content of the transaction to broadcast</param>
-        /// <param name="testnet">testnet or mainnet version</param>
-        /// <returns>Transaction data to be broadcast to blockchain.</returns>
         string IBitcoinCashClient.PrepareSignedTransaction(TransferBchBlockchain body, bool testnet)
         {
             return PrepareSignedTransaction(testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet, body);

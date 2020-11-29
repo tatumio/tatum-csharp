@@ -7,6 +7,7 @@ using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
+    ///<inheritdoc/>
     public partial class BitcoinCashClient : IBitcoinCashClient
     {
         private readonly IBitcoinCashApi bitcoinCashApi;
