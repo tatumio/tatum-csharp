@@ -9,6 +9,7 @@ namespace Tatum.Clients
     {
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
         Task<LitecoinInfo> GetBlockchainInfo();
+        Task<string> SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet);
         Task<LitecoinBlock> GetBlock(string hash);
         Task<BlockHash> GetBlockHash(long blockHeight);
         Task<LitecoinUtxo> GetUtxo(string txHash, int txOutputIndex);
@@ -18,5 +19,7 @@ namespace Tatum.Clients
         Wallet CreateWallet(string mnemonic, bool testnet);
         string GeneratePrivateKey(string mnemonic, int index, bool testnet);
         string GenerateAddress(string xPubString, int index, bool testnet);
+        Task<string> PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet);
+        Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet);
     }
 }
