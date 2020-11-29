@@ -7,7 +7,8 @@ using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
-    public class EthereumClient : IEthereumClient
+    /// <inheritdoc/>
+    public partial class EthereumClient : IEthereumClient
     {
         private readonly IEthereumApi ethereumApi;
 
