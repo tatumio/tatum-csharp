@@ -34,7 +34,7 @@ namespace Tatum.Clients
         /// <param name="body">content of the transaction to broadcast</param>
         /// <param name="testnet">testnet or mainnet version</param>
         /// <returns>transaction id of the transaction in the blockchain</returns>
-        public async Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet)
+        async Task<TransactionHash> IBitcoinClient.SendTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
             string txData = await (this as IBitcoinClient).PrepareSignedTransaction(body, testnet).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
