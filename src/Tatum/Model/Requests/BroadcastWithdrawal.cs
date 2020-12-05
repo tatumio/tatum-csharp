@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Tatum.Model.Requests
 {
-    public class BroadcastWithdrawal : IValidatableObject
+    public class BroadcastWithdrawal
     {
         [Required]
         [JsonPropertyName("currency")]
@@ -21,15 +20,5 @@ namespace Tatum.Model.Requests
 
         [JsonPropertyName("signatureId")]
         public Guid SignatureId { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this);
-            Validator.TryValidateObject(this, context, results, validateAllProperties: true);
-
-            return results;
-        }
     }
 }

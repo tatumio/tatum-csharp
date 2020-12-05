@@ -11,10 +11,14 @@ namespace Tatum.Clients
     public partial class EthereumClient : IEthereumClient
     {
         private readonly IEthereumApi ethereumApi;
+        private readonly IEthereumGasApi ethereumGasApi;
+        private readonly string tatumWeb3DriverUrl;
 
         public EthereumClient(string apiBaseUrl, string xApiKey)
         {
             ethereumApi = RestClientFactory.Create<IEthereumApi>(apiBaseUrl, xApiKey);
+            ethereumGasApi = RestClientFactory.Create<IEthereumGasApi>("https://ethgasstation.info/");
+            tatumWeb3DriverUrl = $"{apiBaseUrl}/v3/ethereum/web3/{xApiKey}";
         }
 
         Task<TransactionHash> IEthereumClient.BroadcastSignedTransaction(BroadcastRequest request)

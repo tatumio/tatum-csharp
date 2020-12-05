@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.IO;
 using System.Threading.Tasks;
 using Tatum.Clients;
+using Tatum.Model.Requests;
 
 namespace Tatum.Tests
 {
@@ -86,6 +87,19 @@ namespace Tatum.Tests
             string address = ethereumClient.GenerateAddress("xpub6FMiQpA54nciqs52guGVdWQ5TonZt5XtGsFpurgtttL7H3mSfaJDXv5aBdThjX6tW9HYaJSQ8wZVnLm1ixaQUu1MRQCwvwZ6U2cX6mwWT25", 1, true);
 
             Assert.That(expectedAddress, Is.EqualTo(address));
+        }
+
+        [Test]
+        public async Task Transaction()
+        {
+            var record = new CreateRecord
+            {
+                FromPrivatekey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
+                Data = "0x00"
+            };
+
+            var response = await ethereumClient.SendStoreDataTransaction(record, true);
         }
     }
 }
