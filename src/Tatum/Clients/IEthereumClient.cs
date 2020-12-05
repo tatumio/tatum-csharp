@@ -1,5 +1,4 @@
-﻿using Nethereum.Web3;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
@@ -56,11 +55,10 @@ namespace Tatum.Clients
         /// Sign Ethereum Store data transaction with private keys locally. Nothing is broadcast to the blockchain.
         /// </summary>
         /// <param name="body">Content of the transaction to broadcast.</param>
-        /// <param name="testnet">mainnet or testnet version</param>
+        /// <param name="testnet">Mainnet or testnet version</param>
         /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
         /// <returns>Transaction data to be broadcast to blockchain.</returns>
         Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
-
 
         /// <summary>
         ///  Send Ethereum store data transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
@@ -71,5 +69,62 @@ namespace Tatum.Clients
         /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
         /// <returns>Transaction id of the transaction in the blockchain.</returns>
         Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        /// <summary>
+        /// Sign Ethereum or supported ERC20 transaction with private keys locally. Nothing is broadcast to the blockchain.
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">Mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction data to be broadcast to blockchain.</returns>
+        Task<string> PrepareEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
+
+        /// <summary>
+        ///  Send Ethereum store data transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
+        ///  This operation is irreversible. 
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction id of the transaction in the blockchain.</returns>
+        Task<TransactionHash> SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
+
+        /// <summary>
+        /// Sign Ethereum custom ERC20 transaction with private keys locally. Nothing is broadcast to the blockchain.
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">Mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction data to be broadcast to blockchain.</returns>
+        Task<string> PrepareCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider = null);
+
+        /// <summary>
+        ///  Send Ethereum custom ERC20 transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
+        ///  This operation is irreversible. 
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction id of the transaction in the blockchain.</returns>
+        Task<TransactionHash> SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider = null);
+
+        /// <summary>
+        /// Sign Ethereum deploy ERC20 transaction with private keys locally. Nothing is broadcast to the blockchain.
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">Mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction data to be broadcast to blockchain.</returns>
+        Task<string> PrepareDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider = null);
+
+        /// <summary>
+        ///  Send Ethereum deploy ERC20 transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
+        ///  This operation is irreversible. 
+        /// </summary>
+        /// <param name="body">Content of the transaction to broadcast.</param>
+        /// <param name="testnet">mainnet or testnet version</param>
+        /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
+        /// <returns>Transaction id of the transaction in the blockchain.</returns>
+        Task<TransactionHash> SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider = null);
     }
 }

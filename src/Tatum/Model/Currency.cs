@@ -89,6 +89,31 @@ namespace Tatum.Model
 
             return null;
         }
+
+        public static bool IsEthereumBasedCurrency(this Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.ETH:
+                case Currency.USDT:
+                case Currency.LEO:
+                case Currency.LINK:
+                case Currency.UNI:
+                case Currency.FREE:
+                case Currency.MKR:
+                case Currency.USDC:
+                case Currency.BAT:
+                case Currency.TUSD:
+                case Currency.PAX:
+                case Currency.PLTC:
+                case Currency.XCON:
+                case Currency.MMY:
+                case Currency.PAXG:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]

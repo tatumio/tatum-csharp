@@ -9,7 +9,6 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
-//using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
@@ -46,8 +45,9 @@ namespace Tatum.Clients
                 addressFrom: account.Address,
                 gas: new HexBigInteger(new BigInteger(customFee.GasLimit)),
                 gasPrice: new HexBigInteger(customFee.GasPrice),
-                value: new HexBigInteger(new BigInteger(0))
+                value: new HexBigInteger(0)
             );
+            transactionInput.Nonce = new HexBigInteger(addressNonce);
 
             var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
                 .ConfigureAwait(false);
@@ -64,6 +64,36 @@ namespace Tatum.Clients
             };
 
             return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+        Task<string> IEthereumClient.PrepareEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<string> IEthereumClient.PrepareCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Model.Responses.TransactionHash> IEthereumClient.SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<string> IEthereumClient.PrepareDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Model.Responses.TransactionHash> IEthereumClient.SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

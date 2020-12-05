@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Tatum.Model.Responses
 {
@@ -12,7 +10,7 @@ namespace Tatum.Model.Responses
         public List<string> Hashes { get; set; }
         public string TxId { get; set; }
         public string WithdrawalId { get; set; }
-        public uint Index { get; set; }                
+        public uint Index { get; set; }
         public List<WithdrawalResponseData> WithdrawalResponses { get; set; }
     }
 }
