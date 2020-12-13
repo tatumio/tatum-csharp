@@ -94,7 +94,7 @@ namespace Tatum.Tests
         {
             var record = new CreateRecord
             {
-                FromPrivatekey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
                 To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
                 Data = "0x00"
             };

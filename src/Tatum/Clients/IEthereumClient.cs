@@ -77,7 +77,7 @@ namespace Tatum.Clients
         /// <param name="testnet">Mainnet or testnet version</param>
         /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
         /// <returns>Transaction data to be broadcast to blockchain.</returns>
-        Task<string> PrepareEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
+        Task<string> PrepareEthereumOrErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
 
         /// <summary>
         ///  Send Ethereum store data transaction to the blockchain. This method broadcasts signed transaction to the blockchain.

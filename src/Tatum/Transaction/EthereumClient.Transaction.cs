@@ -2,13 +2,12 @@
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
+using Tatum.Model.Requests.Ethereum;
+using static Nethereum.Util.UnitConversion;
 
 namespace Tatum.Clients
 {
@@ -17,7 +16,7 @@ namespace Tatum.Clients
         async Task<BigInteger> IEthereumClient.GetGasPriceInWei()
         {
             var gasPrice = await ethereumGasApi.GasPrice().ConfigureAwait(false);
-            
+
             return Web3.Convert.ToWei(gasPrice.Fast, Nethereum.Util.UnitConversion.EthUnit.Gwei);
         }
 
@@ -26,12 +25,12 @@ namespace Tatum.Clients
             var validationContext = new ValidationContext(body);
             Validator.ValidateObject(body, validationContext);
 
-            var account = new Account(body.FromPrivatekey);
+            var account = new Account(body.FromPrivateKey);
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
 
             var addressTo = body.To ?? account.Address;
-            var addressNonce = body.Nonce > 0 ? body.Nonce : (uint) (await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
-            var customFee = body.EthFee ??
+            var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
+            var customFee = body.Fee ??
                 new Fee
                 {
                     GasLimit = body.Data.Length * 68 + 21000,
@@ -66,34 +65,128 @@ namespace Tatum.Clients
             return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
 
-        Task<string> IEthereumClient.PrepareEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
+        async Task<string> IEthereumClient.PrepareEthereumOrErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
         {
-            throw new System.NotImplementedException();
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Account(body.FromPrivateKey);
+            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+
+            BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
+            TransactionInput transactionInput = await BuildTransactionInput(web3, body, gasPrice, account.Address).ConfigureAwait(false);
+
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            return $"0x{transactionHash}";
         }
 
-        Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
+        private async Task<TransactionInput> BuildTransactionInput(Web3 web3, TransferEthereumErc20 body, BigInteger gasPrice, string addressFrom)
         {
-            throw new System.NotImplementedException();
+            TransactionInput transactionInput = new TransactionInput();
+            transactionInput.From = addressFrom;
+            transactionInput.GasPrice = new HexBigInteger(gasPrice);
+            transactionInput.Nonce = new HexBigInteger(body.Nonce);
+
+            if (body.Currency == Model.Currency.ETH)
+            {
+                transactionInput.Data = body.Data;
+                transactionInput.To = body.To;
+                transactionInput.Value = new HexBigInteger(Web3.Convert.ToWei(body.Amount, EthUnit.Ether));
+            }
+            else
+            {
+                var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
+                var transferFunction = new TransferFunction
+                {
+                    FromAddress = addressFrom,
+                    GasPrice = gasPrice,
+                    Nonce = body.Nonce,
+                    To = body.To,
+                    TokenAmount = new BigInteger(decimal.Parse(body.Amount))
+                };
+                
+                transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(Constants.ContractAddresses[body.Currency], transferFunction);
+            }
+
+            if (body.Fee == null)
+            {
+                transactionInput.Gas = await web3.TransactionManager.EstimateGasAsync(transactionInput).ConfigureAwait(false);
+            }
+            else
+            {
+                transactionInput.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
+            }
+
+            return transactionInput;
         }
 
-        Task<string> IEthereumClient.PrepareCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
+        private async Task<BigInteger> DetermineGasPrice(Fee fee)
         {
-            throw new System.NotImplementedException();
+            if (fee == null)
+            {
+                return await (this as IEthereumClient).GetGasPriceInWei().ConfigureAwait(false);
+            }
+            else
+            {
+                return Web3.Convert.ToWei(fee.GasPrice, EthUnit.Gwei);
+            }
         }
 
-        Task<Model.Responses.TransactionHash> IEthereumClient.SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
+        async Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
         {
-            throw new System.NotImplementedException();
+            var transaction = await (this as IEthereumClient).PrepareEthereumOrErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
 
-        Task<string> IEthereumClient.PrepareDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        async Task<string> IEthereumClient.PrepareCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
         {
-            throw new System.NotImplementedException();
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Account(body.FromPrivateKey);
+            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+
+            return string.Empty;
         }
 
-        Task<Model.Responses.TransactionHash> IEthereumClient.SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        async Task<Model.Responses.TransactionHash> IEthereumClient.SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
         {
-            throw new System.NotImplementedException();
+            var transaction = await (this as IEthereumClient).PrepareCustomErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+        async Task<string> IEthereumClient.PrepareDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Account(body.FromPrivateKey);
+            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+
+            return string.Empty;
+        }
+
+        async Task<Model.Responses.TransactionHash> IEthereumClient.SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
+        {
+            var transaction = await (this as IEthereumClient).PrepareDeployErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
     }
 }

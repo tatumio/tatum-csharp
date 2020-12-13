@@ -11,7 +11,7 @@ namespace Tatum.Model.Requests
 
         [Required]
         [StringLength(66, MinimumLength = 32)]
-        public string FromPrivatekey { get; set; }
+        public string FromPrivateKey { get; set; }
 
         [StringLength(42, MinimumLength = 42)]
         public string To { get; set; }
@@ -19,16 +19,16 @@ namespace Tatum.Model.Requests
         [Range(0, uint.MaxValue)]
         public uint Nonce { get; set; }
 
-        public Fee EthFee { get; set; }
+        public Fee Fee { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> results = new List<ValidationResult>();
 
-            if (EthFee != null)
+            if (Fee != null)
             {
-                var feeContext = new ValidationContext(EthFee);
-                Validator.ValidateObject(EthFee, feeContext, validateAllProperties: true);
+                var feeContext = new ValidationContext(Fee);
+                Validator.ValidateObject(Fee, feeContext, validateAllProperties: true);
             }
 
             if (results.Count == 0)
