@@ -74,64 +74,12 @@ namespace Tatum.Clients
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
 
             BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
-            TransactionInput transactionInput = await BuildTransactionInput(web3, body, gasPrice, account.Address).ConfigureAwait(false);
+            TransactionInput transactionInput = await BuildEthereumOrErc20TransactionInput(web3, body, gasPrice, account.Address).ConfigureAwait(false);
 
             var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
                 .ConfigureAwait(false);
 
             return $"0x{transactionHash}";
-        }
-
-        private async Task<TransactionInput> BuildTransactionInput(Web3 web3, TransferEthereumErc20 body, BigInteger gasPrice, string addressFrom)
-        {
-            TransactionInput transactionInput = new TransactionInput();
-            transactionInput.From = addressFrom;
-            transactionInput.GasPrice = new HexBigInteger(gasPrice);
-            transactionInput.Nonce = new HexBigInteger(body.Nonce);
-
-            if (body.Currency == Model.Currency.ETH)
-            {
-                transactionInput.Data = body.Data;
-                transactionInput.To = body.To;
-                transactionInput.Value = new HexBigInteger(Web3.Convert.ToWei(body.Amount, EthUnit.Ether));
-            }
-            else
-            {
-                var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
-                var transferFunction = new TransferFunction
-                {
-                    FromAddress = addressFrom,
-                    GasPrice = gasPrice,
-                    Nonce = body.Nonce,
-                    To = body.To,
-                    TokenAmount = new BigInteger(decimal.Parse(body.Amount))
-                };
-                
-                transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(Constants.ContractAddresses[body.Currency], transferFunction);
-            }
-
-            if (body.Fee == null)
-            {
-                transactionInput.Gas = await web3.TransactionManager.EstimateGasAsync(transactionInput).ConfigureAwait(false);
-            }
-            else
-            {
-                transactionInput.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
-            }
-
-            return transactionInput;
-        }
-
-        private async Task<BigInteger> DetermineGasPrice(Fee fee)
-        {
-            if (fee == null)
-            {
-                return await (this as IEthereumClient).GetGasPriceInWei().ConfigureAwait(false);
-            }
-            else
-            {
-                return Web3.Convert.ToWei(fee.GasPrice, EthUnit.Gwei);
-            }
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
@@ -152,8 +100,34 @@ namespace Tatum.Clients
 
             var account = new Account(body.FromPrivateKey);
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+            
+            BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
 
-            return string.Empty;
+            var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
+            var transferFunction = new TransferFunction
+            {
+                FromAddress = account.Address,
+                GasPrice = gasPrice,
+                Nonce = body.Nonce,
+                To = body.To,
+                TokenAmount = new BigInteger(decimal.Parse(body.Amount))
+            };
+
+            TransactionInput transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(body.ContractAddress, transferFunction);
+
+            if (body.Fee == null)
+            {
+                transactionInput.Gas = await web3.TransactionManager.EstimateGasAsync(transactionInput).ConfigureAwait(false);
+            }
+            else
+            {
+                transactionInput.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
+            }
+
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+               .ConfigureAwait(false);
+
+            return $"0x{transactionHash}";
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
@@ -187,6 +161,58 @@ namespace Tatum.Clients
             };
 
             return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+        private async Task<TransactionInput> BuildEthereumOrErc20TransactionInput(Web3 web3, TransferEthereumErc20 body, BigInteger gasPrice, string addressFrom)
+        {
+            TransactionInput transactionInput = new TransactionInput();
+            transactionInput.From = addressFrom;
+            transactionInput.GasPrice = new HexBigInteger(gasPrice);
+            transactionInput.Nonce = new HexBigInteger(body.Nonce);
+
+            if (body.Currency == Model.Currency.ETH)
+            {
+                transactionInput.Data = body.Data;
+                transactionInput.To = body.To;
+                transactionInput.Value = new HexBigInteger(Web3.Convert.ToWei(body.Amount, EthUnit.Ether));
+            }
+            else
+            {
+                var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
+                var transferFunction = new TransferFunction
+                {
+                    FromAddress = addressFrom,
+                    GasPrice = gasPrice,
+                    Nonce = body.Nonce,
+                    To = body.To,
+                    TokenAmount = new BigInteger(decimal.Parse(body.Amount))
+                };
+
+                transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(Constants.ContractAddresses[body.Currency], transferFunction);
+            }
+
+            if (body.Fee == null)
+            {
+                transactionInput.Gas = await web3.TransactionManager.EstimateGasAsync(transactionInput).ConfigureAwait(false);
+            }
+            else
+            {
+                transactionInput.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
+            }
+
+            return transactionInput;
+        }
+
+        private async Task<BigInteger> DetermineGasPrice(Fee fee)
+        {
+            if (fee == null)
+            {
+                return await (this as IEthereumClient).GetGasPriceInWei().ConfigureAwait(false);
+            }
+            else
+            {
+                return Web3.Convert.ToWei(fee.GasPrice, EthUnit.Gwei);
+            }
         }
     }
 }
