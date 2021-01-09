@@ -12,6 +12,10 @@ namespace Tatum.Clients
     {
         private readonly ILitecoinApi litecoinApi;
 
+        internal LitecoinClient()
+        {
+        }
+
         public LitecoinClient(string apiBaseUrl, string xApiKey)
         {
             litecoinApi = RestClientFactory.Create<ILitecoinApi>(apiBaseUrl, xApiKey);
