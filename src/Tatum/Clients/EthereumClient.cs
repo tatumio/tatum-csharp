@@ -12,6 +12,10 @@ namespace Tatum.Clients
     {
         private readonly IEthereumApi ethereumApi;
 
+        internal EthereumClient()
+        {
+        }
+
         public EthereumClient(string apiBaseUrl, string xApiKey)
         {
             ethereumApi = RestClientFactory.Create<IEthereumApi>(apiBaseUrl, xApiKey);
