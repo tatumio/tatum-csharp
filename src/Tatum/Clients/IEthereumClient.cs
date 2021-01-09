@@ -87,7 +87,7 @@ namespace Tatum.Clients
         /// <param name="testnet">mainnet or testnet version</param>
         /// <param name="provider">Url of the Ethereum Server to connect to. If not set, default public server will be used.</param>
         /// <returns>Transaction id of the transaction in the blockchain.</returns>
-        Task<TransactionHash> SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
+        Task<TransactionHash> SendEthereumOrErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider = null);
 
         /// <summary>
         /// Sign Ethereum custom ERC20 transaction with private keys locally. Nothing is broadcast to the blockchain.

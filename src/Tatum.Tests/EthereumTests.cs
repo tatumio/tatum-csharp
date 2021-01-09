@@ -101,5 +101,55 @@ namespace Tatum.Tests
 
             var response = await ethereumClient.SendStoreDataTransaction(record, true);
         }
+
+        [Test]
+        public async Task TransactionERC20()
+        {
+            var body = new TransferEthereumErc20
+            {
+                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                Amount = "0",
+                Currency = Model.Currency.PLTC,
+                To = "0x8cb76aed9c5e336ef961265c6079c14e9cd3d2ea"
+            };
+
+            string txHash = await ethereumClient.PrepareEthereumOrErc20SignedTransaction(body, true);
+
+            var request = new BroadcastRequest
+            {
+                TxData = txHash
+            };
+
+            var response = await ethereumClient.BroadcastSignedTransaction(request);
+        }
+
+        [Test]
+        public async Task DeployEthereumERC20()
+        {
+            var body = new DeployEthereumErc20
+            {
+                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                Symbol = "TTTM",
+                Name = "TestTatum",
+                Supply = "10000000",
+                Address = "0x7df6e328b85aab9846b58380b98f7703f3bb495f",
+                Digits = 18,
+                Fee = new Fee
+                {
+                    GasLimit = 2000000,
+                    GasPrice = new System.Numerics.BigInteger(0.01)
+                }
+            };
+
+            string txHash = await ethereumClient.PrepareDeployErc20SignedTransaction(body, true);
+
+            var request = new BroadcastRequest
+            {
+                TxData = txHash
+            };
+
+            var response = await ethereumClient.BroadcastSignedTransaction(request);
+
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Nethereum.Hex.HexTypes;
+﻿using Nethereum.Contracts.MessageEncodingServices;
+using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -82,7 +84,7 @@ namespace Tatum.Clients
             return $"0x{transactionHash}";
         }
 
-        async Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
+        async Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumOrErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
         {
             var transaction = await (this as IEthereumClient).PrepareEthereumOrErc20SignedTransaction(body, true).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
@@ -149,7 +151,49 @@ namespace Tatum.Clients
             var account = new Account(body.FromPrivateKey);
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
 
-            return string.Empty;
+            var deploymentHandler = web3.Eth.GetContractDeploymentHandler<StandardTokenDeployment>();
+
+            var request = web3.Eth.Transactions.GetTransactionCount;
+            
+            var count = await request.SendRequestAsync(account.Address).ConfigureAwait(false);
+
+            var deploymentMessage = new StandardTokenDeployment
+            {
+                FromAddress = account.Address,
+                Nonce = count.Value,
+                TotalSupply = BigInteger.Parse(body.Supply)
+            };
+
+            
+
+            deploymentMessage.GasPrice = await DetermineGasPrice(body.Fee);
+
+            if (body.Fee == null)
+            {
+                deploymentMessage.Gas = await web3.Eth.DeployContract.EstimateGasAsync(
+                    abi: StandardTokenDeployment.ABI,
+                    contractByteCode: deploymentMessage.ByteCode,
+                    from: account.Address)
+                    .ConfigureAwait(false);
+            }
+            else
+            {
+                deploymentMessage.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
+            }
+
+            var transactionHash = await deploymentHandler.SignTransactionAsync(deploymentMessage).ConfigureAwait(false);
+
+            //var transactionReceipt = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(
+            //    abi: StandardTokenDeployment.ABI,
+            //    contractByteCode: deploymentMessage.ByteCode,
+            //    from: body.Address,
+            //    gas: new HexBigInteger(new BigInteger(0)),
+            //    gasPrice: new HexBigInteger(deploymentMessage.GasPrice.Value),
+            //    value: new HexBigInteger(deploymentMessage.TotalSupply));
+
+            //var transactionReceipt = await deploymentHandler.SendRequestAndWaitForReceiptAsync(deploymentMessage);
+            
+            return $"0x{transactionHash}";
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
