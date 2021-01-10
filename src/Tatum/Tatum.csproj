@@ -28,6 +28,7 @@
     <PackageReference Include="NBitcoin.Altcoins" Version="2.0.21" />
     <PackageReference Include="Nethereum.HdWallet" Version="3.8.0" />
     <PackageReference Include="Refit" Version="5.2.1" />
+    <PackageReference Include="stellar-dotnet-sdk" Version="6.0.34" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
