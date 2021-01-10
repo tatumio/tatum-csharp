@@ -3,6 +3,9 @@ using System.Numerics;
 
 namespace Tatum.Model.Requests
 {
+    /// <summary>
+    /// Unit is Gwei.
+    /// </summary>
     public class Fee
     {
         [Required]

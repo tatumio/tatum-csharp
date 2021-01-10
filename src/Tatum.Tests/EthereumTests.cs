@@ -137,7 +137,7 @@ namespace Tatum.Tests
                 Fee = new Fee
                 {
                     GasLimit = 2000000,
-                    GasPrice = new System.Numerics.BigInteger(0.01)
+                    GasPrice = new System.Numerics.BigInteger(1)
                 }
             };
 

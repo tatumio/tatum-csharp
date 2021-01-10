@@ -1,9 +1,7 @@
-﻿using Nethereum.Contracts.MessageEncodingServices;
-using Nethereum.Hex.HexTypes;
+﻿using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -19,7 +17,7 @@ namespace Tatum.Clients
         {
             var gasPrice = await ethereumGasApi.GasPrice().ConfigureAwait(false);
 
-            return Web3.Convert.ToWei(gasPrice.Fast, Nethereum.Util.UnitConversion.EthUnit.Gwei);
+            return Web3.Convert.ToWei(gasPrice.Fast, EthUnit.Gwei);
         }
 
         async Task<string> IEthereumClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
@@ -102,7 +100,7 @@ namespace Tatum.Clients
 
             var account = new Account(body.FromPrivateKey);
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
-            
+
             BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
 
             var transferHandler = web3.Eth.GetContractTransactionHandler<TransferFunction>();
@@ -154,17 +152,16 @@ namespace Tatum.Clients
             var deploymentHandler = web3.Eth.GetContractDeploymentHandler<StandardTokenDeployment>();
 
             var request = web3.Eth.Transactions.GetTransactionCount;
-            
+
             var count = await request.SendRequestAsync(account.Address).ConfigureAwait(false);
 
             var deploymentMessage = new StandardTokenDeployment
             {
-                FromAddress = account.Address,
                 Nonce = count.Value,
                 TotalSupply = BigInteger.Parse(body.Supply)
             };
 
-            
+
 
             deploymentMessage.GasPrice = await DetermineGasPrice(body.Fee);
 
@@ -183,16 +180,6 @@ namespace Tatum.Clients
 
             var transactionHash = await deploymentHandler.SignTransactionAsync(deploymentMessage).ConfigureAwait(false);
 
-            //var transactionReceipt = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(
-            //    abi: StandardTokenDeployment.ABI,
-            //    contractByteCode: deploymentMessage.ByteCode,
-            //    from: body.Address,
-            //    gas: new HexBigInteger(new BigInteger(0)),
-            //    gasPrice: new HexBigInteger(deploymentMessage.GasPrice.Value),
-            //    value: new HexBigInteger(deploymentMessage.TotalSupply));
-
-            //var transactionReceipt = await deploymentHandler.SendRequestAndWaitForReceiptAsync(deploymentMessage);
-            
             return $"0x{transactionHash}";
         }
 
@@ -255,7 +242,7 @@ namespace Tatum.Clients
             }
             else
             {
-                return Web3.Convert.ToWei(fee.GasPrice, EthUnit.Gwei);
+                return fee.GasPrice;
             }
         }
     }
