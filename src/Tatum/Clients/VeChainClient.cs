@@ -6,9 +6,13 @@ using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
-    public class VeChainClient : IVeChainClient
+    public partial class VeChainClient : IVeChainClient
     {
         private readonly IVeChainApi veChainApi;
+
+        internal VeChainClient()
+        {
+        }
 
         public VeChainClient(string apiBaseUrl, string xApiKey)
         {
