@@ -8,6 +8,8 @@ namespace Tatum
     {
         public string Mnemonic { get; set; }
         public string XPub { get; set; }
+        public string PrivateKey { get; set; }
+        public string Address { get; set; }
 
         public static Wallet Create(Currency currency, string mnemonic, bool testnet)
         {
@@ -42,10 +44,16 @@ namespace Tatum
                 case Currency.PAXG:
                     IEthereumClient ethereumClient = new EthereumClient();
                     return ethereumClient.CreateWallet(mnemonic, testnet);
+                
+                case Currency.VET:
+                    IVeChainClient veChainClient = new VeChainClient();
+                    return veChainClient.CreateWallet(mnemonic, testnet);
+
+                case Currency.XLM:
+                    IXlmClient xlmClient = new XlmClient();
+                    return xlmClient.CreateWallet();
 
                 case Currency.XRP:
-                case Currency.XLM:
-                case Currency.VET:
                 case Currency.NEO:
                 case Currency.BNB:
                 default:
