@@ -7,9 +7,13 @@ using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
-    public class XlmClient : IXlmClient
+    public partial class XlmClient : IXlmClient
     {
         private readonly IXlmApi xlmApi;
+
+        internal XlmClient()
+        {
+        }
 
         public XlmClient(string apiBaseUrl, string xApiKey)
         {
