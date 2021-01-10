@@ -14,6 +14,10 @@ namespace Tatum.Clients
         private readonly IEthereumGasApi ethereumGasApi;
         private readonly string tatumWeb3DriverUrl;
 
+        internal EthereumClient()
+        {
+        }
+
         public EthereumClient(string apiBaseUrl, string xApiKey)
         {
             ethereumApi = RestClientFactory.Create<IEthereumApi>(apiBaseUrl, xApiKey);

@@ -5,11 +5,12 @@
     <Authors>Václav Ryška</Authors>
     <Company>Tatum</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright (c) tatumio, 2020</Copyright>
+    <Copyright>Copyright (c) tatumio, 2021</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/tatumio/tatum-csharp</PackageProjectUrl>
+    <PackageTags>Tatum, Blockchain</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
