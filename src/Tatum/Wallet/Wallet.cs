@@ -42,10 +42,13 @@ namespace Tatum
                 case Currency.PAXG:
                     IEthereumClient ethereumClient = new EthereumClient();
                     return ethereumClient.CreateWallet(mnemonic, testnet);
+                
+                case Currency.VET:
+                    IVeChainClient veChainClient = new VeChainClient();
+                    return veChainClient.CreateWallet(mnemonic, testnet);
 
                 case Currency.XRP:
                 case Currency.XLM:
-                case Currency.VET:
                 case Currency.NEO:
                 case Currency.BNB:
                 default:

@@ -14,5 +14,31 @@ namespace Tatum.Clients
         Task<VeChainAccountEnergy> GetAccountEnergy(string address);
         Task<VeChainTx> GetTransaction(string hash);
         Task<VeChainTxReceipt> GetTransactionReceipt(string hash);
+
+        /// <summary>
+        /// Generate VeChain wallet
+        /// </summary>
+        /// <param name="mnemonic">mnemonic seed to use</param>
+        /// <param name="testnet">testnet or mainnet version of address</param>
+        /// <returns>Wallet</returns>
+        Wallet CreateWallet(string mnemonic, bool testnet);
+
+        /// <summary>
+        ///  Generate VeChain private key from mnemonic seed
+        /// </summary>
+        /// <param name="mnemonic">mnemonic to generate private key from</param>
+        /// <param name="index">derivation index of private key to generate</param>
+        /// <param name="testnet">testnet or mainnet version of address</param>
+        /// <returns>blockchain private key to the address</returns>
+        string GeneratePrivateKey(string mnemonic, int index, bool testnet);
+
+        /// <summary>
+        /// Generate VeChain address
+        /// </summary>
+        /// <param name="xPub">extended public key to generate address from</param>
+        /// <param name="index">derivation index of address to generate. Up to 2^32 addresses can be generated</param>
+        /// <param name="testnet">testnet or mainnet version of address</param>
+        /// <returns>blockchain address</returns>
+        string GenerateAddress(string xPub, int index, bool testnet);
     }
 }
