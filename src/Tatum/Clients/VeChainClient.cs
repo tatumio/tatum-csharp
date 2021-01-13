@@ -9,6 +9,8 @@ namespace Tatum.Clients
     public partial class VeChainClient : IVeChainClient
     {
         private readonly IVeChainApi veChainApi;
+        private readonly IEthereumGasApi ethereumGasApi;
+        private readonly string tatumWeb3DriverUrl;
 
         internal VeChainClient()
         {
@@ -17,6 +19,8 @@ namespace Tatum.Clients
         public VeChainClient(string apiBaseUrl, string xApiKey)
         {
             veChainApi = RestClientFactory.Create<IVeChainApi>(apiBaseUrl, xApiKey);
+            ethereumGasApi = RestClientFactory.Create<IEthereumGasApi>("https://ethgasstation.info/");
+            tatumWeb3DriverUrl = $"{apiBaseUrl}/v3/ethereum/web3/{xApiKey}";
         }
 
         Task<TransactionHash> IVeChainClient.Broadcast(BroadcastRequest request)

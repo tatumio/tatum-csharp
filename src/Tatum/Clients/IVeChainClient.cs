@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Numerics;
+using System.Threading.Tasks;
 using Tatum.Model.Requests;
 using Tatum.Model.Responses;
 
@@ -9,7 +10,7 @@ namespace Tatum.Clients
         Task<TransactionHash> Broadcast(BroadcastRequest request);
         Task<long> EstimateGas(EstimateGasRequest request);
         Task<long> GetCurrentBlock();
-        Task<VeChainBlock> GetBlock(string hash);
+        Task<VeChainBlock> GetBlock(string hash);        
         Task<VeChainAccountBalance> GetAccountBalance(string address);
         Task<VeChainAccountEnergy> GetAccountEnergy(string address);
         Task<VeChainTx> GetTransaction(string hash);
@@ -40,5 +41,16 @@ namespace Tatum.Clients
         /// <param name="testnet">testnet or mainnet version of address</param>
         /// <returns>blockchain address</returns>
         string GenerateAddress(string xPub, int index, bool testnet);
+
+
+        /// <summary>
+        /// Estimate Gas price for the transaction.
+        /// </summary>
+        /// <returns>Gas price in Wei.</returns>
+        Task<BigInteger> GetGasPriceInWei();
+
+        Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
     }
 }

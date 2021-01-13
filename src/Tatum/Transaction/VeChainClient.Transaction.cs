@@ -6,24 +6,25 @@ using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 using System.Threading.Tasks;
 using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 namespace Tatum.Clients
 {
-    public partial class EthereumClient : IEthereumClient
+    public partial class VeChainClient : IVeChainClient
     {
-        async Task<BigInteger> IEthereumClient.GetGasPriceInWei()
+        async Task<BigInteger> IVeChainClient.GetGasPriceInWei()
         {
             var gasPrice = await ethereumGasApi.GasPrice().ConfigureAwait(false);
 
             return Web3.Convert.ToWei(gasPrice.Fast, Nethereum.Util.UnitConversion.EthUnit.Gwei);
         }
 
-        async Task<string> IEthereumClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        async Task<string> IVeChainClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
         {
             var validationContext = new ValidationContext(body);
             Validator.ValidateObject(body, validationContext);
 
-            var account = new Account(body.FromPrivatekey);
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
             var web3 = new Web3(account, url: tatumWeb3DriverUrl);
 
             var addressTo = body.To ?? account.Address;
@@ -32,7 +33,7 @@ namespace Tatum.Clients
                 new Fee
                 {
                     GasLimit = body.Data.Length * 68 + 21000,
-                    GasPrice = await (this as IEthereumClient).GetGasPriceInWei().ConfigureAwait(false)
+                    GasPrice = await (this as IVeChainClient).GetGasPriceInWei().ConfigureAwait(false)
                 };
 
             var transactionInput = new TransactionInput
@@ -51,15 +52,15 @@ namespace Tatum.Clients
             return $"0x{transactionHash}";
         }
 
-        async Task<Model.Responses.TransactionHash> IEthereumClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        async Task<Model.Responses.TransactionHash> IVeChainClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
         {
-            var transaction = await (this as IEthereumClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
+            var transaction = await (this as IVeChainClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
             {
                 TxData = transaction
             };
 
-            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+            return await (this as IVeChainClient).Broadcast(broadcastRequest).ConfigureAwait(false);
         }
     }
 }
