@@ -11,6 +11,7 @@ namespace Tatum.Clients
     public partial class BitcoinClient : IBitcoinClient
     {
         private readonly IBitcoinApi bitcoinApi;
+        private readonly ITatumClient tatumClient; 
 
         internal BitcoinClient()
         {
@@ -19,6 +20,7 @@ namespace Tatum.Clients
         public BitcoinClient(string apiBaseUrl, string xApiKey)
         {
             bitcoinApi = RestClientFactory.Create<IBitcoinApi>(apiBaseUrl, xApiKey);
+            tatumClient = new TatumClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> IBitcoinClient.Broadcast(BroadcastRequest request)

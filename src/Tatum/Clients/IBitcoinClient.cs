@@ -61,5 +61,10 @@ namespace Tatum.Clients
         /// <param name="testnet">testnet or mainnet version</param>
         /// <returns>transaction id of the transaction in the blockchain</returns>
         Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet);
+
+        string PrepareSignedOffchainTransaction(List<WithdrawalResponseData> data, string amount, string address, bool testnet, string mnemonic = null,
+            List<KeyPair> keyPairs = null, string changeAddress = null, List<string> multipleAmounts = null);
+
+        Task SendOffchainTransaction(TransferBtcBasedOffchain body, bool testnet);
     }
 }
