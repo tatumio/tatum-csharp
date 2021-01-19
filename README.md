@@ -16,7 +16,7 @@ Before you start you need to get Tatum API Key. If you don't have any yet, follo
 ![Tatum Nuget version](https://img.shields.io/nuget/v/Tatum.svg)  ![Tatum Nuget downloads](https://img.shields.io/nuget/dt/Tatum.svg)  
 You can link this library as a standard [Nuget](https://www.nuget.org/packages/Tatum) package as described in the [documentation](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
 
-## Usage
+## Clients Usage
 The only classes/interfaces used by the end user are those with suffix `Client` eg. `IBitcoinClient`, `IEthereumClient`, `ITatumClient`. They are located in [Clients](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum/Clients) folder of the Tatum project. The only client not related to specific cryptocurrency/blockchain is the `ITatumClient`. `ITatumClient` enables to call Tatum API endpoints not related to the specific cryptocurency/blockchain.
 
 Before 
@@ -39,7 +39,64 @@ Of course you should store your credentials securely eg. in environment path or 
 Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
 
 ### Usage via Dependency Injection
-There is also `IServiceCollection` extension method [`AddTatum(...)`](https://github.com/tatumio/tatum-csharp/blob/master/src/Tatum/ServiceCollectionExtensions.cs) for comfortable usage of .NET Core built in dependency injection container. You can read more about depenedncy injection in [.NET docs](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).
+There is also `IServiceCollection` extension method [`AddTatum(...)`](https://github.com/tatumio/tatum-csharp/blob/master/src/Tatum/ServiceCollectionExtensions.cs) for comfortable usage of .NET Core built in Dependency Injection (DI) container. You can read more about DI in [.NET docs](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).
+If we follow the DI example from .NET docs, you can add all the Clients into DI like that.
+```C#
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Tatum;
 
+namespace DependencyInjection.Example
+{
+    class Program
+    {
+        static Task Main(string[] args) =>
+            CreateHostBuilder(args).Build().RunAsync();
 
-## Release Notes
+        static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((_, services) =>
+                    services.AddHostedService<Worker>()
+                            .AddTatum("https://api-eu1.tatum.io", "your-x-api-key"));
+    }
+}
+```
+Then you can inject arbitrary client into your `Worker` service.
+```C#
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Tatum.Clients;
+
+namespace DependencyInjection.Example
+{
+    public class Worker : BackgroundService
+    {
+        private readonly IBitcoinClient bitcoinClient;
+
+        public Worker(IBitcoinClient bitcoinClient) =>
+            this.bitcoinClient = bitcoinClient;
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            var info = await bitcoinClient.GetBlockchainInfo();
+        }
+    }
+}
+```
+
+## Wallet Static methods
+As in case of [Tatum JS library](https://github.com/tatumio/tatum-js) this library also provides static methods generating Wallet, Private Key and Address. You can find them in the [Wallet class](https://github.com/tatumio/tatum-csharp/blob/master/src/Tatum/Wallet/Wallet.cs). They could be used as follows.
+```C#
+var wallet = Wallet.Create(Currency.BTC, mnemonic, testnet: true);
+var address = Wallet.GenerateAddress(Currency.ETH, mnemonic, index: 1, testnet: true);
+var privateKey = Wallet.GeneratePrivateKey(Currency.LTC, mnemonic, index: 1, testnet: true);
+```
+
+## Contributing
+
+Contributions to the Tatum API client are welcome. Please ensure
+that you have tested the changes with a local client and have added unit test
+coverage for your code.
