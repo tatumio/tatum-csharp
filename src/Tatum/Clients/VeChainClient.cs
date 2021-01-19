@@ -14,9 +14,14 @@ namespace Tatum.Clients
         {
         }
 
-        public VeChainClient(string apiBaseUrl, string xApiKey)
+        internal VeChainClient(string apiBaseUrl, string xApiKey)
         {
             veChainApi = RestClientFactory.Create<IVeChainApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static IVeChainClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new VeChainClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> IVeChainClient.Broadcast(BroadcastRequest request)

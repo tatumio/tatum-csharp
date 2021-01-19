@@ -10,9 +10,14 @@ namespace Tatum.Clients
     {
         private readonly IXrpApi xrpApi;
 
-        public XrpClient(string apiBaseUrl, string xApiKey)
+        internal XrpClient(string apiBaseUrl, string xApiKey)
         {
             xrpApi = RestClientFactory.Create<IXrpApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static IXrpClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new XrpClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> IXrpClient.Broadcast(BroadcastRequest request)

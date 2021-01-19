@@ -16,9 +16,14 @@ namespace Tatum.Clients
         {
         }
 
-        public EthereumClient(string apiBaseUrl, string xApiKey)
+        internal EthereumClient(string apiBaseUrl, string xApiKey)
         {
             ethereumApi = RestClientFactory.Create<IEthereumApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static IEthereumClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new EthereumClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> IEthereumClient.BroadcastSignedTransaction(BroadcastRequest request)
