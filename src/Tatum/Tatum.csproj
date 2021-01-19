@@ -10,10 +10,11 @@
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/tatumio/tatum-csharp</PackageProjectUrl>
-    <PackageTags>Tatum, Blockchain</PackageTags>
-    <Version>1.1.0</Version>
+    <PackageTags>Tatum, Blockchain, Cryptocurrency, C#, .NET</PackageTags>
+    <Version>1.1.1</Version>
     <PackageIcon>tatum_icon.jpg</PackageIcon>
     <PackageIconUrl />
+    <Description>Tatum library simplifies usage of Tatum blockchain developer platform from C# applications.</Description>
   </PropertyGroup>
 
   <ItemGroup>
