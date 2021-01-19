@@ -21,7 +21,7 @@ namespace Tatum.Tests
 
             string baseUrl = config.GetValue<string>("TatumApiSettings:baseUrl");
             string xApiKey = config.GetValue<string>("TatumApiSettings:xApiKey");
-            xlmClient = new XlmClient(baseUrl, xApiKey);
+            xlmClient = XlmClient.Create(baseUrl, xApiKey);
         }
 
         [Test]

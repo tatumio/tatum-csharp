@@ -22,7 +22,7 @@ namespace Tatum.Tests
 
             string baseUrl = config.GetValue<string>("TatumApiSettings:baseUrl");
             string xApiKey = config.GetValue<string>("TatumApiSettings:xApiKey");
-            veChainClient = new VeChainClient(baseUrl, xApiKey);
+            veChainClient = VeChainClient.Create(baseUrl, xApiKey);
         }
 
         [Test]

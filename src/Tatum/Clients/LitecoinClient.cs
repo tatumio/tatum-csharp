@@ -16,9 +16,14 @@ namespace Tatum.Clients
         {
         }
 
-        public LitecoinClient(string apiBaseUrl, string xApiKey)
+        internal LitecoinClient(string apiBaseUrl, string xApiKey)
         {
             litecoinApi = RestClientFactory.Create<ILitecoinApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static ILitecoinClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new LitecoinClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> ILitecoinClient.BroadcastSignedTransaction(BroadcastRequest request)

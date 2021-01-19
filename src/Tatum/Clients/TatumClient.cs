@@ -9,9 +9,14 @@ namespace Tatum.Clients
     {
         private readonly ITatumApi tatumApi;
 
-        public TatumClient(string apiBaseUrl, string xApiKey)
+        internal TatumClient(string apiBaseUrl, string xApiKey)
         {
             tatumApi = RestClientFactory.Create<ITatumApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static ITatumClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new TatumClient(apiBaseUrl, xApiKey);
         }
 
         Task<List<CreditUsage>> ITatumClient.GetCreditUsageForLastMonth()
