@@ -37,7 +37,7 @@ namespace Tatum.Clients
         /// Generate Bitcoin address
         /// </summary>
         /// <param name="xPubString">extended public key to generate address from</param>
-        /// <param name="index">derivation index of address to generate. Up to 2^32 addresses can be generated</param>
+        /// <param name="index">derivation index of address to generate. Up to 2^31 addresses can be generated</param>
         /// <param name="testnet">testnet or mainnet version of address</param>
         /// <returns>blockchain address</returns>
         string GenerateAddress(string xPub, int index, bool testnet);

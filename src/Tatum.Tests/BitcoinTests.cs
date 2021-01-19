@@ -27,7 +27,7 @@ namespace Tatum.Tests
             string baseUrl = config.GetValue<string>("TatumApiSettings:baseUrl");
             string xApiKey = config.GetValue<string>("TatumApiSettings:xApiKey");
 
-            bitcoinClient = new BitcoinClient(baseUrl, xApiKey);
+            bitcoinClient = BitcoinClient.Create(baseUrl, xApiKey);
         }
 
         [Test]
