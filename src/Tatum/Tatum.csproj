@@ -12,10 +12,16 @@
     <PackageProjectUrl>https://github.com/tatumio/tatum-csharp</PackageProjectUrl>
     <PackageTags>Tatum, Blockchain</PackageTags>
     <Version>1.1.0</Version>
+    <PackageIcon>tatum_icon.jpg</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="tatum_icon.jpg">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
