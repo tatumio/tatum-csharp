@@ -35,7 +35,7 @@ or
 IBitcoinClient bitcoinClient = BitcoinClient.Create(baseUrl, "your-x-api-key");
 ```
 where typically `string baseUrl = "https://api-eu1.tatum.io";`.  
-Of course you should store your credentials securely eg. in environment path or configuration file.  
+Of course you should store your credentials securely eg. in environment variable or configuration file.  
 Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
 
 ### Usage via Dependency Injection
