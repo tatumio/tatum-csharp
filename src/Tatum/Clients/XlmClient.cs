@@ -15,9 +15,14 @@ namespace Tatum.Clients
         {
         }
 
-        public XlmClient(string apiBaseUrl, string xApiKey)
+        internal XlmClient(string apiBaseUrl, string xApiKey)
         {
             xlmApi = RestClientFactory.Create<IXlmApi>(apiBaseUrl, xApiKey);
+        }
+
+        public static IXlmClient Create(string apiBaseUrl, string xApiKey)
+        {
+            return new XlmClient(apiBaseUrl, xApiKey);
         }
 
         Task<TransactionHash> IXlmClient.Broadcast(BroadcastRequest request)

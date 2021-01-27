@@ -26,7 +26,7 @@ namespace Tatum.Tests
             string baseUrl = config.GetValue<string>("TatumApiSettings:baseUrl");
             string xApiKey = config.GetValue<string>("TatumApiSettings:xApiKey");
 
-            litecoinClient = new LitecoinClient(baseUrl, xApiKey);
+            litecoinClient = LitecoinClient.Create(baseUrl, xApiKey);
 
         }
 
