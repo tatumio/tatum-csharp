@@ -455,7 +455,22 @@ namespace Tatum.Model.Requests.Ethereum
         {
         }
 
-        [Parameter("uint256", "totalSupply")]
-        public BigInteger TotalSupply { get; set; }
+        [Parameter("string", "name", 1)]
+        public string Name { get; set; }
+
+        [Parameter("string", "symbol", 2)]
+        public string Symbol { get; set; }
+
+        [Parameter("address", "receiver", 3)]
+        public string Receiver { get; set; }
+
+        [Parameter("uint8", "decimals", 4)]
+        public byte Decimals { get; set; }
+
+        [Parameter("uint256", "cap", 5)]
+        public BigInteger Cap { get; set; }
+
+        [Parameter("uint256", "initialBalance", 6)]
+        public BigInteger InitialBalance { get; set; }
     }
 }

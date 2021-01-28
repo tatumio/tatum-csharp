@@ -27,7 +27,7 @@ namespace Tatum.Model.Requests
         public string Supply { get; set; }
 
         [Range(1, 30)]
-        public int Digits { get; set; }
+        public byte Digits { get; set; }
 
         public Fee Fee { get; set; }
 

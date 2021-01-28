@@ -158,7 +158,12 @@ namespace Tatum.Clients
             var deploymentMessage = new StandardTokenDeployment
             {
                 Nonce = count.Value,
-                TotalSupply = BigInteger.Parse(body.Supply)
+                Name = body.Name,
+                Symbol = body.Symbol,
+                Receiver = body.Address,
+                Decimals = body.Digits,
+                FromAddress = account.Address,
+                Cap = BigInteger.Parse(body.Supply)
             };
 
 
