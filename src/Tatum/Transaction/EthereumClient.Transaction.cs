@@ -26,7 +26,7 @@ namespace Tatum.Clients
             Validator.ValidateObject(body, validationContext);
 
             var account = new Account(body.FromPrivateKey);
-            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+            var web3 = new Web3(account, url: ResolveProvider(provider));
 
             var addressTo = body.To ?? account.Address;
             var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
@@ -48,15 +48,14 @@ namespace Tatum.Clients
             );
             transactionInput.Nonce = new HexBigInteger(addressNonce);
 
-            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
-                .ConfigureAwait(false);
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput).ConfigureAwait(false);
 
             return $"0x{transactionHash}";
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
         {
-            var transaction = await (this as IEthereumClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
+            var transaction = await (this as IEthereumClient).PrepareStoreDataTransaction(body, true, provider).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
             {
                 TxData = transaction
@@ -71,20 +70,19 @@ namespace Tatum.Clients
             Validator.ValidateObject(body, validationContext);
 
             var account = new Account(body.FromPrivateKey);
-            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+            var web3 = new Web3(account, url: ResolveProvider(provider));
 
             BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
             TransactionInput transactionInput = await BuildEthereumOrErc20TransactionInput(web3, body, gasPrice, account.Address).ConfigureAwait(false);
 
-            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
-                .ConfigureAwait(false);
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput).ConfigureAwait(false);
 
             return $"0x{transactionHash}";
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendEthereumOrErc20SignedTransaction(TransferEthereumErc20 body, bool testnet, string provider)
         {
-            var transaction = await (this as IEthereumClient).PrepareEthereumOrErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var transaction = await (this as IEthereumClient).PrepareEthereumOrErc20SignedTransaction(body, true, provider).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
             {
                 TxData = transaction
@@ -99,7 +97,11 @@ namespace Tatum.Clients
             Validator.ValidateObject(body, validationContext);
 
             var account = new Account(body.FromPrivateKey);
-            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+            var web3 = new Web3(account, url: ResolveProvider(provider));
+
+            var request = web3.Eth.Transactions.GetTransactionCount;
+
+            var count = await request.SendRequestAsync(account.Address).ConfigureAwait(false);
 
             BigInteger gasPrice = await DetermineGasPrice(body.Fee).ConfigureAwait(false);
 
@@ -108,31 +110,28 @@ namespace Tatum.Clients
             {
                 FromAddress = account.Address,
                 GasPrice = gasPrice,
-                Nonce = body.Nonce,
+                Nonce = count.Value,
                 To = body.To,
                 TokenAmount = new BigInteger(decimal.Parse(body.Amount))
             };
 
-            TransactionInput transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(body.ContractAddress, transferFunction);
-
             if (body.Fee == null)
             {
-                transactionInput.Gas = await web3.TransactionManager.EstimateGasAsync(transactionInput).ConfigureAwait(false);
+                transferFunction.Gas = await transferHandler.EstimateGasAsync(body.ContractAddress, transferFunction).ConfigureAwait(false);
             }
             else
             {
-                transactionInput.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
+                transferFunction.Gas = new HexBigInteger(new BigInteger(body.Fee.GasLimit));
             }
 
-            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
-               .ConfigureAwait(false);
+            var transactionHash = await transferHandler.SignTransactionAsync(body.ContractAddress, transferFunction).ConfigureAwait(false);
 
             return $"0x{transactionHash}";
         }
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendCustomErc20SignedTransaction(TransferCustomErc20 body, bool testnet, string provider)
         {
-            var transaction = await (this as IEthereumClient).PrepareCustomErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var transaction = await (this as IEthereumClient).PrepareCustomErc20SignedTransaction(body, true, provider).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
             {
                 TxData = transaction
@@ -147,7 +146,7 @@ namespace Tatum.Clients
             Validator.ValidateObject(body, validationContext);
 
             var account = new Account(body.FromPrivateKey);
-            var web3 = new Web3(account, url: tatumWeb3DriverUrl);
+            var web3 = new Web3(account, url: ResolveProvider(provider));
 
             var deploymentHandler = web3.Eth.GetContractDeploymentHandler<StandardTokenDeployment>();
 
@@ -166,17 +165,11 @@ namespace Tatum.Clients
                 Cap = BigInteger.Parse(body.Supply)
             };
 
-
-
             deploymentMessage.GasPrice = await DetermineGasPrice(body.Fee);
 
             if (body.Fee == null)
             {
-                deploymentMessage.Gas = await web3.Eth.DeployContract.EstimateGasAsync(
-                    abi: StandardTokenDeployment.ABI,
-                    contractByteCode: deploymentMessage.ByteCode,
-                    from: account.Address)
-                    .ConfigureAwait(false);
+                deploymentMessage.Gas = await deploymentHandler.EstimateGasAsync(deploymentMessage).ConfigureAwait(false);
             }
             else
             {
@@ -190,7 +183,7 @@ namespace Tatum.Clients
 
         async Task<Model.Responses.TransactionHash> IEthereumClient.SendDeployErc20SignedTransaction(DeployEthereumErc20 body, bool testnet, string provider)
         {
-            var transaction = await (this as IEthereumClient).PrepareDeployErc20SignedTransaction(body, true).ConfigureAwait(false);
+            var transaction = await (this as IEthereumClient).PrepareDeployErc20SignedTransaction(body, true, provider).ConfigureAwait(false);
             var broadcastRequest = new BroadcastRequest
             {
                 TxData = transaction
@@ -249,6 +242,16 @@ namespace Tatum.Clients
             {
                 return fee.GasPrice;
             }
+        }
+
+        private string ResolveProvider(string provider)
+        {
+            if (string.IsNullOrWhiteSpace(provider))
+            {
+                provider = tatumWeb3DriverUrl;
+            }
+
+            return provider;
         }
     }
 }

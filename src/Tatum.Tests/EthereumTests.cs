@@ -103,17 +103,23 @@ namespace Tatum.Tests
         }
 
         [Test]
-        public async Task TransactionERC20()
+        public async Task CustomTransactionERC20()
         {
-            var body = new TransferEthereumErc20
+            var body = new TransferCustomErc20
             {
                 FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
-                Amount = "0",
-                Currency = Model.Currency.PLTC,
-                To = "0x8cb76aed9c5e336ef961265c6079c14e9cd3d2ea"
+                Amount = "10000",
+                To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
+                Digits = 18,
+                ContractAddress = "0x026B97EF44a52F37f79217A9F0499dfEB27270a1",
+                Fee = new Fee
+                {
+                    GasLimit = 3000000,
+                    GasPrice = new System.Numerics.BigInteger(1000000000)
+                }
             };
 
-            string txHash = await ethereumClient.PrepareEthereumOrErc20SignedTransaction(body, true);
+            string txHash = await ethereumClient.PrepareCustomErc20SignedTransaction(body, true);
 
             var request = new BroadcastRequest
             {
@@ -129,8 +135,8 @@ namespace Tatum.Tests
             var body = new DeployEthereumErc20
             {
                 FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
-                Symbol = "TTTM",
-                Name = "TestTatum",
+                Symbol = "TTTM2",
+                Name = "TestTatum2",
                 Supply = "10000000",
                 Address = "0x7df6e328b85aab9846b58380b98f7703f3bb495f",
                 Digits = 18,
