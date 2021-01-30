@@ -107,11 +107,11 @@ namespace Tatum.Tests
         {
             var body = new TransferCustomErc20
             {
-                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                FromPrivateKey = "0xdbae9af6f27e26e5171530f304e37dff04e65042e4d684535632c4d23f3e7862",
                 Amount = "10000",
                 To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
                 Digits = 18,
-                ContractAddress = "0x026B97EF44a52F37f79217A9F0499dfEB27270a1",
+                ContractAddress = "0x1cc689359c8099a9a51389fced07761e26b9006c",
                 Fee = new Fee
                 {
                     GasLimit = 3000000,
