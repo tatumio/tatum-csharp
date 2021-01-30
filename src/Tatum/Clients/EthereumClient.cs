@@ -30,11 +30,6 @@ namespace Tatum.Clients
             return new EthereumClient(apiBaseUrl, xApiKey);
         }
 
-        public static IEthereumClient Create(string apiBaseUrl, string xApiKey)
-        {
-            return new EthereumClient(apiBaseUrl, xApiKey);
-        }
-
         Task<TransactionHash> IEthereumClient.BroadcastSignedTransaction(BroadcastRequest request)
         {
             var validationContext = new ValidationContext(request);
