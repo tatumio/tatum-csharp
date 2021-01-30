@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.IO;
 using System.Threading.Tasks;
 using Tatum.Clients;
+using Tatum.Model.Requests;
 
 namespace Tatum.Tests
 {
@@ -86,6 +87,74 @@ namespace Tatum.Tests
             string address = ethereumClient.GenerateAddress("xpub6FMiQpA54nciqs52guGVdWQ5TonZt5XtGsFpurgtttL7H3mSfaJDXv5aBdThjX6tW9HYaJSQ8wZVnLm1ixaQUu1MRQCwvwZ6U2cX6mwWT25", 1, true);
 
             Assert.That(expectedAddress, Is.EqualTo(address));
+        }
+
+        [Test]
+        public async Task Transaction()
+        {
+            var record = new CreateRecord
+            {
+                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
+                Data = "0x00"
+            };
+
+            var response = await ethereumClient.SendStoreDataTransaction(record, true);
+        }
+
+        [Test]
+        public async Task CustomTransactionERC20()
+        {
+            var body = new TransferCustomErc20
+            {
+                FromPrivateKey = "0xdbae9af6f27e26e5171530f304e37dff04e65042e4d684535632c4d23f3e7862",
+                Amount = "10000",
+                To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
+                Digits = 10,
+                ContractAddress = "0x1d1c481ac62ba3803d55b5a5bc160d88e56a307d",
+                Fee = new Fee
+                {
+                    GasLimit = 3000000,
+                    GasPrice = new System.Numerics.BigInteger(1000000000)
+                }
+            };
+
+            string txHash = await ethereumClient.PrepareCustomErc20SignedTransaction(body, true);
+
+            var request = new BroadcastRequest
+            {
+                TxData = txHash
+            };
+
+            var response = await ethereumClient.BroadcastSignedTransaction(request);
+        }
+
+        [Test]
+        public async Task DeployEthereumERC20()
+        {
+            var body = new DeployEthereumErc20
+            {
+                FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
+                Symbol = "TTTMX",
+                Name = "TestTatumX",
+                Supply = "10000000",
+                Address = "0x7df6e328b85aab9846b58380b98f7703f3bb495f",
+                Digits = 10,
+                Fee = new Fee
+                {
+                    GasLimit = 3000000,
+                    GasPrice = new System.Numerics.BigInteger(10000000000)
+                }
+            };
+
+            string txHash = await ethereumClient.PrepareDeployErc20SignedTransaction(body, true);
+
+            var request = new BroadcastRequest
+            {
+                TxData = txHash
+            };
+
+            var response = await ethereumClient.BroadcastSignedTransaction(request);
         }
     }
 }
