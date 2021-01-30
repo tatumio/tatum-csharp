@@ -110,8 +110,8 @@ namespace Tatum.Tests
                 FromPrivateKey = "0xdbae9af6f27e26e5171530f304e37dff04e65042e4d684535632c4d23f3e7862",
                 Amount = "10000",
                 To = "0xbbc1bddbffbba42acb3eced8bf27b64eca104ce0",
-                Digits = 18,
-                ContractAddress = "0x1cc689359c8099a9a51389fced07761e26b9006c",
+                Digits = 10,
+                ContractAddress = "0x1d1c481ac62ba3803d55b5a5bc160d88e56a307d",
                 Fee = new Fee
                 {
                     GasLimit = 3000000,
@@ -135,15 +135,15 @@ namespace Tatum.Tests
             var body = new DeployEthereumErc20
             {
                 FromPrivateKey = "0x74d4a36458fda84a6ca850cfcf92e68b8334a399d6d24459c4a33acbe0f6ce5b",
-                Symbol = "TTTM2",
-                Name = "TestTatum2",
+                Symbol = "TTTMX",
+                Name = "TestTatumX",
                 Supply = "10000000",
                 Address = "0x7df6e328b85aab9846b58380b98f7703f3bb495f",
-                Digits = 18,
+                Digits = 10,
                 Fee = new Fee
                 {
                     GasLimit = 3000000,
-                    GasPrice = new System.Numerics.BigInteger(1000000000)
+                    GasPrice = new System.Numerics.BigInteger(10000000000)
                 }
             };
 
@@ -155,7 +155,6 @@ namespace Tatum.Tests
             };
 
             var response = await ethereumClient.BroadcastSignedTransaction(request);
-
         }
     }
 }

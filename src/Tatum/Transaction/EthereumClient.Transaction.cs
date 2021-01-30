@@ -112,7 +112,7 @@ namespace Tatum.Clients
                 GasPrice = gasPrice,
                 Nonce = count.Value,
                 To = body.To,
-                TokenAmount = new BigInteger(decimal.Parse(body.Amount))
+                TokenAmount = new BigInteger(decimal.Parse(body.Amount))* BigInteger.Pow(10, body.Digits)
             };
 
             if (body.Fee == null)
@@ -162,7 +162,8 @@ namespace Tatum.Clients
                 Receiver = body.Address,
                 Decimals = body.Digits,
                 FromAddress = account.Address,
-                Cap = BigInteger.Parse(body.Supply)
+                Cap = BigInteger.Parse(body.Supply)* BigInteger.Pow(10, body.Digits),
+                InitialBalance = BigInteger.Parse(body.Supply)* BigInteger.Pow(10, body.Digits)
             };
 
             deploymentMessage.GasPrice = await DetermineGasPrice(body.Fee);
@@ -214,7 +215,7 @@ namespace Tatum.Clients
                     GasPrice = gasPrice,
                     Nonce = body.Nonce,
                     To = body.To,
-                    TokenAmount = new BigInteger(decimal.Parse(body.Amount))
+                    TokenAmount = new BigInteger(decimal.Parse(body.Amount)) * BigInteger.Pow(10, Constants.ContractDecimals[body.Currency])
                 };
 
                 transactionInput = await transferHandler.CreateTransactionInputEstimatingGasAsync(Constants.ContractAddresses[body.Currency], transferFunction);
