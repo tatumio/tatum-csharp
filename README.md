@@ -14,7 +14,7 @@ Before you start you need to get Tatum API Key. If you don't have any yet, follo
 
 ## Installation
 ![Tatum Nuget version](https://img.shields.io/nuget/v/Tatum.svg)  ![Tatum Nuget downloads](https://img.shields.io/nuget/dt/Tatum.svg)  
-You can link this library as a standard [Nuget](https://www.nuget.org/packages/Tatum) package as described in the [documentation](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
+You can link this library as a standard [Nuget](https://www.nuget.org/packages/TatumCS/) package as described in the [documentation](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
 
 ## Clients Usage
 The only classes/interfaces used by the end user are those with suffix `Client` eg. `IBitcoinClient`, `IEthereumClient`, `ITatumClient`. They are located in [Clients](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum/Clients) folder of the Tatum project. The only client not related to specific cryptocurrency/blockchain is the `ITatumClient`. `ITatumClient` enables to call Tatum API endpoints not related to the specific cryptocurency/blockchain.
