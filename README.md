@@ -17,23 +17,21 @@ Before you start you need to get Tatum API Key. If you don't have any yet, follo
 You can link this library as a standard [Nuget](https://www.nuget.org/packages/TatumCS/) package as described in the [documentation](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
 
 ## Clients Usage
-The only classes/interfaces used by the end user are those with suffix `Client` eg. `IBitcoinClient`, `IEthereumClient`, `ITatumClient`. They are located in [Clients](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum/Clients) folder of the Tatum project. The only client not related to specific cryptocurrency/blockchain is the `ITatumClient`. `ITatumClient` enables to call Tatum API endpoints not related to the specific cryptocurency/blockchain.
+The only classes/interfaces used by the end user are those with suffix `Client` eg. `BitcoinClient`, `EthereumClient`, `LedgerClient`. They are located in [Clients](https://github.com/tatumio/tatum-csharp/Tatum/Clients) folder of the Tatum project. 
 
 Before 
 There are 2 basic ways, how to use Clients.
 ### Direct usage via Create Factory method
-First you need to add `Tatum.Clients` namespace.  
+First you need to add `Tatum` namespace.  
 ```C#
-using Tatum.Clients;
+using Tatum;
 ```  
-Then just call `Create()` method 
+Then just call `GenerateBitcoinWallet()` method 
 ```C#
-var bitcoinClient = BitcoinClient.Create(baseUrl, "your-x-api-key");
+BitcoinClient client = new BitcoinClient("your-x-api-key")
+
 ```  
-or  
-```C#
-IBitcoinClient bitcoinClient = BitcoinClient.Create(baseUrl, "your-x-api-key");
-```
+
 where typically `string baseUrl = "https://api-eu1.tatum.io";`.  
 Of course you should store your credentials securely eg. in environment variable or configuration file.  
 Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
