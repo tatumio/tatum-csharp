@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,8 +9,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
+using NBitcoin;
+using Tatum.Blockchain;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 /// <summary>
 /// Summary description for LitecoinClient
@@ -17,7 +22,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class LitecoinClient
+    public class LitecoinClient:ILitecoinClient
     {
         private readonly string _privateKey;
         public LitecoinClient(string privateKey)
@@ -27,17 +32,40 @@ namespace Tatum
 
 
 
-
-        public async Task<Litecoin> GenerateLitecoinWallet(string mnemonic)
+        Wallets ILitecoinClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var xPub = new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.LtcKeyDerivationPath))
+                .Neuter();
 
-
-            var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                Mnemonic = mnemonic,
+                XPub = xPub.ToString(testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet)
+            };
         }
+
+        string ILitecoinClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
+        {
+            return new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.LtcKeyDerivationPath))
+                .Derive(Convert.ToUInt32(index))
+                .PrivateKey
+                .GetWif(testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet)
+                .ToString();
+        }
+
+        string ILitecoinClient.GenerateAddress(string xPubString, int index, bool testnet)
+        {
+            return ExtPubKey.Parse(xPubString, testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet)
+                .Derive(Convert.ToUInt32(index))
+                .PubKey
+                .GetAddress(ScriptPubKeyType.Legacy, testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet)
+                .ToString();
+        }
+
 
 
         public async Task<Litecoin> GetLitecoinBlockchainInfo()
@@ -100,15 +128,11 @@ namespace Tatum
             return result;
         }
 
-        public async Task<List<Litecoin>> GetLitecoinTransactionsByAddress(string address, int pageSize = 50, int offset = 0)
+        public  Task<List<LitecoinTx>> GetTxForAccount(string address, int pageSize = 50, int offset = 0)
         {
 
+            throw new NotImplementedException();
 
-            var stringResult = await GetSecureRequest($"transaction/address/{address}?pageSize=10&offset=0");
-
-            var result = JsonConvert.DeserializeObject<List<Litecoin>>(stringResult);
-
-            return result;
         }
 
 
@@ -124,116 +148,129 @@ namespace Tatum
         }
 
 
-        public async Task<Litecoin> GetLitecoinUTXOTransaction(string hash, int index)
+      public  Task<LitecoinUtxo> GetUtxo(string txHash, int txOutputIndex)
         {
 
+            throw new NotImplementedException();
 
-            var stringResult = await GetSecureRequest($"utxo/{hash}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
         }
 
-
-
-        public async Task<Litecoin> GenerateLitecoinDepositAddressFromPublicKey(string xpub, int index)
+      public  Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
         {
-
-
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Litecoin> GenerateLitecoinPrivateKey(string index, int mnemonic)
-        {
-
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"wallet/priv",parameters);
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            throw new NotImplementedException();
         }
 
 
 
 
-        public async Task<Litecoin> SendLitecoinTransactionAddress(string fromaddress, string privateKey, string toAddress, string value)
+
+
+
+
+
+        Task<string> ILitecoinClient.SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet)
         {
-
-            string parameters = "{\"fromAddress\":[{\"address\":" + "\"" + fromaddress + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            throw new NotImplementedException();
         }
 
-
-        public async Task<Litecoin> SendLitecoinTransactionAddressKMS(string fromaddress, string signatureId, string toAddress, string value)
+        Task<string> ILitecoinClient.PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
-
-            string parameters = "{\"fromAddress\":[{\"address\":" + "\"" + fromaddress + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            return PrepareSignedTransaction(testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet, body);
         }
 
-
-
-        public async Task<Litecoin> SendLitecoinTransactionUTXO(string txHash, int index, string privateKey, string toAddress, string value)
+        async Task<TransactionHash> ILitecoinClient.SendTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
+            string txData = await (this as ILitecoinClient).PrepareSignedTransaction(body, testnet).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = txData
+            };
 
-            string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            return await (this as ILitecoinClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
 
-
-
-
-        public async Task<Litecoin> SendLitecoinTransactionUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value)
+        private async Task<string> PrepareSignedTransaction(Network network, TransferBtcBasedBlockchain body)
         {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
 
-            string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
+            NBitcoin.Transaction transaction = network.CreateTransaction();
+            List<BitcoinSecret> privateKeysToSign = new List<BitcoinSecret>();
+            List<Coin> coinsToSpent = new List<Coin>();
 
-            var stringResult = await PostSecureRequest($"transaction", parameters);
+            if (body.FromAddresses != null)
+            {
+                foreach (FromAddress fromAddress in body.FromAddresses)
+                {
+                    List<LitecoinTx> inputTxes = await (this as ILitecoinClient).GetTxForAccount(fromAddress.Address).ConfigureAwait(false);
+                    foreach (LitecoinTx inputTx in inputTxes)
+                    {
+                        for (int i = 0; i < inputTx.Outputs.Count; i++)
+                        {
+                            if (inputTx.Outputs[i].Address == fromAddress.Address)
+                            {
+                                var secret = new BitcoinSecret(fromAddress.PrivateKey, network);
+                                try
+                                {
+                                    LitecoinUtxo utxo = await (this as ILitecoinClient).GetUtxo(inputTx.Hash, i).ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
+                                    TxIn input = GetInputFromUtxo(secret, utxo, privateKeysToSign, coinsToSpent);
+                                    transaction.Inputs.Add(input);
+                                }
+                                catch (Exception)
+                                {
+                                    // spent, unconfirmed or invalid utxos
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-            return result;
+            if (body.FromUtxos != null)
+            {
+                foreach (FromUtxo fromUtxo in body.FromUtxos)
+                {
+                    var secret = new BitcoinSecret(fromUtxo.PrivateKey, network);
+
+                    try
+                    {
+                        LitecoinUtxo utxo = await (this as ILitecoinClient).GetUtxo(fromUtxo.TxHash, (int)fromUtxo.Index).ConfigureAwait(false);
+
+                        TxIn input = GetInputFromUtxo(secret, utxo, privateKeysToSign, coinsToSpent);
+                        transaction.Inputs.Add(input);
+                    }
+                    catch (Exception)
+                    {
+                        // spent, unconfirmed or invalid utxos
+                    }
+                }
+            }
+
+            foreach (Tox to in body.Tos)
+            {
+                var outputAddress = BitcoinAddress.Create(to.Address, network);
+                transaction.Outputs.Add(new Money(to.Value, MoneyUnit.BTC), outputAddress.ScriptPubKey);
+            }
+
+            transaction.Sign(privateKeysToSign, coinsToSpent);
+
+            return transaction.ToHex();
         }
 
-
-
-        public async Task<Litecoin> BroadcastSignedLitecoinTransaction(string txData, string signatureId)
+        private TxIn GetInputFromUtxo(BitcoinSecret secret, LitecoinUtxo utxo, List<BitcoinSecret> privateKeysToSign, List<Coin> coinsToSpent)
         {
+            uint256 transactionId = uint256.Parse(utxo.Hash);
+            var outpoint = new OutPoint(transactionId, (uint)utxo.Index);
 
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
+            privateKeysToSign.Add(secret);
+            var scriptSig = secret.GetAddress(ScriptPubKeyType.Legacy).ScriptPubKey;
 
-            var stringResult = await PostSecureRequest($"broadcast", parameters);
+            var coinToSpent = new Coin(transactionId, (uint)utxo.Index, Money.Satoshis(utxo.Value), scriptSig);
+            coinsToSpent.Add(coinToSpent);
 
-            var result = JsonConvert.DeserializeObject<Litecoin>(stringResult);
-
-            return result;
+            return new TxIn(outpoint, scriptSig);
         }
-
-
-
 
 
 

@@ -14,7 +14,7 @@ namespace Tatum
     public interface IXlmClient
     {
 
-        Task<Xlm> GenerateXlmAccount();
+        Wallets CreateWallet(string secret = null);
         Task<Xlm> GenerateXlmBlockchain();
         Task<Xlm> GetXlmBlockchainLedger(string sequence);
         Task<Xlm> GetXlmBlockchainTransactions(string sequence);
@@ -35,7 +35,7 @@ namespace Tatum
         Task<Xlm> CreateTrustLineXlmBlockchainKMS(string fromaccount, string issuerAccount, string token, string signatureid, string limit);
 
 
-        Task<Xrp> BroadcastSignedXlmTransaction(string txData, string signatureid);
+        Task<Xlm> BroadcastSignedXlmTransaction(string txData, string signatureid);
 
 
 

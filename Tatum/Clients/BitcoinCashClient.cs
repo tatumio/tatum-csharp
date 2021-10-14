@@ -8,8 +8,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
+using System.ComponentModel.DataAnnotations;
+using NBitcoin;
+using NBitcoin.Altcoins;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+
 
 /// <summary>
 /// Summary description for BitcoinCashClient
@@ -17,7 +23,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class BitcoinCashClient
+    public class BitcoinCashClient : IBitcoinCashClient
     {
         private readonly string _privateKey;
         public BitcoinCashClient(string privateKey)
@@ -26,17 +32,40 @@ namespace Tatum
         }
 
 
-        public async Task<BitcoinCash> GenerateBitcoinCashWallet(string mnemonic)
+
+        Wallets IBitcoinCashClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var xPub = new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(Constants.BchKeyDerivationPath))
+                .Neuter();
 
-
-            var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                Mnemonic = mnemonic,
+                XPub = xPub.ToString(testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet)
+            };
         }
 
+        string IBitcoinCashClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
+        {
+            return new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(Constants.BchKeyDerivationPath))
+                .Derive(Convert.ToUInt32(index))
+                .PrivateKey
+                .GetWif(testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet)
+                .ToString();
+        }
+
+        string IBitcoinCashClient.GenerateAddress(string xPubString, int index, bool testnet)
+        {
+            return ExtPubKey.Parse(xPubString, testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet)
+                .Derive(Convert.ToUInt32(index))
+                .PubKey
+                .GetAddress(ScriptPubKeyType.Legacy, testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet)
+                .ToString();
+        }
 
 
 
@@ -99,74 +128,119 @@ namespace Tatum
             return result;
         }
 
-        public async Task<BitcoinCash> GenerateBitcoinCashDepositAddressFromPublicKey(string xpub, int index)
+
+
+
+        //public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXO(string txHash, int index, string privateKey, string toAddress, string value)
+        //{
+
+        //    string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
+
+
+        //    var stringResult = await PostSecureRequest($"transaction", parameters);
+
+        //    var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
+
+        //    return result;
+        //}
+
+
+        //public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value)
+        //{
+
+        //    string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
+
+
+        //    var stringResult = await PostSecureRequest($"transaction", parameters);
+
+        //    var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
+
+        //    return result;
+        //}
+
+
+        public  Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
         {
 
-
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
-        }
-
-        public async Task<BitcoinCash> GenerateBitcoinCashPrivateKey(string index, int mnemonic)
-        {
-
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"wallet/priv", parameters);
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXO(string txHash, int index, string privateKey, string toAddress, string value)
-        {
-
-            string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value)
-        {
-
-            string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<BitcoinCash> BroadcastSignedBitcoinCashTransaction(string txData, string signatureId)
-        {
-
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"broadcast", parameters);
-
-            var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-            return result;
+            throw new NotImplementedException();
         }
 
 
 
+        Task<string> IBitcoinCashClient.SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet)
+        {
+            throw new NotImplementedException();
+        }
 
+        async Task<TransactionHash> IBitcoinCashClient.SendTransaction(TransferBchBlockchain body, bool testnet)
+        {
+            string txData = (this as IBitcoinCashClient).PrepareSignedTransaction(body, testnet);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = txData
+            };
+
+            return await (this as IBitcoinCashClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+        string IBitcoinCashClient.PrepareSignedTransaction(TransferBchBlockchain body, bool testnet)
+        {
+            return PrepareSignedTransaction(testnet ? BCash.Instance.Testnet : BCash.Instance.Mainnet, body);
+        }
+
+        private string PrepareSignedTransaction(Network network, TransferBchBlockchain body)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            NBitcoin.Transaction transaction = network.CreateTransaction();
+            List<BitcoinSecret> privateKeysToSign = new List<BitcoinSecret>();
+            List<Coin> coinsToSpent = new List<Coin>();
+
+            if (body.FromUtxos != null)
+            {
+                foreach (FromUtxoBcash fromUtxo in body.FromUtxos)
+                {
+                    var secret = new BitcoinSecret(fromUtxo.PrivateKey, network);
+
+                    try
+                    {
+                        TxIn input = GetInputFromUtxo(secret, fromUtxo, privateKeysToSign, coinsToSpent);
+                        transaction.Inputs.Add(input);
+                    }
+                    catch (Exception)
+                    {
+                        // spent, unconfirmed or invalid utxos
+                    }
+                }
+            }
+
+            foreach (Tox to in body.Tos)
+            {
+                var outputAddress = BitcoinAddress.Create(to.Address, network);
+                transaction.Outputs.Add(new Money(to.Value, MoneyUnit.BTC), outputAddress.ScriptPubKey);
+            }
+
+            transaction.Sign(privateKeysToSign, coinsToSpent);
+
+            return transaction.ToHex();
+        }
+
+        private TxIn GetInputFromUtxo(BitcoinSecret secret, FromUtxoBcash utxo, List<BitcoinSecret> privateKeysToSign, List<Coin> coinsToSpent)
+        {
+            uint256 transactionId = uint256.Parse(utxo.TxHash);
+            var outpoint = new OutPoint(transactionId, (uint)utxo.Index);
+
+            privateKeysToSign.Add(secret);
+            var scriptSig = secret.GetAddress(ScriptPubKeyType.Legacy).ScriptPubKey;
+
+            long value = (long)(Convert.ToDecimal(utxo.Value) * 100000000);
+
+            var coinToSpent = new Coin(transactionId, (uint)utxo.Index, Money.Satoshis(value), scriptSig);
+            coinsToSpent.Add(coinToSpent);
+
+            return new TxIn(outpoint, scriptSig);
+        }
 
 
 

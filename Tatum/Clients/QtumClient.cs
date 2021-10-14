@@ -8,16 +8,16 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
-
+using NBitcoin;
 
 /// <summary>
 /// Summary description for QtumClient
 /// </summary>
 namespace Tatum
 {
-    public class QtumClient
+    public class QtumClient:IQtumClient
     {
 
 
@@ -32,41 +32,72 @@ namespace Tatum
 
 
 
-
-
-
-
-
-
-        public async Task<QTUM> GenerateQtumWallet(string mnemonic)
+        Wallets IQtumClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var xPub = new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.QtumKeyDerivationPath))
+                .Neuter();
 
-            var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
-
-            var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                Mnemonic = mnemonic,
+                XPub = xPub.ToString(testnet ? Network.TestNet : Network.Main)
+            };
         }
 
-        public async Task<QTUM> GenerateQtumAccountAddressFromPublicKey(string xpub, int i)
+        string IQtumClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
-
-            var stringResult = await GetSecureRequest($"address/{xpub}/{i}");
-
-            var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
-
-            return result;
+            return new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.QtumKeyDerivationPath))
+                .Derive(Convert.ToUInt32(index))
+                .PrivateKey
+                .GetWif(testnet ? Network.TestNet : Network.Main)
+                .ToString();
         }
 
-        public async Task<QTUM> GenerateQtumPrivateKey(int index, string mnemonic)
+        string IQtumClient.GenerateAddress(string xPubString, int index, bool testnet)
         {
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-            var stringResult = await PostSecureRequest($"wallet/priv", parameters);
-
-            var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
-
-            return result;
+            return ExtPubKey.Parse(xPubString, testnet ? Network.TestNet : Network.Main)
+                .Derive(Convert.ToUInt32(index))
+                .PubKey
+                .GetAddress(ScriptPubKeyType.Legacy, testnet ? Network.TestNet : Network.Main)
+                .ToString();
         }
+
+
+
+
+        //public async Task<QTUM> GenerateQtumWallet(string mnemonic)
+        //{
+
+        //    var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
+
+        //    var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
+
+        //    return result;
+        //}
+
+        //public async Task<QTUM> GenerateQtumAccountAddressFromPublicKey(string xpub, int i)
+        //{
+
+        //    var stringResult = await GetSecureRequest($"address/{xpub}/{i}");
+
+        //    var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
+
+        //    return result;
+        //}
+
+        //public async Task<QTUM> GenerateQtumPrivateKey(int index, string mnemonic)
+        //{
+        //    string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
+        //    var stringResult = await PostSecureRequest($"wallet/priv", parameters);
+
+        //    var result = JsonConvert.DeserializeObject<QTUM>(stringResult);
+
+        //    return result;
+        //}
 
         public async Task<QTUM> Web3HttpDriver(string xapikey)
         {

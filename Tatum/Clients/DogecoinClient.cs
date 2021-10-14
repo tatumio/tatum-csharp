@@ -8,8 +8,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
+using NBitcoin;
 
 /// <summary>
 /// Summary description for DogeClient
@@ -17,7 +18,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class DogeClient
+    public class DogeClient : IDogecoinClient
     {
         private readonly string _privateKey;
         public DogeClient(string privateKey)
@@ -26,41 +27,44 @@ namespace Tatum
         }
 
 
-        public async Task<Dogecoin> GenerateDogecoinWallet(string mnemonic)
+
+
+        Wallets IDogecoinClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var xPub = new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.DogeKeyDerivationPath))
+                .Neuter();
 
+            return new Wallets
+            {
+                Mnemonic = mnemonic,
+                XPub = xPub.ToString(testnet ? Network.TestNet : Network.Main)
+            };
+        }
 
-            var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
+        string IDogecoinClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
+        {
+            return new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(testnet ? Constants.TestKeyDerivationPath : Constants.DogeKeyDerivationPath))
+                .Derive(Convert.ToUInt32(index))
+                .PrivateKey
+                .GetWif(testnet ? Network.TestNet : Network.Main)
+                .ToString();
+        }
 
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
+        string IDogecoinClient.GenerateAddress(string xPubString, int index, bool testnet)
+        {
+            return ExtPubKey.Parse(xPubString, testnet ? Network.TestNet : Network.Main)
+                .Derive(Convert.ToUInt32(index))
+                .PubKey
+                .GetAddress(ScriptPubKeyType.Legacy, testnet ? Network.TestNet : Network.Main)
+                .ToString();
         }
 
 
-
-        public async Task<Dogecoin> GenerateDogecoinDepositAddressFromPublicKey(string xpub, int index)
-        {
-
-
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Dogecoin> GenerateDogecoinPrivateKey(string index, int mnemonic)
-        {
-            string parameters= "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"wallet/priv",parameters);
-
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
-        }
+      
 
 
         public async Task<Dogecoin> GetDogecoinBlockchainInfo()

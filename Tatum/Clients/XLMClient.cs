@@ -8,8 +8,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
+using stellar_dotnet_sdk;
 
 /// <summary>
 /// Summary description for XLMClient
@@ -18,7 +19,7 @@ using System.Security;
 
 namespace Tatum
 {
-    public class XLMClient
+    public class XLMClient:IXlmClient
     {
 
         private readonly string _privateKey;
@@ -28,15 +29,24 @@ namespace Tatum
         }
 
 
-        public async Task<Xlm> GenerateXlmAccount()
+
+        Wallets IXlmClient.CreateWallet(string secret)
         {
+            KeyPair keypair;
+            if (string.IsNullOrWhiteSpace(secret))
+            {
+              keypair = KeyPair.Random();
+            }
+            else
+            {
+               keypair = KeyPair.FromSecretSeed(secret);
+            }
 
-
-            var stringResult = await GetSecureRequest($"account");
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+               PrivateKey = keypair.SecretSeed,
+                Address = keypair.Address
+            };
         }
 
         public async Task<Xlm> GenerateXlmBlockchain()

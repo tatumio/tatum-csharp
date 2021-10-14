@@ -14,10 +14,10 @@ namespace Tatum
     public interface IQtumClient
     {
 
-
-        Task<QTUM> GenerateQtumWallet(string mnemonic);
-        Task<QTUM> GenerateQtumAccountAddressFromPublicKey(string xpub, int i);
-        Task<QTUM> GenerateQtumPrivateKey(int index, string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPubString, int index, bool testnet);
+       
         Task<QTUM> Web3HttpDriver(string xapikey);
         Task<QTUM> GetCurrentBlockNumber();
         Task<QTUM> GetQtumBlockByHash(string hash);

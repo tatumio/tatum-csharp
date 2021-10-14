@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 /// <summary>
 /// Summary description for ILitecoinClient
@@ -11,27 +13,47 @@ namespace Tatum
 {
     public interface ILitecoinClient
     {
-        Task<Litecoin> GenerateLitecoinWallet(string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPubString, int index, bool testnet);
 
-       
+
         Task<Litecoin> GetLitecoinBlockchainInfo();
         Task<Litecoin> GetLitecoinBlockHash(int i);
         Task<Litecoin> GetLitecoinBlockByHash(string hash);
         Task<Litecoin> GetLitecoinTransactionByHash(string hash);
         Task<List<Litecoin>> GetMempoolTransactions();
-        Task<List<Litecoin>> GetLitecoinTransactionsByAddress(string address);
+     
         Task<Litecoin> GetLitecoinBalanceOfAddress(string address);
-        Task<Litecoin> GetLitecoinUTXOTransaction(string hash,int index);
-        Task<Litecoin> GenerateLitecoinDepositAddressFromPublicKey(string xpub, int index);
-        Task<Litecoin> GenerateLitecoinPrivateKey(string index, int mnemonic);
 
 
-        Task<Litecoin> SendLitecoinTransactionAddress(string fromaddress, string privateKey, string toAddress, string value);
-        Task<Litecoin> SendLitecoinTransactionAddressKMS(string fromaddress,string signatureId, string toAddress, string value);
-        Task<Litecoin> SendLitecoinTransactionUTXO(string txHash,int index, string privateKey, string toAddress, string value);
-        Task<Litecoin> SendLitecoinTransactionUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value);
 
-        Task<Litecoin> BroadcastSignedLitecoinTransaction(string txData, string signatureId);
+
+
+        Task<LitecoinUtxo> GetUtxo(string txHash, int txOutputIndex);
+        Task<List<LitecoinTx>> GetTxForAccount(string address, int pageSize = 50, int offset = 0);
+
+        Task<string> SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet);
+
+        /// <summary>
+        /// Sign Litecoin transaction with private keys locally. Nothing is broadcasted to the blockchain.
+        /// </summary>        
+        /// <param name="body">content of the transaction to broadcast</param>
+        /// <param name="testnet">testnet or mainnet version</param>
+        /// <returns>Transaction data to be broadcast to blockchain.</returns>
+        Task<string> PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet);
+
+        /// <summary>
+        /// Send Litecoin transaction to the blockchain. This method broadcasts signed transaction to the blockchain.
+        /// This operation is irreversible.
+        /// </summary>
+        /// <param name="body">content of the transaction to broadcast</param>
+        /// <param name="testnet">testnet or mainnet version</param>
+        /// <returns>transaction id of the transaction in the blockchain</returns>
+        Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet);
+
+      
+        Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
 
     }
 }

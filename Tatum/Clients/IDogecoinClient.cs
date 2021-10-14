@@ -11,10 +11,11 @@ namespace Tatum
 {
     public interface IDogecoinClient
     {
-        Task<Dogecoin> GenerateDogecoinWallet(string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPubString, int index, bool testnet);
 
-        Task<Dogecoin> GenerateDogecoinDepositAddressFromPublicKey(string xpub, int index);
-        Task<Dogecoin> GenerateDogecoinPrivateKey(string index, int mnemonic);
+
         Task<Dogecoin> GetDogecoinBlockchainInfo();
         Task<Dogecoin> GetDogecoinBlockHash(int i);
         Task<Dogecoin> GetDogecoinBlockByHash(string hash);

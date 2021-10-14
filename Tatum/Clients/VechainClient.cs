@@ -8,8 +8,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
+using NBitcoin;
 
 /// <summary>
 /// Summary description for VechainClient
@@ -17,7 +18,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class VechainClient
+    public class VechainClient : IVechainClient
     {
 
 
@@ -28,36 +29,33 @@ namespace Tatum
         }
 
 
-        public async Task<Vechain> GenerateVechainWallet(string mnemonic)
+        Wallets IVechainClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
+            var xpub = wallet.GetMasterExtPubKey();
 
-            var stringResult = await GetSecureRequest($"wallet");
-
-            var result = JsonConvert.DeserializeObject<Vechain>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                XPub = xpub.ToString(Network.Main),
+                Mnemonic = mnemonic
+            };
         }
 
-
-        public async Task<Vechain> GenerateVechainFromExtendedPublicKey(string xpub, string index)
+        string IVechainClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
 
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Vechain>(stringResult);
-
-            return result;
+            return wallet.GetAccount(index).PrivateKey;
         }
 
-        public async Task<Vechain> GenerateVechainPrivateKey(string index, string mnemonic)
+        string IVechainClient.GenerateAddress(string xPub, int index, bool testnet)
         {
+            var extPubKey = ExtPubKey.Parse(xPub, Network.Main);
 
-            var stringResult = await PostSecureRequest($"wallet/priv","");
-
-            var result = JsonConvert.DeserializeObject<Vechain>(stringResult);
-
-            return result;
+            var publicWallet = new Nethereum.HdWallet.PublicWallet(extPubKey);
+            return publicWallet.GetAddress(index).ToLower();
         }
+
 
         public async Task<Vechain> GetVechainCurrentBlock()
         {

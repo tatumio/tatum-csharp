@@ -8,9 +8,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
+//using Microsoft.Extensions.Http;
 using System.Security;
-
+using NBitcoin;
 
 
 namespace Tatum
@@ -27,41 +27,31 @@ namespace Tatum
 
 
 
-        public async Task<Ethereum> GenerateEthereumWallet(string xtestnettype, string mnemonic)
+        Wallets IEthereumClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.EthKeyDerivationPath);
+            var xpub = wallet.GetMasterExtPubKey();
 
-
-            var stringResult = await GetSecureRequest($"wallet?mnemonic="+ mnemonic, xtestnettype);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                XPub = xpub.ToString(Network.Main),
+                Mnemonic = mnemonic
+            };
         }
 
-
-        public async Task<Ethereum> GenerateEthereumDepositAddressFromPublicKey(string xtestnettype, string xpub, int index)
+        string IEthereumClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.EthKeyDerivationPath);
 
-
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}", xtestnettype);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
+            return wallet.GetAccount(index).PrivateKey;
         }
 
-
-        public async Task<Ethereum> GenerateEthereumPrivateKey(string xtestnettype, string index, int mnemonic)
+        string IEthereumClient.GenerateAddress(string xPub, int index, bool testnet)
         {
+            var extPubKey = ExtPubKey.Parse(xPub, Network.Main);
 
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"wallet/priv", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
+            var publicWallet = new Nethereum.HdWallet.PublicWallet(extPubKey);
+            return publicWallet.GetAddress(index).ToLower();
         }
 
 

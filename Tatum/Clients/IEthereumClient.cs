@@ -10,9 +10,9 @@ namespace Tatum
 {
     public interface IEthereumClient
     {
-        Task<Ethereum> GenerateEthereumWallet(string xtestnettype, string mnemonic);
-        Task<Ethereum> GenerateEthereumDepositAddressFromPublicKey(string xtestnettype, string xpub, int index);
-        Task<Ethereum> GenerateEthereumPrivateKey(string xtestnettype, string index, int mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPubString, int index, bool testnet);
 
         Task<Ethereum> Web3Http3Driver(string testnettype, string xApiKey,string jsonrpc,string method,object[] web3params,string id);
 

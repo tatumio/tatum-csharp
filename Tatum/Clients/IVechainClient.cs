@@ -13,9 +13,9 @@ namespace Tatum
 {
     public interface IVechainClient
     {
-        Task<Vechain> GenerateVechainWallet(string mnemonic);
-        Task<Vechain> GenerateVechainFromExtendedPublicKey(string xpub,string index);
-        Task<Vechain> GenerateVechainPrivateKey(string index, string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPub, int index, bool testnet);
         Task<Vechain> GetVechainCurrentBlock();
         Task<Vechain> GetVechainBlockByHash(string hash);
         Task<Vechain> GetVechainAccountBalance(string address);
