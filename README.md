@@ -32,7 +32,12 @@ Then just call `CreateWallet()` method
 BitcoinClient client = new BitcoinClient("your-x-api-key")
 
 ```  
-
+### Usage via Wallet Static Method
+First you need to add `Tatum` namespace.  
+```C#
+using Tatum;
+using Tatum.Model;
+``` 
 where typically `string baseUrl = "https://api-eu1.tatum.io";`.  
 Of course you should store your credentials securely eg. in environment variable or configuration file.  
 Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
