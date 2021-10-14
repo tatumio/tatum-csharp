@@ -25,8 +25,9 @@ There are 2 basic ways, how to use Clients.
 First you need to add `Tatum` namespace.  
 ```C#
 using Tatum;
+using Tatum.Model;
 ```  
-Then just call `GenerateBitcoinWallet()` method 
+Then just call `CreateWallet()` method 
 ```C#
 BitcoinClient client = new BitcoinClient("your-x-api-key")
 
