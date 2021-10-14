@@ -33,10 +33,17 @@ BitcoinClient client = new BitcoinClient("your-x-api-key")
 
 ```  
 ### Usage via Wallet Static Method
-First you need to add `Tatum` namespace.  
+Also you need to add `Tatum` namespace.  
 ```C#
 using Tatum;
 using Tatum.Model;
+``` 
+Then also call `CreateWallet()` method without the need of using your private key
+```C#
+ var xpub = Wallets.Create(Currency.LTC, mnemonic, True)
+ var privekey = Wallets.GeneratePrivateKey(Currency.LTC, mnemonic, index, True)
+ var address = Wallets.GenerateAddress(Currency.LTC, xpub.XPub, index, True)
+
 ``` 
 where typically `string baseUrl = "https://api-eu1.tatum.io";`.  
 Of course you should store your credentials securely eg. in environment variable or configuration file.  
