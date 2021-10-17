@@ -131,39 +131,21 @@ namespace Tatum
 
 
 
-        //public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXO(string txHash, int index, string privateKey, string toAddress, string value)
-        //{
-
-        //    string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
 
 
-        //    var stringResult = await PostSecureRequest($"transaction", parameters);
 
-        //    var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-        //    return result;
-        //}
-
-
-        //public async Task<BitcoinCash> SendBitcoinCashTransactionFromUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value)
-        //{
-
-        //    string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
-
-
-        //    var stringResult = await PostSecureRequest($"transaction", parameters);
-
-        //    var result = JsonConvert.DeserializeObject<BitcoinCash>(stringResult);
-
-        //    return result;
-        //}
-
-
-        public  Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
+        public async Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
         {
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
 
-            throw new NotImplementedException();
+            var stringResult = await PostSecureRequest($"broadcast", parameters);
+
+            var result = JsonConvert.DeserializeObject<TransactionHash>(stringResult);
+
+            return result;
         }
+
+       
 
 
 

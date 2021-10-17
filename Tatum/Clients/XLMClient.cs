@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
 using stellar_dotnet_sdk;
+using stellar_dotnet_sdk.responses;
 
 /// <summary>
 /// Summary description for XLMClient
@@ -215,7 +216,7 @@ namespace Tatum
 
 
 
-
+      
 
 
 

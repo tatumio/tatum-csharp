@@ -11,6 +11,15 @@ using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
 using NBitcoin;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
+using System.Numerics;
+using Tatum.Model.Responses;
+using Tatum.Model.Requests;
+using Tatum.Blockchain;
 
 
 namespace Tatum
@@ -42,7 +51,7 @@ namespace Tatum
         string IEthereumClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
             var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.EthKeyDerivationPath);
-
+            
             return wallet.GetAccount(index).PrivateKey;
         }
 
@@ -117,15 +126,15 @@ namespace Tatum
             return result;
         }
 
-        public async Task<Ethereum> GetCountOfOutgoingTransaction(string xtestnettype, string address)
+       
+
+        public  async Task<int> GetTransactionsCount(string address)
         {
+            var stringResult = await GetSecureRequest($"transaction/count/{address}", "");
 
+               var result = JsonConvert.DeserializeObject<int>(stringResult);
 
-            var stringResult = await GetSecureRequest($"transaction/count/{address}", xtestnettype);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
+               return result;
         }
 
         public async Task<Ethereum> GetEthereumTransactionsAddress(string xtestnettype, string address, int from, int to, string sort, int pageSize = 50, int offset = 0)
@@ -140,19 +149,7 @@ namespace Tatum
         }
 
 
-        public async Task<Ethereum> TransferEthBlockchain(string xtestnettype, string data, string to, string currency, string gaslimit, string gasprice, string amount, string fromprivatekey)
-        {
-            
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"transaction", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
-        }
-
+      
 
         public async Task<Ethereum> TransferEthBlockchainKms(string xtestnettype, string data, string to, string currency, string gaslimit, string gasprice, string amount, string signatureid, string index)
         {
@@ -237,23 +234,71 @@ namespace Tatum
         }
 
 
-        public async Task<Ethereum> BroadcastSignedEthTransaction(string xtestnettype, string txData, string signatureId)
+
+
+        public async Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
         {
-            
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
 
 
-            var stringResult = await PostSecureRequest($"broadcast", xtestnettype, parameters);
+            var stringResult = await PostSecureRequest($"broadcast", "", parameters);
 
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
+            var result = JsonConvert.DeserializeObject<TransactionHash>(stringResult);
 
             return result;
         }
 
 
+        Task<BigInteger> IEthereumClient.GetGasPriceInWei()
+        {
+            throw new NotImplementedException();
 
+        }
 
+        async Task<string> IEthereumClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
 
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var addressTo = body.To ?? account.Address;
+            var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
+            var customFee = body.EthFee ??
+                new EthFee
+                {
+                    GasLimit = body.Data.Length * 68 + 21000,
+                    
+                    GasPrice = 420000
+                };
+
+            var transactionInput = new TransactionInput
+            (
+                data: body.Data,
+                addressTo: addressTo,
+                addressFrom: account.Address,
+                gas: new HexBigInteger(new BigInteger(customFee.GasLimit)),
+                gasPrice: new HexBigInteger(customFee.GasPrice),
+                value: new HexBigInteger(new BigInteger(0))
+            );
+
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            return $"0x{transactionHash}";
+        }
+
+        async Task<Model.Responses.TransactionHash> IEthereumClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var transaction = await (this as IEthereumClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
 
 
 

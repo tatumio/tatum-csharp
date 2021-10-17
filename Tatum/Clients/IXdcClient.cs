@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using Nethereum.Web3;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Summary description for IXdcClient
@@ -14,9 +21,9 @@ namespace Tatum
     {
 
 
-        Task<XDCNetwork> GenerateXDCWallet(string mnemonic);
-        Task<XDCNetwork> GenerateXDCAccountAddressFromPublicKey(string xpub, int index);
-        Task<XDCNetwork> GenerateXDCPrivateKey(int index, string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPub, int index, bool testnet);
         Task<XDCNetwork> Web3HttpDriver(string xapikey);
         Task<XDCNetwork> GetCurrentBlockNumber();
         Task<XDCNetwork> GetXDCBlockByHash(string hash);
@@ -39,7 +46,18 @@ namespace Tatum
 
 
 
-        Task<XDCNetwork> BroadcastSignedXdcTransaction(string txData, string signatureId);
+        Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
+        Task<int> GetTransactionsCount(string address);
+
+        /// <summary>
+        /// Estimate Gas price for the transaction.
+        /// </summary>
+        /// <returns>Gas price in Wei.</returns>
+        Task<BigInteger> GetGasPriceInWei();
+
+        Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
 
 
 

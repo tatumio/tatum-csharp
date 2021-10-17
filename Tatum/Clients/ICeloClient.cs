@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using Nethereum.Web3;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Summary description for ICeloClient
@@ -14,9 +22,9 @@ namespace Tatum
     {
 
 
-        Task<Celo> GenerateCeloWallet(string mnemonic);
-        Task<Celo> GenerateCeloAccountAddressFromPublicKey(string xpub, int index);
-        Task<Celo> GenerateCeloPrivateKey(int index, string mnemonic);
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPub, int index, bool testnet);
         Task<Celo> Web3HttpDriver(string xapikey);
         Task<Celo> GetCurrentBlockNumber();
         Task<Celo> GetCeloBlockByHash(string hash);
@@ -39,7 +47,18 @@ namespace Tatum
 
 
 
-        Task<Celo> BroadcastSignedCeloTransaction(string txData, string signatureId);
+        Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
+        Task<int> GetTransactionsCount(string address);
+
+        /// <summary>
+        /// Estimate Gas price for the transaction.
+        /// </summary>
+        /// <returns>Gas price in Wei.</returns>
+        Task<BigInteger> GetGasPriceInWei();
+
+        Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
 
 
 

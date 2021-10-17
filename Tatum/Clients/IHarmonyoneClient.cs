@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using Nethereum.Web3;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Summary description for IHarmonyoneClient
@@ -12,10 +19,13 @@ namespace Tatum
 {
     public interface IHarmonyoneClient
     {
-        Task<HarmonyOne> GenerateOneWallet(string mnemonic);
-        Task<HarmonyOne> GenerateOneAccountAddressFromPublicKey(string xpub, int index);
+
+        Wallets CreateWallet(string mnemonic, bool testnet);
+        String GeneratePrivateKey(string mnemonic, int index, bool testnet);
+        String GenerateAddress(string xPub, int index, bool testnet);
+
         Task<HarmonyOne> TransferHexaddressBech32(int address);
-        Task<HarmonyOne> GenerateOnePrivateKey( int index, string mnemonic);
+      
         Task<HarmonyOne> Web3HttpDriver(string xapikey);
         Task<HarmonyOne> GetCurrentBlockNumber();
         Task<HarmonyOne> GetOneBlockByHash(string hash);
@@ -38,7 +48,19 @@ namespace Tatum
 
 
 
-        Task<HarmonyOne> BroadcastSignedOneTransaction(string txData, string signatureId);
+
+        Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
+        Task<int> GetTransactionsCount(string address);
+
+        /// <summary>
+        /// Estimate Gas price for the transaction.
+        /// </summary>
+        /// <returns>Gas price in Wei.</returns>
+        Task<BigInteger> GetGasPriceInWei();
+
+        Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
 
 
     }

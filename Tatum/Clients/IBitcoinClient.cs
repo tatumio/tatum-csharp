@@ -35,7 +35,7 @@ namespace Tatum
         //Task<Bitcoin> SendBtcTransactionFromUTXO(string txHash, int index, string privateKey, string toAddress,string value);
         //Task<Bitcoin> SendBtcTransactionFromUTXOKMS(string txHash, int index, string signatureId, string toAddress, string value);
 
-        //Task<Bitcoin> BroadcastSignedBitcoinTransaction(string txData, string signatureId);
+        
 
 
         Task<TransactionHash> Broadcast(BroadcastRequest request);
@@ -60,10 +60,7 @@ namespace Tatum
         /// <returns>transaction id of the transaction in the blockchain</returns>
         Task<TransactionHash> SendTransaction(TransferBtcBasedBlockchain body, bool testnet);
 
-        //string PrepareSignedOffchainTransaction(List<WithdrawalResponseData> data, string amount, string address, bool testnet, string mnemonic = null,
-        //    List<KeyPair> keyPairs = null, string changeAddress = null, List<string> multipleAmounts = null);
-
-        //Task SendOffchainTransaction(TransferBtcBasedOffchain body, bool testnet);
+       
 
 
     }

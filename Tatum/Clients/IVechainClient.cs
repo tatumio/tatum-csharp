@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using Nethereum.Web3;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
+
+
+
 
 /// <summary>
 /// Summary description for IVechainClient
@@ -24,6 +35,18 @@ namespace Tatum
         Task<Vechain> GetVechainTransactionReceipt(string hash);
         Task<Vechain> SendVechainFromAccountToAccount(string to, string amount, string fromprivateKey, string signatureid,string data,string gasLimit);
         Task<Vechain> EstimateVechainGasForTransaction(string from, string to, string value,  string data, string nonce);
-        Task<Record> BroadcastSignedVechainTransaction(string txdata,string signatureid);
+
+        Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
+        Task<int> GetTransactionsCount(string address);
+
+        /// <summary>
+        /// Estimate Gas price for the transaction.
+        /// </summary>
+        /// <returns>Gas price in Wei.</returns>
+        Task<BigInteger> GetGasPriceInWei();
+
+        Task<string> PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
+
+        Task<TransactionHash> SendStoreDataTransaction(CreateRecord body, bool testnet, string provider = null);
     }
 }

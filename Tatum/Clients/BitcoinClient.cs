@@ -181,12 +181,18 @@ namespace Tatum
 
 
 
-
-
-        public Task<TransactionHash> Broadcast(BroadcastRequest request)
+        public async Task<TransactionHash> Broadcast(BroadcastRequest request)
         {
-            throw new NotImplementedException();
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
+
+            var stringResult = await PostSecureRequest($"broadcast", parameters);
+
+            var result = JsonConvert.DeserializeObject<TransactionHash>(stringResult);
+
+            return result;
         }
+
+      
 
         public Task<BitcoinUtxo> GetUtxo(string txHash, int txOutputIndex)
         {

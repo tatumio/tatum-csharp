@@ -10,6 +10,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
+using NBitcoin;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 /// <summary>
 /// Summary description for PolygonClient
@@ -17,7 +26,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class PolygonClient
+    public class PolygonClient:IPolygonClient
     {
         private readonly string _privateKey;
         public PolygonClient(string privateKey)
@@ -26,35 +35,37 @@ namespace Tatum
         }
 
 
-        public async Task<Polygon> GeneratePolygonWallet(string mnemonic)
+
+
+        Wallets IPolygonClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
+            var xpub = wallet.GetMasterExtPubKey();
 
-            var stringResult = await GetSecureRequest($"wallet?mnemonic=" + mnemonic);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                XPub = xpub.ToString(Network.Main),
+                Mnemonic = mnemonic
+            };
         }
 
-        public async Task<Polygon> GeneratePolygonAccountAddressFromPublicKey(string xpub, int index)
+        string IPolygonClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
 
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
+            return wallet.GetAccount(index).PrivateKey;
         }
 
-        public async Task<Polygon> GeneratePolygonPrivateKey(int index, string mnemonic)
+        string IPolygonClient.GenerateAddress(string xPub, int index, bool testnet)
         {
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-            var stringResult = await PostSecureRequest($"wallet/priv", parameters);
+            var extPubKey = ExtPubKey.Parse(xPub, Network.Main);
 
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
+            var publicWallet = new Nethereum.HdWallet.PublicWallet(extPubKey);
+            return publicWallet.GetAddress(index).ToLower();
         }
+
+
+
 
         public async Task<Polygon> Web3HttpDriver(string xapikey)
         {
@@ -196,16 +207,87 @@ namespace Tatum
 
 
 
-        public async Task<Polygon> BroadcastSignedAdaTransaction(string txData, string signatureId)
+
+        public async Task<int> GetTransactionsCount(string address)
         {
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
+            var stringResult = await GetSecureRequest($"transaction/count/{address}");
 
-            var stringResult = await PostSecureRequest($"broadcast", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
+            var result = JsonConvert.DeserializeObject<int>(stringResult);
 
             return result;
         }
+
+
+        public async Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
+        {
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
+
+
+            var stringResult = await PostSecureRequest($"broadcast", parameters);
+
+            var result = JsonConvert.DeserializeObject<TransactionHash>(stringResult);
+
+            return result;
+        }
+
+
+
+
+
+        Task<BigInteger> IPolygonClient.GetGasPriceInWei()
+        {
+            throw new NotImplementedException();
+
+        }
+
+        async Task<string> IPolygonClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var addressTo = body.To ?? account.Address;
+            var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
+            var customFee = body.EthFee ??
+                new EthFee
+                {
+                    GasLimit = body.Data.Length * 68 + 21000,
+
+                    GasPrice = 420000
+                };
+
+            var transactionInput = new TransactionInput
+            (
+                data: body.Data,
+                addressTo: addressTo,
+                addressFrom: account.Address,
+                gas: new HexBigInteger(new BigInteger(customFee.GasLimit)),
+                gasPrice: new HexBigInteger(customFee.GasPrice),
+                value: new HexBigInteger(new BigInteger(0))
+            );
+
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            return $"0x{transactionHash}";
+        }
+
+        async Task<Model.Responses.TransactionHash> IPolygonClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var transaction = await (this as IPolygonClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IPolygonClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+
+
+
 
 
 

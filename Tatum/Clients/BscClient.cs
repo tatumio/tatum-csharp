@@ -10,6 +10,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
+using NBitcoin;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3;
+using Nethereum.Web3.Accounts;
+using System.ComponentModel.DataAnnotations;
+using System.Numerics;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 /// <summary>
 /// Summary description for BscClient
@@ -17,7 +26,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class BscClient
+    public class BscClient:IBscClient
     {
 
         private readonly string _privateKey;
@@ -26,35 +35,35 @@ namespace Tatum
             _privateKey = privateKey;
         }
 
-        public async Task<Bsc> GenerateBscWallet(string mnemonic)
+
+
+        Wallets IBscClient.CreateWallet(string mnemonic, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
+            var xpub = wallet.GetMasterExtPubKey();
 
-            var stringResult = await GetSecureRequest($"wallet?mnemonic="+ mnemonic);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
+            return new Wallets
+            {
+                XPub = xpub.ToString(Network.Main),
+                Mnemonic = mnemonic
+            };
         }
 
-        public async Task<Bsc> GenerateBscAccountAddressFromPublicKey(string xpub, int index)
+        string IBscClient.GeneratePrivateKey(string mnemonic, int index, bool testnet)
         {
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, "", testnet ? Constants.TestKeyDerivationPath : Constants.VetKeyDerivationPath);
 
-            var stringResult = await GetSecureRequest($"address/{xpub}/{index}");
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
+            return wallet.GetAccount(index).PrivateKey;
         }
 
-        public async Task<Bsc> GenerateBscPrivateKey(int index, string mnemonic)
+        string IBscClient.GenerateAddress(string xPub, int index, bool testnet)
         {
-            string parameters = "{\"index\":" + "\"" + index + "" + "\",\"mnemonic\":" + "\"" + mnemonic + "" + "\"}";
-            var stringResult = await PostSecureRequest($"wallet/priv", parameters);
+            var extPubKey = ExtPubKey.Parse(xPub, Network.Main);
 
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
+            var publicWallet = new Nethereum.HdWallet.PublicWallet(extPubKey);
+            return publicWallet.GetAddress(index).ToLower();
         }
+
 
         public async Task<Bsc> Web3HttpDriver(string xapikey)
         {
@@ -188,16 +197,86 @@ namespace Tatum
 
 
 
-        public async Task<Bsc> BroadcastSignedAdaTransaction(string txData, string signatureId)
+        public async Task<int> GetTransactionsCount(string address)
         {
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
+            var stringResult = await GetSecureRequest($"transaction/count/{address}");
 
-            var stringResult = await PostSecureRequest($"broadcast", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
+            var result = JsonConvert.DeserializeObject<int>(stringResult);
 
             return result;
         }
+
+
+        public async Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
+        {
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
+
+
+            var stringResult = await PostSecureRequest($"broadcast", parameters);
+
+            var result = JsonConvert.DeserializeObject<TransactionHash>(stringResult);
+
+            return result;
+        }
+
+
+
+
+
+        Task<BigInteger> IBscClient.GetGasPriceInWei()
+        {
+            throw new NotImplementedException();
+
+        }
+
+        async Task<string> IBscClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var addressTo = body.To ?? account.Address;
+            var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
+            var customFee = body.EthFee ??
+                new EthFee
+                {
+                    GasLimit = body.Data.Length * 68 + 21000,
+
+                    GasPrice = 420000
+                };
+
+            var transactionInput = new TransactionInput
+            (
+                data: body.Data,
+                addressTo: addressTo,
+                addressFrom: account.Address,
+                gas: new HexBigInteger(new BigInteger(customFee.GasLimit)),
+                gasPrice: new HexBigInteger(customFee.GasPrice),
+                value: new HexBigInteger(new BigInteger(0))
+            );
+
+            var transactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            return $"0x{transactionHash}";
+        }
+
+        async Task<Model.Responses.TransactionHash> IBscClient.SendStoreDataTransaction(CreateRecord body, bool testnet, string provider)
+        {
+            var transaction = await (this as IBscClient).PrepareStoreDataTransaction(body, true).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = transaction
+            };
+
+            return await (this as IBscClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+
+
+
 
 
 
