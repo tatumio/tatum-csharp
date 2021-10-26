@@ -226,12 +226,13 @@ namespace Tatum
 
         async Task<string> ICeloClient.PrepareStoreDataTransaction(CreateRecord body, bool testnet, string provider)
         {
+            
             var validationContext = new ValidationContext(body);
             Validator.ValidateObject(body, validationContext);
 
             var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
             var web3 = new Web3(account);
-
+            
             var addressTo = body.To ?? account.Address;
             var addressNonce = body.Nonce > 0 ? body.Nonce : (uint)(await (this as IEthereumClient).GetTransactionsCount(addressTo).ConfigureAwait(false));
             var customFee = body.EthFee ??
