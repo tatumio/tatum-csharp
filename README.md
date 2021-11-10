@@ -49,8 +49,35 @@ where typically `string baseUrl = "https://api-eu1.tatum.io";`.
 Of course you should store your credentials securely eg. in environment variable or configuration file.  
 Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
 
-
-
+### Fully Supported Chains
+Following are fully supported chains  
+```
+BTC
+BCH
+ETH
+BNB - wallet creation
+BSC
+CELO
+DOGE
+LTC
+ONE
+POLYGON
+VET
+XDC
+XLM
+NEO - Wallet Creation
+QTUM
+``` 
+### HTTP CLIENTS Supported Chains
+Following are http clients supported chains  
+```
+ADA
+ALGO
+EGLD
+SCRYPTA
+TRON
+FLOW
+``` 
 
 ## Contributing
 
