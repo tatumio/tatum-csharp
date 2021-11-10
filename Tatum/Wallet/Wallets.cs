@@ -22,7 +22,7 @@ namespace Tatum
                 case Currency.BTC:
                     IBitcoinClient bitcoinClient = new BitcoinClient("");
                     return bitcoinClient.CreateWallet(mnemonic, testnet);
-
+                    
                 case Currency.BCH:
                     IBitcoinCashClient bitcoinCashClient = new BitcoinCashClient("");
                     return bitcoinCashClient.CreateWallet(mnemonic, testnet);
@@ -72,6 +72,9 @@ namespace Tatum
 
                 case Currency.XRP:
                 case Currency.NEO:
+                    INeoClient neoClient = new NeoClient("");
+                    return neoClient.CreateWallet(mnemonic, testnet);
+              
                 case Currency.BNB:
                     IBinanceClient binanceClient = new BinanceClient("");
                     return binanceClient.CreateWallet(mnemonic, testnet);
