@@ -73,6 +73,9 @@ namespace Tatum
                 case Currency.XRP:
                 case Currency.NEO:
                 case Currency.BNB:
+                    IBinanceClient binanceClient = new BinanceClient("");
+                    return binanceClient.CreateWallet(mnemonic, testnet);
+
                 default:
                     throw new NotImplementedException();
             }
