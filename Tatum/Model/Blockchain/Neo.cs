@@ -4,7 +4,7 @@ using System.Web;
 using Newtonsoft.Json;
 
 
-public class Neo
+public class neo
 {
 
     [JsonProperty("privateKey")]
