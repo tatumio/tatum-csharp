@@ -13,6 +13,7 @@ using System.Security;
 using stellar_dotnet_sdk;
 using stellar_dotnet_sdk.responses;
 
+
 /// <summary>
 /// Summary description for XLMClient
 /// </summary>
@@ -133,93 +134,87 @@ namespace Tatum
 
 
 
-        public async Task<Xlm> SendTransferXlmBlockchain(string fromaccount, string to, string amount, string fromsecret, bool initialize, string message)
+        
+
+
+        public async Task<Tatum.Model.Responses.TransactionHash> BroadcastSignedTransaction(Tatum.Model.Requests.BroadcastRequest request)
         {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"fromSecret\":" + "\"" + fromsecret + "" + "\",\"initialize\":" + "\"" + initialize + "" + "\",\"message\":" + "\"" + message + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction",parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Xlm> SendTransferXlmBlockchainAsset(string fromaccount, string to, string amount, string fromsecret, bool initialize, string token, string issuerAccount, string message)
-        {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"fromSecret\":" + "\"" + fromsecret + "" + "\",\"initialize\":" + "\"" + initialize + "" + "\",\"token\":" + "\"" + token + "" + "\",\"issuerAccount\":" + "\"" + issuerAccount + "" + "\",\"message\":" + "\"" + message + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Xlm> SendTransferXlmBlockchainKMS(string fromaccount, string to, string amount, string signatureid, bool initialize, string message)
-        {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"initialize\":" + "\"" + initialize + "" + "\",\"message\":" + "\"" + message + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Xlm> SendTransferXlmBlockchainKMSAsset(string fromaccount, string to, string amount, string signatureid, bool initialize, string token, string issuerAccount, string message)
-        {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"initialize\":" + "\"" + initialize + "" + "\",\"token\":" + "\"" + token + "" + "\",\"issuerAccount\":" + "\"" + issuerAccount + "" + "\",\"message\":" + "\"" + message + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-
-
-        public async Task<Xlm> CreateTrustLineXlmBlockchain(string fromaccount, string issuerAccount, string token, string fromsecret, string limit)
-        {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"issuerAccount\":" + "\"" + issuerAccount + "" + "\",\"token\":" + "\"" + token + "" + "\",\"fromSecret\":" + "\"" + fromsecret + "" + "\",\"limit\":" + "\"" + limit + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"trust", parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Xlm> CreateTrustLineXlmBlockchainKMS(string fromaccount, string issuerAccount, string token, string signatureid, string limit)
-        {
-            string parameters = "{\"fromAccount\":" + "\"" + fromaccount + "" + "\",\"issuerAccount\":" + "\"" + issuerAccount + "" + "\",\"token\":" + "\"" + token + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"limit\":" + "\"" + limit + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"trust", parameters);
-
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Xlm> BroadcastSignedXlmTransaction(string txData, string signatureid)
-        {
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
+            string parameters = "{\"txData\":" + "\"" + request.TxData + "" + "\",\"signatureId\":" + "\"" + request.SignatureId + "" + "\"}";
 
             var stringResult = await PostSecureRequest($"broadcast", parameters);
 
-            var result = JsonConvert.DeserializeObject<Xlm>(stringResult);
+            var result = JsonConvert.DeserializeObject<Tatum.Model.Responses.TransactionHash>(stringResult);
 
             return result;
         }
 
 
 
-      
 
 
 
+        async Task<Tatum.Model.Responses.TransactionHash> IXlmClient.SendTransaction( bool testnet)
+        {
+            string txData = await (this as IXlmClient).PrepareSignedTransaction( testnet).ConfigureAwait(false);
+            var broadcastRequest = new Tatum.Model.Requests.BroadcastRequest
+            {
+                TxData = txData
+            };
+
+            return await (this as IXlmClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
+
+        [Obsolete]
+        public async Task<string> PrepareSignedTransaction(bool testnet)
+        {
+
+            //Set network and server
+            Network network = new Network("Test SDF Network ; September 2015");
+            Server server = new Server("https://horizon-testnet.stellar.org");
+
+            //Source keypair from the secret seed
+            KeyPair sourceKeypair = KeyPair.FromSecretSeed("SOURCE_SECRET_SEED");
+
+            //Destination keypair from the account id
+            KeyPair destinationKeyPair = KeyPair.FromAccountId("DESTINATION_ACCOUNT_ID");
+
+            //Load source account data
+            AccountResponse sourceAccountResponse = await server.Accounts.Account(sourceKeypair.AccountId);
+
+            //Create source account object
+         stellar_dotnet_sdk.Account sourceAccount = new stellar_dotnet_sdk.Account(sourceKeypair.AccountId, sourceAccountResponse.SequenceNumber);
+
+         
+
+            //Create asset object with specific amount
+            //You can use native or non native ones.
+            stellar_dotnet_sdk.Asset asset = new AssetTypeNative();
+           
+            string amount = "1";
+
+            //Create payment operation
+            PaymentOperation operation = new PaymentOperation.Builder(destinationKeyPair, asset, amount).SetSourceAccount(sourceAccount.KeyPair).Build();
+
+            //Create transaction and add the payment operation we created
+            stellar_dotnet_sdk.Transaction  transaction = new stellar_dotnet_sdk.Transaction(null,0,0,null,null,null);
+
+            //Sign Transaction
+            transaction.Sign(sourceKeypair);
+            
+            //Try to send the transaction
+            try
+            {
+                await server.SubmitTransaction(transaction);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Send Transaction Failed");
+                Console.WriteLine("Exception: " + exception.Message);
+            }
+
+
+            return transaction.ToString();
+        }
 
 
 

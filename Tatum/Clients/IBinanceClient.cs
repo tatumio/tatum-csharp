@@ -13,7 +13,9 @@ namespace Tatum
 {
     public interface IBinanceClient
     {
-        Task<Binance> GenerateBinanceWallet();
+        // Task<Binance> GenerateBinanceWallet();
+
+        Wallets CreateWallet(string mnemonic, bool testnet);
         Task<Binance> GetBinanceCurrentBlock();
         Task<Binance> GetBinanceTransactionsBlock(int height);
         Task<Binance> GetBinanceAccount(string address);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,9 @@ using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
 using NBitcoin;
+using Tatum.Blockchain;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
 
 /// <summary>
 /// Summary description for DogeClient
@@ -129,6 +133,14 @@ namespace Tatum
         }
 
 
+        public Task<List<DogecoinTx>> GetTxForAccount(string address, int pageSize = 50, int offset = 0)
+        {
+
+            throw new NotImplementedException();
+
+        }
+
+
         public async Task<List<Dogecoin>> GetDogecoinUTXOTransaction(string hash, int index)
         {
 
@@ -141,50 +153,133 @@ namespace Tatum
         }
 
 
-        public async Task<Dogecoin> SendDogeTransactionUTXO(string fee, string changeAddress, string txHash, string sentvalue, string fromAddress, int index, string privateKey, string toAddress, string value)
+        
+
+
+
+        public Task<DogecoinUtxo> GetUtxo(string txHash, int txOutputIndex)
         {
 
-            string parameters = "{\"fee\":" + "\"" + fee + "" + "\",\"changeAddress\":" + "\"" + changeAddress + "" + "\",\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"value\":" + "\"" + value + "" + "\",\"address\":" + "\"" + fromAddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"privateKey\":" + "\"" + privateKey + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}]}";
+            throw new NotImplementedException();
 
-            var stringResult = await PostSecureRequest($"transaction", parameters);
+        }
 
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
+        public Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request)
+        {
+            throw new NotImplementedException();
         }
 
 
 
 
-        public async Task<Dogecoin> SendDogeTransactionUTXOKMS(string txHash, string sentvalue, string fromAddress, int index, string signatureId, string toAddress, string value, string fee, string changeAddress)
+
+
+
+
+
+        Task<string> IDogecoinClient.SignKmsTransaction(TransactionKms tx, List<string> privateKeys, bool testnet)
         {
-
-            string parameters = "{\"fromUTXO\":[{\"txHash\":" + "\"" + txHash + "" + "\",\"value\":" + "\"" + value + "" + "\",\"address\":" + "\"" + fromAddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}],\"to\":[{\"address\":" + "\"" + toAddress + "" + "\",\"value\":" + "\"" + value + "" + "\"}],\"fee\":" + "\"" + fee + "" + "\",\"changeAddress\":" + "\"" + changeAddress + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
+            throw new NotImplementedException();
         }
 
-
-
-
-        public async Task<Dogecoin> BroadcastSignedDogecoinTransaction(string txData, string signatureId)
+        Task<string> IDogecoinClient.PrepareSignedTransaction(TransferBtcBasedBlockchain body, bool testnet)
         {
-
-            string parameters = "{\"txData\":" + "\"" + txData + "" + "\",\"signatureId\":" + "\"" + signatureId + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"broadcast", parameters);
-
-            var result = JsonConvert.DeserializeObject<Dogecoin>(stringResult);
-
-            return result;
+            return PrepareSignedTransaction(testnet ? LitecoinTatum.Instance.Testnet : LitecoinTatum.Instance.Mainnet, body);
         }
 
+        async Task<TransactionHash> IDogecoinClient.SendTransaction(TransferBtcBasedBlockchain body, bool testnet)
+        {
+            string txData = await (this as IDogecoinClient).PrepareSignedTransaction(body, testnet).ConfigureAwait(false);
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = txData
+            };
 
+            return await (this as IDogecoinClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+        }
 
+        private async Task<string> PrepareSignedTransaction(Network network, TransferBtcBasedBlockchain body)
+        {
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            NBitcoin.Transaction transaction = network.CreateTransaction();
+            List<BitcoinSecret> privateKeysToSign = new List<BitcoinSecret>();
+            List<Coin> coinsToSpent = new List<Coin>();
+
+            if (body.FromAddresses != null)
+            {
+                foreach (FromAddress fromAddress in body.FromAddresses)
+                {
+                    List<DogecoinTx> inputTxes = await (this as IDogecoinClient).GetTxForAccount(fromAddress.Address).ConfigureAwait(false);
+                    foreach (DogecoinTx inputTx in inputTxes)
+                    {
+                        for (int i = 0; i < inputTx.Outputs.Count; i++)
+                        {
+                            if (inputTx.Outputs[i].Address == fromAddress.Address)
+                            {
+                                var secret = new BitcoinSecret(fromAddress.PrivateKey, network);
+                                try
+                                {
+                                    DogecoinUtxo utxo = await (this as IDogecoinClient).GetUtxo(inputTx.Hash, i).ConfigureAwait(false);
+
+                                    TxIn input = GetInputFromUtxo(secret, utxo, privateKeysToSign, coinsToSpent);
+                                    transaction.Inputs.Add(input);
+                                }
+                                catch (Exception)
+                                {
+                                    // spent, unconfirmed or invalid utxos
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (body.FromUtxos != null)
+            {
+                foreach (FromUtxo fromUtxo in body.FromUtxos)
+                {
+                    var secret = new BitcoinSecret(fromUtxo.PrivateKey, network);
+
+                    try
+                    {
+                        DogecoinUtxo utxo = await (this as IDogecoinClient).GetUtxo(fromUtxo.TxHash, (int)fromUtxo.Index).ConfigureAwait(false);
+
+                        TxIn input = GetInputFromUtxo(secret, utxo, privateKeysToSign, coinsToSpent);
+                        transaction.Inputs.Add(input);
+                    }
+                    catch (Exception)
+                    {
+                        // spent, unconfirmed or invalid utxos
+                    }
+                }
+            }
+
+            foreach (Tox to in body.Tos)
+            {
+                var outputAddress = BitcoinAddress.Create(to.Address, network);
+                transaction.Outputs.Add(new Money(to.Value, MoneyUnit.BTC), outputAddress.ScriptPubKey);
+            }
+
+            transaction.Sign(privateKeysToSign, coinsToSpent);
+
+            return transaction.ToHex();
+        }
+
+        private TxIn GetInputFromUtxo(BitcoinSecret secret, DogecoinUtxo utxo, List<BitcoinSecret> privateKeysToSign, List<Coin> coinsToSpent)
+        {
+            uint256 transactionId = uint256.Parse(utxo.Hash);
+            var outpoint = new OutPoint(transactionId, (uint)utxo.Index);
+
+            privateKeysToSign.Add(secret);
+            var scriptSig = secret.GetAddress(ScriptPubKeyType.Legacy).ScriptPubKey;
+
+            var coinToSpent = new Coin(transactionId, (uint)utxo.Index, Money.Satoshis(utxo.Value), scriptSig);
+            coinsToSpent.Add(coinToSpent);
+
+            return new TxIn(outpoint, scriptSig);
+        }
 
 
 

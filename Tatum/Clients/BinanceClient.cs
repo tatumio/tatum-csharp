@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -10,6 +6,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 //using Microsoft.Extensions.Http;
 using System.Security;
+//using NBitcoin;
+using Tatum.Model.Requests;
+using Tatum.Model.Responses;
+using System.ComponentModel.DataAnnotations;
+using BinanceClient.Crypto;
+using System.Collections.Generic;
+using System.IO;
+using System;
 
 /// <summary>
 /// Summary description for BinanceClient
@@ -17,7 +21,7 @@ using System.Security;
 /// 
 namespace Tatum
 {
-    public class BinanceClient
+    public class BinanceClient : IBinanceClient
     {
 
         private readonly string _privateKey;
@@ -27,15 +31,25 @@ namespace Tatum
         }
 
 
-        public async Task<Binance> GenerateBinanceWallet()
+
+
+        Wallets IBinanceClient.CreateWallet(string mnemonic, bool testnet)
         {
 
-            var stringResult = await GetSecureRequest($"account");
+          
+            var walletInfo = Wallet.CreateRandomAccount(testnet ? Network.Test : Network.Mainnet);
 
-            var result = JsonConvert.DeserializeObject<Binance>(stringResult);
 
-            return result;
+            return new Wallets
+            {
+                Mnemonic =  walletInfo.Mnemonic,
+                Address= walletInfo.Address,
+                PrivateKey=walletInfo.PrivateKey
+                
+            };
         }
+
+     
 
         public async Task<Binance> GetBinanceCurrentBlock()
         {
