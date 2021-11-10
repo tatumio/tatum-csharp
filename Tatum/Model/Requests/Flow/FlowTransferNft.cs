@@ -6,19 +6,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tatum.Model.Requests
 {
-    public class TransferFlow : FlowMnemonicOrPrivateKeyOrSignatureId
+    public class FlowTransferNft : FlowMnemonicOrPrivateKeyOrSignatureId
     {
 
         [Required]
         public string to { get; set; }
 
         [Required]
-        public string amount { get; set; }
+        public string tokenId { get; set; }
 
         [Required]
-        public Currency currency { get; set; }
+        public Currency chain { get; set; }
 
-      
+        [Required]
+        public uint contractAddress { get; set; }
 
     }
 }
