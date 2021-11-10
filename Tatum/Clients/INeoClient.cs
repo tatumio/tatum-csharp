@@ -12,20 +12,20 @@ namespace Tatum
 {
     public interface INeoClient
     {
-        Task<Neo> GenerateNeoAccount();
-        Task<Neo> GenerateCurrentNeoBlock();
-        Task<Neo> GenerateNeoBlock(string hash);
-        Task<Neo> GenerateNeoAccountBalance(string address);
-        Task<Neo> GenerateNeoAssetDetails(string asset);
-        Task<Neo> GenerateNeoUnspentTransactionOutput(string txId,int index);
-        Task<List<Neo>> GenerateNeoTransactions(string address);
-        Task<Neo> GetNeoContractDetails(string scriptHash);
-        Task<Neo> GetNeoTransactionByHash(string hash);
+        Wallets CreateWallet(string keyinput, bool testnet);
+        Task<neo> GenerateCurrentNeoBlock();
+        Task<neo> GenerateNeoBlock(string hash);
+        Task<neo> GenerateNeoAccountBalance(string address);
+        Task<neo> GenerateNeoAssetDetails(string asset);
+        Task<neo> GenerateNeoUnspentTransactionOutput(string txId,int index);
+        Task<List<neo>> GenerateNeoTransactions(string address);
+        Task<neo> GetNeoContractDetails(string scriptHash);
+        Task<neo> GetNeoTransactionByHash(string hash);
 
 
-        Task<Neo> SendNeoAsset(string to,int Neo,int gas,string fromprivatekey);
-        Task<Neo> ClaimGas(string privatekey);
-        Task<Neo> SendNeoSmartContractTokens(string numOfdecimals, int additionalInvocationGas, int amount, string scriptHash,string to,string fromPrivateKey);
-        Task<Neo> BroadcastSignedNeoTransaction(string txdata);
+        Task<neo> SendNeoAsset(string to,int Neo,int gas,string fromprivatekey);
+        Task<neo> ClaimGas(string privatekey);
+        Task<neo> SendNeoSmartContractTokens(string numOfdecimals, int additionalInvocationGas, int amount, string scriptHash,string to,string fromPrivateKey);
+        Task<neo> BroadcastSignedNeoTransaction(string txdata);
     }
 }
