@@ -133,27 +133,7 @@ namespace Tatum
         }
 
 
-        public async Task<Bsc> SendTransferBscBlockchain(string data, string to, string currency, string gaslimit, string gasprice, string amount, string fromprivatekey)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
 
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Bsc> SendTransferBscBlockchainKMS(string data, string to, string currency, string gaslimit, string gasprice, string amount, int index, string signatureid)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
-        }
 
 
 
@@ -169,36 +149,7 @@ namespace Tatum
         }
 
 
-        public async Task<Bsc> CallBscSmartContractReadMethod(string contractaddress, string methodname, string methodAbi, string[] contractparams)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodAbi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"]}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Bsc> CallBscSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams, string amount, string fromprivatekey, string gaslimit, string gasprice)
-        {
-             string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}"; 
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Bsc> CallBscSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Bsc>(stringResult);
-
-            return result;
-        }
+     
 
 
 

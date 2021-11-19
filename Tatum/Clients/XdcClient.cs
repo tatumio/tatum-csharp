@@ -143,28 +143,6 @@ namespace Tatum
 
 
 
-        public async Task<XDCNetwork> SendTransferXdcBlockchain(string data, string to, string gaslimit, string gasprice, string amount, string fromprivatekey)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<XDCNetwork>(stringResult);
-
-            return result;
-        }
-
-        public async Task<XDCNetwork> SendTransferXdcBlockchainKMS(string data, string to, string gaslimit, string gasprice, string amount, int index, string signatureid)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<XDCNetwork>(stringResult);
-
-            return result;
-        }
-
 
 
         public async Task<XDCNetwork> EstimateXdcTransactionFees(string from, string to, string amount, string data)
@@ -182,38 +160,6 @@ namespace Tatum
 
 
 
-
-
-        public async Task<XDCNetwork> CallXdcSmartContractReadMethod(string contractaddress, string methodname, string methodabi, string[] contractparams)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"]}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<XDCNetwork>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<XDCNetwork> CallXdcSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams, string amount, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<XDCNetwork>(stringResult);
-
-            return result;
-        }
-
-        public async Task<XDCNetwork> CallXdcSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<XDCNetwork>(stringResult);
-
-            return result;
-        }
 
 
 

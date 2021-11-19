@@ -30,16 +30,13 @@ namespace Tatum
         Task<Polygon> GetCountOutgoingPolygonTransaction(string address);
 
 
-        Task<Polygon> SendTransferPolygonBlockchain(string data, string to, string currency, string gaslimit, string gasprice, string amount, string fromprivatekey);
-        Task<Polygon> SendTransferPolygonBlockchainKMS(string data, string to, string currency, string gaslimit, string gasprice, string amount, int index, string signatureid);
-
+      
 
         Task<Polygon> EstimatePolygonTransactionFees(string from, string to, string amount, string data);
 
 
      
-        Task<Polygon> CallPolygonSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice);
-
+       
 
 
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);

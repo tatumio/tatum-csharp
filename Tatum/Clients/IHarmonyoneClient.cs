@@ -35,19 +35,7 @@ namespace Tatum
 
 
 
-        Task<HarmonyOne> SendTransferOneBlockchain(string data, string to, string gaslimit, string gasprice, string amount, string fromprivatekey);
-        Task<HarmonyOne> SendTransferOneBlockchainKMS(string data, string to, string gaslimit, string gasprice, string amount, int index, string signatureid);
-
-
-
-
-
-        Task<HarmonyOne> CallOneReadSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams);
-        Task<HarmonyOne> CallOneSmartContractMethod(string contractaddress,string amount, string methodname, string methodabi, string[] contractparams,string fromprivatekey, string gaslimit, string gasprice, string feecurrency);
-        Task<HarmonyOne> CallOneSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice, string feecurrency);
-
-
-
+     
 
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
         Task<int> GetTransactionsCount(string address);

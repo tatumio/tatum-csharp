@@ -129,67 +129,6 @@ namespace Tatum
 
 
 
-        public async Task<Celo> SendTransferCeloBlockchain(string data, string to, string currency, string feecurrency, string amount, string fromprivatekey)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":" + "\"" + feecurrency + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Celo>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Celo> SendTransferCeloBlockchainKMS(string data, string to, string currency, string feecurrency, string amount, int index, string signatureid)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":" + "\"" + feecurrency + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Celo>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-
-
-
-
-
-        public async Task<Celo> CallCeloReadSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"]}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Celo>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Celo> CallCeloSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams, string amount, string fromprivatekey, string gaslimit, string gasprice, string feecurrency)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Celo>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Celo> CallCeloSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice, string feecurrency)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Celo>(stringResult);
-
-            return result;
-        }
 
 
 

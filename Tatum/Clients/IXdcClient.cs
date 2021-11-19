@@ -33,17 +33,11 @@ namespace Tatum
 
 
 
-        Task<XDCNetwork> SendTransferXdcBlockchain(string data, string to,  string gaslimit, string gasprice, string amount, string fromprivatekey);
-        Task<XDCNetwork> SendTransferXdcBlockchainKMS(string data, string to, string gaslimit, string gasprice, string amount, int index, string signatureid);
-
 
         Task<XDCNetwork> EstimateXdcTransactionFees(string from, string to, string amount, string data);
 
 
-        Task<XDCNetwork> CallXdcSmartContractReadMethod(string contractaddress, string methodname, string methodabi, string[] contractparams);
-        Task<XDCNetwork> CallXdcSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams, string amount, string fromprivatekey, string gaslimit, string gasprice);
-        Task<XDCNetwork> CallXdcSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice);
-
+       
 
 
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);

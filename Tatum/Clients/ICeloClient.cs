@@ -34,18 +34,6 @@ namespace Tatum
 
 
 
-        //Task<Celo> SendTransferCeloBlockchain(string data, string to, string currency, string feecurrency, string amount, string fromprivatekey);
-        //Task<Celo> SendTransferCeloBlockchainKMS(string data, string to, string currency, string feecurrency, string amount, int index, string signatureid);
-
-
-
-
-
-        //Task<Celo> CallCeloReadSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams);
-        //Task<Celo> CallCeloSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams, string amount, string fromprivatekey, string gaslimit, string gasprice,string feecurrency);
-        //Task<Celo> CallCeloSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice, string feecurrency);
-
-
 
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);
         Task<int> GetTransactionsCount(string address);

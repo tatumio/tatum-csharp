@@ -137,27 +137,6 @@ namespace Tatum
 
 
 
-        public async Task<Polygon> SendTransferPolygonBlockchain(string data, string to, string currency, string gaslimit, string gasprice, string amount, string fromprivatekey)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Polygon> SendTransferPolygonBlockchainKMS(string data, string to, string currency, string gaslimit, string gasprice, string amount, int index, string signatureid)
-        {
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
-        }
 
 
 
@@ -176,38 +155,6 @@ namespace Tatum
 
 
 
-
-
-        public async Task<Polygon> CallPolygonSmartContractReadMethod(string contractaddress, string methodname, string methodabi, string[] contractparams)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"]}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Polygon> CallPolygonSmartContractMethod(string contractaddress,string amount, string methodname, string methodabi, string[] contractparams, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"amount\":" + "\"" +  amount + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
-        }
-
-        public async Task<Polygon> CallPolygonSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"methodName\":" + "\"" + methodname + "" + "\",\"methodABI\":{" + "\"" + methodabi + "" + "\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"smartcontract", parameters);
-
-            var result = JsonConvert.DeserializeObject<Polygon>(stringResult);
-
-            return result;
-        }
 
 
 

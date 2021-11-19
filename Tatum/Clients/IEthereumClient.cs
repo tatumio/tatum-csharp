@@ -27,16 +27,10 @@ namespace Tatum
         Task<Ethereum> GetEthereumTransaction(string xtestnettype, string hash);
        
         Task<Ethereum> GetEthereumTransactionsAddress(string xtestnettype, string address, int from, int to, string sort, int pageSize = 50, int offset = 0);
-        Task<Ethereum> TransferEthBlockchainKms(string xtestnettype, string data, string to, string currency, string gaslimit, string gasprice, string amount, string signatureid,string index);
-
+       
         Task<Ethereum> EstimateEthTransactionFee(string xtestnettype, string from, string to, string amount, string data);
 
-        Task<Ethereum> CallSmartContractMethod(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams, string fromPrivateKey, string gasLimit,string gasPrice);
-
-        Task<Ethereum> CallReadSmartContractMethod(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams);
-
-        Task<Ethereum> CallSmartContractMethodKMS(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams, string signatureId,int index, string gasLimit, string gasPrice);
-
+      
 
         Task<Ethereum> GetErc20InternalTransaction(string xtestnettype, string address, int pageSize = 50, int offset = 0);
 

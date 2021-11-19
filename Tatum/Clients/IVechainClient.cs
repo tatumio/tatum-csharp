@@ -33,7 +33,6 @@ namespace Tatum
         Task<Vechain> GetVechainAccountEnergy(string address);
         Task<Vechain> GetVechainTransaction(string hash);
         Task<Vechain> GetVechainTransactionReceipt(string hash);
-        Task<Vechain> SendVechainFromAccountToAccount(string to, string amount, string fromprivateKey, string signatureid,string data,string gasLimit);
         Task<Vechain> EstimateVechainGasForTransaction(string from, string to, string value,  string data, string nonce);
 
         Task<TransactionHash> BroadcastSignedTransaction(BroadcastRequest request);

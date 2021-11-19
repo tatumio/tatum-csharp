@@ -31,17 +31,12 @@ namespace Tatum
 
 
 
-        Task<Bsc> SendTransferBscBlockchain(string data,string to,string currency,string gaslimit,string gasprice,string amount,string fromprivatekey);
-        Task<Bsc> SendTransferBscBlockchainKMS(string data, string to, string currency, string gaslimit, string gasprice, string amount,int index, string signatureid);
-
+       
 
         Task<Bsc> EstimateBscTransactionFees(string from,string to,string amount,string data);
 
 
-        Task<Bsc> CallBscSmartContractReadMethod(string contractaddress, string methodname, string methodabi, string[] contractparams);
-        Task<Bsc> CallBscSmartContractMethod(string contractaddress, string methodname, string methodabi, string[] contractparams,string amount,string fromprivatekey,string gaslimit,string gasprice);
-        Task<Bsc> CallBscSmartContractMethodKMS(string contractaddress, string methodname, string methodabi, string[] contractparams, int index, string signatureid, string gaslimit, string gasprice);
-
+       
 
 
 

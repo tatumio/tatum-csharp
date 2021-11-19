@@ -154,18 +154,6 @@ namespace Tatum
 
       
 
-        public async Task<Ethereum> TransferEthBlockchainKms(string xtestnettype, string data, string to, string currency, string gaslimit, string gasprice, string amount, string signatureid, string index)
-        {
-
-            string parameters = "{\"data\":" + "\"" + data + "" + "\",\"to\":" + "\"" + to + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"},\"amount\":" + "\"" + amount + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"index\":" + "\"" + index + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"transaction", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
-        }
 
 
         public async Task<Ethereum> EstimateEthTransactionFee(string xtestnettype, string from, string to, string amount, string data)
@@ -182,46 +170,7 @@ namespace Tatum
         }
 
 
-        public async Task<Ethereum> CallSmartContractMethod(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams, string fromPrivateKey, string gasLimit, string gasPrice)
-        {
-
-            string parameters = "{\"contractAddress\":" + "\"" + contractAddress + "" + "\",\"methodName\":" + "\"" + methodName + "" + "\",\"methodABI\":{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"fromPrivateKey\":" + "\"" + fromPrivateKey + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gasLimit + "" + "\",\"gasPrice\":" + "\"" + gasPrice + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"smartcontract", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Ethereum> CallReadSmartContractMethod(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams)
-        {
-
-            string parameters = "{\"contractAddress\":" + "\"" + contractAddress + "" + "\",\"methodName\":" + "\"" + methodName + "" + "\",\"methodABI\":{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},\"params\":[" + "\"" + contractparams + "" + "\"]";
-
-
-            var stringResult = await PostSecureRequest($"smartcontract", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<Ethereum> CallSmartContractMethodKMS(string xtestnettype, string contractAddress, string methodName, object methodAbi, object[] contractparams, string signatureId, int index, string gasLimit, string gasPrice)
-        {
-
-            string parameters = "{\"contractAddress\":" + "\"" + contractAddress + "" + "\",\"methodName\":" + "\"" + methodName + "" + "\",\"methodABI\":{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},\"params\":[" + "\"" + contractparams + "" + "\"],\"signatureId\":" + "\"" + signatureId + "" + "\",\"index\":" + "\"" + index + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gasLimit + "" + "\",\"gasPrice\":" + "\"" + gasPrice + "" + "\"}";
-
-
-            var stringResult = await PostSecureRequest($"smartcontract", xtestnettype, parameters);
-
-            var result = JsonConvert.DeserializeObject<Ethereum>(stringResult);
-
-            return result;
-        }
+    
 
 
 
