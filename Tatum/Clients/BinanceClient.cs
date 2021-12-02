@@ -37,8 +37,8 @@ namespace Tatum
         {
 
           
-            var walletInfo = Wallet.CreateRandomAccount(testnet ? Network.Test : Network.Mainnet);
-
+            var walletInfo = Wallet.CreateRandomAccount( testnet ? Network.Test : Network.Mainnet);
+            
 
             return new Wallets
             {

@@ -1010,7 +1010,7 @@ namespace Tatum
         }
 
 
-        async Task<Model.Responses.TransactionHash> ICeloClient.sendCeloDeployMultiTokenTransaction(CeloDeployMultiToken body, bool testnet, string provider)
+      async Task<Model.Responses.TransactionHash> ICeloClient.sendCeloDeployMultiTokenTransaction(CeloDeployMultiToken body, bool testnet, string provider)
         {
 
             var FromPrivatekey = body.FromPrivatekey;

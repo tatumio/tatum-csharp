@@ -8,8 +8,16 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-//using Microsoft.Extensions.Http;
 using System.Security;
+using Tatum.Model;
+using Tatum.Model.Responses;
+using Tatum.Model.Requests;
+using Tatum.Contracts;
+using System.ComponentModel.DataAnnotations;
+using Nethereum.Web3;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Hex.HexTypes;
+using System.Numerics;
 
 /// <summary>
 /// Summary description for FungibleTokenClient
@@ -29,262 +37,238 @@ namespace Tatum
 
 
 
-        public async Task<FungibleToken> ChainDeployErc20(string chain, string symbol, string name, string totalcap, string supply, int digits, string address, string fromprivatekey, string gaslimit, string gasprice)
+
+
+        async Task<Model.Responses.TransactionHash> DeployErc20(DeployErc20 body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"symbol\":" + "\"" + symbol + "" + "\",\"name\":" + "\"" + name + "" + "\",\"totalCap\"" + "\"" + totalcap + "" + "\",\"supply\":" + "\"" + supply + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"address\":" + "\"" + address + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var address = body.address;
+            var name = body.name;
+            var symbol = body.symbol;
+            var supply = body.supply;
+            var digits = body.digits;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var totalCap = body.totalCap;
+            var signatureid = body.signatureId;
+
+
+
+
+
+            var tx = new TransactionReceipt();
+
+
+
+            var abi = new token_abi();
+
+            var bytecode = new token_bytecode();
+
+
+
+
+            tx = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(abi._tokenabi, bytecode._tokenbytecode,
+                                                                                    address, gaslimit,
+                                                                                    null, address, name, symbol, supply, digits, totalCap,
+                                                                                    signatureid);
+
+
+
+
+
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
-
-        public async Task<FungibleToken> ChainDeployErc20KMS(string chain, string symbol, string name, string totalcap, string supply, int digits, string address, string signatureid, string gaslimit, string gasprice)
+        async Task<Model.Responses.TransactionHash> DeployBep20(DeployErc20 body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"symbol\":" + "\"" + symbol + "" + "\",\"name\":" + "\"" + name + "" + "\",\"totalCap\"" + "\"" + totalcap + "" + "\",\"supply\":" + "\"" + supply + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"address\":" + "\"" + address + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var address = body.address;
+            var name = body.name;
+            var symbol = body.symbol;
+            var supply = body.supply;
+            var digits = body.digits;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var totalCap = body.totalCap;
+            var signatureid = body.signatureId;
+
+
+
+
+
+            var tx = new TransactionReceipt();
+
+
+
+            var abi = new token_abi();
+
+            var bytecode = new token_bytecode();
+
+
+
+
+            tx = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(abi._tokenabi, bytecode._tokenbytecode,
+                                                                                    address, gaslimit,
+                                                                                    null, address, name, symbol, supply, digits, totalCap,
+                                                                                    signatureid);
+
+
+
+
+
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
-
-
-        public async Task<FungibleToken> ChainDeployCeloErc20(string chain, string symbol, string name, string totalcap, string supply, int digits, string address, string fromprivatekey, string feecurrency)
+        async Task<Model.Responses.TransactionHash> OneDeployErc20(DeployErc20 body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"symbol\":" + "\"" + symbol + "" + "\",\"name\":" + "\"" + name + "" + "\",\"totalCap\"" + "\"" + totalcap + "" + "\",\"supply\":" + "\"" + supply + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"address\":" + "\"" + address + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var address = body.address;
+            var name = body.name;
+            var symbol = body.symbol;
+            var supply = body.supply;
+            var digits = body.digits;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var totalCap = body.totalCap;
+            var signatureid = body.signatureId;
+
+
+
+
+
+            var tx = new TransactionReceipt();
+
+
+
+            var abi = new token_abi();
+
+            var bytecode = new token_bytecode();
+
+
+
+
+            tx = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(abi._tokenabi, bytecode._tokenbytecode,
+                                                                                    address, gaslimit,
+                                                                                    null, address, name, symbol, supply, digits, totalCap,
+                                                                                    signatureid);
+
+
+
+
+
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
-
-
-        public async Task<FungibleToken> ChainDeployCeloErc20KMS(string chain, string symbol, string name, string totalcap, string supply, int digits, string address, string signatureid, string feecurrency)
+        async Task<Model.Responses.TransactionHash> MaticDeployErc20(DeployErc20 body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"symbol\":" + "\"" + symbol + "" + "\",\"name\":" + "\"" + name + "" + "\",\"totalCap\"" + "\"" + totalcap + "" + "\",\"supply\":" + "\"" + supply + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"address\":" + "\"" + address + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
-        }
 
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
 
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
 
 
 
+            var FromPrivatekey = body.FromPrivatekey;
+            var address = body.address;
+            var name = body.name;
+            var symbol = body.symbol;
+            var supply = body.supply;
+            var digits = body.digits;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var totalCap = body.totalCap;
+            var signatureid = body.signatureId;
 
 
 
 
 
-        public async Task<FungibleToken> ChainMintErc20(string chain, string amount, string to, string contractaddress, string fromprivatekey)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
+            var tx = new TransactionReceipt();
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
-        }
 
+            var abi = new token_abi();
 
-        public async Task<FungibleToken> ChainMintErc20KMS(string chain, string amount, string to, string contractaddress, string signatureid)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
+            var bytecode = new token_bytecode();
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
-        }
 
-        public async Task<FungibleToken> ChainMintErc20(string chain, string amount, string to, string contractaddress, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
+            tx = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(abi._tokenabi, bytecode._tokenbytecode,
+                                                                                    address, gaslimit,
+                                                                                    null, address, name, symbol, supply, digits, totalCap,
+                                                                                    signatureid);
 
-            return result;
-        }
 
-        public async Task<FungibleToken> ChainMintCeloErc20KMS(string chain, string amount, string to, string contractaddress, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
 
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
 
-            return result;
-        }
 
 
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+            };
 
-
-
-
-
-
-        public async Task<FungibleToken> ChainBurnErc20(string chain, string amount, string contractaddress, string fromprivatekey)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ChainBurnErc20KMS(string chain, string amount, string contractaddress, string signatureid)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-        public async Task<FungibleToken> ChainBurnCeloErc20(string chain, string amount, string contractaddress, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-        public async Task<FungibleToken> ChainBurnCeloErc20KMS(string chain, string amount, string contractaddress, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-        public async Task<FungibleToken> ApproveErc20(string chain, string amount, string spender, string contractaddress, string fromprivatekey)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"spender\":" + "\"" + spender + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\"}";
-            var stringResult = await PostSecureRequest($"approve", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ApproveErc20KMS(string chain, string amount, string spender, string contractaddress, string signatureid)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"spender\":" + "\"" + spender + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\"}";
-            var stringResult = await PostSecureRequest($"approve", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ApproveCeloErc20(string chain, string amount, string spender, string contractaddress, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"spender\":" + "\"" + spender + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"approve", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ApproveCeloErc20KMS(string chain, string amount, string spender, string contractaddress, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"spender\":" + "\"" + spender + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"approve", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-
-
-        public async Task<FungibleToken> ChainTransferEthErc20(string chain, string currency, string to, string amount, string contractaddress, string digits, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ChainTransferEthErc20KMS(string chain, string currency, string to, string amount, string contractaddress, string digits, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-        public async Task<FungibleToken> ChainTransferBscBep20(string chain, string to, string amount, string contractaddress, string digits, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ChainTransferBscBep20KMS(string chain, string currency, string to, string amount, string contractaddress, string digits, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"currency\":" + "\"" + currency + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
         }
 
 
-        public async Task<FungibleToken> ChainTransferCeloErc20Token(string chain, string to, string amount, string contractaddress, string digits, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<FungibleToken> ChainTransferCeloErc20TokenKMS(string chain, string to, string amount, string contractaddress, string digits, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"contractAddress\"" + "\"" + contractaddress + "" + "\",\"digits\":" + "\"" + digits + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<FungibleToken>(stringResult);
-
-            return result;
-        }
 
 
 

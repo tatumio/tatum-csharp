@@ -8,8 +8,17 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-//using Microsoft.Extensions.Http;
+
 using System.Security;
+using Tatum.Model;
+using Tatum.Model.Responses;
+using Tatum.Model.Requests;
+using Tatum.Contracts;
+using System.ComponentModel.DataAnnotations;
+using Nethereum.Web3;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Hex.HexTypes;
+using System.Numerics;
 
 /// <summary>
 /// Summary description for MultiTokenClient
@@ -29,302 +38,1300 @@ namespace Tatum
 
 
 
-        public async Task<MultiToken> DeployMultiToken(string chain, string uri, string fromprivatekey, string gaslimit, string gasprice)
+
+        async Task<Model.Responses.TransactionHash> DeployMultiToken(EthDeployMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"uri\":" + "\"" + uri + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var uri = body.uri;
 
-            return result;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var data = new erc1155token_bytecode();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var deployFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: data._tokenbytecode,
+              addressTo: "0",
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
-        public async Task<MultiToken> DeployMultiTokenKMS(string chain, string uri, string signatureid, string gaslimit, string gasprice)
+        async Task<Model.Responses.TransactionHash> DeployCeloMultiToken(CeloDeployMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"uri\":" + "\"" + uri + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var uri = body.uri;
+            var fee = body.feecurrency;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
 
-            return result;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var data = new erc1155token_bytecode();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var deployFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: data._tokenbytecode,
+              addressTo: "0",
+              addressFrom: "0",
+              gas: new HexBigInteger(new BigInteger(0)),
+              gasPrice: new HexBigInteger(new BigInteger(0)),
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
-        public async Task<MultiToken> DeployMultiTokenCelo(string chain, string uri, string fromprivatekey, string feecurrency)
+        async Task<Model.Responses.TransactionHash> DeployBscMultiToken(EthDeployMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"uri\":" + "\"" + uri + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var uri = body.uri;
 
-            return result;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var data = new erc1155token_bytecode();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var deployFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: data._tokenbytecode,
+              addressTo: "0",
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
-        public async Task<MultiToken> DeployMultiTokenCeloKMS(string chain, string uri, string signatureid, string feecurrency)
+        async Task<Model.Responses.TransactionHash> DeployOneMultiToken(EthDeployMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"uri\":" + "\"" + uri + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"deploy", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var uri = body.uri;
 
-            return result;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var data = new erc1155token_bytecode();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var deployFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: data._tokenbytecode,
+              addressTo: "0",
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
-
-
-
-
-
-
-
-
-
-
-        public async Task<MultiToken> MintMultiToken(string chain, string tokenid, string to, string contractaddress, string amount, string data, int index, string signatureid, string gaslimit, string gasprice)
+        async Task<Model.Responses.TransactionHash> DeployMaticMultiToken(EthDeployMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var uri = body.uri;
 
-            return result;
-        }
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
 
 
-        public async Task<MultiToken> MintMultiTokenKMS(string chain, string tokenid, string to, string contractaddress, string amount, string data, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
 
-            return result;
-        }
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
 
+            var tx = new TransactionReceipt();
 
-        public async Task<MultiToken> MintMultiTokenCelo(string chain, string tokenid, string to, string contractaddress, string amount, string data, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
+            var abi = new erc1155token_abi();
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var data = new erc1155token_bytecode();
 
-            return result;
-        }
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var deployFunction = contract.GetFunction("safeBatchTransfer");
 
-        public async Task<MultiToken> MintMultiTokenKMSCelo(string chain, string tokenid, string to, string contractaddress, string amount, string data, int index, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"to\":" + "\"" + to + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
 
-            return result;
-        }
+            var transactionInput = new TransactionInput
+          (
+              data: data._tokenbytecode,
+              addressTo: "0",
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
 
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
 
 
 
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
 
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
 
 
 
+            };
 
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
 
-
-        public async Task<MultiToken> MintMultiTokenBatch(string chain, string[] tokenid, string to, string contractaddress, string[] amounts,string data, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":[" + "\"" + to + "" + "\"],\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"mint/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> MintMultiTokenBatchKMS(string chain, string tokenid, string to, string contractaddress, string amounts, string data, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":[" + "\"" + to + "" + "\"],\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"mint/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> MintMultiTokenBatchCelo(string chain, string tokenid, string to, string contractaddress, string amounts, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":[" + "\"" + to + "" + "\"],\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-        public async Task<MultiToken> MintMultiTokenBatchKMSCelo(string chain, string tokenid, string to, string contractaddress, string amounts, string data, int index, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":[" + "\"" + to + "" + "\"],\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"mint/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-
-
-
-
-        public async Task<MultiToken> BurnMultiToken(string chain, string account, string tokenid, string contractaddress, string fromprivatekey, string data, string amount, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"data\":" + "\"" + data + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> BurnMultiTokenKMS(string chain, string account, string tokenid, string amount, string data, string contractaddress, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"data\":" + "\"" + data + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> BurnMultiTokenCelo(string chain, string account, string tokenid, string amount, string contractaddress, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-        public async Task<MultiToken> BurnMultiTokenKMSCelo(string chain, string account, string tokenid, string amount, string data, string contractaddress, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"data\":" + "\"" + data + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-
-
-
-
-
-
-        public async Task<MultiToken> BurnMultiTokenBatch(string chain, string account, string[] tokenid, string amounts, string data, string contractaddress, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> BurnMultiTokenBatchKMS(string chain, string account, string tokenid, string amounts, string data, string contractaddress, int index, string signatureid, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> BurnMultiTokenBatchCelo(string chain, string account, string tokenid, string amounts, string contractaddress, string fromprivatekey, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-        public async Task<MultiToken> BurnMultiTokenBatchKMSCelo(string chain, string account, string tokenid, string amounts, string contractaddress, int index, string signatureid, string feecurrency)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"account\":" + "\"" + account + "" + "\",\"tokenId\":[[" + "\"" + tokenid + "" + "\"]],\"amounts\":[[" + "\"" + amounts + "" + "\"]],\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"burn/batch", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
-        }
-
-
-
-
-
-
-
-
-        public async Task<MultiToken> TransferMultiToken(string chain, string to, string tokenid, string amount, string data, string contractaddress, string fromprivatekey, string gaslimit, string gasprice)
-        {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
-
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
-
-            return result;
         }
 
 
-        public async Task<MultiToken> TransferMultiTokenCelo(string chain, string to, string tokenid, string amount, string data, string contractaddress, string fromprivatekey, string feecurrency)
+        async Task<Model.Responses.TransactionHash> MintMultiToken(MintMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            var amounts = body.amount;
+            var signatureId = body.signatureId;
 
-            return result;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts);
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mintBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintCeloMultiToken(CeloMintMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            var amounts = body.amount;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts);
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mintBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintBscMultiToken(MintMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            var amounts = body.amount;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts);
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mintBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+        async Task<Model.Responses.TransactionHash> MintOneMultiToken(MintMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            var amounts = body.amount;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts);
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mintBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+        async Task<Model.Responses.TransactionHash> MintMaticMultiToken(MintMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            var amounts = body.amount;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts);
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mintBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
-        public async Task<MultiToken> TransferMultiTokenKMS(string chain, string to, string tokenid, string amount, string data, string contractaddress, int index, string signatureid, string gaslimit, string gasprice)
+
+
+
+
+
+
+        
+
+
+        async Task<Model.Responses.TransactionHash> MintMultiTokenBatch(MintMultiTokenBatch body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            string[][] amounts = body.amounts;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
 
-            return result;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, new HexBigInteger(amounts.ToString()), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintCeloMultiTokenBatch(CeloMintMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            string[][] amounts = body.amounts;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, new HexBigInteger(amounts.ToString()), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintBscMultiTokenBatch(MintMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            string[][] amounts = body.amounts;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, new HexBigInteger(amounts.ToString()), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintOneMultiTokenBatch(MintMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            string[][] amounts = body.amounts;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, new HexBigInteger(amounts.ToString()), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> MintMaticMultiTokenBatch(MintMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var data = body.data;
+            string[][] amounts = body.amounts;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, to, tokenid, new HexBigInteger(amounts.ToString()), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
-        public async Task<MultiToken> TransferMultiTokenKMSCelo(string chain, string to, string tokenid, string amount, string data, string contractaddress, int index, string signatureid, string feecurrency)
+
+
+
+        async Task<Model.Responses.TransactionHash> BurnMultiToken(EthBurnMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":" + "\"" + tokenid + "" + "\",\"amount\":" + "\"" + amount + "" + "\",\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amount = body.amount;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
 
-            return result;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amount),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnCeloMultiToken(CeloBurnMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amount = body.amount;
+            var contractaddress = body.contractaddress;
+
+            var fee = body.feecurrency;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amount),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: new HexBigInteger(new BigInteger(0)),
+              gasPrice: new HexBigInteger(new BigInteger(0)),
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnBscMultiToken(EthBurnMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amount = body.amount;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amount),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnOneMultiToken(EthBurnMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amount = body.amount;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amount),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnMaticMultiToken(EthBurnMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amount = body.amount;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("mint");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amount),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
@@ -332,48 +1339,974 @@ namespace Tatum
 
 
 
-        public async Task<MultiToken> TransferMultiTokenBatch(string chain, string to, string tokenid, string[] amounts, string data, string contractaddress, string fromprivatekey, string gaslimit, string gasprice)
+
+
+        async Task<Model.Responses.TransactionHash> BurnMultiTokenBatch(EthBurnMultiTokenBatch body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":[" + "\"" + tokenid + "" + "\"],\"amounts\":[" + "\"" + amounts + "" + "\"],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"transaction/batch", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amounts = body.amounts;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
 
-            return result;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("burnBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amounts),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnCeloMultiTokenBatch(CeloBurnMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amounts = body.amounts;
+            var contractaddress = body.contractaddress;
+
+            var fee = body.feecurrency;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("burnBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amounts),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: new HexBigInteger(new BigInteger(0)),
+              gasPrice: new HexBigInteger(new BigInteger(0)),
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnBscBatchMultiTokenBatch(EthBurnMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amounts = body.amounts;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("burnBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amounts),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnOneMultiTokenBatch(EthBurnMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amounts = body.amounts;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("burnBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amounts),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> BurnMaticMultiTokenBatch(EthBurnMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var tokenid = body.tokenId;
+            var amounts = body.amounts;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var chain = body.chain;
+            var signatureId = body.signatureId;
+
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, null);
+            var mintFunction = contract.GetFunction("burnBatch");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await mintFunction.SendTransactionAsync(account.Address, tokenid, amounts),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
-        public async Task<MultiToken> TransferMultiTokenBatchKMS(string chain, string to, string tokenid, string[] amounts, string data, string contractaddress, int index, string signatureid, string gaslimit, string gasprice)
+
+
+
+        async Task<Model.Responses.TransactionHash> TransferMultiToken(TransferMultiToken body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":[" + "\"" + tokenid + "" + "\"],\"amounts\":[" + "\"" + amounts + "" + "\"],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"fee\":{\"gasLimit\":" + "\"" + gaslimit + "" + "\",\"gasPrice\":" + "\"" + gasprice + "" + "\"}}";
-            var stringResult = await PostSecureRequest($"transaction/batch", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amount = body.amount;
+            var data = body.data;
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, new HexBigInteger(amount), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferCeloMultiToken(CeloTransferMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amount = body.amount;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, new HexBigInteger(amount), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferBscMultiToken(TransferMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amount = body.amount;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, new HexBigInteger(amount), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferOneMultiToken(TransferMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amount = body.amount;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, new HexBigInteger(amount), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferMaticMultiToken(TransferMultiToken body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amount = body.amount;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, new HexBigInteger(amount), data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
 
-        public async Task<MultiToken> TransferMultiTokenBatchCelo(string chain, string to, string tokenid, string[] amounts, string data, string contractaddress, string fromprivatekey, string feecurrency)
+
+
+        async Task<Model.Responses.TransactionHash> TransferMultiTokenBatch(TransferMultiTokenBatch body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":[" + "\"" + tokenid + "" + "\"],\"amounts\":[" + "\"" + amounts + "" + "\"],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"fromPrivateKey\":" + "\"" + fromprivatekey + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction/batch", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amounts = body.amounts;
+            var data = body.data;
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts.ToString());
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
 
-
-        public async Task<MultiToken> TransferMultiTokenBatchKMSCelo(string chain, string to, string tokenid, string[] amounts, string data, string contractaddress, int index, string signatureid, string feecurrency)
+        async Task<Model.Responses.TransactionHash> TransferCeloMultiTokenBatch(CeloTransferMultiTokenBatch body, bool testnet, string provider)
         {
-            string parameters = "{\"chain\":" + "\"" + chain + "" + "\",\"to\":" + "\"" + to + "" + "\",\"tokenId\":[" + "\"" + tokenid + "" + "\"],\"amounts\":[" + "\"" + amounts + "" + "\"],\"data\":" + "\"" + data + "" + "\",\"contractAddress\":" + "\"" + contractaddress + "" + "\",\"index\":" + "\"" + index + "" + "\",\"signatureId\":" + "\"" + signatureid + "" + "\",\"feeCurrency\":" + "\"" + feecurrency + "" + "\"}";
-            var stringResult = await PostSecureRequest($"transaction/batch", parameters);
 
-            var result = JsonConvert.DeserializeObject<MultiToken>(stringResult);
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amounts = body.amounts;
+            var data = body.data;
 
-            return result;
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts.ToString());
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
         }
+
+        async Task<Model.Responses.TransactionHash> TransferBscMultiTokenBatch(TransferMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amounts = body.amounts;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts.ToString());
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferOneMultiTokenBatch(TransferMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amounts = body.amounts;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts.ToString());
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
+        async Task<Model.Responses.TransactionHash> TransferMaticMultiTokenBatch(TransferMultiTokenBatch body, bool testnet, string provider)
+        {
+
+            var FromPrivatekey = body.FromPrivatekey;
+            var to = body.to;
+            var tokenid = body.tokenId;
+            var contractaddress = body.contractaddress;
+            var gaslimit = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasLimit, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var gasprice = new HexBigInteger(Web3.Convert.ToWei(body.EthFee.GasPrice, Nethereum.Util.UnitConversion.EthUnit.Gwei));
+            var fee = body.EthFee;
+            var nonce = body.Nonce;
+            var signatureId = body.signatureId;
+            var amounts = body.amounts;
+            var data = body.data;
+
+
+            var validationContext = new ValidationContext(body);
+            Validator.ValidateObject(body, validationContext);
+
+            var account = new Nethereum.Web3.Accounts.Account(body.FromPrivatekey);
+            var web3 = new Web3(account);
+
+            var tx = new TransactionReceipt();
+
+            var abi = new erc1155token_abi();
+
+            var amt = new HexBigInteger(amounts.ToString());
+
+            var contract = web3.Eth.GetContract(abi._tokenabi, contractaddress);
+            var transferFunction = contract.GetFunction("safeBatchTransfer");
+
+
+
+            var transactionInput = new TransactionInput
+          (
+              data: await transferFunction.SendTransactionAsync(to, tokenid, amt, data ?? "0X0"),
+              addressTo: contractaddress,
+              addressFrom: "0",
+              gas: gaslimit,
+              gasPrice: gasprice,
+              value: new HexBigInteger(new BigInteger(0))
+          );
+
+            if (signatureId != null)
+            {
+                JsonConvert.SerializeObject(transactionInput);
+            }
+
+
+
+            tx.TransactionHash = await web3.TransactionManager.SignTransactionAsync(transactionInput)
+                .ConfigureAwait(false);
+
+            var broadcastRequest = new BroadcastRequest
+            {
+                TxData = tx.TransactionHash
+
+
+
+            };
+
+            return await (this as IEthereumClient).BroadcastSignedTransaction(broadcastRequest).ConfigureAwait(false);
+
+        }
+
 
 
 

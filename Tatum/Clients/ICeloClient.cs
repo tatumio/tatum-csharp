@@ -171,7 +171,7 @@ namespace Tatum
         /// <param name="testnet"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        Task<TransactionHash> sendCeloDeployMultiTokenTransaction(CeloDeployMultiToken body, bool testnet, string provider = null);
+      Task<TransactionHash> sendCeloDeployMultiTokenTransaction(CeloDeployMultiToken body, bool testnet, string provider = null);
 
 
 
