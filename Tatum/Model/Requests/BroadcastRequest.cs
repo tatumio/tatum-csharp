@@ -13,5 +13,7 @@ namespace Tatum.Model.Requests
         [StringLength(36, MinimumLength = 36)]
         [JsonProperty("signatureId")]
         public string SignatureId { get; set; }
+
+   
     }
 }
