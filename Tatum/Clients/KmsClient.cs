@@ -19,12 +19,13 @@ namespace Tatum {
 public partial class KmsClient:IKmsClient
 {
     private readonly string _privateKey;
+        private readonly string _serverUrl;
 
-    public KmsClient(string privateKey)
-    {
-
-        _privateKey = privateKey;
-    }
+    public KmsClient(string privateKey, string serverUrl)
+        {
+            _privateKey = privateKey;
+            _serverUrl = serverUrl;
+        }
 
 
 
@@ -93,7 +94,7 @@ public partial class KmsClient:IKmsClient
 
         private async Task<string> GetSecureSecurityRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/security";
+            var baseUrl = serverUrl + "/v3/security";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -126,7 +127,7 @@ public partial class KmsClient:IKmsClient
         }
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters = null)
     {
-        var baseUrl = "https://api-eu1.tatum.io/v3/kms";
+        var baseUrl = serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -162,7 +163,7 @@ public partial class KmsClient:IKmsClient
     private async Task<string> PostSecureRequest(string path, string parameters)
     {
 
-        var baseUrl = "https://api-eu1.tatum.io/v3/kms";
+        var baseUrl = serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -203,7 +204,7 @@ public partial class KmsClient:IKmsClient
     private async Task<string> PUTSecureRequest(string path, string parameters)
     {
 
-        var baseUrl = "https://api-eu1.tatum.io/v3/kms";
+        var baseUrl = serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -242,7 +243,7 @@ public partial class KmsClient:IKmsClient
 
     private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
     {
-        var baseUrl = "https://api-eu1.tatum.io/v3/kms";
+        var baseUrl = serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
