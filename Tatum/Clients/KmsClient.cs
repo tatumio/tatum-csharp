@@ -94,7 +94,7 @@ public partial class KmsClient:IKmsClient
 
         private async Task<string> GetSecureSecurityRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = serverUrl + "/v3/security";
+            var baseUrl = _serverUrl + "/v3/security";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -127,7 +127,7 @@ public partial class KmsClient:IKmsClient
         }
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters = null)
     {
-        var baseUrl = serverUrl + "/v3/kms";
+        var baseUrl = _serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -163,7 +163,7 @@ public partial class KmsClient:IKmsClient
     private async Task<string> PostSecureRequest(string path, string parameters)
     {
 
-        var baseUrl = serverUrl + "/v3/kms";
+        var baseUrl = _serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -204,7 +204,7 @@ public partial class KmsClient:IKmsClient
     private async Task<string> PUTSecureRequest(string path, string parameters)
     {
 
-        var baseUrl = serverUrl + "/v3/kms";
+        var baseUrl = _serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 
@@ -243,7 +243,7 @@ public partial class KmsClient:IKmsClient
 
     private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
     {
-        var baseUrl = serverUrl + "/v3/kms";
+        var baseUrl = _serverUrl + "/v3/kms";
 
         baseUrl = $"{baseUrl}/{path}";
 

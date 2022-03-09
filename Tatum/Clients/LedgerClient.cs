@@ -559,7 +559,7 @@ namespace Tatum
 
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters=null)
         {
-            var baseUrl = serverUrl + "/v3/ledger";
+            var baseUrl = _serverUrl + "/v3/ledger";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -595,7 +595,7 @@ namespace Tatum
         private async Task<string> PostSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = serverUrl + "/v3/ledger";
+            var baseUrl = _serverUrl + "/v3/ledger";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -636,7 +636,7 @@ namespace Tatum
         private async Task<string> PUTSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = serverUrl + "/v3/ledger";
+            var baseUrl = _serverUrl + "/v3/ledger";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -675,7 +675,7 @@ namespace Tatum
 
         private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = serverUrl + "/v3/ledger";
+            var baseUrl = _serverUrl + "/v3/ledger";
 
             baseUrl = $"{baseUrl}/{path}";
 
