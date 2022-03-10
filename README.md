@@ -1,5 +1,6 @@
 ![Tatum Icon](https://github.com/tatumio/tatum-csharp/blob/master/src/Tatum/tatum_icon.jpg)
-# Tatum C#
+# [Community only]: Tatum C#
+
 This library simplifies usage of [Tatum](https://docs.tatum.io/) blockchain developer platform from C# applications. It allows you to call [Tatum API](https://tatum.io/apidoc) endpoints directly as methods from code. Library also validates inputs before calling the API, so you won't waste resources and credits. All operations that require sensitive data are performed locally, so no private keys are sent anywhere.  
 C# Library is inspired by [Tatum JS library](https://github.com/tatumio/tatum-js) and it's divided into the same logical parts. It includes the following core components.  
 - **wallet** - cryptographic functions like generation of wallets, private keys or addresses.
