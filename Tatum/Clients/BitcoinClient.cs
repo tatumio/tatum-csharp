@@ -144,16 +144,9 @@ namespace Tatum
 
 
 
+        // TODO: There was wrong URL address, i dont know if there has been  same issue like this, please look on that in whole of code!
         public async Task<Bitcoin> GetBalanceOfAddress(string address)
-        {
-
-
-            var stringResult = await GetSecureRequest($"balance/{address}");
-
-            var result = JsonConvert.DeserializeObject<Bitcoin>(stringResult);
-
-            return result;
-        }
+            => JsonConvert.DeserializeObject<Bitcoin>(await GetSecureRequest($"address/balance/{address}"));
 
 
         public async Task<Bitcoin> GetUTXOtransaction(string hash, int index)
