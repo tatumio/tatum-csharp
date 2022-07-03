@@ -20,9 +20,11 @@ namespace Tatum
     public class XrpClient
     {
         private readonly string _privateKey;
-        public XrpClient(string privateKey)
+        private readonly string _serverUrl;
+        public XrpClient(string privateKey, string serverUrl)
         {
             _privateKey = privateKey;
+            _serverUrl = serverUrl;
         }
 
 
@@ -321,7 +323,7 @@ namespace Tatum
 
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/xrp";
+            var baseUrl = _serverUrl + "/v3/xrp";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -357,7 +359,7 @@ namespace Tatum
         private async Task<string> PostSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/xrp";
+            var baseUrl = _serverUrl + "/v3/xrp";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -398,7 +400,7 @@ namespace Tatum
         private async Task<string> PUTSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/xrp";
+            var baseUrl = _serverUrl + "/v3/xrp";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -437,7 +439,7 @@ namespace Tatum
 
         private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/xrp";
+            var baseUrl = _serverUrl + "/v3/xrp";
 
             baseUrl = $"{baseUrl}/{path}";
 

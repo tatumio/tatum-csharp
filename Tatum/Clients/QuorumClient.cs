@@ -23,9 +23,11 @@ namespace Tatum
 
 
         private readonly string _privateKey;
-        public QuorumClient(string privateKey)
+        private readonly string _serverUrl;
+        public QuorumClient(string privateKey, string serverUrl)
         {
             _privateKey = privateKey;
+            _serverUrl = serverUrl;
         }
 
 
@@ -130,7 +132,7 @@ namespace Tatum
 
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/quorum";
+            var baseUrl = _serverUrl + "/v3/quorum";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -166,7 +168,7 @@ namespace Tatum
         private async Task<string> PostSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/quorum";
+            var baseUrl = _serverUrl + "/v3/quorum";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -207,7 +209,7 @@ namespace Tatum
         private async Task<string> PUTSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/quorum";
+            var baseUrl = _serverUrl + "/v3/quorum";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -246,7 +248,7 @@ namespace Tatum
 
         private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/quorum";
+            var baseUrl = _serverUrl + "/v3/quorum";
 
             baseUrl = $"{baseUrl}/{path}";
 

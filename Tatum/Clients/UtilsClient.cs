@@ -20,9 +20,11 @@ namespace Tatum
     public class UtilsClient
     {
         private readonly string _privateKey;
-        public UtilsClient(string privateKey)
+        private readonly string _serverUrl;
+        public UtilsClient(string privateKey, string serverUrl)
         {
             _privateKey = privateKey;
+            _serverUrl = serverUrl;
         }
 
 
@@ -330,7 +332,7 @@ namespace Tatum
 
         private async Task<string> GetSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/blockchain";
+            var baseUrl = _serverUrl + "/v3/blockchain";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -366,7 +368,7 @@ namespace Tatum
         private async Task<string> PostSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/blockchain";
+            var baseUrl = _serverUrl + "/v3/blockchain";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -407,7 +409,7 @@ namespace Tatum
         private async Task<string> PUTSecureRequest(string path, string parameters)
         {
 
-            var baseUrl = "https://api-eu1.tatum.io/v3/blockchain";
+            var baseUrl = _serverUrl + "/v3/blockchain";
 
             baseUrl = $"{baseUrl}/{path}";
 
@@ -446,7 +448,7 @@ namespace Tatum
 
         private async Task<string> DeleteSecureRequest(string path, Dictionary<string, string> paramaters = null)
         {
-            var baseUrl = "https://api-eu1.tatum.io/v3/blockchain";
+            var baseUrl = _serverUrl + "/v3/blockchain";
 
             baseUrl = $"{baseUrl}/{path}";
 
