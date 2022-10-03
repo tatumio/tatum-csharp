@@ -11,10 +11,7 @@
       <PackageReference Include="Nethereum.HdWallet" Version="4.8.0" />
       <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
       <PackageReference Include="System.Text.Json" Version="6.0.5" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Tatum.CSharp.Core\Tatum.CSharp.Core.csproj" />
+      <PackageReference Include="Tatum.CSharp.Core" Version="2.0.0" />
     </ItemGroup>
 
 </Project>
