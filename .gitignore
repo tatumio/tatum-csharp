@@ -362,7 +362,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Verify - verification test files
-*.verified.*
+*.received.*
 
 # Rider
 .idea
