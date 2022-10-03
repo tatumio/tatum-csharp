@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Pack Tatum.CSharp.Core
+      run: dotnet pack ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj --no-build --no-restore --configuration Release /p:Version=2.0.0.0 --output .
+    - name: Store Tatum.CSharp.Core Package Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Tatum.CSharp.Core.pkg
+        path: output/nuget
