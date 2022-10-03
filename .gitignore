@@ -62,9 +62,6 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
-# ignore appsettings configuration files
-**/appsettings.Development.json
-
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
 
@@ -363,3 +360,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Verify - verification test files
+*.verified.*
+
+# Rider
+.idea

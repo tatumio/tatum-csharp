@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ethereum", "Tatum.CSharp.Ethereum\Tatum.CSharp.Ethereum.csproj", "{ABCD840B-4C50-471F-84C2-1EB3D76DE972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Core", "Tatum.CSharp.Core\Tatum.CSharp.Core.csproj", "{4BDA4196-A8EE-407E-83FB-59D9EA99AFAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ethereum.Tests.Integration", "Tatum.CSharp.Ethereum.Tests.Integration\Tatum.CSharp.Ethereum.Tests.Integration.csproj", "{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDA4196-A8EE-407E-83FB-59D9EA99AFAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BDA4196-A8EE-407E-83FB-59D9EA99AFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BDA4196-A8EE-407E-83FB-59D9EA99AFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDA4196-A8EE-407E-83FB-59D9EA99AFAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
