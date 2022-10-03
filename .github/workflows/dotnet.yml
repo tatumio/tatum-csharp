@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Pack Tatum.CSharp.Core
       run: dotnet pack ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj --no-build --no-restore --configuration Release /p:Version=2.0.0.0 --output .
     - name: Store Tatum.CSharp.Core Package Artifacts
