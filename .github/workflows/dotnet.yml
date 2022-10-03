@@ -28,4 +28,4 @@ jobs:
     - name: Pack Tatum.CSharp.Core
       run: dotnet pack ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj --no-build --no-restore --configuration Release /p:Version=2.0.0.0 --output .
     - name: Push to Github Packages
-      run: dotnet nuget push "./Tatum.CSharp.Core.2.0.0.nupkg"  --api-key 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 --source "github"
+      run: dotnet nuget push "./Tatum.CSharp.Core.2.0.0.nupkg"  --api-key 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 --source "github"
