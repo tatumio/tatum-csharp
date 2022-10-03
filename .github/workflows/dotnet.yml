@@ -28,4 +28,4 @@ jobs:
     - name: Pack Tatum.CSharp.Core
       run: dotnet pack ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj --no-build --no-restore --configuration Release /p:Version=2.0.0.0 --output .
     - name: Push to Github Packages
-      run: dotnet nuget push "./Tatum.CSharp.Core.2.0.0.nupkg"  --api-key ${{ ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
+      run: dotnet nuget push "./Tatum.CSharp.Core.2.0.0.nupkg"  --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
