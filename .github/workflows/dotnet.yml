@@ -28,5 +28,5 @@ jobs:
     - name: Store Tatum.CSharp.Core Package Artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Tatum.CSharp.Core.pkg
-        path: output/nuget
+        name: Tatum.CSharp.Core.2.0.0.pkg
+        path: ./Tatum.CSharp.Core.2.0.0.nupkg
