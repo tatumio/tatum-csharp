@@ -24,8 +24,8 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: buildVersion
-        if-no-files-found: ignore
     - name: Increment build version
+      if: always()
       id: versionStep
       shell: bash
       run: |
