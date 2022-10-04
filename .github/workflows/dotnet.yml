@@ -13,12 +13,12 @@ jobs:
 
     steps:
     - name: Prepare CORE package
-      uses: ./.github/workflows/prepareBuildPackage.yml
+      uses: ./.github/workflows/prepareBuildPackage.yml@develop
       with:
         name: Core
         version: 2.0.0
     - name: Prepare ETHEREUM package
-      uses: ./.github/workflows/prepareBuildPackage.yml
+      uses: ./.github/workflows/prepareBuildPackage.yml#develop
       with:
         name: Ethereum
         version: 2.0.0
