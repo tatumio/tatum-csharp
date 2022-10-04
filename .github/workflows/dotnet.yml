@@ -1,4 +1,4 @@
-name: .NET
+name: Tatum CSharp packages
 
 on:
   push:
