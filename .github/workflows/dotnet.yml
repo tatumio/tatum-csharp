@@ -7,23 +7,23 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  Prepare_RC_packages:
-
+  Pack_Core_RC:
+    uses: ./.github/workflows/prepareBuildPackage.yml
+    with:
+      name: Core
+      version: 2.0.0
+    secrets: inherit
+  
+  Pack_Ethereum_RC:
+    uses: ./.github/workflows/prepareBuildPackage.yml
+    with:
+      name: Ethereum
+      version: 2.0.0
+    secrets: inherit
+    
+  Integration_Tests:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Prepare CORE package
-      uses: ./.github/workflows/prepareBuildPackage.yml
-      with:
-        name: Core
-        version: 2.0.0
-        secrets: inherit
-    - name: Prepare ETHEREUM package
-      uses: ./.github/workflows/prepareBuildPackage.yml
-      with:
-        name: Ethereum
-        version: 2.0.0
-        secrets: inherit
     - name: Check out code
       uses: actions/checkout@v3
     - name: Setup .NET
