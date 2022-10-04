@@ -17,12 +17,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - uses: ./.github/workflows/prepareBuildPackage.yml
+    - uses: ./.github/workflows/prepareBuildPackage.yml@develop
       with:
         name: Core
         version: 2.0.0
         secrets: inherit
-    - uses: ./.github/workflows/prepareBuildPackage.yml
+    - uses: ./.github/workflows/prepareBuildPackage.yml@develop
       with:
         name: Ethereum
         version: 2.0.0
