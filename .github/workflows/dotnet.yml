@@ -12,12 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
     - name: Prepare CORE package
       uses: ./.github/workflows/prepareBuildPackage.yml
       with:
@@ -28,6 +22,12 @@ jobs:
       with:
         name: Ethereum
         version: 2.0.0
+    - name: Check out code
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
     - name: INTEGRATION TEST - Restore dependencies
       run: dotnet restore ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj
     - name: INTEGRATION TEST - Build
