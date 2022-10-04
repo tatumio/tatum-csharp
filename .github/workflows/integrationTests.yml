@@ -1,4 +1,4 @@
-name: Prepare build package
+name: Run Integration Tests
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   integration_tests:
-    name: Build and Publish package
+    name: Run Integration Tests
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
