@@ -20,9 +20,11 @@ jobs:
       name: Ethereum
       version: 2.0.0
     secrets: inherit
+    needs: Pack_Core_RC
     
   Integration_Tests:
     runs-on: ubuntu-latest
+    needs: Pack_Ethereum_RC
     steps:
     - name: Check out code
       uses: actions/checkout@v3
