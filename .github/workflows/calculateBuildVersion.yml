@@ -20,13 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Download version file from cache
-      uses: actions/cache@v3
-      env:
-        cache-name: build-version-cache
+    - name: Download version file artifact
+      uses: actions/download-artifact@v3
+      continue-on-error: true
       with:
-        path: ./buildVersion.txt
-        key: buildVersion
+        name: buildVersion
+        path: artifacts/versioning/buildVersion.txt
     - name: Increment build version
       id: versionStep
       shell: bash
@@ -36,3 +35,8 @@ jobs:
         newVersionNumber="${value%%build*}build${buildVersionNumber}"
         expr $newVersionNumber > buildVersion.txt
         echo "::set-output name=version::${newVersionNumber}"
+    - name: Upload version file aftifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: buildVersion
+        path: buildVersion.txt
