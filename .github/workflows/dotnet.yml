@@ -7,34 +7,24 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  Pack_Core_RC:
+  Core_Pack_RC:
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
       name: Core
       version: 2.0.0
     secrets: inherit
   
-  Pack_Ethereum_RC:
+  ETH_Pack_RC:
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
       name: Ethereum
       version: 2.0.0
     secrets: inherit
-    needs: Pack_Core_RC
+    needs: Core_Pack_RC
     
-  Integration_Tests:
-    runs-on: ubuntu-latest
-    needs: Pack_Ethereum_RC
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: INTEGRATION TEST - Restore dependencies
-      run: dotnet restore ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj
-    - name: INTEGRATION TEST - Build
-      run: dotnet build ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj --no-restore --configuration Release
-    - name: INTEGRATION TEST - Run Test
-      run: dotnet test ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj --no-build --verbosity normal --configuration Release
+  ETH_Integration_Tests:
+    uses: ./.github/workflows/prepareBuildPackage.yml
+    with:
+      name: Ethereum
+    secrets: inherit
+    needs: ETH_Pack_RC
