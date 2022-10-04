@@ -7,20 +7,25 @@ on:
     branches: [ "develop" ]
 
 jobs:
+
+  Build_Version:
+    uses: ./.github/workflows/calculateBuildVersion.yml
+
   Core_Pack_RC:
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
       name: Core
-      version: 2.0.0
+      version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
+    needs: Build_Version
   
   ETH_Pack_RC:
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
       name: Ethereum
-      version: 2.0.0
+      version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
-    needs: Core_Pack_RC
+    needs: [Build_Version, Core_Pack_RC]
     
   ETH_Integration_Tests:
     uses: ./.github/workflows/integrationTests.yml
