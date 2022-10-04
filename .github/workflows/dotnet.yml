@@ -23,7 +23,7 @@ jobs:
     needs: Core_Pack_RC
     
   ETH_Integration_Tests:
-    uses: ./.github/workflows/prepareBuildPackage.yml
+    uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
     secrets: inherit
