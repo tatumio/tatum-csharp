@@ -30,7 +30,7 @@ jobs:
       id: versionStep
       shell: bash
       run: |
-        [ -f buildVersion.txt ] && valu=`cat artifacts/versioning/buildVersion.txt` || value="2.0.0-build0"
+        [ -f artifacts/versioning/buildVersion.txt ] && valu=`cat artifacts/versioning/buildVersion.txt` || value="2.0.0-build0"
         buildVersionNumber=$((${value##*build} + 1))
         newVersionNumber="${value%%build*}build${buildVersionNumber}"
         expr $newVersionNumber > artifacts/versioning/buildVersion.txt
