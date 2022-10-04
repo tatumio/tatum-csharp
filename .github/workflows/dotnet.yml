@@ -7,7 +7,7 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  Prepare_RC_packages:
 
     runs-on: ubuntu-latest
 
