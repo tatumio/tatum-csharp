@@ -37,7 +37,7 @@ jobs:
       run: dotnet nuget push "./Tatum.CSharp.Ethereum.2.0.0.nupkg"  --api-key ${{secrets.ACTIONS_PACKAGE_SOURCE_PAT}} --source "github"
     - name: Restore dependencies Test
       run: dotnet restore ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj
-    - name: Build Core
+    - name: Build Test
       run: dotnet build ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj --no-restore --configuration Release
     - name: Test
       run: dotnet test ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj --no-build --verbosity normal --configuration Release
