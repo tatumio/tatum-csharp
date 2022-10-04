@@ -22,13 +22,11 @@ jobs:
       with:
         name: Core
         version: 2.0.0
-        secrets: inherit
     - name: Prepare ETHEREUM package
       uses: ./.github/workflows/prepareBuildPackage.yml
       with:
         name: Ethereum
         version: 2.0.0
-        secrets: inherit
     - name: INTEGRATION TEST - Restore dependencies
       run: dotnet restore ./Tatum.CSharp.Ethereum.Tests.Integration/Tatum.CSharp.Ethereum.Tests.Integration.csproj
     - name: INTEGRATION TEST - Build
