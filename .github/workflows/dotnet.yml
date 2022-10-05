@@ -10,14 +10,6 @@ jobs:
 
   Build_Version:
     uses: ./.github/workflows/calculateBuildVersion.yml
-
-  Core_Pack_RC:
-    uses: ./.github/workflows/prepareBuildPackage.yml
-    with:
-      name: Core
-      version: ${{ needs.Build_Version.outputs.version }}
-    secrets: inherit
-    needs: Build_Version
   
   ETH_Pack_RC:
     uses: ./.github/workflows/prepareBuildPackage.yml
@@ -25,7 +17,7 @@ jobs:
       name: Ethereum
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
-    needs: [Build_Version, Core_Pack_RC]
+    needs: Build_Version
     
   ETH_Integration_Tests:
     uses: ./.github/workflows/integrationTests.yml
