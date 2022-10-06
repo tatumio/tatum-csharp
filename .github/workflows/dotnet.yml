@@ -16,9 +16,11 @@ on:
 jobs:
 
   Build_Version:
+    name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
   
   ETH_Pack_RC:
+    name: Pack Ethereum
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
       name: Ethereum
@@ -27,6 +29,7 @@ jobs:
     needs: Build_Version
     
   ETH_Integration_Tests:
+    name: Test Ethereum
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
