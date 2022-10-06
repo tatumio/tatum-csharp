@@ -1,4 +1,4 @@
-name: Tatum.CSharp Blockchain packages
+name: Tatum.CSharp Blockchain packages - ${{ inputs.source }}
 
 on:
   push:
