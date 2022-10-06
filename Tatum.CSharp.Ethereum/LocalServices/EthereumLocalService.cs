@@ -7,7 +7,7 @@ using Tatum.CSharp.Core.Model;
 using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 using Wallet = Tatum.CSharp.Core.Model.Wallet;
 
-namespace Tatum.CSharp.Sdk.LocalServices
+namespace Tatum.CSharp.Ethereum.LocalServices
 {
     public class EthereumLocalService : IEthereumLocalService
     {

@@ -330,7 +330,11 @@ public class EthereumApiTests : IAsyncDisposable
             null,
             "0xf90c7ab9522a7e525349a9b9113e0758c7caeefbaaa69bcf6fd915a8c2e34d0e",
             0,
-            new CallSmartContractMethodFee("100000", "3")
+            new
+            {
+                gasLimit = "100000", 
+                gasPrice = "3"
+            }
         );
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);

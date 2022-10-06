@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Model;
 
-namespace Tatum.CSharp.Sdk.LocalServices
+namespace Tatum.CSharp.Ethereum.LocalServices
 {
     public interface IEthereumLocalService
     {

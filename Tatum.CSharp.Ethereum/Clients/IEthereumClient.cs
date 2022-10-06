@@ -1,8 +1,8 @@
 ﻿using Tatum.CSharp.Core.Api;
 using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Sdk.LocalServices;
+using Tatum.CSharp.Ethereum.LocalServices;
 
-namespace Tatum.CSharp.Sdk.Clients
+namespace Tatum.CSharp.Ethereum.Clients
 {
     public interface IEthereumClient
     {
