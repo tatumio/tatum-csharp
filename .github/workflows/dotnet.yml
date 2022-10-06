@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ "develop" ]
   workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source of event'
+        required: false
+        default: 'No source specified'
 
 jobs:
 
