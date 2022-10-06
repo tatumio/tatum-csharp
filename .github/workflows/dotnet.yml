@@ -1,4 +1,5 @@
-name: Tatum.CSharp Blockchain packages - ${{ inputs.source }}
+name: Tatum.CSharp Blockchain packages
+run-name: ${{ inputs.source }}
 
 on:
   push:
@@ -10,7 +11,7 @@ on:
       source:
         description: 'Source of event'
         required: false
-        default: 'No source specified'
+        default: ''
 
 jobs:
 
