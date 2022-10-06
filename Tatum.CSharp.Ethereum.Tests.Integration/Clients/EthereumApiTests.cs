@@ -11,7 +11,7 @@ using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Api;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
-using Tatum.CSharp.Sdk.Clients;
+using Tatum.CSharp.Ethereum.Clients;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
