@@ -36,6 +36,5 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
-      testData: ${{ env.ETHEREUM_TEST_DATA }}
     secrets: inherit
     needs: ETH_Pack_RC
