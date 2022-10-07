@@ -1,6 +1,6 @@
 # [Tatum C# SDK v2](http://tatum.io/) &middot; [![CI](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml)
 
-Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components.
+Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
 
 - **blockchain** - cryptographic functions like generation of wallets, private keys or addresses.
 - **local** - set of functions for local generation of wallets, priveate keys and addressed. It also allows for signing blockchain transactions locally.
@@ -9,7 +9,7 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-[`Ethereum`](Tatum.CSharp.Ethereum/)
+- [`Ethereum`](Tatum.CSharp.Ethereum/)
 
 ## Quick Start
 
