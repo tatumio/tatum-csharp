@@ -42,3 +42,7 @@ public EthereumController(IEthereumClient ethereumClient)
 
 5. You are ready to use Tatum API :smiley:
 
+## Further Examples
+
+Please check out [Demo App](Tatum.CSharp.Demo) or [Integration Tests](https://github.com/tatumio/tatum-csharp/tree/develop/Tatum.CSharp.Ethereum.Tests.Integration) to see the usage of all methods.
+
