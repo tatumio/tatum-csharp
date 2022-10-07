@@ -24,7 +24,7 @@ jobs:
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/tatumio/index.json"
       - name: ${{ inputs.name }} - Bump Core Version
-        run: dotnet add package Tatum.CSharp.Core --prerelease --no-restore
+        run: dotnet add ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj package Tatum.CSharp.Core --prerelease --no-restore
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
       - name: ${{ inputs.name }} - Build
