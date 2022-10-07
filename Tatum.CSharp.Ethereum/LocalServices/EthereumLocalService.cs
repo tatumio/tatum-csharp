@@ -20,12 +20,19 @@ namespace Tatum.CSharp.Ethereum.LocalServices
             _isTestNet = isTestNet;
         }
         
+        /// <summary>
+        /// Generates a BIP44 compatible Ethereum wallet with the derivation path m/44'/60'/0'/0.
+        /// </summary>
         public Wallet EthGenerateWallet()
         {
             var mnemonic = GenerateMnemonic();
             return EthGenerateWallet(mnemonic);
         }
 
+        /// <summary>
+        /// Generates a BIP44 compatible Ethereum wallet with the derivation path m/44'/60'/0'/0.
+        /// </summary>
+        /// <param name="mnemonic">Mnemonic to use for generating extended public and private keys.</param>
         public Wallet EthGenerateWallet(string mnemonic)
         {
             var wallet = CreateHdWallet(mnemonic);
@@ -37,6 +44,12 @@ namespace Tatum.CSharp.Ethereum.LocalServices
             };
         }
 
+        /// <summary>
+        /// Generates an Ethereum account deposit address from an Extended public key.
+        /// </summary>
+        /// <param name="walletXpub">Extended public key of wallet.</param>
+        /// <param name="index">Derivation index of the address to be generated.</param>
+        /// <returns></returns>
         public GeneratedAddress EthGenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, Network.Main);
@@ -48,6 +61,9 @@ namespace Tatum.CSharp.Ethereum.LocalServices
             };
         }
 
+        /// <summary>
+        /// Generates the private key of an address from a mnemonic for a given derivation path index.
+        /// </summary>
         public PrivKey EthGenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
         {
             var wallet = new Nethereum.HdWallet.Wallet(privKeyRequest.Mnemonic,null, _isTestNet ? TestNetPath : MainNetPath);
@@ -60,6 +76,13 @@ namespace Tatum.CSharp.Ethereum.LocalServices
             };
         }
 
+        /// <summary>
+        /// Signs transaction locally.
+        /// </summary>
+        /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
+        /// <param name="account"><see cref="Account"/> instantiated with private key and chainId.</param>
+        /// <remarks>ChainId for Ethereum is 11155111.</remarks>
+        /// <returns>Raw signed transaction string.</returns>
         public string EthSignTransaction(Transaction transaction, Account account)
         {
             var transactionManager = new AccountOfflineTransactionSigner();

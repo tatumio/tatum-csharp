@@ -16,6 +16,7 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// </summary>
         IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
 
+        // Service for local operations that can be used to keep all sensitive information local.
         EthereumLocalService Local { get; }
     }
 }
