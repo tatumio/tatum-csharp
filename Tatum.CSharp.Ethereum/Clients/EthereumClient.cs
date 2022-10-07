@@ -15,12 +15,28 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// <inheritdoc />
         public EthereumLocalService Local { get; }
 
-        public EthereumClient(HttpClient httpClient, bool isTestNet)
+        public EthereumClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
             var ethereumApi = new EthereumApi(httpClient);
+            
+            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
+
             Local = new EthereumLocalService(isTestNet);
+        }
+        
+        public EthereumClient(HttpClient httpClient, string apiKey)
+        {
+            var ethereumApi = new EthereumApi(httpClient);
+            
+            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            EthereumBlockchain = ethereumApi;
+            EthereumBlockchainWithHttpInfo = ethereumApi;
+
+            Local = new EthereumLocalService(false);
         }
     }
 }

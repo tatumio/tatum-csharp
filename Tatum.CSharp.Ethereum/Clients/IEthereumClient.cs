@@ -15,12 +15,7 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// Client wrapping all operations related directly to the Ethereum blockchain with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
-        
-        /// <summary>
-        /// Client wrapping all operations related directly to the ERC-20 or compatible Fungible Tokens on the Ethereum blockchain.
-        /// </summary>
-        //IFungibleTokensApiAsync EthereumFungibleTokens { get; }
-        
+
         EthereumLocalService Local { get; }
     }
 }
