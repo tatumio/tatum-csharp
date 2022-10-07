@@ -13,6 +13,9 @@ on:
         required: false
         default: ''
 
+env:
+  ETHEREUM_TEST_DATA: ${{ secrets.ETHEREUM_SECRETS }}
+
 jobs:
 
   Build_Version:
@@ -33,6 +36,6 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
-      testData: ${{ secrets.ETHEREUM_SECRETS }}
+      testData: ${{ env.ETHEREUM_TEST_DATA }}
     secrets: inherit
     needs: ETH_Pack_RC
