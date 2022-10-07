@@ -3,7 +3,7 @@
 Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
 
 - **blockchain** - cryptographic functions like generation of wallets, private keys or addresses.
-- **local** - set of functions for local generation of wallets, priveate keys and addressed. It also allows for signing blockchain transactions locally.
+- **local** - set of functions for local generation of wallets, private keys and addressed. It also allows for signing blockchain transactions locally.
 
 You can find API documentation at [API doc](https://tatum.io/apidoc).
 
@@ -28,7 +28,7 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
 ```
-4. Inject Tatum Client to the class of you choice:
+4. Inject Tatum Client to the class of your choice:
 
 ```cs
 // EthereumController.cs
