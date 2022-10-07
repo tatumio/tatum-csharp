@@ -9,6 +9,9 @@ on:
       version:
         required: true
         type: string
+        
+env:
+  PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
 
 jobs:
   preparePackage:
@@ -24,12 +27,12 @@ jobs:
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/tatumio/index.json"
       - name: ${{ inputs.name }} - Bump Core Version
-        run: dotnet add ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj package Tatum.CSharp.Core --prerelease --no-restore
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.Core --prerelease --no-restore
       - name: ${{ inputs.name }} - Restore dependencies
-        run: dotnet restore ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
+        run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build
-        run: dotnet build ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj --no-restore --configuration Release
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.name }} - Pack
-        run: dotnet pack ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.name }} - Push to Github Packages
         run: dotnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
