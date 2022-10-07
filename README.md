@@ -9,7 +9,7 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-- [`Ethereum`](Tatum.CSharp.Ethereum/)
+- [`Ethereum`](Tatum.CSharp.Ethereum)
 
 ## Quick Start
 
