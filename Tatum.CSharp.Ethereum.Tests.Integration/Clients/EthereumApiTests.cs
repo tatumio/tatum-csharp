@@ -30,8 +30,7 @@ public class EthereumApiTests : IAsyncDisposable
     public EthereumApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var secrets = Environment.GetEnvironmentVariable("ETHEREUM_SECRETS");
+        var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
         _testData = JsonSerializer.Deserialize<EthereumTestData>(secrets);
 
