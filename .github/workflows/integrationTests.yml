@@ -6,9 +6,6 @@ on:
       name:
         required: true
         type: string
-      testData:
-        required: true
-        type: string
 
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}.Tests.Integration/Tatum.CSharp.${{ inputs.name }}.Tests.Integration.csproj
@@ -36,5 +33,5 @@ jobs:
     - name: ${{ inputs.name }} Integration Test - Run Test
       run: dotnet test ${{ env.PROJECT_PATH }} --no-build --verbosity normal --configuration Release
       env:
-        ${{ inputs.name }}_SECRETS: ${{ inputs.testData }}
+        TEST_DATA: ${{ secrets.TEST_DATA }}
         INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
