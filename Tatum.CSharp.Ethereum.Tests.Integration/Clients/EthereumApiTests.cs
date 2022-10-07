@@ -26,22 +26,29 @@ public class EthereumApiTests : IAsyncDisposable
     private readonly Dictionary<string, decimal> _debts = new();
     
     //Test Wallet:
-    private const string TestMnemonic = "index diary once pigeon gather minor patient climb army funny end fortune amazing asset bounce assault stage bunker advice enroll leisure gate cake brush";
-    private const string TestXPub = "xpub6F4jPr6xTbTqhdvWc9nBYCEEVQ9nYpG9jZmfm8JbNUxwseRPaUpVXmJLgGsgM6CKA5qzF4BygWNyZYvy9nBqJVvFvFVSvMyEQa38HomHj5W";
+    private string TestMnemonic = "index diary once pigeon gather minor patient climb army funny end fortune amazing asset bounce assault stage bunker advice enroll leisure gate cake brush";
+    private string TestXPub = "xpub6F4jPr6xTbTqhdvWc9nBYCEEVQ9nYpG9jZmfm8JbNUxwseRPaUpVXmJLgGsgM6CKA5qzF4BygWNyZYvy9nBqJVvFvFVSvMyEQa38HomHj5W";
     
     //Eth storage:
-    private const string StorageAddress = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380";
-    private const string StoragePrivKey = "0xf90c7ab9522a7e525349a9b9113e0758c7caeefbaaa69bcf6fd915a8c2e34d0e";
+    private string StorageAddress = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380";
+    private string StoragePrivKey = "0xf90c7ab9522a7e525349a9b9113e0758c7caeefbaaa69bcf6fd915a8c2e34d0e";
     
     //Target wallet:
-    private const string TargetAddress = "0xd9cfbfe18fb9bf3871da5528061582ec08b97166";
-    private const string TargetPrivKey = "0x14f391a24ebb50e9792362750429c178c7702e5d00ac7fb3d27d58e85ea1c0e8";
-
+    private string TargetAddress = "0xd9cfbfe18fb9bf3871da5528061582ec08b97166";
+    private string TargetPrivKey = "0x14f391a24ebb50e9792362750429c178c7702e5d00ac7fb3d27d58e85ea1c0e8";
     
     public EthereumApiTests()
     {
-        _ethereumApi = new EthereumClient(new HttpClient(), true);
-        _ethereumApi.EthereumBlockchain.Configuration.ApiKey.Add("x-api-key", "798811c7-5e96-471a-8244-98f750dd8512");
+        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+
+        TestMnemonic = Environment.GetEnvironmentVariable("TEST_ETH_WALLET_MNEMONIC");
+        TestXPub = Environment.GetEnvironmentVariable("TEST_ETH_WALLET_XPUB");
+        StorageAddress = Environment.GetEnvironmentVariable("TEST_ETH_STORAGE_ADDRESS");
+        StoragePrivKey = Environment.GetEnvironmentVariable("TEST_ETH_STORAGE_PRIV");
+        TargetAddress = Environment.GetEnvironmentVariable("TEST_ETH_TARGET_ADDRESS");
+        TargetPrivKey = Environment.GetEnvironmentVariable("TEST_ETH_TARGET_PRIV");
+        
+        _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddress>>(x => x.Headers);
     }
 
@@ -206,9 +213,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GetBalance_ShouldReturnValue_WhenCalledOnExistingAccount()
     {
-        var walletAddress = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380";
-        
-        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetBalanceAsync(walletAddress);
+        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetBalanceAsync(StorageAddress);
 
         accountBalance.Balance.Should().NotBeNullOrWhiteSpace();
     }
@@ -246,9 +251,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetTransactionCount_ShouldReturnPositiveNumber_WhenCalledOnExistingAccount()
     {
-        var walletAddress = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380";
-        
-        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync(walletAddress);
+        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync(StorageAddress);
 
         accountBalance.Should().BeGreaterThan(0);
     }
@@ -256,9 +259,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetTransactionByAddress_ShouldReturnTransactionList_WhenCalledOnWithValidAddress()
     {
-        var address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380";
-        
-        var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionByAddressAsync(address, 10);
+        var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionByAddressAsync(StorageAddress, 10);
 
         transaction.Should()
             .NotBeNull()
@@ -328,7 +329,7 @@ public class EthereumApiTests : IAsyncDisposable
                 "1"
             },
             null,
-            "0xf90c7ab9522a7e525349a9b9113e0758c7caeefbaaa69bcf6fd915a8c2e34d0e",
+            StoragePrivKey,
             0,
             new
             {
@@ -388,7 +389,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBroadcastAsync_ShouldReturnTransactionHash_WhenCalledOnSignedTransaction()
     {
-        var txCount = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync("0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380");
+        var txCount = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync(StorageAddress);
         var transaction = new Transaction
         {
             Type = new HexBigInteger(2),

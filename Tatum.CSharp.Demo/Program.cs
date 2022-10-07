@@ -9,10 +9,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Use your ApiKey from Tatum Dashboard (main/test)
+var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient =>
     {
-        var ethereumClient = new EthereumClient(httpClient, "798811c7-5e96-471a-8244-98f750dd8512", true);
+        var ethereumClient = new EthereumClient(httpClient, apiKey, true);
         return ethereumClient;
     });
 
