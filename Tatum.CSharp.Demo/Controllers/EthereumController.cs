@@ -8,12 +8,10 @@ namespace Tatum.CSharp.Demo.Controllers;
 [Route("[controller]/[action]")]
 public class EthereumController : ControllerBase
 {
-    private readonly ILogger<EthereumController> _logger;
     private readonly IEthereumClient _ethereumClient;
 
-    public EthereumController(ILogger<EthereumController> logger, IEthereumClient ethereumClient)
+    public EthereumController(IEthereumClient ethereumClient)
     {
-        _logger = logger;
         _ethereumClient = ethereumClient;
     }
 

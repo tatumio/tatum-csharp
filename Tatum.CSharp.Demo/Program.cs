@@ -13,11 +13,7 @@ builder.Services.AddSwaggerGen();
 var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
 builder.Services
-    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient =>
-    {
-        var ethereumClient = new EthereumClient(httpClient, apiKey, true);
-        return ethereumClient;
-    });
+    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
 
 var app = builder.Build();
 
