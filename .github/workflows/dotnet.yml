@@ -58,7 +58,7 @@ jobs:
     name: Pack Bitcoin
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
-      name: Ethereum
+      name: Bitcoin
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [Build_Version, BTC_Local_Pack_RC]
@@ -67,6 +67,6 @@ jobs:
     name: Test Bitcoin
     uses: ./.github/workflows/integrationTests.yml
     with:
-      name: Ethereum
+      name: Bitcoin
     secrets: inherit
     needs: BTC_Pack_RC
