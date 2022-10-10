@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using Tatum.CSharp.Core.Api;
 using Tatum.CSharp.Local.Evm;
 
 namespace Tatum.CSharp.Ethereum.Clients

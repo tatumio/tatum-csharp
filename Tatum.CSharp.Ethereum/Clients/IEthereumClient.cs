@@ -1,6 +1,6 @@
 ﻿using Tatum.CSharp.Core.Api;
 using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Ethereum.LocalServices;
+using Tatum.CSharp.Local.Evm;
 
 namespace Tatum.CSharp.Ethereum.Clients
 {
@@ -17,6 +17,6 @@ namespace Tatum.CSharp.Ethereum.Clients
         IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
-        EthereumLocalService Local { get; }
+        IEvmLocalService Local { get; }
     }
 }
