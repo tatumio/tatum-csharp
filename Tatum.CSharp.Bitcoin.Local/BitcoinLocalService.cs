@@ -48,7 +48,7 @@ namespace Tatum.CSharp.Bitcoin.Local
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _isTestNet ? Network.TestNet : Network.Main);
 
-            var address = bitcoinExtPubKey.Derive((uint)index).GetPublicKey().GetAddress(ScriptPubKeyType.SegwitP2SH, _isTestNet ? Network.TestNet : Network.Main);
+            var address = bitcoinExtPubKey.Derive((uint)index).GetPublicKey().GetAddress(ScriptPubKeyType.Segwit, _isTestNet ? Network.TestNet : Network.Main);
             
             return new GeneratedAddress
             {
