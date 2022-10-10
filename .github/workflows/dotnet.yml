@@ -38,7 +38,7 @@ jobs:
       name: Ethereum
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
-    needs: EVM_Pack_RC
+    needs: [Build_Version, EVM_Pack_RC]
     
   ETH_Integration_Tests:
     name: Test Ethereum
