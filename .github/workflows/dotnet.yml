@@ -26,7 +26,7 @@ jobs:
     name: Pack Evm Local
     uses: ./.github/workflows/prepareBuildPackage.yml
     with:
-      name: Local.Evm
+      name: Evm.Local
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: Build_Version
