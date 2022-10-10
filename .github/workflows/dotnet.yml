@@ -22,6 +22,15 @@ jobs:
     name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
   
+  EVM_Pack_RC:
+    name: Pack Evm Local
+    uses: ./.github/workflows/prepareBuildPackage.yml
+    with:
+      name: Local.Evm
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: Build_Version
+  
   ETH_Pack_RC:
     name: Pack Ethereum
     uses: ./.github/workflows/prepareBuildPackage.yml
