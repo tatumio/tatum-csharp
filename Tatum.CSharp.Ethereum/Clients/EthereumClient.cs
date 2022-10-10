@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
-using Tatum.CSharp.Core.Api;
-using Tatum.CSharp.Ethereum.LocalServices;
+using Tatum.CSharp.Local.Evm;
 
 namespace Tatum.CSharp.Ethereum.Clients
 {
@@ -13,7 +12,7 @@ namespace Tatum.CSharp.Ethereum.Clients
         public IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
         
         /// <inheritdoc />
-        public EthereumLocalService Local { get; }
+        public IEvmLocalService Local { get; }
 
         /// <summary>
         /// Creates an instance of <see cref="EthereumClient"/>.
@@ -30,7 +29,7 @@ namespace Tatum.CSharp.Ethereum.Clients
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
 
-            Local = new EthereumLocalService(isTestNet);
+            Local = new EvmLocalService(isTestNet);
         }
         
         /// <summary>
@@ -47,7 +46,7 @@ namespace Tatum.CSharp.Ethereum.Clients
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
 
-            Local = new EthereumLocalService(false);
+            Local = new EvmLocalService(false);
         }
     }
 }

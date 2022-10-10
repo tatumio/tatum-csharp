@@ -7,33 +7,33 @@ using Tatum.CSharp.Core.Model;
 using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 using Wallet = Tatum.CSharp.Core.Model.Wallet;
 
-namespace Tatum.CSharp.Ethereum.LocalServices
+namespace Tatum.CSharp.Local.Evm
 {
-    public class EthereumLocalService : IEthereumLocalService
+    public class EvmLocalService : IEvmLocalService
     {
         private readonly bool _isTestNet;
         private const string TestNetPath = "m/44'/1'/0'/0";
         private const string MainNetPath = "m/44'/60'/0'/0";
 
-        public EthereumLocalService(bool isTestNet)
+        public EvmLocalService(bool isTestNet)
         {
             _isTestNet = isTestNet;
         }
         
         /// <summary>
-        /// Generates a BIP44 compatible Ethereum wallet with the derivation path m/44'/60'/0'/0.
+        /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
         /// </summary>
-        public Wallet EthGenerateWallet()
+        public Wallet GenerateWallet()
         {
             var mnemonic = GenerateMnemonic();
-            return EthGenerateWallet(mnemonic);
+            return GenerateWallet(mnemonic);
         }
 
         /// <summary>
-        /// Generates a BIP44 compatible Ethereum wallet with the derivation path m/44'/60'/0'/0.
+        /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
         /// </summary>
         /// <param name="mnemonic">Mnemonic to use for generating extended public and private keys.</param>
-        public Wallet EthGenerateWallet(string mnemonic)
+        public Wallet GenerateWallet(string mnemonic)
         {
             var wallet = CreateHdWallet(mnemonic);
 
@@ -45,12 +45,12 @@ namespace Tatum.CSharp.Ethereum.LocalServices
         }
 
         /// <summary>
-        /// Generates an Ethereum account deposit address from an Extended public key.
+        /// Generates an EVM account deposit address from an Extended public key.
         /// </summary>
         /// <param name="walletXpub">Extended public key of wallet.</param>
         /// <param name="index">Derivation index of the address to be generated.</param>
         /// <returns></returns>
-        public GeneratedAddress EthGenerateAddress(string walletXpub, int index)
+        public GeneratedAddress GenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, Network.Main);
             var wallet = new PublicWallet(bitcoinExtPubKey.ExtPubKey);
@@ -64,7 +64,7 @@ namespace Tatum.CSharp.Ethereum.LocalServices
         /// <summary>
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
         /// </summary>
-        public PrivKey EthGenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
+        public PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
         {
             var wallet = new Nethereum.HdWallet.Wallet(privKeyRequest.Mnemonic,null, _isTestNet ? TestNetPath : MainNetPath);
 
@@ -81,9 +81,9 @@ namespace Tatum.CSharp.Ethereum.LocalServices
         /// </summary>
         /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
         /// <param name="account"><see cref="Account"/> instantiated with private key and chainId.</param>
-        /// <remarks>ChainId for Ethereum is 11155111.</remarks>
+        /// <remarks>ChainId for EVM is 11155111.</remarks>
         /// <returns>Raw signed transaction string.</returns>
-        public string EthSignTransaction(Transaction transaction, Account account)
+        public string SignTransaction(Transaction transaction, Account account)
         {
             var transactionManager = new AccountOfflineTransactionSigner();
             var transactionInput = transaction.ConvertToTransactionInput();
@@ -91,7 +91,7 @@ namespace Tatum.CSharp.Ethereum.LocalServices
             return transactionManager.SignTransaction(account, transactionInput);
         }
 
-        private string GenerateMnemonic()
+        private static string GenerateMnemonic()
         {
             var mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
 
