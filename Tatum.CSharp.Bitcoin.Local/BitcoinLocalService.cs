@@ -30,22 +30,25 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// <inheritdoc />
         public Wallet GenerateWallet(string mnemonic)
         {
-            var extKey = new Mnemonic(mnemonic).DeriveExtKey().Neuter();
-            var extPubKey = new BitcoinExtPubKey(extKey, Network.Main);
+            var extPubKey = new Mnemonic(mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(_isTestNet ? TestNetPath : MainNetPath))
+                .Neuter()
+                .ToString(_isTestNet ? Network.Main : Network.TestNet);
             
-            return new Wallet()
+            return new Wallet
             {
                 Mnemonic = mnemonic,
-                Xpub = extPubKey.ToString()
+                Xpub = extPubKey
             };
         }
 
         /// <inheritdoc />
         public GeneratedAddress GenerateAddress(string walletXpub, int index)
         {
-            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, Network.Main);
+            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _isTestNet ? Network.TestNet : Network.Main);
 
-            var address = bitcoinExtPubKey.Derive((uint)index).GetPublicKey().GetAddress(ScriptPubKeyType.SegwitP2SH, Network.Main);
+            var address = bitcoinExtPubKey.Derive((uint)index).GetPublicKey().GetAddress(ScriptPubKeyType.SegwitP2SH, _isTestNet ? Network.TestNet : Network.Main);
             
             return new GeneratedAddress
             {
@@ -60,14 +63,14 @@ namespace Tatum.CSharp.Bitcoin.Local
 
             return new PrivKey()
             {
-                Key = extKey.PrivateKey.ToString(Network.Main)
+                Key = extKey.PrivateKey.ToString(_isTestNet ? Network.TestNet : Network.Main)
             };
         }
 
         /// <inheritdoc />
         public string SignTransaction(Transaction transaction, string privKey)
         {
-            var bitcoinPrivateKey = new BitcoinSecret(privKey, Network.Main);
+            var bitcoinPrivateKey = new BitcoinSecret(privKey, _isTestNet ? Network.TestNet : Network.Main);
 
             var signature = bitcoinPrivateKey.PrivateKey.Sign(transaction.GetHash());
 

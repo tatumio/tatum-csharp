@@ -22,20 +22,9 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
         /// <param name="optionsFunc">Configuration options func.</param>
-        public EthereumClient(HttpClient httpClient, Func<EthereumClientOptions, EthereumClientOptions> optionsFunc)
+        public EthereumClient(HttpClient httpClient, Func<EthereumClientOptions, EthereumClientOptions> optionsFunc) 
+            : this(httpClient, optionsFunc(new EthereumClientOptions()))
         {
-            var ethereumApi = new EthereumApi(httpClient);
-
-            var options = new EthereumClientOptions();
-
-            optionsFunc(options);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", options.ApiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new EvmLocalService(options.IsTestnet);
         }
         
         /// <summary>
@@ -43,18 +32,21 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
         /// <param name="options">Configuration options.</param>
-        public EthereumClient(HttpClient httpClient, EthereumClientOptions options)
+        public EthereumClient(HttpClient httpClient, EthereumClientOptions options) 
+            : this(httpClient, options.ApiKey, options.IsTestnet)
         {
-            var ethereumApi = new EthereumApi(httpClient);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", options.ApiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new EvmLocalService(options.IsTestnet);
         }
-        
+
+        /// <summary>
+        /// Creates an instance of <see cref="EthereumClient"/>.
+        /// </summary>
+        /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
+        /// <param name="apiKey">Api key that will be used when calling Tatum API.</param>
+        public EthereumClient(HttpClient httpClient, string apiKey) 
+            : this(httpClient, apiKey, false)
+        {
+        }
+
         /// <summary>
         /// Creates an instance of <see cref="EthereumClient"/>.
         /// </summary>
@@ -71,23 +63,6 @@ namespace Tatum.CSharp.Ethereum.Clients
             EthereumBlockchainWithHttpInfo = ethereumApi;
 
             Local = new EvmLocalService(isTestNet);
-        }
-        
-        /// <summary>
-        /// Creates an instance of <see cref="EthereumClient"/>.
-        /// </summary>
-        /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
-        /// <param name="apiKey">Api key that will be used when calling Tatum API.</param>
-        public EthereumClient(HttpClient httpClient, string apiKey)
-        {
-            var ethereumApi = new EthereumApi(httpClient);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new EvmLocalService(false);
         }
     }
 }

@@ -1,18 +1,22 @@
-﻿namespace Tatum.CSharp.Bitcoin.Clients
+﻿using Tatum.CSharp.Bitcoin.Local;
+using Tatum.CSharp.Core.Api;
+using Tatum.CSharp.Core.Client;
+
+namespace Tatum.CSharp.Bitcoin.Clients
 {
     public interface IBitcoinClient
     {
         /// <summary>
-        /// Client wrapping all operations related directly to the Ethereum blockchain.
+        /// Client wrapping all operations related directly to the Bitcoin blockchain.
         /// </summary>
-        IEthereumApiAsync EthereumBlockchain { get; }
+        IBitcoinApiAsync BitcoinBlockchain { get; }
         
         /// <summary>
-        /// Client wrapping all operations related directly to the Ethereum blockchain with full <see cref="ApiResponse{T}"/> return types.
+        /// Client wrapping all operations related directly to the Bitcoin blockchain with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
+        IBitcoinApiWithHttpInfoAsync BitcoinBlockchainWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
-        IEvmLocalService Local { get; }
+        IBitcoinLocalService Local { get; }
     }
 }

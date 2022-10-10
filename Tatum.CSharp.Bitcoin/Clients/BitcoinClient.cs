@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Net.Http;
 using Tatum.CSharp.Bitcoin.Configuration;
+using Tatum.CSharp.Bitcoin.Local;
+using Tatum.CSharp.Core.Api;
 
 namespace Tatum.CSharp.Bitcoin.Clients
 {
     public class BitcoinClient : IBitcoinClient
     {
         /// <inheritdoc />
-        public IBitcoinApiAsync EthereumBlockchain { get; }
+        public IBitcoinApiAsync BitcoinBlockchain { get; }
         
         /// <inheritdoc />
-        public IBitcoinApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
+        public IBitcoinApiWithHttpInfoAsync BitcoinBlockchainWithHttpInfo { get; }
         
         /// <inheritdoc />
         public IBitcoinLocalService Local { get; }
@@ -20,20 +22,9 @@ namespace Tatum.CSharp.Bitcoin.Clients
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
         /// <param name="optionsFunc">Configuration options func.</param>
-        public BitcoinClient(HttpClient httpClient, Func<BitcoinClientOptions, BitcoinClientOptions> optionsFunc)
+        public BitcoinClient(HttpClient httpClient, Func<BitcoinClientOptions, BitcoinClientOptions> optionsFunc) 
+            : this(httpClient, optionsFunc(new BitcoinClientOptions()))
         {
-            var ethereumApi = new BitcoinApi(httpClient);
-
-            var options = new BitcoinClientOptions();
-
-            optionsFunc(options);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", options.ApiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new BitcoinLocalService(options.IsTestnet);
         }
         
         /// <summary>
@@ -41,18 +32,21 @@ namespace Tatum.CSharp.Bitcoin.Clients
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
         /// <param name="options">Configuration options.</param>
-        public BitcoinClient(HttpClient httpClient, BitcoinClientOptions options)
+        public BitcoinClient(HttpClient httpClient, BitcoinClientOptions options) 
+            : this(httpClient, options.ApiKey, options.IsTestnet)
         {
-            var ethereumApi = new BitcoinApi(httpClient);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", options.ApiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new BitcoinLocalService(options.IsTestnet);
         }
-        
+
+        /// <summary>
+        /// Creates an instance of <see cref="BitcoinClient"/>.
+        /// </summary>
+        /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
+        /// <param name="apiKey">Api key that will be used when calling Tatum API.</param>
+        public BitcoinClient(HttpClient httpClient, string apiKey) 
+            : this(httpClient, apiKey, false)
+        {
+        }
+
         /// <summary>
         /// Creates an instance of <see cref="BitcoinClient"/>.
         /// </summary>
@@ -65,27 +59,10 @@ namespace Tatum.CSharp.Bitcoin.Clients
             
             ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
+            BitcoinBlockchain = ethereumApi;
+            BitcoinBlockchainWithHttpInfo = ethereumApi;
 
             Local = new BitcoinLocalService(isTestNet);
-        }
-        
-        /// <summary>
-        /// Creates an instance of <see cref="BitcoinClient"/>.
-        /// </summary>
-        /// <param name="httpClient"><see cref="HttpClient"/> Instance that should preferably be managed by HttpClient Factory.</param>
-        /// <param name="apiKey">Api key that will be used when calling Tatum API.</param>
-        public BitcoinClient(HttpClient httpClient, string apiKey)
-        {
-            var ethereumApi = new BitcoinApi(httpClient);
-            
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
-            EthereumBlockchain = ethereumApi;
-            EthereumBlockchainWithHttpInfo = ethereumApi;
-
-            Local = new BitcoinLocalService(false);
         }
     }
 }
