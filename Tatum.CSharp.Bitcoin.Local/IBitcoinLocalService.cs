@@ -1,10 +1,10 @@
-using Nethereum.Web3.Accounts;
+using NBitcoin;
 using Tatum.CSharp.Core.Model;
-using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
+using Wallet = Tatum.CSharp.Core.Model.Wallet;
 
-namespace Tatum.CSharp.Evm.Local
+namespace Tatum.CSharp.Bitcoin.Local
 {
-    public interface IEvmLocalService
+    public interface IBitcoinLocalService
     {
         /// <summary>
         /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
@@ -34,9 +34,8 @@ namespace Tatum.CSharp.Evm.Local
         /// Signs transaction locally.
         /// </summary>
         /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
-        /// <param name="account"><see cref="Account"/> instantiated with private key and chainId.</param>
-        /// <remarks>ChainId for EVM is 11155111.</remarks>
+        /// <param name="√">The private key.</param>
         /// <returns>Raw signed transaction string.</returns>
-        string SignTransaction(Transaction transaction, Account account);
+        string SignTransaction(Transaction transaction, string ć);
     }
 }
