@@ -202,7 +202,7 @@ public class BitcoinApiTests : IAsyncDisposable
     }
 
     [Fact]
-    public async Task EthBlockchainTransfer_ShouldReturnTransactionHash_WhenCalledWithValidData()
+    public async Task BtcTransferBlockchainAsync_ShouldReturnTransactionHash_WhenCalledWithValidData()
     {
         var amount = 0.00005m;
 
@@ -231,7 +231,7 @@ public class BitcoinApiTests : IAsyncDisposable
     }
 
     [Fact]
-    public async Task EthGetTransaction_ShouldReturnTransaction_WhenCalledWithValidHash()
+    public async Task BtcGetRawTransactionAsync_ShouldReturnTransaction_WhenCalledWithValidHash()
     {
         var txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
         
@@ -241,7 +241,7 @@ public class BitcoinApiTests : IAsyncDisposable
     }
 
     [Fact]
-    public async Task EthBroadcastAsync_ShouldReturnTransactionHash_WhenCalledOnSignedTransaction()
+    public async Task BtcBroadcastAsync_ShouldReturnTransactionHash_WhenCalledOnSignedTransaction()
     {
         var transaction = Transaction
             .Create(Network.Main);

@@ -1,0 +1,6 @@
+﻿{
+  StatusCode: Forbidden,
+  ErrorText: Forbidden,
+  ResponseType: GeneratedAddress,
+  RawContent: {"statusCode":403,"errorCode":"btc.address.generation","message":"Unable to generate address for some random text.","cause":"Non-base58 character"}
+}

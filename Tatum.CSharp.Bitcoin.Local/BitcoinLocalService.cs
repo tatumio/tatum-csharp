@@ -6,25 +6,34 @@ namespace Tatum.CSharp.Bitcoin.Local
 {
     public class BitcoinLocalService : IBitcoinLocalService
     {
-        private readonly bool _isTestNet;
         private const string TestNetPath = "m/44'/1'/0'/0";
         private const string MainNetPath = "m/44'/60'/0'/0";
 
-        public BitcoinLocalService()
+        private readonly Network _targetNetwork;
+        private readonly string _targetDerivationPath;
+
+        public BitcoinLocalService() : this(false)
         {
-            _isTestNet = false;
         }
         
         public BitcoinLocalService(bool isTestNet)
         {
-            _isTestNet = isTestNet;
+            _targetNetwork = isTestNet ? Network.TestNet : Network.Main;
+            _targetDerivationPath = isTestNet ? TestNetPath : MainNetPath;
         }
 
         /// <inheritdoc />
         public Wallet GenerateWallet()
         {
-            var mnemonic = GenerateMnemonic();
-            return GenerateWallet(mnemonic);
+            var mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
+
+            var extPubKey = mnemonic
+                .DeriveExtKey()
+                .Derive(new KeyPath(_targetDerivationPath))
+                .Neuter()
+                .ToString(_targetNetwork);
+            
+            return new Wallet(string.Join(" ", mnemonic.Words), extPubKey);
         }
 
         /// <inheritdoc />
@@ -32,56 +41,50 @@ namespace Tatum.CSharp.Bitcoin.Local
         {
             var extPubKey = new Mnemonic(mnemonic)
                 .DeriveExtKey()
-                .Derive(new KeyPath(_isTestNet ? TestNetPath : MainNetPath))
+                .Derive(new KeyPath(_targetDerivationPath))
                 .Neuter()
-                .ToString(_isTestNet ? Network.Main : Network.TestNet);
+                .ToString(_targetNetwork);
             
-            return new Wallet
-            {
-                Mnemonic = mnemonic,
-                Xpub = extPubKey
-            };
+            return new Wallet(mnemonic, extPubKey);
         }
 
         /// <inheritdoc />
         public GeneratedAddress GenerateAddress(string walletXpub, int index)
         {
-            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _isTestNet ? Network.TestNet : Network.Main);
+            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
 
-            var address = bitcoinExtPubKey.Derive((uint)index).GetPublicKey().GetAddress(ScriptPubKeyType.Segwit, _isTestNet ? Network.TestNet : Network.Main);
+            var address = bitcoinExtPubKey
+                .Derive((uint)index)
+                .GetPublicKey()
+                .GetAddress(ScriptPubKeyType.Segwit, _targetNetwork)
+                .ToString();
             
-            return new GeneratedAddress
-            {
-                Address = address.ToString()
-            };
+            return new GeneratedAddress(address);
         }
 
         /// <inheritdoc />
         public PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
         {
-            var extKey = new Mnemonic(privKeyRequest.Mnemonic).DeriveExtKey();
+            var privKey = new Mnemonic(privKeyRequest.Mnemonic)
+                .DeriveExtKey()
+                .Derive(new KeyPath(_targetDerivationPath))
+                .Derive((uint)privKeyRequest.Index)
+                .PrivateKey
+                .ToString(_targetNetwork);
 
-            return new PrivKey()
-            {
-                Key = extKey.PrivateKey.ToString(_isTestNet ? Network.TestNet : Network.Main)
-            };
+            return new PrivKey(privKey);
         }
 
         /// <inheritdoc />
         public string SignTransaction(Transaction transaction, string privKey)
         {
-            var bitcoinPrivateKey = new BitcoinSecret(privKey, _isTestNet ? Network.TestNet : Network.Main);
+            var bitcoinPrivateKey = new BitcoinSecret(privKey, _targetNetwork);
 
-            var signature = bitcoinPrivateKey.PrivateKey.Sign(transaction.GetHash());
+            var signature = bitcoinPrivateKey
+                .PrivateKey
+                .Sign(transaction.GetHash());
 
             return signature.ToString();
-        }
-
-        private static string GenerateMnemonic()
-        {
-            var mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
-
-            return string.Join(" ", mnemonic.Words);
         }
     }
 }

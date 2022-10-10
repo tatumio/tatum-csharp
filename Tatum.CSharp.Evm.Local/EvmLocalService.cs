@@ -11,43 +11,50 @@ namespace Tatum.CSharp.Evm.Local
 {
     public class EvmLocalService : IEvmLocalService
     {
-        private readonly bool _isTestNet;
         private const string TestNetPath = "m/44'/1'/0'/0";
         private const string MainNetPath = "m/44'/60'/0'/0";
 
-        public EvmLocalService()
+        private readonly Network _targetNetwork;
+        private readonly string _targetDerivationPath;
+
+        public EvmLocalService() : this(false)
         {
-            _isTestNet = false;
         }
         
         public EvmLocalService(bool isTestNet)
         {
-            _isTestNet = isTestNet;
+            _targetNetwork = Network.Main;
+            _targetDerivationPath = isTestNet ? TestNetPath : MainNetPath;
         }
 
         /// <inheritdoc />
         public Wallet GenerateWallet()
         {
-            var mnemonic = GenerateMnemonic();
-            return GenerateWallet(mnemonic);
+            var wallet = new Nethereum.HdWallet.Wallet(Wordlist.English, WordCount.TwentyFour, null, _targetDerivationPath);
+
+            return new Wallet
+            {
+                Mnemonic = string.Join(" ", wallet.Words),
+                Xpub = wallet.GetMasterExtPubKey().ToString(_targetNetwork)
+            };
         }
 
         /// <inheritdoc />
         public Wallet GenerateWallet(string mnemonic)
         {
-            var wallet = CreateHdWallet(mnemonic);
+            var wallet = new Nethereum.HdWallet.Wallet(mnemonic, null, _targetDerivationPath);
 
             return new Wallet()
             {
                 Mnemonic = mnemonic,
-                Xpub = wallet.GetMasterExtPubKey().ToString(Network.Main)
+                Xpub = wallet.GetMasterExtPubKey().ToString(_targetNetwork)
             };
         }
 
         /// <inheritdoc />
         public GeneratedAddress GenerateAddress(string walletXpub, int index)
         {
-            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, Network.Main);
+            var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
             var wallet = new PublicWallet(bitcoinExtPubKey.ExtPubKey);
             
             return new GeneratedAddress
@@ -59,7 +66,7 @@ namespace Tatum.CSharp.Evm.Local
         /// <inheritdoc />
         public PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
         {
-            var wallet = new Nethereum.HdWallet.Wallet(privKeyRequest.Mnemonic,null, _isTestNet ? TestNetPath : MainNetPath);
+            var wallet = new Nethereum.HdWallet.Wallet(privKeyRequest.Mnemonic,null, _targetDerivationPath);
 
             var privKey = wallet.GetPrivateKey(privKeyRequest.Index);
             
@@ -76,18 +83,6 @@ namespace Tatum.CSharp.Evm.Local
             var transactionInput = transaction.ConvertToTransactionInput();
             
             return transactionManager.SignTransaction(account, transactionInput);
-        }
-
-        private static string GenerateMnemonic()
-        {
-            var mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
-
-            return string.Join(" ", mnemonic.Words);
-        }
-
-        private Nethereum.HdWallet.Wallet CreateHdWallet(string mnemonic)
-        {
-            return new Nethereum.HdWallet.Wallet(mnemonic, null, _isTestNet ? TestNetPath : MainNetPath);
         }
     }
 }
