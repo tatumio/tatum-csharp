@@ -1,6 +1,6 @@
 ﻿using Tatum.CSharp.Core.Api;
 using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Local.Evm;
+using Tatum.CSharp.Evm.Local;
 
 namespace Tatum.CSharp.Ethereum.Clients
 {
