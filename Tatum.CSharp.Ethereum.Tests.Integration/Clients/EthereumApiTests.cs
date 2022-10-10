@@ -81,7 +81,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
     {
-        var wallet = _ethereumApi.Local.EthGenerateWallet();
+        var wallet = _ethereumApi.Local.GenerateWallet();
 
         wallet.Mnemonic.Should().NotBeNullOrWhiteSpace();
         wallet.Xpub.Should().NotBeNullOrWhiteSpace();
@@ -90,7 +90,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
     {
-        var wallet = _ethereumApi.Local.EthGenerateWallet(_testData.TestMnemonic);
+        var wallet = _ethereumApi.Local.GenerateWallet(_testData.TestMnemonic);
 
         wallet.Mnemonic.Should().Be(_testData.TestMnemonic);
         wallet.Xpub.Should().Be(_testData.TestXPub);
@@ -132,7 +132,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddress_ShouldReturnAddress_WhenCalledWithValidData()
     {
-        var address = _ethereumApi.Local.EthGenerateAddress(_testData.TestXPub, 0);
+        var address = _ethereumApi.Local.GenerateAddress(_testData.TestXPub, 0);
 
         await Verifier.Verify(address);
     }
@@ -140,7 +140,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateAddress_ShouldThrowInvalidFormatException_WhenCalledWithInvalidXpub()
     {
-        var action = () => _ethereumApi.Local.EthGenerateAddress("some random text", 0);
+        var action = () => _ethereumApi.Local.GenerateAddress("some random text", 0);
 
         action.Should().Throw<FormatException>()
             .WithMessage("Invalid base58 data");
@@ -150,7 +150,7 @@ public class EthereumApiTests : IAsyncDisposable
     public async Task GenerateAddress_ShouldReturnSameAddress_WhenCalledWithSameDataOnLocal()
     {
         var address = await _ethereumApi.EthereumBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
-        var addressLocal = _ethereumApi.Local.EthGenerateAddress(_testData.TestXPub, 0);
+        var addressLocal = _ethereumApi.Local.GenerateAddress(_testData.TestXPub, 0);
 
         address.Address.Should().Be(addressLocal.Address.ToLower());
     }
@@ -166,7 +166,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _ethereumApi.Local.EthGenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = _ethereumApi.Local.GenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -177,7 +177,7 @@ public class EthereumApiTests : IAsyncDisposable
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
         
         var privKey = await _ethereumApi.EthereumBlockchain.EthGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _ethereumApi.Local.EthGenerateAddressPrivateKey(privKeyRequest);
+        var privKeyLocal = _ethereumApi.Local.GenerateAddressPrivateKey(privKeyRequest);
 
         privKey.Key.Should().Be(privKeyLocal.Key);
     }
@@ -394,7 +394,7 @@ public class EthereumApiTests : IAsyncDisposable
 
         var account = new Account(_testData.StoragePrivKey, 11155111);
 
-        var signedTransaction = _ethereumApi.Local.EthSignTransaction(transaction, account);
+        var signedTransaction = _ethereumApi.Local.SignTransaction(transaction, account);
 
         var resultTransaction = await _ethereumApi.EthereumBlockchain.EthBroadcastAsync(new BroadcastKMS("0x" + signedTransaction));
 
