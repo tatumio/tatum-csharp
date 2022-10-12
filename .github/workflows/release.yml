@@ -5,6 +5,9 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
+env:
+  DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
+
 jobs:
 
   Verify_Origin:
@@ -20,13 +23,13 @@ jobs:
           git branch --remote --contains | grep origin/main
           
   Release_Version:
-    name: Get version from tag
+    name: Get Version from Tag
     steps:
       - name: Set VERSION variable from tag
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
   
   EVM_Release:
-    name: Release Evm Local
+    name: EVM - Release Local
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: Evm.Local
@@ -36,7 +39,7 @@ jobs:
     needs: Release_Version
   
   ETH_Release:
-    name: Release Ethereum
+    name: ETH - Release
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: Ethereum
@@ -46,7 +49,7 @@ jobs:
     needs: [Release_Version, EVM_Release]
     
   BTC_Local_Release:
-    name: Release Btc Local
+    name: BTC - Release Local
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: Bitcoin.Local
@@ -56,7 +59,7 @@ jobs:
     needs: Release_Version
   
   BTC_Release:
-    name: Release Bitcoin
+    name: BTC - Release
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: Bitcoin
@@ -64,3 +67,13 @@ jobs:
       dependsOn: Bitcoin.Local
     secrets: inherit
     needs: [Release_Version, BTC_Local_Release]
+  
+  Post_Release_Tests:
+    steps:
+      - name: Trigger Post Release Tests
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
+          -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${VERSION} released", "version": "${VERSION}"}}'
