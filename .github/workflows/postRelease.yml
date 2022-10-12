@@ -29,7 +29,6 @@ jobs:
       name: Ethereum
       version: ${{ inputs.version }}
     secrets: inherit
-    needs: ETH_Pack_RC
     
   BTC_Integration_Tests:
     name: BTC - Test
@@ -38,4 +37,3 @@ jobs:
       name: Bitcoin
       version: ${{ inputs.version }}
     secrets: inherit
-    needs: BTC_Pack_RC
