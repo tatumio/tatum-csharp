@@ -17,6 +17,7 @@
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
+        <PackageTags>Tatum; EVM; EVM Local</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

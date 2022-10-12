@@ -9,13 +9,14 @@
         <OutputType>Library</OutputType>
         <Authors>Tatum</Authors>
         <Company>Tatum</Company>
-        <AssemblyTitle>Evm SDK</AssemblyTitle>
-        <Description>Evm SDK</Description>
+        <AssemblyTitle>Bitcoin Local SDK</AssemblyTitle>
+        <Description>Bitcoin Local SDK</Description>
         <Copyright>Tatum</Copyright>
         <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
+        <PackageTags>Tatum; BTC; Bitcoin; BTC Local; Bitcoin Local</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
