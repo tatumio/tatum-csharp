@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Evm.Local
-      version: ${{ env.version }}
+      version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
     needs: Build_Version
@@ -38,7 +38,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Ethereum
-      version: ${{ env.version }}
+      version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Evm.Local
     secrets: inherit
     needs: [Build_Version, EVM_Pack_RC]
@@ -56,7 +56,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Bitcoin.Local
-      version: ${{ env.version }}
+      version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
     needs: Build_Version
@@ -66,7 +66,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Bitcoin
-      version: ${{ env.version }}
+      version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Bitcoin.Local
     secrets: inherit
     needs: [Build_Version, BTC_Local_Pack_RC]
