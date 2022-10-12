@@ -1,4 +1,4 @@
-name: Prepare build package
+name: Deploy RC Package
 
 on:
   workflow_call:
@@ -7,6 +7,9 @@ on:
         required: true
         type: string
       version:
+        required: true
+        type: string
+      dependsOn:
         required: true
         type: string
         
@@ -27,8 +30,8 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
-      - name: ${{ inputs.name }} - Bump Core Version
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.Core --prerelease --no-restore
+      - name: ${{ inputs.name }} - Bump Dependencies Version
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --prerelease --no-restore
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build

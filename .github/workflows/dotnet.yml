@@ -21,19 +21,21 @@ jobs:
   
   EVM_Pack_RC:
     name: Pack Evm Local
-    uses: ./.github/workflows/prepareBuildPackage.yml
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Evm.Local
       version: ${{ needs.Build_Version.outputs.version }}
+      dependsOn: Core
     secrets: inherit
     needs: Build_Version
   
   ETH_Pack_RC:
     name: Pack Ethereum
-    uses: ./.github/workflows/prepareBuildPackage.yml
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Ethereum
       version: ${{ needs.Build_Version.outputs.version }}
+      dependsOn: Evm.Local
     secrets: inherit
     needs: [Build_Version, EVM_Pack_RC]
     
@@ -47,19 +49,21 @@ jobs:
     
   BTC_Local_Pack_RC:
     name: Pack Btc Local
-    uses: ./.github/workflows/prepareBuildPackage.yml
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Bitcoin.Local
       version: ${{ needs.Build_Version.outputs.version }}
+      dependsOn: Core
     secrets: inherit
     needs: Build_Version
   
   BTC_Pack_RC:
     name: Pack Bitcoin
-    uses: ./.github/workflows/prepareBuildPackage.yml
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: Bitcoin
       version: ${{ needs.Build_Version.outputs.version }}
+      dependsOn: Bitcoin.Local
     secrets: inherit
     needs: [Build_Version, BTC_Local_Pack_RC]
     
