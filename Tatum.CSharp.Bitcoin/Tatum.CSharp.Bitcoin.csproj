@@ -12,15 +12,15 @@
         <Company>Tatum</Company>
         <AssemblyTitle>Bitcoin SDK</AssemblyTitle>
         <Description>Bitcoin SDK</Description>
-        <Copyright>No Copyright</Copyright>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <Copyright>Tatum</Copyright>
+        <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Tatum.CSharp.Bitcoin.Local" Version="2.0.0-alpha3219723482" />
+        <PackageReference Include="Tatum.CSharp.Bitcoin.Local" Version="2.0.0-alpha3220083860" />
     </ItemGroup>
     
 </Project>

@@ -1,7 +1,0 @@
-﻿{
-  chain: test,
-  blocks: 2350326.0,
-  headers: 2350326.0,
-  bestblockhash: 00000000000000204895f3878f17c4184f29356095d4d5af025d5c6cc9dec472,
-  difficulty: 83269806.51979084
-}

@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Bitcoin\Tatum.CSharp.Bitcoin.csproj" />
     </ItemGroup>
 

@@ -12,11 +12,11 @@
         <Company>Tatum</Company>
         <AssemblyTitle>Ethereum SDK</AssemblyTitle>
         <Description>Ethereum SDK</Description>
-        <Copyright>No Copyright</Copyright>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <Copyright>Tatum</Copyright>
+        <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

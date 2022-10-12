@@ -181,7 +181,13 @@ public class BitcoinApiTests : IAsyncDisposable
     {
         var btcInfo = await _bitcoinApi.BitcoinBlockchain.BtcGetBlockChainInfoAsync();
 
-        await Verifier.Verify(btcInfo);
+        btcInfo.Should().NotBeNull();
+
+        btcInfo.Chain.Should().NotBeNullOrWhiteSpace();
+        btcInfo.Blocks.Should().BePositive();
+        btcInfo.Headers.Should().BePositive();
+        btcInfo.Bestblockhash.Should().NotBeNullOrWhiteSpace();
+        btcInfo.Difficulty.Should().BePositive();
     }
 
     [Fact]
@@ -204,7 +210,7 @@ public class BitcoinApiTests : IAsyncDisposable
     [Fact]
     public async Task BtcTransferBlockchainAsync_ShouldReturnTransactionHash_WhenCalledWithValidData()
     {
-        var amount = 0.00005m;
+        var amount = 0.0005m;
 
         var transactionHash = await _bitcoinApi.BitcoinBlockchain.BtcTransferBlockchainAsync(
             new BtcTransactionFromAddress(
@@ -212,16 +218,16 @@ public class BitcoinApiTests : IAsyncDisposable
                 {
                     new
                     {
-                        Address = _testData.StorageAddress,
-                        PrivateKey = _testData.StoragePrivKey
+                        address = _testData.StorageAddress,
+                        privateKey = _testData.StoragePrivKey
                     }
                 },
                 new List<object>()
                 {
                     new
                     {
-                        Address = _testData.TargetAddress,
-                        Value = amount
+                        address = _testData.TargetAddress,
+                        value = amount
                     }
                 }));
 
@@ -233,7 +239,7 @@ public class BitcoinApiTests : IAsyncDisposable
     [Fact]
     public async Task BtcGetRawTransactionAsync_ShouldReturnTransaction_WhenCalledWithValidHash()
     {
-        var txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
+        var txHash = "fef757bcc18bac04459b263375d2bba9dc2e740b8ccb944999c5eaba2cb809cc";
         
         var transaction = await _bitcoinApi.BitcoinBlockchain.BtcGetRawTransactionAsync(txHash);
 

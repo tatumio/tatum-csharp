@@ -30,10 +30,8 @@ public class EthereumApiTests : IAsyncDisposable
     public EthereumApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        //var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
+        var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        var secrets = "{\n    \"EthereumTestData\":\n    {\n        \"TestMnemonic\": \"index diary once pigeon gather minor patient climb army funny end fortune amazing asset bounce assault stage bunker advice enroll leisure gate cake brush\",\n        \"TestXPub\": \"xpub6F4jPr6xTbTqhdvWc9nBYCEEVQ9nYpG9jZmfm8JbNUxwseRPaUpVXmJLgGsgM6CKA5qzF4BygWNyZYvy9nBqJVvFvFVSvMyEQa38HomHj5W\",\n        \"StorageAddress\": \"0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380\",\n        \"StoragePrivKey\": \"0xf90c7ab9522a7e525349a9b9113e0758c7caeefbaaa69bcf6fd915a8c2e34d0e\",\n        \"TargetAddress\": \"0xd9cfbfe18fb9bf3871da5528061582ec08b97166\",\n        \"TargetPrivKey\": \"0x14f391a24ebb50e9792362750429c178c7702e5d00ac7fb3d27d58e85ea1c0e8\"\n    }\n}";
-        
         _testData = JsonSerializer.Deserialize<TestData>(secrets)?.EthereumTestData;
 
         _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);

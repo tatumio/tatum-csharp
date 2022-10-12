@@ -1,0 +1,40 @@
+﻿{
+  hash: fef757bcc18bac04459b263375d2bba9dc2e740b8ccb944999c5eaba2cb809cc,
+  witnessHash: fd727e676b0ccfc0e9113e47b049dae58b837bc082803e06543985a238726142,
+  fee: 141.0,
+  blockNumber: 2284403.0,
+  time: 1657133979.0,
+  index: 53.0,
+  version: 2.0,
+  inputs: [
+    {
+      coin: {
+        address: tb1qjerrm749xx60rkuc279s4zr4lh3hv0khnzztwp,
+        coinbase: false,
+        height: 2284402,
+        script: 001496463dfaa531b4f1db98578b0a8875fde3763ed7,
+        value: 1762010867,
+        version: 2
+      },
+      prevout: {
+        hash: 0a76182c1d62b7c62e6e18565045870c99173e841530d5104bb433f4c2802e1b,
+        index: 0
+      },
+      script: ,
+      sequence: 4294967294
+    }
+  ],
+  outputs: [
+    {
+      address: tb1qm2ltp8mnz0vj84kvslhflaedj53p0srf6vdvh8,
+      script: 0014dabeb09f7313d923d6cc87ee9ff72d952217c069,
+      value: 1761910726
+    },
+    {
+      address: tb1q62u2xmtxz7lehxe6jtl6a5xwczgyxunyl3vm06,
+      script: 0014d2b8a36d6617bf9b9b3a92ffaed0cec090437264,
+      value: 100000
+    }
+  ],
+  locktime: 2284402.0
+}
