@@ -2,10 +2,6 @@ name: Tatum.CSharp Post Release tests
 run-name: ${{ inputs.source }}
 
 on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
   workflow_dispatch:
     inputs:
       source:
