@@ -33,7 +33,7 @@ public class BitcoinApiTests : IAsyncDisposable
         _testData = JsonSerializer.Deserialize<TestData>(secrets)?.BitcoinTestData;
 
         _bitcoinApi = new BitcoinClient(new HttpClient(), apiKey, true);
-        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddress>>(x => x.Headers);
+        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressBtc>>(x => x.Headers);
     }
 
     [Fact]
@@ -216,21 +216,13 @@ public class BitcoinApiTests : IAsyncDisposable
 
         var transactionHash = await _bitcoinApi.BitcoinBlockchain.BtcTransferBlockchainAsync(
             new BtcTransactionFromAddress(
-                new List<object>()
+                new List<BtcTransactionFromAddressSource>()
                 {
-                    new
-                    {
-                        address = _testData.StorageAddress,
-                        privateKey = _testData.StoragePrivKey
-                    }
+                    new BtcTransactionFromAddressSource(_testData.StorageAddress, _testData.StoragePrivKey)
                 },
-                new List<object>()
+                new List<BtcTransactionFromAddressTarget>()
                 {
-                    new
-                    {
-                        address = _testData.TargetAddress,
-                        value = amount
-                    }
+                    new BtcTransactionFromAddressTarget(_testData.TargetAddress, amount)
                 }));
 
         _debts.Add(_testData.TargetPrivKey, amount);
@@ -304,21 +296,13 @@ public class BitcoinApiTests : IAsyncDisposable
         {
             await _bitcoinApi.BitcoinBlockchain.BtcTransferBlockchainAsync(
                 new BtcTransactionFromAddress(
-                    new List<object>()
+                    new List<BtcTransactionFromAddressSource>()
                     {
-                        new
-                        {
-                            Address = _testData.TargetAddress,
-                            PrivateKey = debt.Key
-                        }
+                        new BtcTransactionFromAddressSource(_testData.TargetAddress, debt.Key)
                     },
-                    new List<object>()
+                    new List<BtcTransactionFromAddressTarget>()
                     {
-                        new
-                        {
-                            Address = _testData.StorageAddress,
-                            Value = debt.Value
-                        }
+                        new BtcTransactionFromAddressTarget(_testData.StorageAddress, debt.Value)
                     }));
         }
     }

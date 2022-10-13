@@ -35,7 +35,7 @@ public class EthereumApiTests : IAsyncDisposable
         _testData = JsonSerializer.Deserialize<TestData>(secrets)?.EthereumTestData;
 
         _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
-        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddress>>(x => x.Headers);
+        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
     }
 
     [Fact]
@@ -317,11 +317,7 @@ public class EthereumApiTests : IAsyncDisposable
             null,
             _testData.StoragePrivKey,
             0,
-            new
-            {
-                gasLimit = "100000", 
-                gasPrice = "3"
-            }
+            new CustomFee("100000", "3")
         );
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);
