@@ -4,7 +4,7 @@
 
 Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
 
-- **blockchain** - cryptographic functions like generation of wallets, private keys or addresses.
+- **blockchain** - set of API calls to communicate with different blockchains via <a href="https://tatum.io" target="_blank">Tatum API</a>.
 - **local** - set of functions for local generation of wallets, private keys and addressed. It also allows for signing blockchain transactions locally.
 
 You can find API documentation at [API doc](https://tatum.io/apidoc).
