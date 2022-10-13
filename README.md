@@ -1,4 +1,6 @@
-# [Tatum C# SDK v2](http://tatum.io/) &middot; [![CI](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml)
+# [Tatum C# SDK v2](http://tatum.io/)
+[![RC Version](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml) </br>
+[![Tatum.CSharp Post Release Tests](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml/badge.svg)](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml)
 
 Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
 
@@ -9,7 +11,8 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-- [`Ethereum`](Tatum.CSharp.Ethereum)
+- [`Bitcoin`](Tatum.CSharp.Bitcoin) <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>
+- [`Ethereum`](Tatum.CSharp.Ethereum) <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a>
 
 ## Quick Start
 
@@ -17,7 +20,7 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
    `dotnet add ${your_project} package Tatum.CSharp.Ethereum`
 
-2. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (mainnet or testnet)
+2. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
 
 3. Register Tatum Client in the DI container by calling `IServiceCollection` method `AddHttpClient`:
 

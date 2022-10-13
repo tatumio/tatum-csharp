@@ -1,4 +1,4 @@
-name: Tatum.CSharp Blockchain packages
+name: Tatum.CSharp RC Packages
 run-name: ${{ inputs.source }}
 
 on:

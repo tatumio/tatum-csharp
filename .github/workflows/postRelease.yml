@@ -1,4 +1,4 @@
-name: Tatum.CSharp Post Release tests
+name: Tatum.CSharp Latest Packages
 run-name: ${{ inputs.source }}
 
 on:
