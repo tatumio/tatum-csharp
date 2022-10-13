@@ -23,7 +23,7 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// <param name="walletXpub">Extended public key of wallet.</param>
         /// <param name="index">Derivation index of the address to be generated.</param>
         /// <returns></returns>
-        GeneratedAddress GenerateAddress(string walletXpub, int index);
+        GeneratedAddressBtc GenerateAddress(string walletXpub, int index);
 
         /// <summary>
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
@@ -36,6 +36,6 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
         /// <param name="√">The private key.</param>
         /// <returns>Raw signed transaction string.</returns>
-        string SignTransaction(Transaction transaction, string ć);
+        string SignTransaction(Transaction transaction, string privKey);
     }
 }

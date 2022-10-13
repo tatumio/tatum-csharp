@@ -23,7 +23,7 @@
     <ItemGroup>
       <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
       <PackageReference Include="System.Text.Json" Version="6.0.5" />
-      <PackageReference Include="Tatum.CSharp.Evm.Local" Version="2.0.0-alpha3219723482" />
+      <PackageReference Include="Tatum.CSharp.Evm.Local" Version="2.0.0-alpha3234086311" />
     </ItemGroup>
 
 </Project>

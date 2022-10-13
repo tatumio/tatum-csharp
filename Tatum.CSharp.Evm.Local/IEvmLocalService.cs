@@ -23,7 +23,7 @@ namespace Tatum.CSharp.Evm.Local
         /// <param name="walletXpub">Extended public key of wallet.</param>
         /// <param name="index">Derivation index of the address to be generated.</param>
         /// <returns></returns>
-        GeneratedAddress GenerateAddress(string walletXpub, int index);
+        GeneratedAddressEth GenerateAddress(string walletXpub, int index);
 
         /// <summary>
         /// Generates the private key of an address from a mnemonic for a given derivation path index.

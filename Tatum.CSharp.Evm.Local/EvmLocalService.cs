@@ -52,12 +52,12 @@ namespace Tatum.CSharp.Evm.Local
         }
 
         /// <inheritdoc />
-        public GeneratedAddress GenerateAddress(string walletXpub, int index)
+        public GeneratedAddressEth GenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
             var wallet = new PublicWallet(bitcoinExtPubKey.ExtPubKey);
             
-            return new GeneratedAddress
+            return new GeneratedAddressEth
             {
                 Address = wallet.GetAddress(index)
             };

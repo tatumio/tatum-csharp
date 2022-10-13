@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NBitcoin;
+using Newtonsoft.Json.Linq;
 using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
@@ -210,7 +212,7 @@ public class BitcoinApiTests : IAsyncDisposable
     [Fact]
     public async Task BtcTransferBlockchainAsync_ShouldReturnTransactionHash_WhenCalledWithValidData()
     {
-        var amount = 0.0005m;
+        var amount = 0.005m;
 
         var transactionHash = await _bitcoinApi.BitcoinBlockchain.BtcTransferBlockchainAsync(
             new BtcTransactionFromAddress(
@@ -250,25 +252,43 @@ public class BitcoinApiTests : IAsyncDisposable
     public async Task BtcBroadcastAsync_ShouldReturnTransactionHash_WhenCalledOnSignedTransaction()
     {
         var transaction = Transaction
-            .Create(Network.Main);
+            .Create(Network.TestNet);
 
-        var input = new TxIn();
-        input.PrevOut = new OutPoint(new uint256(_testData.StorageAddress), 1);
-        input.ScriptSig = new BitcoinSecret(_testData.StoragePrivKey, Network.Main).GetAddress(ScriptPubKeyType.SegwitP2SH).ScriptPubKey;
+        var bitcoinPrivateKey = new BitcoinSecret(_testData.StoragePrivKey, Network.TestNet);
+        
+        var input = new TxIn(new OutPoint(new uint256("701c5eb2d28c04b619a9adb1501ca19c6d1b28965ecb3d1cda04fe7a01e2385e"), 0));
+
+        //_testData.StorageAddress - hash
+        input.ScriptSig = bitcoinPrivateKey.GetAddress(ScriptPubKeyType.Legacy).ScriptPubKey;
 
         transaction.Inputs.Add(input);
 
-        var output = new TxOut();
-        output.Value = Money.Coins(0.0005m);
-        output.ScriptPubKey = BitcoinAddress.Create(_testData.TargetAddress, Network.Main).ScriptPubKey;
-
-        transaction.Outputs.Add(output);
+        transaction.Outputs.Add("0.01", BitcoinAddress.Create(_testData.TargetAddress, Network.TestNet).ScriptPubKey);
 
         var signedTransaction = _bitcoinApi.Local.SignTransaction(transaction, _testData.StoragePrivKey);
 
-        var resultTransaction = await _bitcoinApi.BitcoinBlockchain.BtcBroadcastAsync(new BroadcastKMS("0x" + signedTransaction));
+        var coins = transaction.Inputs.Select(i => new Coin(i.PrevOut, transaction.Inputs.Transaction.Outputs.CreateNewTxOut(Money.Coins(0.01m), new BitcoinSecret(_testData.StoragePrivKey, Network.TestNet).GetAddress(ScriptPubKeyType.Segwit).ScriptPubKey))).ToArray();
 
-        _debts.Add(_testData.TargetPrivKey, 0.00005M);
+        transaction.Sign(bitcoinPrivateKey, coins);
+
+        var transactions = await _bitcoinApi.BitcoinBlockchain.BtcGetTxByAddressAsync(_testData.StorageAddress, 50);
+
+        //var coins = transactions.Select(tx => tx.Inputs.Select(i => new Coin(new OutPoint(new uint256(((JObject)i["prevout"])))))
+        
+        transaction = bitcoinPrivateKey.Network.CreateTransactionBuilder()
+            .AddCoins(new Coin())
+            .AddKeys(new ISecret[] { bitcoinPrivateKey })
+            .Send(new BitcoinPubKeyAddress(_testData.TargetAddress, bitcoinPrivateKey.Network), Money.Coins(0.01m))
+            .SubtractFees()
+            .SendFees(Money.Coins(0.00001m))
+            .SetChange(bitcoinPrivateKey)
+            .BuildTransaction(true);
+
+        signedTransaction = transaction.ToHex();
+        
+        var resultTransaction = await _bitcoinApi.BitcoinBlockchain.BtcBroadcastAsync(new BroadcastKMS(signedTransaction));
+
+        _debts.Add(_testData.TargetPrivKey, 0.01m);
         
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
     }
@@ -297,7 +317,7 @@ public class BitcoinApiTests : IAsyncDisposable
                         new
                         {
                             Address = _testData.StorageAddress,
-                            Value = debt.Value.ToString("G")
+                            Value = debt.Value
                         }
                     }));
         }

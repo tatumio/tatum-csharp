@@ -49,7 +49,7 @@ namespace Tatum.CSharp.Bitcoin.Local
         }
 
         /// <inheritdoc />
-        public GeneratedAddress GenerateAddress(string walletXpub, int index)
+        public GeneratedAddressBtc GenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
 
@@ -59,7 +59,7 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .GetAddress(ScriptPubKeyType.Segwit, _targetNetwork)
                 .ToString();
             
-            return new GeneratedAddress(address);
+            return new GeneratedAddressBtc(address);
         }
 
         /// <inheritdoc />
@@ -84,7 +84,9 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .PrivateKey
                 .Sign(transaction.GetHash());
 
-            return signature.ToString();
+            transaction.Sign(bitcoinPrivateKey, new Coin(transaction, 0));
+
+            return transaction.ToHex();
         }
     }
 }
