@@ -4,7 +4,7 @@
     address: tb1q2kljyzaasfnc322vxcker2z2qztjrkqr8286cu
   },
   ErrorText: OK,
-  ResponseType: GeneratedAddress,
+  ResponseType: GeneratedAddressBtc,
   Content: {
     address: tb1q2kljyzaasfnc322vxcker2z2qztjrkqr8286cu
   },
