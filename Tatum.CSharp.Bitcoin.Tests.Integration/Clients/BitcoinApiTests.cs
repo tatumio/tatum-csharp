@@ -216,23 +216,25 @@ public class BitcoinApiTests : IAsyncDisposable
         var amount = 0.005m;
         var fee = 0.0001m;
 
-        var balance = await _bitcoinApi.BitcoinBlockchain.BtcGetBalanceOfAddressAsync(_testData.StorageAddress);
+        var balance = await _bitcoinApi.BitcoinBlockchain.BtcGetBalanceOfAddressAsync(_testData.TargetAddress);
 
-        var changeAmount = decimal.Parse(balance.Incoming, CultureInfo.InvariantCulture) - decimal.Parse(balance.Outgoing, CultureInfo.InvariantCulture) - amount - fee;
+        var changeAmount = 
+            decimal.Parse(balance.Incoming, CultureInfo.InvariantCulture) 
+            - decimal.Parse(balance.Outgoing, CultureInfo.InvariantCulture) 
+            - amount 
+            - fee;
 
         var transactionHash = await _bitcoinApi.BitcoinBlockchain.BtcTransferBlockchainAsync(
             new BtcTransactionFromAddress(
                 new List<BtcTransactionFromAddressSource>()
                 {
-                    new BtcTransactionFromAddressSource(_testData.StorageAddress, _testData.StoragePrivKey)
+                    new BtcTransactionFromAddressSource(_testData.TargetAddress, _testData.TargetPrivKey)
                 },
                 new List<BtcTransactionFromAddressTarget>()
                 {
-                    new BtcTransactionFromAddressTarget(_testData.TargetAddress, amount),
-                    new BtcTransactionFromAddressTarget(_testData.StorageAddress, changeAmount)
+                    new BtcTransactionFromAddressTarget(_testData.StorageAddress, amount),
+                    new BtcTransactionFromAddressTarget(_testData.TargetAddress, changeAmount)
                 }));
-
-        _debts.Add(_testData.TargetPrivKey, amount);
 
         transactionHash.TxId.Should().NotBeNullOrWhiteSpace();
     }
@@ -282,12 +284,8 @@ public class BitcoinApiTests : IAsyncDisposable
             .SetChange(BitcoinAddress.Create(_testData.StorageAddress, Network.TestNet))
             .BuildTransaction(true);
 
-        var signedTransaction = transaction.ToHex();
-        
-        var resultTransaction = await _bitcoinApi.BitcoinBlockchain.BtcBroadcastAsync(new BroadcastKMS(signedTransaction));
+        var resultTransaction = await _bitcoinApi.BitcoinBlockchain.BtcBroadcastAsync(new BroadcastKMS(transaction.ToHex()));
 
-        _debts.Add(_testData.TargetPrivKey, amount);
-        
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
     }
 
