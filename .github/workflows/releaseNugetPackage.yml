@@ -1,0 +1,38 @@
+name: Release Nuget Package
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+env:
+  PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
+  PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
+  
+jobs:
+
+  preparePackage:
+    name: Build and Publish package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: ${{ inputs.name }} - Bump Dependencies Version
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore
+      - name: ${{ inputs.name }} - Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: ${{ inputs.name }} - Build
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: ${{ inputs.name }} - Pack
+        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+      - name: ${{ inputs.name }} - Push to Nuget
+        run: echo "otnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}"

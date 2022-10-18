@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ethereum", "Tatum.CSharp.Ethereum\Tatum.CSharp.Ethereum.csproj", "{ABCD840B-4C50-471F-84C2-1EB3D76DE972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ethereum.Tests.Integration", "Tatum.CSharp.Ethereum.Tests.Integration\Tatum.CSharp.Ethereum.Tests.Integration.csproj", "{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Demo", "Tatum.CSharp.Demo\Tatum.CSharp.Demo.csproj", "{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Evm.Local", "Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj", "{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin", "Tatum.CSharp.Bitcoin\Tatum.CSharp.Bitcoin.csproj", "{83D54721-8376-475D-8EAD-27CF96609E62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Local", "Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj", "{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Tests.Integration", "Tatum.CSharp.Bitcoin.Tests.Integration\Tatum.CSharp.Bitcoin.Tests.Integration.csproj", "{21A7D105-F991-4C62-BAEB-D981EBB3C444}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCD840B-4C50-471F-84C2-1EB3D76DE972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2C61B6-3F2F-4E40-BC7E-75E655F7E108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D54721-8376-475D-8EAD-27CF96609E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D54721-8376-475D-8EAD-27CF96609E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D54721-8376-475D-8EAD-27CF96609E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D54721-8376-475D-8EAD-27CF96609E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A7D105-F991-4C62-BAEB-D981EBB3C444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A7D105-F991-4C62-BAEB-D981EBB3C444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A7D105-F991-4C62-BAEB-D981EBB3C444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A7D105-F991-4C62-BAEB-D981EBB3C444}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
