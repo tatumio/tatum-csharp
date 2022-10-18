@@ -1,6 +1,4 @@
-using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Model;
-using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
 namespace Tatum.CSharp.Evm.Local
 {
@@ -29,14 +27,5 @@ namespace Tatum.CSharp.Evm.Local
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
         /// </summary>
         PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest);
-
-        /// <summary>
-        /// Signs transaction locally.
-        /// </summary>
-        /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
-        /// <param name="account"><see cref="Account"/> instantiated with private key and chainId.</param>
-        /// <remarks>ChainId for EVM is 11155111.</remarks>
-        /// <returns>Raw signed transaction string.</returns>
-        string SignTransaction(Transaction transaction, Account account);
     }
 }

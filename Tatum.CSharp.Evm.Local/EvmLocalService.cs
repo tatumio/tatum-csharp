@@ -1,10 +1,7 @@
 using NBitcoin;
 using Nethereum.HdWallet;
 using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.RPC.Eth.DTOs;
-using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Model;
-using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 using Wallet = Tatum.CSharp.Core.Model.Wallet;
 
 namespace Tatum.CSharp.Evm.Local
@@ -74,15 +71,6 @@ namespace Tatum.CSharp.Evm.Local
             {
                 Key = privKey.ToHex(true)
             };
-        }
-
-        /// <inheritdoc />
-        public string SignTransaction(Transaction transaction, Account account)
-        {
-            var transactionManager = new AccountOfflineTransactionSigner();
-            var transactionInput = transaction.ConvertToTransactionInput();
-            
-            return transactionManager.SignTransaction(account, transactionInput);
         }
     }
 }

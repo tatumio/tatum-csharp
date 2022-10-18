@@ -1,4 +1,3 @@
-using NBitcoin;
 using Tatum.CSharp.Core.Model;
 using Wallet = Tatum.CSharp.Core.Model.Wallet;
 
@@ -29,13 +28,5 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
         /// </summary>
         PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest);
-
-        /// <summary>
-        /// Signs transaction locally.
-        /// </summary>
-        /// <param name="transaction"><see cref="Transaction"/> data to be signed.</param>
-        /// <param name="√">The private key.</param>
-        /// <returns>Raw signed transaction string.</returns>
-        string SignTransaction(Transaction transaction, string privKey);
     }
 }

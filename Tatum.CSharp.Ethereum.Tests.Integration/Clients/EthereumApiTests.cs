@@ -387,8 +387,11 @@ public class EthereumApiTests : IAsyncDisposable
         };
 
         var account = new Account(_testData.StoragePrivKey, 11155111);
+        
+        var transactionManager = new AccountOfflineTransactionSigner();
+        var transactionInput = transaction.ConvertToTransactionInput();
 
-        var signedTransaction = _ethereumApi.Local.SignTransaction(transaction, account);
+        var signedTransaction = transactionManager.SignTransaction(account, transactionInput);
 
         var resultTransaction = await _ethereumApi.EthereumBlockchain.EthBroadcastAsync(new BroadcastKMS("0x" + signedTransaction));
 

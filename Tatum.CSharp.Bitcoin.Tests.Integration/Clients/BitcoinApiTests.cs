@@ -8,7 +8,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NBitcoin;
-using Newtonsoft.Json.Linq;
 using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
@@ -259,23 +258,8 @@ public class BitcoinApiTests : IAsyncDisposable
 
         var transactions = await _bitcoinApi.BitcoinBlockchain.BtcGetTxByAddressAsync(_testData.StorageAddress, 50);
 
-        var coins = new List<Coin>();
+        var coins = await CalculateCoins(transactions);
 
-        foreach (var existingTransaction in transactions)
-        {
-            var fundingTx = Transaction.Parse(existingTransaction.Hex, Network.TestNet);
-            
-            for (var index = 0; index < existingTransaction.Outputs.Count; index++)
-            {
-                var utxo = await _bitcoinApi.BitcoinBlockchainWithHttpInfo.BtcGetUTXOWithHttpInfoAsync(existingTransaction.Hash, index);
-            
-                if (utxo.StatusCode == HttpStatusCode.OK && utxo.Data.Address == _testData.StorageAddress)
-                {
-                    coins.Add(new Coin(fundingTx, (uint)index));
-                }
-            }
-        }
-        
         var transaction = storagePrivateKey.Network.CreateTransactionBuilder()
             .AddCoins(coins)
             .AddKeys(storagePrivateKey)
@@ -287,6 +271,37 @@ public class BitcoinApiTests : IAsyncDisposable
         var resultTransaction = await _bitcoinApi.BitcoinBlockchain.BtcBroadcastAsync(new BroadcastKMS(transaction.ToHex()));
 
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
+    }
+
+    private Task<List<Coin>> CalculateCoins(List<BtcTx> transactions)
+    {
+        var coins = new List<Coin>();
+
+        var transactionsToSpend = new Dictionary<(string, decimal), BtcTx>();
+        
+        foreach (var btcTx in transactions)
+        {
+            for (var index = 0; index < btcTx.Outputs.Count; index++)
+            {
+                if (btcTx.Outputs[index].Address == _testData.StorageAddress)
+                {
+                    transactionsToSpend.Add((btcTx.Hash, index), btcTx);
+                }
+            }
+        }
+        
+        foreach (var input in transactions.SelectMany(btcTx => btcTx.Inputs))
+        {
+            transactionsToSpend.Remove((input.Prevout.Hash, input.Prevout.Index));
+        }
+        
+        foreach (var transactionToSend in transactionsToSpend)
+        {
+            var fundingTransaction = Transaction.Parse(transactionToSend.Value.Hex, Network.TestNet);
+            coins.Add(new Coin(fundingTransaction, (uint)transactionToSend.Key.Item2));
+        }
+        
+        return Task.FromResult(coins);
     }
 
     public async ValueTask DisposeAsync()

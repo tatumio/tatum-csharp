@@ -74,19 +74,5 @@ namespace Tatum.CSharp.Bitcoin.Local
 
             return new PrivKey(privKey);
         }
-
-        /// <inheritdoc />
-        public string SignTransaction(Transaction transaction, string privKey)
-        {
-            var bitcoinPrivateKey = new BitcoinSecret(privKey, _targetNetwork);
-
-            var signature = bitcoinPrivateKey
-                .PrivateKey
-                .Sign(transaction.GetHash());
-
-            transaction.Sign(bitcoinPrivateKey, new Coin(transaction, 0));
-
-            return transaction.ToHex();
-        }
     }
 }
