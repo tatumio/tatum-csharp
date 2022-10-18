@@ -1,87 +1,51 @@
-![Tatum Icon](https://github.com/tatumio/tatum-csharp/blob/master/src/Tatum/tatum_icon.jpg)
-# [Community only]: Tatum C#
+# [Tatum C# SDK v2](http://tatum.io/)
+[![RC Version](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml) </br>
+[![Tatum.CSharp Post Release Tests](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml/badge.svg)](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml)
 
-This library simplifies usage of [Tatum](https://docs.tatum.io/) blockchain developer platform from C# applications. It allows you to call [Tatum API](https://tatum.io/apidoc) endpoints directly as methods from code. Library also validates inputs before calling the API, so you won't waste resources and credits. All operations that require sensitive data are performed locally, so no private keys are sent anywhere.  
-C# Library is inspired by [Tatum JS library](https://github.com/tatumio/tatum-js) and it's divided into the same logical parts. It includes the following core components.  
-- **wallet** - cryptographic functions like generation of wallets, private keys or addresses.
+Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
+
 - **blockchain** - set of API calls to communicate with different blockchains via <a href="https://tatum.io" target="_blank">Tatum API</a>.
-- **ledger** - set of API calls to communicate with Tatum Private Ledger via <a href="https://tatum.io" target="_blank">Tatum API</a>.
-- **transaction** - set of functions to generate and sign blockchain transactions locally.
-- **offchain** - set of functions to generate and sign Tatum off-chain transactions locally.
+- **local** - set of functions for local generation of wallets, private keys and addressed. It also allows for signing blockchain transactions locally.
 
+You can find API documentation at [API doc](https://tatum.io/apidoc).
 
-## Tatum API Credentials
-Before you start you need to get Tatum API Key. If you don't have any yet, follow [Tatum docs](https://docs.tatum.io/your-first-app#1-get-your-api-key).
+## Included Chains
 
-## Installation
-![Tatum Nuget version](https://img.shields.io/nuget/v/Tatum.svg)  ![Tatum Nuget downloads](https://img.shields.io/nuget/dt/Tatum.svg)  
-You can link this library as a standard [Nuget](https://www.nuget.org/packages/TatumCS/) package as described in the [documentation](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio).
+- [`Bitcoin`](Tatum.CSharp.Bitcoin) <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>
+- [`Ethereum`](Tatum.CSharp.Ethereum) <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a>
 
-## Clients Usage
-The only classes/interfaces used by the end user are those with suffix `Client` eg. `BitcoinClient`, `EthereumClient`, `LedgerClient`. They are located in [Clients](https://github.com/tatumio/tatum-csharp/Tatum/Clients) folder of the Tatum project. 
+## Quick Start
 
-Before 
-There are 2 basic ways, how to use Clients.
-### Direct usage via Create Factory method
-First you need to add `Tatum` namespace.  
-```C#
-using Tatum;
-using Tatum.Model;
-```  
-Then just call `CreateWallet()` method 
-```C#
-BitcoinClient client = new BitcoinClient("your-x-api-key")
+1. Include blockchain package in your project:
 
-```  
-### Usage via Wallet Static Method
-Also you need to add `Tatum` namespace.  
-```C#
-using Tatum;
-using Tatum.Model;
-``` 
-Then also call `CreateWallet()` method without the need of using your private key
-```C#
- var xpub = Wallets.Create(Currency.LTC, mnemonic, True)
- var privekey = Wallets.GeneratePrivateKey(Currency.LTC, mnemonic, index, True)
- var address = Wallets.GenerateAddress(Currency.LTC, xpub.XPub, index, True)
+   `dotnet add ${your_project} package Tatum.CSharp.Ethereum`
 
-``` 
-where typically `string baseUrl = "https://api-eu1.tatum.io";`.  
-Of course you should store your credentials securely eg. in environment variable or configuration file.  
-Then you can call all the methods available for the `Client`. You can find examples of this approach in [Tests project](https://github.com/tatumio/tatum-csharp/tree/master/src/Tatum.Tests).
+2. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
 
-### Fully Supported Chains
-Following are fully supported chains  
+3. Register Tatum Client in the DI container by calling `IServiceCollection` method `AddHttpClient`:
+
+```cs
+// In Program.cs or Startup.cs
+
+// Use new EthereumClient(httpClient, apiKey, true) if you are planning to use local functions targetted at testnet.
+builder.Services
+    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
 ```
-BTC
-BCH
-ETH
-BNB - wallet creation
-BSC
-CELO
-DOGE
-LTC
-ONE
-POLYGON
-VET
-XDC
-XLM
-NEO - Wallet Creation
-QTUM
-``` 
-### HTTP CLIENTS Supported Chains
-Following are http clients supported chains  
+4. Inject Tatum Client to the class of your choice:
+
+```cs
+// EthereumController.cs
+private readonly IEthereumClient _ethereumClient;
+
+public EthereumController(IEthereumClient ethereumClient)
+{
+    _ethereumClient = ethereumClient;
+}
 ```
-ADA
-ALGO
-EGLD
-SCRYPTA
-TRON
-FLOW
-``` 
 
-## Contributing
+5. You are ready to use Tatum API :smiley:
 
-Contributions to the Tatum API client are welcome. Please ensure
-that you have tested the changes with a local client and have added unit test
-coverage for your code.
+## Further Examples
+
+Please check out [Demo App](Tatum.CSharp.Demo) or [Integration Tests](https://github.com/tatumio/tatum-csharp/tree/develop/Tatum.CSharp.Ethereum.Tests.Integration) to see the usage of all methods.
+

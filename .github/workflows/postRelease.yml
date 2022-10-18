@@ -1,0 +1,35 @@
+name: Tatum.CSharp Latest Packages
+run-name: ${{ inputs.source }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source of event'
+        required: false
+        default: ''
+      version:
+        description: 'Version to test'
+        required: true
+
+jobs:
+
+  Build_Version:
+    name: Get Version
+    uses: ./.github/workflows/calculateBuildVersion.yml
+    
+  ETH_Integration_Tests:
+    name: ETH - Test
+    uses: ./.github/workflows/integrationTests.yml
+    with:
+      name: Ethereum
+      version: ${{ inputs.version }}
+    secrets: inherit
+    
+  BTC_Integration_Tests:
+    name: BTC - Test
+    uses: ./.github/workflows/integrationTests.yml
+    with:
+      name: Bitcoin
+      version: ${{ inputs.version }}
+    secrets: inherit

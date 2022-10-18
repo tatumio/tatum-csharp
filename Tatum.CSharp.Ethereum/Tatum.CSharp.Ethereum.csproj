@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Tatum.CSharp.Ethereum</RootNamespace>
+        <Nullable>disable</Nullable>
+        <LangVersion>8.0</LangVersion>
+        <AssemblyName>Tatum.CSharp.Ethereum</AssemblyName>
+        <PackageId>Tatum.CSharp.Ethereum</PackageId>
+        <OutputType>Library</OutputType>
+        <Authors>Tatum</Authors>
+        <Company>Tatum</Company>
+        <AssemblyTitle>Ethereum SDK</AssemblyTitle>
+        <Description>Ethereum SDK</Description>
+        <Copyright>Tatum</Copyright>
+        <VersionPrefix>2.0.0</VersionPrefix>
+        <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
+        <PackageTags>Tatum; ETH; Ethereum</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+      <PackageReference Include="System.Text.Json" Version="6.0.5" />
+      <PackageReference Include="Tatum.CSharp.Evm.Local" Version="2.0.0-alpha3250739054" />
+    </ItemGroup>
+
+</Project>

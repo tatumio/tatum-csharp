@@ -1,0 +1,26 @@
+name: Calculate Build Version
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: "New build version number"
+        value: ${{ jobs.calculate_version.outputs.output1 }}
+
+jobs:
+  calculate_version:
+    name: Calculate Build Version
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{steps.versionStep.outputs.version}}
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Generate build version
+      id: versionStep
+      shell: bash
+      run: echo "version=2.0.0-alpha${{ github.run_id }}" >> $GITHUB_OUTPUT

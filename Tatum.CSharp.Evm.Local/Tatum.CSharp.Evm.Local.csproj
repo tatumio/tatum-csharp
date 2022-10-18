@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Tatum.CSharp.Evm.Local</RootNamespace>
+        <Nullable>disable</Nullable>
+        <LangVersion>8.0</LangVersion>
+        <PackageId>Tatum.CSharp.Evm.Local</PackageId>
+        <OutputType>Library</OutputType>
+        <Authors>Tatum</Authors>
+        <Company>Tatum</Company>
+        <AssemblyTitle>Evm SDK</AssemblyTitle>
+        <Description>Evm SDK</Description>
+        <Copyright>Tatum</Copyright>
+        <RootNamespace>Tatum.CSharp.Evm.Local</RootNamespace>
+        <VersionPrefix>2.0.0</VersionPrefix>
+        <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
+        <PackageTags>Tatum; EVM; EVM Local</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Nethereum.HdWallet" Version="4.9.0" />
+      <PackageReference Include="Tatum.CSharp.Core" Version="2.0.0-alpha3250727420" />
+    </ItemGroup>
+
+</Project>
