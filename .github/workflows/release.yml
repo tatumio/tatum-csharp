@@ -32,4 +32,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.UPSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${{ github.ref_name }}"}}'
-    needs: Release_Version
+    needs: Verify_Origin
