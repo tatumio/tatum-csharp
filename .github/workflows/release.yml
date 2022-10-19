@@ -30,6 +30,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
   
   Core_Release:
+    runs-on: ubuntu-latest
     steps:
       - name: Trigger Core Release
         run: |

@@ -57,6 +57,7 @@ jobs:
     needs: [Release_Version, BTC_Local_Release]
   
   Post_Release_Tests:
+    runs-on: ubuntu-latest
     steps:
       - name: Trigger Post Release Tests
         run: |
