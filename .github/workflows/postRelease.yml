@@ -13,19 +13,20 @@ on:
         description: 'Package Version'
         required: true
         type: string
+      rcFlag:
+        description: 'RC Flag'
+        required: false
+        type: string
 
 jobs:
 
-  Build_Version:
-    name: Get Version
-    uses: ./.github/workflows/calculateBuildVersion.yml
-    
   ETH_Integration_Tests:
     name: ETH - Test
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
-      version: ${{ inputs.version }}
+      version: --version ${{ inputs.version }}
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     
   BTC_Integration_Tests:
@@ -33,5 +34,6 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Bitcoin
-      version: ${{ inputs.version }}
+      version: --version ${{ inputs.version }}
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit

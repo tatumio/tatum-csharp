@@ -13,6 +13,10 @@ on:
         description: 'Package Version'
         required: true
         type: string
+      rcFlag:
+        description: 'RC Flag'
+        required: false
+        type: string
 
 env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
@@ -25,6 +29,7 @@ jobs:
       name: Evm.Local
       version: ${{ inputs.version }}
       dependsOn: Core
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
   
   ETH_Release:
@@ -34,6 +39,7 @@ jobs:
       name: Ethereum
       version: ${{ inputs.version }}
       dependsOn: Evm.Local
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: EVM_Release
     
@@ -44,6 +50,7 @@ jobs:
       name: Bitcoin.Local
       version: ${{ inputs.version }}
       dependsOn: Core
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
   
   BTC_Release:
@@ -53,6 +60,7 @@ jobs:
       name: Bitcoin
       version: ${{ inputs.version }}
       dependsOn: Bitcoin.Local
+      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: BTC_Local_Release
   
@@ -65,5 +73,5 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
+          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}", "rcFlag": "${{ inputs.rcFlag }}"}}'
     needs: [ETH_Release, BTC_Release]
