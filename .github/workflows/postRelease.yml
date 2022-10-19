@@ -5,12 +5,14 @@ on:
   workflow_dispatch:
     inputs:
       source:
+        type: string
         description: 'Source of event'
         required: false
         default: ''
       version:
-        description: 'Version to test'
+        description: 'Package Version'
         required: true
+        type: string
 
 jobs:
 

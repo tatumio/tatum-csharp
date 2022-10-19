@@ -2,7 +2,7 @@ name: Tatum.CSharp Nuget Release - Chains
 run-name: ${{ inputs.source }}
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       source:
         type: string
@@ -10,6 +10,7 @@ on:
         required: false
         default: ''
       version:
+        description: 'Package Version'
         required: true
         type: string
 
