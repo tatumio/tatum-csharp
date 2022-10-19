@@ -9,6 +9,9 @@ on:
       version:
         required: true
         type: string
+      dependsOn:
+        required: true
+        type: string
 
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
