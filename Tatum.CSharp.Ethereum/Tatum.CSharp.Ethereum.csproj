@@ -18,6 +18,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
         <PackageTags>Tatum; ETH; Ethereum</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
