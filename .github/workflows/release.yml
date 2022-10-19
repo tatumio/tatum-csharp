@@ -32,5 +32,5 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.UPSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${{ github.ref_name }}"}}'
+          -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${${{ github.ref_name }}#v}"}}'
     needs: Verify_Origin
