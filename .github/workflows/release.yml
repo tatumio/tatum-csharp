@@ -24,6 +24,7 @@ jobs:
           
   Release_Version:
     name: Get Version from Tag
+    runs-on: ubuntu-latest
     steps:
       - name: Set VERSION variable from tag
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
