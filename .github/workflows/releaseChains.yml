@@ -1,0 +1,67 @@
+name: Tatum.CSharp Nuget Release - Chains
+run-name: ${{ inputs.source }}
+
+on:
+  workflow_call:
+    inputs:
+      source:
+        description: 'Source of event'
+        required: false
+        default: ''
+      version:
+        required: true
+        type: string
+
+env:
+  DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
+
+jobs:
+  EVM_Release:
+    name: EVM - Release Local
+    uses: ./.github/workflows/releaseNugetPackage.yml
+    with:
+      name: Evm.Local
+      version: ${{ inputs.version }}
+      dependsOn: Core
+    secrets: inherit
+    needs: Release_Version
+  
+  ETH_Release:
+    name: ETH - Release
+    uses: ./.github/workflows/releaseNugetPackage.yml
+    with:
+      name: Ethereum
+      version: ${{ inputs.version }}
+      dependsOn: Evm.Local
+    secrets: inherit
+    needs: [Release_Version, EVM_Release]
+    
+  BTC_Local_Release:
+    name: BTC - Release Local
+    uses: ./.github/workflows/releaseNugetPackage.yml
+    with:
+      name: Bitcoin.Local
+      version: ${{ inputs.version }}
+      dependsOn: Core
+    secrets: inherit
+    needs: Release_Version
+  
+  BTC_Release:
+    name: BTC - Release
+    uses: ./.github/workflows/releaseNugetPackage.yml
+    with:
+      name: Bitcoin
+      version: ${{ inputs.version }}
+      dependsOn: Bitcoin.Local
+    secrets: inherit
+    needs: [Release_Version, BTC_Local_Release]
+  
+  Post_Release_Tests:
+    steps:
+      - name: Trigger Post Release Tests
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
+          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'

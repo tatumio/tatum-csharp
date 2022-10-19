@@ -35,4 +35,4 @@ jobs:
       - name: ${{ inputs.name }} - Pack
         run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.name }} - Push to Nuget
-        run: echo "otnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}"
+        run: echo "dotnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}"

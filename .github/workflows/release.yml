@@ -3,10 +3,10 @@ name: Tatum.CSharp Nuget Release
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+.*"
 
 env:
-  DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
+  UPSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/openapi-generator-tatum/actions/workflows/tatumRelease.yml/dispatches
 
 jobs:
 
@@ -28,52 +28,12 @@ jobs:
       - name: Set VERSION variable from tag
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
   
-  EVM_Release:
-    name: EVM - Release Local
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: Evm.Local
-      version: ${VERSION}
-      dependsOn: Core
-    secrets: inherit
-    needs: Release_Version
-  
-  ETH_Release:
-    name: ETH - Release
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: Ethereum
-      version: ${VERSION}
-      dependsOn: Evm.Local
-    secrets: inherit
-    needs: [Release_Version, EVM_Release]
-    
-  BTC_Local_Release:
-    name: BTC - Release Local
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: Bitcoin.Local
-      version: ${VERSION}
-      dependsOn: Core
-    secrets: inherit
-    needs: Release_Version
-  
-  BTC_Release:
-    name: BTC - Release
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: Bitcoin
-      version: ${VERSION}
-      dependsOn: Bitcoin.Local
-    secrets: inherit
-    needs: [Release_Version, BTC_Local_Release]
-  
-  Post_Release_Tests:
+  Core_Release:
     steps:
-      - name: Trigger Post Release Tests
+      - name: Trigger Core Release
         run: |
           curl -X POST \
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
-          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
+          '${{ env.UPSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${VERSION} released", "version": "${VERSION}"}}'
