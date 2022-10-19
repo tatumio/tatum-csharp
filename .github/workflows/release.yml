@@ -28,6 +28,7 @@ jobs:
     steps:
       - name: Set VERSION variable from tag
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+    needs: Verify_Origin
   
   Core_Release:
     runs-on: ubuntu-latest
@@ -39,3 +40,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.UPSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${VERSION} released", "version": "${VERSION}"}}'
+    needs: Release_Version
