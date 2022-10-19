@@ -31,6 +31,15 @@ jobs:
       dependsOn: Core
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
+
+  Nuget_Wait_EVM:
+    name: Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: Evm.Local
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: EVM_Release
   
   ETH_Release:
     name: ETH - Release
@@ -41,7 +50,16 @@ jobs:
       dependsOn: Evm.Local
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
-    needs: EVM_Release
+    needs: Nuget_Wait_EVM
+
+  Nuget_Wait_ETH:
+    name: Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: Ethereum
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: ETH_Release
     
   BTC_Local_Release:
     name: BTC - Release Local
@@ -52,6 +70,15 @@ jobs:
       dependsOn: Core
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
+
+  Nuget_Wait_BTC_Local:
+    name: Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: Bitcoin.Local
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: BTC_Local_Release
   
   BTC_Release:
     name: BTC - Release
@@ -62,7 +89,16 @@ jobs:
       dependsOn: Bitcoin.Local
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
-    needs: BTC_Local_Release
+    needs: Nuget_Wait_BTC_Local
+
+  Nuget_Wait_BTC:
+    name: Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: Bitcoin
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: BTC_Release
   
   Post_Release_Tests:
     runs-on: ubuntu-latest
@@ -74,4 +110,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}", "rcFlag": "${{ inputs.rcFlag }}"}}'
-    needs: [ETH_Release, BTC_Release]
+    needs: [Nuget_Wait_BTC, Nuget_Wait_ETH]

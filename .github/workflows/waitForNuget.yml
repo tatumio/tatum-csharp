@@ -1,0 +1,29 @@
+name: Nuget package listing wait
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  nuget_wait:
+    name: Nuget package wait
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - name: Check if package avaliable
+      run: |
+          totalHits=0
+          until [ $totalHits -gt 0]
+          do
+            curl -o response.json -X GET 'https://azuresearch-usnc.nuget.org/query?q=packageid:Tatum.CSharp.${{ inputs.name }}%20version:${{ inputs.version }}&prerelease=true'
+            totalHits="`grep -o '"totalHits":[0-9]*' response.json`"
+            totalHits=${totalHits#*:}
+            echo "Total Hits: ${totalHits}"
+            sleep 60
+          done
