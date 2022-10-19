@@ -26,7 +26,6 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Release_Version
   
   ETH_Release:
     name: ETH - Release
@@ -36,7 +35,7 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: Evm.Local
     secrets: inherit
-    needs: [Release_Version, EVM_Release]
+    needs: EVM_Release
     
   BTC_Local_Release:
     name: BTC - Release Local
@@ -46,7 +45,6 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Release_Version
   
   BTC_Release:
     name: BTC - Release
@@ -56,7 +54,7 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: Bitcoin.Local
     secrets: inherit
-    needs: [Release_Version, BTC_Local_Release]
+    needs: BTC_Local_Release
   
   Post_Release_Tests:
     runs-on: ubuntu-latest
@@ -68,3 +66,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
+    needs: [ETH_Release, BTC_Release]
