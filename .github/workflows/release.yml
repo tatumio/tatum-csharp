@@ -35,8 +35,10 @@ jobs:
           if [[ "$versionToCheck" =~ "([0-9]).([0-9]*).([0-9]*)(-rc[0-9]*)" ]];
           then
             echo "rcFlag=--prerelease" >> $GITHUB_ENV
+            echo "prerelease flag set"
           else
             echo "rcFlag=" >> $GITHUB_ENV
+            echo "prerelease flag NOT set"
           fi
           
       - name: Trigger Core Release
