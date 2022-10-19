@@ -32,7 +32,7 @@ jobs:
       - name: Set RC flag
         run: |
           versionToCheck=${{ env.version }}
-          if [[ "$versionToCheck" =~ "v([0-9]).([0-9]*).([0-9]*)(-rc[0-9]*)" ]];
+          if [[ "$versionToCheck" =~ "([0-9]).([0-9]*).([0-9]*)(-rc[0-9]*)" ]];
           then
             echo "rcFlag=--prerelease" >> $GITHUB_ENV
           else
