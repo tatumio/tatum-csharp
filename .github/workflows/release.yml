@@ -23,6 +23,7 @@ jobs:
           git branch --remote --contains | grep origin/master
   
   Core_Release:
+    name: Dispatch Core Release
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Core Release
