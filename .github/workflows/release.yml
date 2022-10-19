@@ -40,5 +40,5 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.UPSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${{ env.VERSION }}"}}'
+          -d '{"ref": "develop", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${VERSION}"}}'
     needs: Trim_Version
