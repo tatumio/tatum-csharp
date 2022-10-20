@@ -43,3 +43,4 @@ jobs:
             echo "Sleeping for 30 seconds..."
             sleep 30
           done
+          exit 0
