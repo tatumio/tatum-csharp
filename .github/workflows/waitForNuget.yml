@@ -33,14 +33,18 @@ jobs:
             echo "Total Hits: ${listedCount}"
             return $listedCount
           }
-          
-          getListedCount "${{ inputs.name }}" "${{ inputs.version }}"
-          totalHits=$?
-          until [ $totalHits -gt 0 ]
+
+          while true [ $totalHits -gt 0 ]
           do
             getListedCount "${{ inputs.name }}" "${{ inputs.version }}"
             totalHits=$?
+
+            if [ $totalHits -gt 0 ]
+            then
+              exit 0
+            fi
+
             echo "Sleeping for 30 seconds..."
             sleep 30
           done
-          exit 0
+          exit 1
