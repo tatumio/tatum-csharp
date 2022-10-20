@@ -33,7 +33,7 @@ jobs:
     secrets: inherit
 
   Nuget_Wait_EVM:
-    name: Nuget package wait
+    name: EVM Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Evm.Local
@@ -53,7 +53,7 @@ jobs:
     needs: Nuget_Wait_EVM
 
   Nuget_Wait_ETH:
-    name: Nuget package wait
+    name: ETH Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Ethereum
@@ -72,7 +72,7 @@ jobs:
     secrets: inherit
 
   Nuget_Wait_BTC_Local:
-    name: Nuget package wait
+    name: BTC Local Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Bitcoin.Local
@@ -92,7 +92,7 @@ jobs:
     needs: Nuget_Wait_BTC_Local
 
   Nuget_Wait_BTC:
-    name: Nuget package wait
+    name: BTC Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Bitcoin
@@ -101,6 +101,7 @@ jobs:
     needs: BTC_Release
   
   Post_Release_Tests:
+    name: Dispatch Post Release Tests
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Post Release Tests
