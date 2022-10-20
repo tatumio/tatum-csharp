@@ -27,11 +27,11 @@ jobs:
 
             echo $url
 
-            curl -o response.json -X GET "$url"
-            totalHits="`grep -o '"totalHits":[0-9]*' response.json`"
-            totalHits=${totalHits#*:}
-            echo "Total Hits: ${totalHits}"
-            return $totalHits
+            curl -o response.json -s -X GET "$url"
+            local listedCount="`grep -o '"totalHits":[0-9]*' response.json`"
+            local listedCount=${listedCount#*:}
+            echo "Total Hits: ${listedCount}"
+            return $listedCount
           }
           
           getListedCount "${{ inputs.name }}" "${{ inputs.version }}"
