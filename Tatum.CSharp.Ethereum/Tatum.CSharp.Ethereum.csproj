@@ -11,12 +11,11 @@
         <Authors>Tatum</Authors>
         <Company>Tatum</Company>
         <AssemblyTitle>Ethereum SDK</AssemblyTitle>
-        <Description>Ethereum SDK</Description>
+        <Description>Ethereum SDK v2</Description>
         <Copyright>Tatum</Copyright>
         <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
         <PackageTags>Tatum; ETH; Ethereum</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
