@@ -11,8 +11,10 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-- [`Bitcoin`](Tatum.CSharp.Bitcoin) <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>
-- [`Ethereum`](Tatum.CSharp.Ethereum) <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a>
+|  Chain | Nuget_Package | Local Processing with                            |
+| ------------- |--------------------------|-----------|
+| [`Bitcoin`](Tatum.CSharp.Bitcoin) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a> | [NBitcoin](https://github.com/MetacoSA/NBitcoin) |
+| [`Ethereum`](Tatum.CSharp.Ethereum) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> | [NEthereum](https://github.com/Nethereum/Nethereum) |
 
 ## Quick Start
 
