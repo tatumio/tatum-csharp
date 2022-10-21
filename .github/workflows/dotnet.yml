@@ -48,6 +48,7 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
+      rcFlag: --prerelease
     secrets: inherit
     needs: ETH_Pack_RC
     
@@ -76,5 +77,6 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Bitcoin
+      rcFlag: --prerelease
     secrets: inherit
     needs: BTC_Pack_RC

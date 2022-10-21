@@ -366,3 +366,4 @@ FodyWeavers.xsd
 
 # Rider
 .idea
+.DS_Store

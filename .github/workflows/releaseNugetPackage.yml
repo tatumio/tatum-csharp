@@ -9,6 +9,13 @@ on:
       version:
         required: true
         type: string
+      dependsOn:
+        required: true
+        type: string
+      rcFlag:
+        required: false
+        type: string
+
 
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
@@ -27,7 +34,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: ${{ inputs.name }} - Bump Dependencies Version
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore ${{ inputs.rcFlag }}
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build
@@ -35,4 +42,4 @@ jobs:
       - name: ${{ inputs.name }} - Pack
         run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.name }} - Push to Nuget
-        run: echo "otnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}"
+        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}

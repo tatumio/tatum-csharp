@@ -10,13 +10,13 @@
         <Authors>Tatum</Authors>
         <Company>Tatum</Company>
         <AssemblyTitle>Bitcoin Local SDK</AssemblyTitle>
-        <Description>Bitcoin Local SDK</Description>
+        <Description>Bitcoin Local SDK v2</Description>
         <Copyright>Tatum</Copyright>
         <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageReleaseNotes>Release of the Tatum.CSharp SDK v2</PackageReleaseNotes>
         <PackageTags>Tatum; BTC; Bitcoin; BTC Local; Bitcoin Local</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
