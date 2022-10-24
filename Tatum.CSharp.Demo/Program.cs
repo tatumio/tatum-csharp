@@ -1,3 +1,7 @@
+using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Tatum.CSharp.Ethereum.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
