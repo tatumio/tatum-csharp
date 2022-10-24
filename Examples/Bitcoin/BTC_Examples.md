@@ -31,24 +31,24 @@ public class BitcoinController : ControllerBase
 
 ### How to generate Bitcoin wallet
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L21)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L22)
 
 ### How to generate Bitcoin private key from mnemonic
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L32)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L33)
 
 
 ### How to generate Bitcoin address from private key
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L43)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L44)
 
 ### How to get balance of Bitcoin address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L51)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L52)
 
 ### How to get Bitcoin transactions by address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L59)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L60)
 
 ### How to send Bitcoin from account to account
 
