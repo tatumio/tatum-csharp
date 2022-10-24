@@ -18,7 +18,8 @@ public class EthereumController : ControllerBase
     [HttpGet(Name = "GenerateWallet")]
     public async Task<Wallet> GenerateWallet()
     {
+        Wallet wallet = await _ethereumClient.EthereumBlockchain.EthGenerateWalletAsync();
         
-        return await _ethereumClient.EthereumBlockchain.EthGenerateWalletAsync();
+        return wallet;
     }
 }
