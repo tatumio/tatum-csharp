@@ -1,19 +1,21 @@
-# Ethereum - Example API Project
+# How to use Tatum.CSharp.Ethereum with .NET 6 API project
 
-### Add Tatum.CSharp.Ethereum to your project
+## How to start
+
+Add Tatum.CSharp.Ethereum to your project
 
 ```bash
 dotnet add package Tatum.CSharp.Ethereum
 ```
 
-### Register EthereumClient in the DI Container
+Register EthereumClient in the DI Container
 
 ```csharp
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
 ```
 
-### Inject IEthereumClient into your service
+Inject IEthereumClient into your service
 
 ```csharp
 public class EthereumController : ControllerBase
@@ -27,14 +29,28 @@ public class EthereumController : ControllerBase
 }
 ```
 
-### Generate Ethereum wallet
+### How to generate Ethereum wallet
 
-```csharp   
- [HttpGet(Name = "GenerateWallet")]
- public async Task<Wallet> GenerateWallet()
- {
-     Wallet wallet = await _ethereumClient.EthereumBlockchain.EthGenerateWalletAsync();
-     
-     return wallet;
- }
-```
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L21)
+
+### How to generate Ethereum private key from mnemonic
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L32)
+
+
+### How to generate Ethereum address from private key
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L43)
+
+### How to get balance of Ethereum address
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L51)
+
+### How to get Ethereum transaction by hash
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L59)
+
+### How to send Ethereum from account to account
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L82)
+
