@@ -31,26 +31,26 @@ public class EthereumController : ControllerBase
 
 ### How to generate Ethereum wallet
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L21)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L21)
 
 ### How to generate Ethereum private key from mnemonic
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L32)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L32)
 
 
 ### How to generate Ethereum address from private key
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L43)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L43)
 
 ### How to get balance of Ethereum address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L51)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L51)
 
 ### How to get Ethereum transaction by hash
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L59)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L59)
 
 ### How to send Ethereum from account to account
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/develop/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L82)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L82)
 

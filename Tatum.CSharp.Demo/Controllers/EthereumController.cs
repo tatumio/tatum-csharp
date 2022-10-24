@@ -35,12 +35,12 @@ public class EthereumController : ControllerBase
     }
     
     [HttpGet(Name = "GenerateAddress")]
-    public async Task<GeneratedAddressEth> GenerateAddress(string xpub)
+    public async Task<GeneratedAddressEth> GenerateAddress(string xpub, int index)
     {
         //xpub = "xpub from your wallet"
         //index = index of the address you would like to generate
         
-        GeneratedAddressEth address = await _ethereumClient.EthereumBlockchain.EthGenerateAddressAsync(xpub, 0);
+        GeneratedAddressEth address = await _ethereumClient.EthereumBlockchain.EthGenerateAddressAsync(xpub, index);
      
         return address;
     }
