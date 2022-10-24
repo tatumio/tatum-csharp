@@ -53,4 +53,3 @@ Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.C
 ### How to send Ethereum from account to account
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L88)
-

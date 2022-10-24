@@ -53,4 +53,3 @@ public EthereumController(IEthereumClient ethereumClient)
 [Examples - BTC](Examples/Bitcoin/BTC_Examples.md)
 
 Please check out [Demo App](Tatum.CSharp.Demo) or [Integration Tests](https://github.com/tatumio/tatum-csharp/tree/develop/Tatum.CSharp.Ethereum.Tests.Integration) to see the usage of all methods.
-
