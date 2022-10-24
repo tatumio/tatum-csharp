@@ -60,25 +60,32 @@ public class EthereumController : ControllerBase
         
         return transaction;
     }
-    
-    [HttpPost(Name = "BlockchainTransfer")]
-    public async Task<TransactionHash> BlockchainTransfer([FromBody] TransferEthBlockchain transfer)
+
+    private Dictionary<string, string> _someInternalPersistence = new Dictionary<string, string>()
     {
-        //transfer.FromPrivateKey = "private key from your wallet"
-        //transfer.To = "address you would like to send to"
-        //transfer.Amount = amount you would like to send
-        //transfer.Currency = "ETH"
-        /*
-         new TransferEthBlockchain(
-            null, 
-            0, 
-            TargetAddress, 
-            TransferEthBlockchain.CurrencyEnum.ETH, 
-            null, 
-            "0.00005", 
-            StoragePrivKey));
-        */
-        
+        { "address1", "privateKey1" },
+        { "address2", "privateKey2" },
+        { "address3", "privateKey3" }
+    };
+
+    [HttpPost(Name = "BlockchainTransfer")]
+    public async Task<TransactionHash> BlockchainTransfer(string fromAddress, string toAddress, string amount)
+    {
+        // Need to know the private key of the address that is sending the amount.
+        // In this example, we are using a dictionary to store the private keys.
+        // In a real world scenario, you would store the private keys in a secure location.
+        var fromPrivKey = _someInternalPersistence[fromAddress];
+
+        var transfer = new TransferEthBlockchain(
+            null,
+            0,
+            toAddress, // address you would like to send to
+            TransferEthBlockchain.CurrencyEnum.ETH,
+            null,
+            amount, // amount you would like to send eg. "0.00001"
+            fromPrivKey);
+
+
         TransactionHash transactionHash = await _ethereumClient.EthereumBlockchain.EthBlockchainTransferAsync(transfer);
         
         return transactionHash;
