@@ -9,6 +9,8 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the
 
 You can find API documentation at [API doc](https://tatum.io/apidoc).
 
+> **Are you looking for Tatum.CSharp SDK v1? It has been moved to long living branch [`Tatum.CSharp SDK V1`](https://github.com/tatumio/tatum-csharp/tree/v1)**.
+
 ## Included Chains
 
 |  Chain | Nuget_Package | Local Processing with                            |
