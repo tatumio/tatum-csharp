@@ -31,26 +31,25 @@ public class BitcoinController : ControllerBase
 
 ### How to generate Bitcoin wallet
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L24)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/GenerateWalletExampleService.cs)
 
 ### How to generate Bitcoin private key from mnemonic
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L35)
-
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/GeneratePrivateKeyExampleService.cs)
 
 ### How to generate Bitcoin address from private key
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L46)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/GenerateAddressExampleService.cs)
 
 ### How to get balance of Bitcoin address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L54)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/GetBalanceExampleService.cs)
 
 ### How to get Bitcoin transactions by address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L62)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/GetTransactionsExampleService.cs)
 
 ### How to send Bitcoin from account to account
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/BitcoinController.cs#L110)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bitcoin/BlockchainTransferExampleService.cs)
 
