@@ -31,25 +31,24 @@ public class EthereumController : ControllerBase
 
 ### How to generate Ethereum wallet
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L23)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateWalletExampleService.cs)
 
 ### How to generate Ethereum private key from mnemonic
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L34)
-
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GeneratePrivateKeyExampleService.cs)
 
 ### How to generate Ethereum address from private key
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L45)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateAddressExampleService.cs)
 
 ### How to get balance of Ethereum address
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L53)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetBalanceExampleService.cs)
 
 ### How to get Ethereum transaction by hash
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L61)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetTransactionExampleService.cs)
 
 ### How to send Ethereum from account to account
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/Controllers/EthereumController.cs#L91)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/BlockchainTransferExampleService.cs)

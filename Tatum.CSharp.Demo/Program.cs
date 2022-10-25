@@ -2,6 +2,8 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Tatum.CSharp.Bitcoin.Clients;
+using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,25 @@ var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
+
+builder.Services
+    .AddHttpClient<IBitcoinClient, BitcoinClient>(httpClient => new BitcoinClient(httpClient, apiKey));
+
+// Add example services for bitcoin
+builder.Services.AddTransient<BlockchainTransferExampleService>();
+builder.Services.AddTransient<GenerateWalletExampleService>();
+builder.Services.AddTransient<GetBalanceExampleService>();
+builder.Services.AddTransient<GenerateAddressExampleService>();
+builder.Services.AddTransient<GeneratePrivateKeyExampleService>();
+builder.Services.AddTransient<GetTransactionsExampleService>();
+
+// Add example services for ethereum
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.BlockchainTransferExampleService>();
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.GenerateAddressExampleService>();
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.GeneratePrivateKeyExampleService>();
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.GenerateWalletExampleService>();
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.GetBalanceExampleService>();
+builder.Services.AddTransient<Tatum.CSharp.Demo.ExampleServices.Ethereum.GetTransactionExampleService>();
 
 var app = builder.Build();
 
