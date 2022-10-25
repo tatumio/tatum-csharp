@@ -1,6 +1,8 @@
 # [Tatum C# SDK v2](http://tatum.io/)
-[![RC Version](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml) </br>
-[![Tatum.CSharp Post Release Tests](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml/badge.svg)](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml)
+| Version | Build |
+| --- | --- |
+| Latest | [![Tatum.CSharp Post Release Tests](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml/badge.svg)](https://github.com/tatumio/tatum-csharp/actions/workflows/postRelease.yml) |
+| RC | [![RC Version](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml) |
 
 Tatum C# SDK v2 allows C# developers to interact with Tatum API. It includes the following core components:
 
