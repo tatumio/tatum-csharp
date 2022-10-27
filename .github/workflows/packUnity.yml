@@ -31,10 +31,14 @@ jobs:
         run: |
           fromPath=./${{ env.PACKAGE_NAME }}_DLLs
           for dir in "$fromPath"/*/; do
-          echo $dir
-          dest="$fromPath"/${{ env.PACKAGE_NAME }}
-          mkdir -p "$dest"
-          cp -v "$dir"lib/netstandard2.0/*.dll "$dest"
+            echo $dir
+            dest="$fromPath"/${{ env.PACKAGE_NAME }}
+            mkdir -p "$dest"
+            if ls "$dir"/lib/netstandard2.0/*.dll 1> /dev/null 2>&1; then
+              cp -v "$dir"lib/netstandard2.0/*.dll "$dest"
+            else
+              cp -v "$dir"lib/*.dll "$dest"
+            fi
           done
       - name: Create Unity Package Artefact
         uses: actions/upload-artifact@v3
