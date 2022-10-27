@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Demo.ExampleServices.Ethereum;
-using Tatum.CSharp.Ethereum.Clients;
 
 namespace Tatum.CSharp.Demo.Controllers;
 
@@ -43,7 +41,7 @@ public class EthereumController : ControllerBase
         _generatePrivateKeyExampleService.GeneratePrivateKey(request);
 
     [HttpGet]
-    public async Task<GeneratedAddressEth> GenerateAddress(string xpub, int index) => 
+    public GeneratedAddressEth GenerateAddress(string xpub, int index) => 
         _generateAddressExampleService.GenerateAddress(xpub, index);
 
     [HttpGet]

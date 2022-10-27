@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
 

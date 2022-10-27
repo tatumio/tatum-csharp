@@ -1,0 +1,43 @@
+name: Pack Unity DLLs
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+env:
+  PACKAGE_NAME: Tatum.CSharp.${{ inputs.name }}
+  ARTEFACT_NAME: Unity-${{ inputs.name }}
+
+jobs:
+  preparePackage:
+    name: Build and Publish package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Ethereum - Get Dependencies
+        run: nuget install ${{ env.PACKAGE_NAME }} -OutputDirectory ./${{ env.PACKAGE_NAME }}_DLLs
+      - name: Gather DLLs
+        run: |
+          fromPath=./${{ env.PACKAGE_NAME }}_DLLs
+          for dir in "$fromPath"/*/; do
+          echo $dir
+          dest="$fromPath"/${{ env.PACKAGE_NAME }}
+          mkdir -p "$dest"
+          cp -v "$dir"/lib/netstandard2.0/*.dll "$dest"
+          done
+      - name: Create Unity Package Artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.ARTEFACT_NAME }}
+          path: ./${{ env.PACKAGE_NAME }}_DLLs/${{ env.PACKAGE_NAME }}
