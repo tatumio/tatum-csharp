@@ -35,16 +35,25 @@ jobs:
             mkdir -p "$dest"
           
             patternArray=(
-            "$dir"lib/netstandard2.0/*.dll
-            "$dir"ref/netstandard2.0/*.dll
-            "$dir"lib/netstandard*/*.dll
-            "$dir"ref/netstandard*/*.dll
-            "$dir"lib/*.dll
+              "$dir"lib/netstandard2.0/*.dll
+              "$dir"ref/netstandard2.0/*.dll
+              "$dir"lib/netstandard*/*.dll
+              "$dir"ref/netstandard*/*.dll
+              "$dir"lib/*.dll
             )
-
+          
+            ignoreArray=(
+              Newtonsoft.Json
+            )
+          
             for source in "${patternArray[@]}"; do
               matches=( $source )
               match=${matches[${#matches[@]} - 1]}
+          
+              if [[ "${match}" =~ "${ignoreArray[@]}" ]]; then
+                break
+              fi
+          
               if ls $match 1> /dev/null 2>&1; then
                 cp -v "$match" "$dest"
                 break

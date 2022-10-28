@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         chain: [Ethereum, Bitcoin]
-    name: ETH Unity Package prepare
+    name: ${{ matrix.chain }} - Unity Package
     uses: ./.github/workflows/packUnity.yml
     with:
       name: ${{ matrix.chain }}
