@@ -31,6 +31,7 @@ jobs:
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: ${{ inputs.name }} - Bump Dependencies Version
+        if: ${{ inputs.dependsOn != '' }}
         run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --prerelease --no-restore
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
