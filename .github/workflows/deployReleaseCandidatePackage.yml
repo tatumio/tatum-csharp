@@ -10,7 +10,6 @@ on:
         required: true
         type: string
       dependsOn:
-        required: true
         type: string
         
 env:
