@@ -40,7 +40,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Core_Pack_RC
+    needs: [Build_Version, Core_Pack_RC]
   
   ETH_Pack_RC:
     name: ETH - Pack
@@ -50,7 +50,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Evm.Local
     secrets: inherit
-    needs: [Core_Pack_RC, EVM_Pack_RC]
+    needs: [Build_Version, Core_Pack_RC, EVM_Pack_RC]
     
   ETH_Integration_Tests:
     name: ETH - Test
@@ -69,7 +69,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Core_Pack_RC
+    needs: [Build_Version, Core_Pack_RC]
   
   BTC_Pack_RC:
     name: BTC - Pack
@@ -79,7 +79,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Bitcoin.Local
     secrets: inherit
-    needs: [Core_Pack_RC, BTC_Local_Pack_RC]
+    needs: [Build_Version, Core_Pack_RC, BTC_Local_Pack_RC]
     
   BTC_Integration_Tests:
     name: BTC - Test
