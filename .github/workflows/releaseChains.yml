@@ -22,6 +22,25 @@ env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
 
 jobs:
+  Core_Release:
+    name: EVM - Release Local
+    uses: ./.github/workflows/releaseNugetPackage.yml
+    with:
+      name: Evm.Local
+      version: ${{ inputs.version }}
+      dependsOn: Core
+      rcFlag: ${{ inputs.rcFlag }}
+    secrets: inherit
+
+  Nuget_Wait_Core:
+    name: Core Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: Core
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: Core_Release
+    
   EVM_Release:
     name: EVM - Release Local
     uses: ./.github/workflows/releaseNugetPackage.yml
@@ -31,6 +50,7 @@ jobs:
       dependsOn: Core
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
+    needs: Nuget_Wait_Core
 
   Nuget_Wait_EVM:
     name: EVM Nuget package wait
@@ -70,6 +90,7 @@ jobs:
       dependsOn: Core
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
+    needs: Nuget_Wait_Core
 
   Nuget_Wait_BTC_Local:
     name: BTC Local Nuget package wait
