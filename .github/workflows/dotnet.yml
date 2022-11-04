@@ -23,6 +23,15 @@ jobs:
     name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
   
+  Core_Pack_RC:
+    name: Core - Pack Local
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
+    with:
+      name: Core
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: Build_Version
+  
   EVM_Pack_RC:
     name: EVM - Pack Local
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
@@ -31,7 +40,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Build_Version
+    needs: Core_Pack_RC
   
   ETH_Pack_RC:
     name: ETH - Pack
@@ -41,7 +50,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Evm.Local
     secrets: inherit
-    needs: [Build_Version, EVM_Pack_RC]
+    needs: [Core_Pack_RC, EVM_Pack_RC]
     
   ETH_Integration_Tests:
     name: ETH - Test
@@ -60,7 +69,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Core
     secrets: inherit
-    needs: Build_Version
+    needs: Core_Pack_RC
   
   BTC_Pack_RC:
     name: BTC - Pack
@@ -70,7 +79,7 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
       dependsOn: Bitcoin.Local
     secrets: inherit
-    needs: [Build_Version, BTC_Local_Pack_RC]
+    needs: [Core_Pack_RC, BTC_Local_Pack_RC]
     
   BTC_Integration_Tests:
     name: BTC - Test
