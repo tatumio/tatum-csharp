@@ -34,7 +34,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: ${{ inputs.name }} - Bump Dependencies Version
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore ${{ inputs.rcFlag }}
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore ${{ inputs.rcFlag }} --version ${{ inputs.version }}
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build
