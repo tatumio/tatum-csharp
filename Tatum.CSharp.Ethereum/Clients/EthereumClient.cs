@@ -13,7 +13,13 @@ namespace Tatum.CSharp.Ethereum.Clients
         
         /// <inheritdoc />
         public IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public INFTEthApiAsync EthereumNft { get; }
         
+        /// <inheritdoc />
+        public INFTEthApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
         
