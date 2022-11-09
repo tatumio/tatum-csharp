@@ -110,7 +110,7 @@ namespace Tatum.CSharp.Core.Client
         {
             Proxy = null;
             UserAgent = WebUtility.UrlEncode("Tatum_CSharp_SDK");
-            BasePath = "https://api-eu1.tatum.io";
+            BasePath = "https://api.tatum.io";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
@@ -118,13 +118,7 @@ namespace Tatum.CSharp.Core.Client
             {
                 {
                     new Dictionary<string, object> {
-                        {"url", "https://api-eu1.tatum.io"},
-                        {"description", "No description provided"},
-                    }
-                },
-                {
-                    new Dictionary<string, object> {
-                        {"url", "https://api-us-west1.tatum.io"},
+                        {"url", "https://api.tatum.io"},
                         {"description", "No description provided"},
                     }
                 }
@@ -145,7 +139,7 @@ namespace Tatum.CSharp.Core.Client
             IDictionary<string, string> defaultHeaders,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "https://api-eu1.tatum.io") : this()
+            string basePath = "https://api.tatum.io") : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");
