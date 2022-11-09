@@ -62,11 +62,18 @@ namespace Tatum.CSharp.Ethereum.Clients
         public EthereumClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
             var ethereumApi = new EthereumApi(httpClient);
-            
+
             ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
+            
+            var ethereumNftApi = new NFTEthApi(httpClient);
+            
+            ethereumNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            EthereumNft = ethereumNftApi;
+            EthereumNftWithHttpInfo = ethereumNftApi;
 
             Local = new EvmLocalService(isTestNet);
         }
