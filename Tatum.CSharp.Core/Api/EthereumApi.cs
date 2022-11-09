@@ -998,6 +998,7 @@ namespace Tatum.CSharp.Core.Api
             if (callSmartContractMethod == null)
                 throw new ApiException(400, "Missing required parameter 'callSmartContractMethod' when calling EthereumApi->EthBlockchainSmartContractInvocation");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1132,6 +1133,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'callReadSmartContractMethod' is set
             if (callReadSmartContractMethod == null)
                 throw new ApiException(400, "Missing required parameter 'callReadSmartContractMethod' when calling EthereumApi->EthBlockchainSmartContractInvocation_0");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1268,6 +1270,7 @@ namespace Tatum.CSharp.Core.Api
             if (callSmartContractMethodKMS == null)
                 throw new ApiException(400, "Missing required parameter 'callSmartContractMethodKMS' when calling EthereumApi->EthBlockchainSmartContractInvocation_1");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1402,6 +1405,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'transferEthBlockchain' is set
             if (transferEthBlockchain == null)
                 throw new ApiException(400, "Missing required parameter 'transferEthBlockchain' when calling EthereumApi->EthBlockchainTransfer");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1538,6 +1542,7 @@ namespace Tatum.CSharp.Core.Api
             if (transferEthBlockchainKMS == null)
                 throw new ApiException(400, "Missing required parameter 'transferEthBlockchainKMS' when calling EthereumApi->EthBlockchainTransfer_0");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1672,6 +1677,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'broadcastKMS' is set
             if (broadcastKMS == null)
                 throw new ApiException(400, "Missing required parameter 'broadcastKMS' when calling EthereumApi->EthBroadcast");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1810,6 +1816,7 @@ namespace Tatum.CSharp.Core.Api
             if (xpub == null)
                 throw new ApiException(400, "Missing required parameter 'xpub' when calling EthereumApi->EthGenerateAddress");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1946,6 +1953,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'privKeyRequest' is set
             if (privKeyRequest == null)
                 throw new ApiException(400, "Missing required parameter 'privKeyRequest' when calling EthereumApi->EthGenerateAddressPrivateKey");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2143,7 +2151,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (Wallet)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Wallet>> EthGenerateWalletWithHttpInfoAsync(string mnemonic = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2212,6 +2219,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling EthereumApi->EthGetBalance");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2345,6 +2353,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'hash' is set
             if (hash == null)
                 throw new ApiException(400, "Missing required parameter 'hash' when calling EthereumApi->EthGetBlock");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2532,7 +2541,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (decimal)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<decimal>> EthGetCurrentBlockWithHttpInfoAsync(string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2601,6 +2609,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling EthereumApi->EthGetInternalTransactionByAddress");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2749,6 +2758,7 @@ namespace Tatum.CSharp.Core.Api
             if (hash == null)
                 throw new ApiException(400, "Missing required parameter 'hash' when calling EthereumApi->EthGetTransaction");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2891,6 +2901,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling EthereumApi->EthGetTransactionByAddress");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3068,6 +3079,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling EthereumApi->EthGetTransactionCount");
+
 
             var localVarRequestOptions = new RequestOptions();
 

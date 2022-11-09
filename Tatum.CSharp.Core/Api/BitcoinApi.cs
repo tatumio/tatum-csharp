@@ -912,6 +912,7 @@ namespace Tatum.CSharp.Core.Api
             if (broadcastKMS == null)
                 throw new ApiException(400, "Missing required parameter 'broadcastKMS' when calling BitcoinApi->BtcBroadcast");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1037,6 +1038,7 @@ namespace Tatum.CSharp.Core.Api
             if (xpub == null)
                 throw new ApiException(400, "Missing required parameter 'xpub' when calling BitcoinApi->BtcGenerateAddress");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1161,6 +1163,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'privKeyRequest' is set
             if (privKeyRequest == null)
                 throw new ApiException(400, "Missing required parameter 'privKeyRequest' when calling BitcoinApi->BtcGenerateAddressPrivateKey");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1340,7 +1343,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (Wallet)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Wallet>> BtcGenerateWalletWithHttpInfoAsync(string mnemonic = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1403,6 +1405,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling BitcoinApi->BtcGetBalanceOfAddress");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1524,6 +1527,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'hash' is set
             if (hash == null)
                 throw new ApiException(400, "Missing required parameter 'hash' when calling BitcoinApi->BtcGetBlock");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1693,7 +1697,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (BtcInfo)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<BtcInfo>> BtcGetBlockChainInfoWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1805,7 +1808,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (BtcBlockHash)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<BtcBlockHash>> BtcGetBlockHashWithHttpInfoAsync(decimal i, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1913,7 +1915,6 @@ namespace Tatum.CSharp.Core.Api
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<List<string>>> BtcGetMempoolWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -1972,6 +1973,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'hash' is set
             if (hash == null)
                 throw new ApiException(400, "Missing required parameter 'hash' when calling BitcoinApi->BtcGetRawTransaction");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2097,6 +2099,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'address' is set
             if (address == null)
                 throw new ApiException(400, "Missing required parameter 'address' when calling BitcoinApi->BtcGetTxByAddress");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2235,6 +2238,7 @@ namespace Tatum.CSharp.Core.Api
             if (hash == null)
                 throw new ApiException(400, "Missing required parameter 'hash' when calling BitcoinApi->BtcGetUTXO");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2360,6 +2364,7 @@ namespace Tatum.CSharp.Core.Api
             if (btcTransactionFromAddress == null)
                 throw new ApiException(400, "Missing required parameter 'btcTransactionFromAddress' when calling BitcoinApi->BtcTransferBlockchain");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2482,6 +2487,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'btcTransactionFromAddressKMS' is set
             if (btcTransactionFromAddressKMS == null)
                 throw new ApiException(400, "Missing required parameter 'btcTransactionFromAddressKMS' when calling BitcoinApi->BtcTransferBlockchain_0");
+
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2606,6 +2612,7 @@ namespace Tatum.CSharp.Core.Api
             if (btcTransactionFromUTXO == null)
                 throw new ApiException(400, "Missing required parameter 'btcTransactionFromUTXO' when calling BitcoinApi->BtcTransferBlockchain_1");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -2728,6 +2735,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'btcTransactionFromUTXOKMS' is set
             if (btcTransactionFromUTXOKMS == null)
                 throw new ApiException(400, "Missing required parameter 'btcTransactionFromUTXOKMS' when calling BitcoinApi->BtcTransferBlockchain_2");
+
 
             var localVarRequestOptions = new RequestOptions();
 

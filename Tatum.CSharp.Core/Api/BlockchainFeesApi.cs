@@ -326,6 +326,7 @@ namespace Tatum.CSharp.Core.Api
             if (ethEstimateGas == null)
                 throw new ApiException(400, "Missing required parameter 'ethEstimateGas' when calling BlockchainFeesApi->EthEstimateGas");
 
+
             var localVarRequestOptions = new RequestOptions();
 
             var contentTypes = new string[]{
@@ -460,6 +461,7 @@ namespace Tatum.CSharp.Core.Api
             // verify the required parameter 'ethEstimateGasArray' is set
             if (ethEstimateGasArray == null)
                 throw new ApiException(400, "Missing required parameter 'ethEstimateGasArray' when calling BlockchainFeesApi->EthEstimateGasBatch");
+
 
             var localVarRequestOptions = new RequestOptions();
 
