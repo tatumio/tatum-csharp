@@ -27,10 +27,10 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// BurnNftAlgoKMS
+    /// DeployNftFlowKMS
     /// </summary>
-    [DataContract(Name = "BurnNftAlgoKMS")]
-    public partial class BurnNftAlgoKMS : IEquatable<BurnNftAlgoKMS>, IValidatableObject
+    [DataContract(Name = "DeployNftFlowKMS")]
+    public partial class DeployNftFlowKMS : IEquatable<DeployNftFlowKMS>, IValidatableObject
     {
         /// <summary>
         /// The blockchain to work with
@@ -40,10 +40,10 @@ namespace Tatum.CSharp.Core.Model
         public enum ChainEnum
         {
             /// <summary>
-            /// Enum ALGO for value: ALGO
+            /// Enum FLOW for value: FLOW
             /// </summary>
-            [EnumMember(Value = "ALGO")]
-            ALGO = 1
+            [EnumMember(Value = "FLOW")]
+            FLOW = 1
 
         }
 
@@ -55,45 +55,36 @@ namespace Tatum.CSharp.Core.Model
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BurnNftAlgoKMS" /> class.
+        /// Initializes a new instance of the <see cref="DeployNftFlowKMS" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BurnNftAlgoKMS() { }
+        protected DeployNftFlowKMS() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BurnNftAlgoKMS" /> class.
+        /// Initializes a new instance of the <see cref="DeployNftFlowKMS" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="contractAddress">The ID of the NFT to burn; this is the ID from the &lt;code&gt;assetIndex&lt;/code&gt; parameter returned in the response body of the &lt;a href&#x3D;\&quot;#operation/NftMintErc721\&quot;&gt;minting call&lt;/a&gt; (required).</param>
-        /// <param name="from">Blockchain address to burn NFT token from.</param>
+        /// <param name="account">Blockchain address of the sender account. (required).</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
-        public BurnNftAlgoKMS(ChainEnum chain = default(ChainEnum), string contractAddress = default(string), string from = default(string), Guid signatureId = default(Guid), decimal index = default(decimal))
+        /// <param name="index">Derivation index of sender address..</param>
+        public DeployNftFlowKMS(ChainEnum chain = default(ChainEnum), string account = default(string), Guid signatureId = default(Guid), int index = default(int))
         {
             this.Chain = chain;
-            // to ensure "contractAddress" is required (not null)
-            if (contractAddress == null)
+            // to ensure "account" is required (not null)
+            if (account == null)
             {
-                throw new ArgumentNullException("contractAddress is a required property for BurnNftAlgoKMS and cannot be null");
+                throw new ArgumentNullException("account is a required property for DeployNftFlowKMS and cannot be null");
             }
-            this.ContractAddress = contractAddress;
+            this.Account = account;
             this.SignatureId = signatureId;
-            this.From = from;
             this.Index = index;
         }
 
         /// <summary>
-        /// The ID of the NFT to burn; this is the ID from the &lt;code&gt;assetIndex&lt;/code&gt; parameter returned in the response body of the &lt;a href&#x3D;\&quot;#operation/NftMintErc721\&quot;&gt;minting call&lt;/a&gt;
+        /// Blockchain address of the sender account.
         /// </summary>
-        /// <value>The ID of the NFT to burn; this is the ID from the &lt;code&gt;assetIndex&lt;/code&gt; parameter returned in the response body of the &lt;a href&#x3D;\&quot;#operation/NftMintErc721\&quot;&gt;minting call&lt;/a&gt;</value>
-        [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
-        public string ContractAddress { get; set; }
-
-        /// <summary>
-        /// Blockchain address to burn NFT token from
-        /// </summary>
-        /// <value>Blockchain address to burn NFT token from</value>
-        [DataMember(Name = "from", EmitDefaultValue = false)]
-        public string From { get; set; }
+        /// <value>Blockchain address of the sender account.</value>
+        [DataMember(Name = "account", IsRequired = true, EmitDefaultValue = true)]
+        public string Account { get; set; }
 
         /// <summary>
         /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
@@ -103,11 +94,11 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
+        /// Derivation index of sender address.
         /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
+        /// <value>Derivation index of sender address.</value>
         [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
+        public int Index { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -116,10 +107,9 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class BurnNftAlgoKMS {\n");
+            sb.Append("class DeployNftFlowKMS {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
-            sb.Append("  From: ").Append(From).Append("\n");
+            sb.Append("  Account: ").Append(Account).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("}\n");
@@ -142,15 +132,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BurnNftAlgoKMS);
+            return this.Equals(input as DeployNftFlowKMS);
         }
 
         /// <summary>
-        /// Returns true if BurnNftAlgoKMS instances are equal
+        /// Returns true if DeployNftFlowKMS instances are equal
         /// </summary>
-        /// <param name="input">Instance of BurnNftAlgoKMS to be compared</param>
+        /// <param name="input">Instance of DeployNftFlowKMS to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BurnNftAlgoKMS input)
+        public bool Equals(DeployNftFlowKMS input)
         {
             if (input == null)
             {
@@ -162,14 +152,9 @@ namespace Tatum.CSharp.Core.Model
                     this.Chain.Equals(input.Chain)
                 ) && 
                 (
-                    this.ContractAddress == input.ContractAddress ||
-                    (this.ContractAddress != null &&
-                    this.ContractAddress.Equals(input.ContractAddress))
-                ) && 
-                (
-                    this.From == input.From ||
-                    (this.From != null &&
-                    this.From.Equals(input.From))
+                    this.Account == input.Account ||
+                    (this.Account != null &&
+                    this.Account.Equals(input.Account))
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -192,13 +177,9 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.ContractAddress != null)
+                if (this.Account != null)
                 {
-                    hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
-                }
-                if (this.From != null)
-                {
-                    hashCode = (hashCode * 59) + this.From.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Account.GetHashCode();
                 }
                 if (this.SignatureId != null)
                 {
@@ -216,28 +197,22 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // ContractAddress (string) maxLength
-            if (this.ContractAddress != null && this.ContractAddress.Length > 265)
+            // Account (string) maxLength
+            if (this.Account != null && this.Account.Length > 18)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 265.", new [] { "ContractAddress" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be less than 18.", new [] { "Account" });
             }
 
-            // From (string) maxLength
-            if (this.From != null && this.From.Length > 58)
+            // Account (string) minLength
+            if (this.Account != null && this.Account.Length < 18)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be less than 58.", new [] { "From" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be greater than 18.", new [] { "Account" });
             }
 
-            // From (string) minLength
-            if (this.From != null && this.From.Length < 58)
+            // Index (int) maximum
+            if (this.Index > (int)2147483647)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be greater than 58.", new [] { "From" });
-            }
-
-            // Index (decimal) minimum
-            if (this.Index < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value greater than or equal to 0.", new [] { "Index" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value less than or equal to 2147483647.", new [] { "Index" });
             }
 
             yield break;

@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class BurnNftFlowPK : IEquatable<BurnNftFlowPK>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,7 +62,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BurnNftFlowPK" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="account">Blockchain address of the sender account. (required).</param>

@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class BurnNftCelo : IEquatable<BurnNftCelo>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,15 +49,15 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -83,9 +83,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", IsRequired = true, EmitDefaultValue = true)]
         public FeeCurrencyEnum FeeCurrency { get; set; }
         /// <summary>
@@ -96,12 +96,12 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BurnNftCelo" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas (required).</param>
+        /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
         public BurnNftCelo(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
             this.Chain = chain;

@@ -42,8 +42,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="txData">Raw signed transaction to be published to network. (required).</param>
         /// <param name="signatureId">ID of prepared payment template to sign. Required only, when broadcasting transaction signed by Tatum KMS..</param>
-        /// <param name="index">(Only if the signature ID is mnemonic-based and you run KMS v6.2 or later) The index of the address to send the assets from that was generated from the mnemonic.</param>
-        public BroadcastKMS(string txData = default(string), Guid signatureId = default(Guid), decimal index = default(decimal))
+        public BroadcastKMS(string txData = default(string), Guid signatureId = default(Guid))
         {
             // to ensure "txData" is required (not null)
             if (txData == null)
@@ -52,7 +51,6 @@ namespace Tatum.CSharp.Core.Model
             }
             this.TxData = txData;
             this.SignatureId = signatureId;
-            this.Index = index;
         }
 
         /// <summary>
@@ -70,13 +68,6 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// (Only if the signature ID is mnemonic-based and you run KMS v6.2 or later) The index of the address to send the assets from that was generated from the mnemonic
-        /// </summary>
-        /// <value>(Only if the signature ID is mnemonic-based and you run KMS v6.2 or later) The index of the address to send the assets from that was generated from the mnemonic</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -86,7 +77,6 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("class BroadcastKMS {\n");
             sb.Append("  TxData: ").Append(TxData).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -131,10 +121,6 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId == input.SignatureId ||
                     (this.SignatureId != null &&
                     this.SignatureId.Equals(input.SignatureId))
-                ) && 
-                (
-                    this.Index == input.Index ||
-                    this.Index.Equals(input.Index)
                 );
         }
 
@@ -155,7 +141,6 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 return hashCode;
             }
         }
@@ -177,18 +162,6 @@ namespace Tatum.CSharp.Core.Model
             if (this.TxData != null && this.TxData.Length < 1)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TxData, length must be greater than 1.", new [] { "TxData" });
-            }
-
-            // Index (decimal) maximum
-            if (this.Index > (decimal)2147483647)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value less than or equal to 2147483647.", new [] { "Index" });
-            }
-
-            // Index (decimal) minimum
-            if (this.Index < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value greater than or equal to 0.", new [] { "Index" });
             }
 
             yield break;

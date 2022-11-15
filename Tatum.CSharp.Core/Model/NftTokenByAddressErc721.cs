@@ -42,8 +42,9 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="contractAddress">On Algorand, this is the asset ID (the ID of the NFT); on the other blockchains, this is the address of the NFT smart contract (required).</param>
         /// <param name="balances">On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs (required).</param>
-        /// <param name="metadata">metadata.</param>
-        public NftTokenByAddressErc721(string contractAddress = default(string), List<string> balances = default(List<string>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>))
+        /// <param name="blockNumber">(EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address.</param>
+        /// <param name="metadata">metadata (required).</param>
+        public NftTokenByAddressErc721(string contractAddress = default(string), List<string> balances = default(List<string>), List<decimal> blockNumber = default(List<decimal>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>))
         {
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -57,7 +58,13 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("balances is a required property for NftTokenByAddressErc721 and cannot be null");
             }
             this.Balances = balances;
+            // to ensure "metadata" is required (not null)
+            if (metadata == null)
+            {
+                throw new ArgumentNullException("metadata is a required property for NftTokenByAddressErc721 and cannot be null");
+            }
             this.Metadata = metadata;
+            this.BlockNumber = blockNumber;
         }
 
         /// <summary>
@@ -75,9 +82,16 @@ namespace Tatum.CSharp.Core.Model
         public List<string> Balances { get; set; }
 
         /// <summary>
+        /// (EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address
+        /// </summary>
+        /// <value>(EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address</value>
+        [DataMember(Name = "blockNumber", EmitDefaultValue = false)]
+        public List<decimal> BlockNumber { get; set; }
+
+        /// <summary>
         /// Gets or Sets Metadata
         /// </summary>
-        [DataMember(Name = "metadata", EmitDefaultValue = false)]
+        [DataMember(Name = "metadata", IsRequired = true, EmitDefaultValue = true)]
         public List<NftTokenByAddressErc721TokenMetadata> Metadata { get; set; }
 
         /// <summary>
@@ -90,6 +104,7 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("class NftTokenByAddressErc721 {\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  Balances: ").Append(Balances).Append("\n");
+            sb.Append("  BlockNumber: ").Append(BlockNumber).Append("\n");
             sb.Append("  Metadata: ").Append(Metadata).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -138,6 +153,12 @@ namespace Tatum.CSharp.Core.Model
                     this.Balances.SequenceEqual(input.Balances)
                 ) && 
                 (
+                    this.BlockNumber == input.BlockNumber ||
+                    this.BlockNumber != null &&
+                    input.BlockNumber != null &&
+                    this.BlockNumber.SequenceEqual(input.BlockNumber)
+                ) && 
+                (
                     this.Metadata == input.Metadata ||
                     this.Metadata != null &&
                     input.Metadata != null &&
@@ -161,6 +182,10 @@ namespace Tatum.CSharp.Core.Model
                 if (this.Balances != null)
                 {
                     hashCode = (hashCode * 59) + this.Balances.GetHashCode();
+                }
+                if (this.BlockNumber != null)
+                {
+                    hashCode = (hashCode * 59) + this.BlockNumber.GetHashCode();
                 }
                 if (this.Metadata != null)
                 {

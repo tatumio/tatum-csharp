@@ -33,67 +33,67 @@ namespace Tatum.CSharp.Core.Model
     public partial class AddNftMinter : IEquatable<AddNftMinter>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
             /// <summary>
-            /// Enum ETH for value: ETH
+            /// Enum BSC for value: BSC
             /// </summary>
-            [EnumMember(Value = "ETH")]
-            ETH = 1,
-
-            /// <summary>
-            /// Enum MATIC for value: MATIC
-            /// </summary>
-            [EnumMember(Value = "MATIC")]
-            MATIC = 2,
-
-            /// <summary>
-            /// Enum KCS for value: KCS
-            /// </summary>
-            [EnumMember(Value = "KCS")]
-            KCS = 3,
+            [EnumMember(Value = "BSC")]
+            BSC = 1,
 
             /// <summary>
             /// Enum CELO for value: CELO
             /// </summary>
             [EnumMember(Value = "CELO")]
-            CELO = 4,
+            CELO = 2,
 
             /// <summary>
-            /// Enum ONE for value: ONE
+            /// Enum ETH for value: ETH
             /// </summary>
-            [EnumMember(Value = "ONE")]
-            ONE = 5,
+            [EnumMember(Value = "ETH")]
+            ETH = 3,
 
             /// <summary>
             /// Enum KLAY for value: KLAY
             /// </summary>
             [EnumMember(Value = "KLAY")]
-            KLAY = 6,
+            KLAY = 4,
 
             /// <summary>
-            /// Enum BSC for value: BSC
+            /// Enum KCS for value: KCS
             /// </summary>
-            [EnumMember(Value = "BSC")]
-            BSC = 7
+            [EnumMember(Value = "KCS")]
+            KCS = 5,
+
+            /// <summary>
+            /// Enum MATIC for value: MATIC
+            /// </summary>
+            [EnumMember(Value = "MATIC")]
+            MATIC = 6,
+
+            /// <summary>
+            /// Enum ONE for value: ONE
+            /// </summary>
+            [EnumMember(Value = "ONE")]
+            ONE = 7
 
         }
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas, only valid for CELO chain.
+        /// (Celo only) The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas, only valid for CELO chain.</value>
+        /// <value>(Celo only) The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -119,9 +119,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas, only valid for CELO chain.
+        /// (Celo only) The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas, only valid for CELO chain.</value>
+        /// <value>(Celo only) The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", EmitDefaultValue = false)]
         public FeeCurrencyEnum? FeeCurrency { get; set; }
         /// <summary>
@@ -132,13 +132,13 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AddNftMinter" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="contractAddress">Address of NFT token (required).</param>
-        /// <param name="minter">Address of NFT minter (required).</param>
-        /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
-        /// <param name="nonce">Nonce to be set to Ethereum transaction. If not present, last known nonce will be used..</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
+        /// <param name="contractAddress">The blockchain address of the NFT smart contract (required).</param>
+        /// <param name="minter">The blockchain address to add to the smart contract as an NFT minter (required).</param>
+        /// <param name="fromPrivateKey">The private key of the blockchain address from which the fee will be deducted (required).</param>
+        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="fee">fee.</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas, only valid for CELO chain..</param>
+        /// <param name="feeCurrency">(Celo only) The currency in which the transaction fee will be paid.</param>
         public AddNftMinter(ChainEnum chain = default(ChainEnum), string contractAddress = default(string), string minter = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee), FeeCurrencyEnum? feeCurrency = default(FeeCurrencyEnum?))
         {
             this.Chain = chain;
@@ -166,30 +166,30 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// Address of NFT token
+        /// The blockchain address of the NFT smart contract
         /// </summary>
-        /// <value>Address of NFT token</value>
+        /// <value>The blockchain address of the NFT smart contract</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// Address of NFT minter
+        /// The blockchain address to add to the smart contract as an NFT minter
         /// </summary>
-        /// <value>Address of NFT minter</value>
+        /// <value>The blockchain address to add to the smart contract as an NFT minter</value>
         [DataMember(Name = "minter", IsRequired = true, EmitDefaultValue = true)]
         public string Minter { get; set; }
 
         /// <summary>
-        /// Private key of sender address. Private key, or signature Id must be present.
+        /// The private key of the blockchain address from which the fee will be deducted
         /// </summary>
-        /// <value>Private key of sender address. Private key, or signature Id must be present.</value>
+        /// <value>The private key of the blockchain address from which the fee will be deducted</value>
         [DataMember(Name = "fromPrivateKey", IsRequired = true, EmitDefaultValue = true)]
         public string FromPrivateKey { get; set; }
 
         /// <summary>
-        /// Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.
+        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
         /// </summary>
-        /// <value>Nonce to be set to Ethereum transaction. If not present, last known nonce will be used.</value>
+        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 

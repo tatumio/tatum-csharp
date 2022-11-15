@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class TransferNftKMSCelo : IEquatable<TransferNftKMSCelo>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,15 +49,15 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -83,9 +83,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", IsRequired = true, EmitDefaultValue = true)]
         public FeeCurrencyEnum FeeCurrency { get; set; }
         /// <summary>
@@ -97,7 +97,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="TransferNftKMSCelo" /> class.
         /// </summary>
         /// <param name="value">If token to be transferred is Royalty NFT token, this is a value to be paid as a cashback to the authors of the token..</param>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="tokenId">ID of token. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
@@ -107,7 +107,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas (required).</param>
+        /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
         public TransferNftKMSCelo(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), string tokenId = default(string), string contractAddress = default(string), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
             this.Chain = chain;

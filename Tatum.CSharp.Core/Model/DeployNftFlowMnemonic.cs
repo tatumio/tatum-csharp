@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class DeployNftFlowMnemonic : IEquatable<DeployNftFlowMnemonic>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,7 +62,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployNftFlowMnemonic" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="account">Blockchain address of the sender account. (required).</param>
         /// <param name="mnemonic">Mnemonic to generate private key of sender address. (required).</param>
         /// <param name="index">Derivation index of sender address. (required).</param>

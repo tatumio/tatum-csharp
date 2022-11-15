@@ -35,8 +35,8 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NftRoyaltyErc721" /> class.
         /// </summary>
-        /// <param name="addresses">Addresses of the authors where cashback will be paid..</param>
-        /// <param name="values">Values of the royalties, which will be paid to the authors with every token transfer. Amount is in native asset of the blockchain or in percents for SOL NFTs. .</param>
+        /// <param name="addresses">The blockchain addresses where the royalty cashback will be sent every time the NFT is transferred.</param>
+        /// <param name="values">The amounts of the royalties that will be paid to the authors of the NFT every time the NFT is transferred; the royalties are paid as a percentage of the NFT price (on Solana) or in a native blockchain currency (on the other supported blockchains) .</param>
         public NftRoyaltyErc721(List<string> addresses = default(List<string>), List<string> values = default(List<string>))
         {
             this.Addresses = addresses;
@@ -44,16 +44,16 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// Addresses of the authors where cashback will be paid.
+        /// The blockchain addresses where the royalty cashback will be sent every time the NFT is transferred
         /// </summary>
-        /// <value>Addresses of the authors where cashback will be paid.</value>
+        /// <value>The blockchain addresses where the royalty cashback will be sent every time the NFT is transferred</value>
         [DataMember(Name = "addresses", EmitDefaultValue = false)]
         public List<string> Addresses { get; set; }
 
         /// <summary>
-        /// Values of the royalties, which will be paid to the authors with every token transfer. Amount is in native asset of the blockchain or in percents for SOL NFTs. 
+        /// The amounts of the royalties that will be paid to the authors of the NFT every time the NFT is transferred; the royalties are paid as a percentage of the NFT price (on Solana) or in a native blockchain currency (on the other supported blockchains) 
         /// </summary>
-        /// <value>Values of the royalties, which will be paid to the authors with every token transfer. Amount is in native asset of the blockchain or in percents for SOL NFTs. </value>
+        /// <value>The amounts of the royalties that will be paid to the authors of the NFT every time the NFT is transferred; the royalties are paid as a percentage of the NFT price (on Solana) or in a native blockchain currency (on the other supported blockchains) </value>
         [DataMember(Name = "values", EmitDefaultValue = false)]
         public List<string> Values { get; set; }
 

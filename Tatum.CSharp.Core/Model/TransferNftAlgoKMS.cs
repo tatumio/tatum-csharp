@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class TransferNftAlgoKMS : IEquatable<TransferNftAlgoKMS>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,14 +62,12 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferNftAlgoKMS" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="value">Value to be sent..</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="from">Blockchain address to send NFT token from (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="contractAddress">AssetID of token. (required).</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
-        public TransferNftAlgoKMS(ChainEnum chain = default(ChainEnum), string value = default(string), string from = default(string), string to = default(string), string contractAddress = default(string), Guid signatureId = default(Guid), decimal index = default(decimal))
+        public TransferNftAlgoKMS(ChainEnum chain = default(ChainEnum), string from = default(string), string to = default(string), string contractAddress = default(string), Guid signatureId = default(Guid))
         {
             this.Chain = chain;
             // to ensure "from" is required (not null)
@@ -91,16 +89,7 @@ namespace Tatum.CSharp.Core.Model
             }
             this.ContractAddress = contractAddress;
             this.SignatureId = signatureId;
-            this.Value = value;
-            this.Index = index;
         }
-
-        /// <summary>
-        /// Value to be sent.
-        /// </summary>
-        /// <value>Value to be sent.</value>
-        [DataMember(Name = "value", EmitDefaultValue = false)]
-        public string Value { get; set; }
 
         /// <summary>
         /// Blockchain address to send NFT token from
@@ -131,13 +120,6 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
-        /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -146,12 +128,10 @@ namespace Tatum.CSharp.Core.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class TransferNftAlgoKMS {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  From: ").Append(From).Append("\n");
             sb.Append("  To: ").Append(To).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -192,11 +172,6 @@ namespace Tatum.CSharp.Core.Model
                     this.Chain.Equals(input.Chain)
                 ) && 
                 (
-                    this.Value == input.Value ||
-                    (this.Value != null &&
-                    this.Value.Equals(input.Value))
-                ) && 
-                (
                     this.From == input.From ||
                     (this.From != null &&
                     this.From.Equals(input.From))
@@ -215,10 +190,6 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId == input.SignatureId ||
                     (this.SignatureId != null &&
                     this.SignatureId.Equals(input.SignatureId))
-                ) && 
-                (
-                    this.Index == input.Index ||
-                    this.Index.Equals(input.Index)
                 );
         }
 
@@ -232,10 +203,6 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.Value != null)
-                {
-                    hashCode = (hashCode * 59) + this.Value.GetHashCode();
-                }
                 if (this.From != null)
                 {
                     hashCode = (hashCode * 59) + this.From.GetHashCode();
@@ -252,7 +219,6 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 return hashCode;
             }
         }
@@ -292,12 +258,6 @@ namespace Tatum.CSharp.Core.Model
             if (this.ContractAddress != null && this.ContractAddress.Length > 256)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 256.", new [] { "ContractAddress" });
-            }
-
-            // Index (decimal) minimum
-            if (this.Index < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value greater than or equal to 0.", new [] { "Index" });
             }
 
             yield break;

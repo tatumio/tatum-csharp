@@ -68,12 +68,12 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="tokenId">The ID of the NFT (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
-        /// <param name="from">The blockchain address that will pay the fee for the transaction (required).</param>
+        /// <param name="account">The blockchain address that will pay the fee for the transaction (required).</param>
         /// <param name="signatureId">The KMS identifier of the private key of the blockchain address that will pay the fee for the transaction (required).</param>
         /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic.</param>
         /// <param name="authorAddresses">The blockchain addresses where the royalties will be sent every time the minted NFT is transferred; the royalties are paid in the native blockchain currency, TRX.</param>
         /// <param name="cashbackValues">The amounts of the royalties that will be paid to the authors of the minted NFT every time the NFT is transferred; the amount is defined as a fixed amount of the native blockchain currency.</param>
-        public MintNftKMSTron(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string tokenId = default(string), string url = default(string), decimal feeLimit = default(decimal), string from = default(string), Guid signatureId = default(Guid), decimal index = default(decimal), List<string> authorAddresses = default(List<string>), List<string> cashbackValues = default(List<string>))
+        public MintNftKMSTron(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string tokenId = default(string), string url = default(string), decimal feeLimit = default(decimal), string account = default(string), Guid signatureId = default(Guid), decimal index = default(decimal), List<string> authorAddresses = default(List<string>), List<string> cashbackValues = default(List<string>))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -101,12 +101,12 @@ namespace Tatum.CSharp.Core.Model
             }
             this.Url = url;
             this.FeeLimit = feeLimit;
-            // to ensure "from" is required (not null)
-            if (from == null)
+            // to ensure "account" is required (not null)
+            if (account == null)
             {
-                throw new ArgumentNullException("from is a required property for MintNftKMSTron and cannot be null");
+                throw new ArgumentNullException("account is a required property for MintNftKMSTron and cannot be null");
             }
-            this.From = from;
+            this.Account = account;
             this.SignatureId = signatureId;
             this.Index = index;
             this.AuthorAddresses = authorAddresses;
@@ -152,8 +152,8 @@ namespace Tatum.CSharp.Core.Model
         /// The blockchain address that will pay the fee for the transaction
         /// </summary>
         /// <value>The blockchain address that will pay the fee for the transaction</value>
-        [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = true)]
-        public string From { get; set; }
+        [DataMember(Name = "account", IsRequired = true, EmitDefaultValue = true)]
+        public string Account { get; set; }
 
         /// <summary>
         /// The KMS identifier of the private key of the blockchain address that will pay the fee for the transaction
@@ -197,7 +197,7 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("  TokenId: ").Append(TokenId).Append("\n");
             sb.Append("  Url: ").Append(Url).Append("\n");
             sb.Append("  FeeLimit: ").Append(FeeLimit).Append("\n");
-            sb.Append("  From: ").Append(From).Append("\n");
+            sb.Append("  Account: ").Append(Account).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("  AuthorAddresses: ").Append(AuthorAddresses).Append("\n");
@@ -266,9 +266,9 @@ namespace Tatum.CSharp.Core.Model
                     this.FeeLimit.Equals(input.FeeLimit)
                 ) && 
                 (
-                    this.From == input.From ||
-                    (this.From != null &&
-                    this.From.Equals(input.From))
+                    this.Account == input.Account ||
+                    (this.Account != null &&
+                    this.Account.Equals(input.Account))
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -320,9 +320,9 @@ namespace Tatum.CSharp.Core.Model
                     hashCode = (hashCode * 59) + this.Url.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.FeeLimit.GetHashCode();
-                if (this.From != null)
+                if (this.Account != null)
                 {
-                    hashCode = (hashCode * 59) + this.From.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Account.GetHashCode();
                 }
                 if (this.SignatureId != null)
                 {
@@ -384,16 +384,16 @@ namespace Tatum.CSharp.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Url, length must be less than 256.", new [] { "Url" });
             }
 
-            // From (string) maxLength
-            if (this.From != null && this.From.Length > 34)
+            // Account (string) maxLength
+            if (this.Account != null && this.Account.Length > 34)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be less than 34.", new [] { "From" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be less than 34.", new [] { "Account" });
             }
 
-            // From (string) minLength
-            if (this.From != null && this.From.Length < 34)
+            // Account (string) minLength
+            if (this.Account != null && this.Account.Length < 34)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be greater than 34.", new [] { "From" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be greater than 34.", new [] { "Account" });
             }
 
             // Index (decimal) minimum

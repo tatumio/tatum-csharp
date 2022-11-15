@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class UpdateCashbackValueForAuthorNftKMSTron : IEquatable<UpdateCashbackValueForAuthorNftKMSTron>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,94 +62,94 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNftKMSTron" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="from">Blockchain address to perform transaction from (required).</param>
-        /// <param name="tokenId">ID of token to be updated. (required).</param>
-        /// <param name="cashbackValue">New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token. (required).</param>
-        /// <param name="contractAddress">Address of NFT token (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
-        /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="feeLimit">Max limit for fee to be paid, in TRX. (required).</param>
-        public UpdateCashbackValueForAuthorNftKMSTron(ChainEnum chain = default(ChainEnum), string from = default(string), string tokenId = default(string), string cashbackValue = default(string), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
+        /// <param name="chain">The blockchain to work with (required).</param>
+        /// <param name="tokenId">The ID of the NFT to update royalty information for (required).</param>
+        /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
+        /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
+        /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
+        /// <param name="account">The blockchain address of the NFT author from which the transaction will be performed (required).</param>
+        /// <param name="signatureId">The KMS identifier of the private key of the NFT author&#39;s address (required).</param>
+        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic.</param>
+        public UpdateCashbackValueForAuthorNftKMSTron(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), decimal feeLimit = default(decimal), string account = default(string), Guid signatureId = default(Guid), decimal index = default(decimal))
         {
             this.Chain = chain;
-            // to ensure "from" is required (not null)
-            if (from == null)
-            {
-                throw new ArgumentNullException("from is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
-            }
-            this.From = from;
             // to ensure "tokenId" is required (not null)
             if (tokenId == null)
             {
                 throw new ArgumentNullException("tokenId is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
             }
             this.TokenId = tokenId;
-            // to ensure "cashbackValue" is required (not null)
-            if (cashbackValue == null)
-            {
-                throw new ArgumentNullException("cashbackValue is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
-            }
-            this.CashbackValue = cashbackValue;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
             {
                 throw new ArgumentNullException("contractAddress is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
             }
             this.ContractAddress = contractAddress;
-            this.SignatureId = signatureId;
+            // to ensure "cashbackValue" is required (not null)
+            if (cashbackValue == null)
+            {
+                throw new ArgumentNullException("cashbackValue is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
+            }
+            this.CashbackValue = cashbackValue;
             this.FeeLimit = feeLimit;
+            // to ensure "account" is required (not null)
+            if (account == null)
+            {
+                throw new ArgumentNullException("account is a required property for UpdateCashbackValueForAuthorNftKMSTron and cannot be null");
+            }
+            this.Account = account;
+            this.SignatureId = signatureId;
             this.Index = index;
         }
 
         /// <summary>
-        /// Blockchain address to perform transaction from
+        /// The ID of the NFT to update royalty information for
         /// </summary>
-        /// <value>Blockchain address to perform transaction from</value>
-        [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = true)]
-        public string From { get; set; }
-
-        /// <summary>
-        /// ID of token to be updated.
-        /// </summary>
-        /// <value>ID of token to be updated.</value>
+        /// <value>The ID of the NFT to update royalty information for</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
         /// <summary>
-        /// New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token.
+        /// The blockchain address of the NFT to update royalty information for
         /// </summary>
-        /// <value>New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token.</value>
-        [DataMember(Name = "cashbackValue", IsRequired = true, EmitDefaultValue = true)]
-        public string CashbackValue { get; set; }
-
-        /// <summary>
-        /// Address of NFT token
-        /// </summary>
-        /// <value>Address of NFT token</value>
+        /// <value>The blockchain address of the NFT to update royalty information for</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
+        /// The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0
         /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
+        /// <value>The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0</value>
+        [DataMember(Name = "cashbackValue", IsRequired = true, EmitDefaultValue = true)]
+        public string CashbackValue { get; set; }
 
         /// <summary>
-        /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
+        /// The maximum amount to be paid as the transaction fee (in TRX)
         /// </summary>
-        /// <value>Identifier of the private key associated in signing application. Private key, or signature Id must be present.</value>
+        /// <value>The maximum amount to be paid as the transaction fee (in TRX)</value>
+        [DataMember(Name = "feeLimit", IsRequired = true, EmitDefaultValue = true)]
+        public decimal FeeLimit { get; set; }
+
+        /// <summary>
+        /// The blockchain address of the NFT author from which the transaction will be performed
+        /// </summary>
+        /// <value>The blockchain address of the NFT author from which the transaction will be performed</value>
+        [DataMember(Name = "account", IsRequired = true, EmitDefaultValue = true)]
+        public string Account { get; set; }
+
+        /// <summary>
+        /// The KMS identifier of the private key of the NFT author&#39;s address
+        /// </summary>
+        /// <value>The KMS identifier of the private key of the NFT author&#39;s address</value>
         [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// Max limit for fee to be paid, in TRX.
+        /// (Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic
         /// </summary>
-        /// <value>Max limit for fee to be paid, in TRX.</value>
-        [DataMember(Name = "feeLimit", IsRequired = true, EmitDefaultValue = true)]
-        public decimal FeeLimit { get; set; }
+        /// <value>(Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic</value>
+        [DataMember(Name = "index", EmitDefaultValue = false)]
+        public decimal Index { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -160,13 +160,13 @@ namespace Tatum.CSharp.Core.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class UpdateCashbackValueForAuthorNftKMSTron {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  From: ").Append(From).Append("\n");
             sb.Append("  TokenId: ").Append(TokenId).Append("\n");
-            sb.Append("  CashbackValue: ").Append(CashbackValue).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
-            sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
+            sb.Append("  CashbackValue: ").Append(CashbackValue).Append("\n");
             sb.Append("  FeeLimit: ").Append(FeeLimit).Append("\n");
+            sb.Append("  Account: ").Append(Account).Append("\n");
+            sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
+            sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -207,19 +207,9 @@ namespace Tatum.CSharp.Core.Model
                     this.Chain.Equals(input.Chain)
                 ) && 
                 (
-                    this.From == input.From ||
-                    (this.From != null &&
-                    this.From.Equals(input.From))
-                ) && 
-                (
                     this.TokenId == input.TokenId ||
                     (this.TokenId != null &&
                     this.TokenId.Equals(input.TokenId))
-                ) && 
-                (
-                    this.CashbackValue == input.CashbackValue ||
-                    (this.CashbackValue != null &&
-                    this.CashbackValue.Equals(input.CashbackValue))
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -227,8 +217,18 @@ namespace Tatum.CSharp.Core.Model
                     this.ContractAddress.Equals(input.ContractAddress))
                 ) && 
                 (
-                    this.Index == input.Index ||
-                    this.Index.Equals(input.Index)
+                    this.CashbackValue == input.CashbackValue ||
+                    (this.CashbackValue != null &&
+                    this.CashbackValue.Equals(input.CashbackValue))
+                ) && 
+                (
+                    this.FeeLimit == input.FeeLimit ||
+                    this.FeeLimit.Equals(input.FeeLimit)
+                ) && 
+                (
+                    this.Account == input.Account ||
+                    (this.Account != null &&
+                    this.Account.Equals(input.Account))
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -236,8 +236,8 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId.Equals(input.SignatureId))
                 ) && 
                 (
-                    this.FeeLimit == input.FeeLimit ||
-                    this.FeeLimit.Equals(input.FeeLimit)
+                    this.Index == input.Index ||
+                    this.Index.Equals(input.Index)
                 );
         }
 
@@ -251,28 +251,28 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.From != null)
-                {
-                    hashCode = (hashCode * 59) + this.From.GetHashCode();
-                }
                 if (this.TokenId != null)
                 {
                     hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
-                if (this.CashbackValue != null)
-                {
-                    hashCode = (hashCode * 59) + this.CashbackValue.GetHashCode();
                 }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.Index.GetHashCode();
+                if (this.CashbackValue != null)
+                {
+                    hashCode = (hashCode * 59) + this.CashbackValue.GetHashCode();
+                }
+                hashCode = (hashCode * 59) + this.FeeLimit.GetHashCode();
+                if (this.Account != null)
+                {
+                    hashCode = (hashCode * 59) + this.Account.GetHashCode();
+                }
                 if (this.SignatureId != null)
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.FeeLimit.GetHashCode();
+                hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 return hashCode;
             }
         }
@@ -284,18 +284,6 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // From (string) maxLength
-            if (this.From != null && this.From.Length > 34)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be less than 34.", new [] { "From" });
-            }
-
-            // From (string) minLength
-            if (this.From != null && this.From.Length < 34)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be greater than 34.", new [] { "From" });
-            }
-
             // TokenId (string) maxLength
             if (this.TokenId != null && this.TokenId.Length > 32)
             {
@@ -312,6 +300,18 @@ namespace Tatum.CSharp.Core.Model
             if (this.ContractAddress != null && this.ContractAddress.Length < 42)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
+            }
+
+            // Account (string) maxLength
+            if (this.Account != null && this.Account.Length > 34)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be less than 34.", new [] { "Account" });
+            }
+
+            // Account (string) minLength
+            if (this.Account != null && this.Account.Length < 34)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be greater than 34.", new [] { "Account" });
             }
 
             // Index (decimal) minimum

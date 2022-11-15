@@ -42,7 +42,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="metadata">metadata (required).</param>
-        public NftTokenByCollectionErc721(string tokenId = default(string), List<NftTokenByCollectionErc721TokenMetadata> metadata = default(List<NftTokenByCollectionErc721TokenMetadata>))
+        public NftTokenByCollectionErc721(string tokenId = default(string), NftTokenByCollectionErc721TokenMetadata metadata = default(NftTokenByCollectionErc721TokenMetadata))
         {
             // to ensure "tokenId" is required (not null)
             if (tokenId == null)
@@ -69,7 +69,7 @@ namespace Tatum.CSharp.Core.Model
         /// Gets or Sets Metadata
         /// </summary>
         [DataMember(Name = "metadata", IsRequired = true, EmitDefaultValue = true)]
-        public List<NftTokenByCollectionErc721TokenMetadata> Metadata { get; set; }
+        public NftTokenByCollectionErc721TokenMetadata Metadata { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -123,9 +123,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.Metadata == input.Metadata ||
-                    this.Metadata != null &&
-                    input.Metadata != null &&
-                    this.Metadata.SequenceEqual(input.Metadata)
+                    (this.Metadata != null &&
+                    this.Metadata.Equals(input.Metadata))
                 );
         }
 

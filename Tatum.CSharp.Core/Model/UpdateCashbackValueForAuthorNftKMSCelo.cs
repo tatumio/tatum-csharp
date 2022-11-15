@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class UpdateCashbackValueForAuthorNftKMSCelo : IEquatable<UpdateCashbackValueForAuthorNftKMSCelo>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,15 +49,15 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -83,9 +83,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", IsRequired = true, EmitDefaultValue = true)]
         public FeeCurrencyEnum FeeCurrency { get; set; }
         /// <summary>
@@ -96,15 +96,15 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNftKMSCelo" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="tokenId">ID of token to be updated. (required).</param>
-        /// <param name="cashbackValue">New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token. (required).</param>
-        /// <param name="contractAddress">Address of NFT token (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
-        /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas (required).</param>
-        public UpdateCashbackValueForAuthorNftKMSCelo(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string cashbackValue = default(string), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
+        /// <param name="chain">The blockchain to work with (required).</param>
+        /// <param name="tokenId">The ID of the NFT to update royalty information for (required).</param>
+        /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
+        /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
+        /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
+        /// <param name="signatureId">The KMS identifier of the private key of the NFT author&#39;s address (required).</param>
+        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic.</param>
+        /// <param name="nonce">The nonce to be set to the transfer transaction; if not present, the last known nonce will be used.</param>
+        public UpdateCashbackValueForAuthorNftKMSCelo(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum), Guid signatureId = default(Guid), decimal index = default(decimal), decimal nonce = default(decimal))
         {
             this.Chain = chain;
             // to ensure "tokenId" is required (not null)
@@ -113,63 +113,63 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("tokenId is a required property for UpdateCashbackValueForAuthorNftKMSCelo and cannot be null");
             }
             this.TokenId = tokenId;
-            // to ensure "cashbackValue" is required (not null)
-            if (cashbackValue == null)
-            {
-                throw new ArgumentNullException("cashbackValue is a required property for UpdateCashbackValueForAuthorNftKMSCelo and cannot be null");
-            }
-            this.CashbackValue = cashbackValue;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
             {
                 throw new ArgumentNullException("contractAddress is a required property for UpdateCashbackValueForAuthorNftKMSCelo and cannot be null");
             }
             this.ContractAddress = contractAddress;
-            this.SignatureId = signatureId;
+            // to ensure "cashbackValue" is required (not null)
+            if (cashbackValue == null)
+            {
+                throw new ArgumentNullException("cashbackValue is a required property for UpdateCashbackValueForAuthorNftKMSCelo and cannot be null");
+            }
+            this.CashbackValue = cashbackValue;
             this.FeeCurrency = feeCurrency;
+            this.SignatureId = signatureId;
             this.Index = index;
             this.Nonce = nonce;
         }
 
         /// <summary>
-        /// ID of token to be updated.
+        /// The ID of the NFT to update royalty information for
         /// </summary>
-        /// <value>ID of token to be updated.</value>
+        /// <value>The ID of the NFT to update royalty information for</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
         /// <summary>
-        /// New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token.
+        /// The blockchain address of the NFT to update royalty information for
         /// </summary>
-        /// <value>New royalty cashback to be set for the author of token with tokenId. If set to 0, royalty is disabled for this token.</value>
-        [DataMember(Name = "cashbackValue", IsRequired = true, EmitDefaultValue = true)]
-        public string CashbackValue { get; set; }
-
-        /// <summary>
-        /// Address of NFT token
-        /// </summary>
-        /// <value>Address of NFT token</value>
+        /// <value>The blockchain address of the NFT to update royalty information for</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
+        /// The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0
         /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
+        /// <value>The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0</value>
+        [DataMember(Name = "cashbackValue", IsRequired = true, EmitDefaultValue = true)]
+        public string CashbackValue { get; set; }
 
         /// <summary>
-        /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
+        /// The KMS identifier of the private key of the NFT author&#39;s address
         /// </summary>
-        /// <value>Identifier of the private key associated in signing application. Private key, or signature Id must be present.</value>
+        /// <value>The KMS identifier of the private key of the NFT author&#39;s address</value>
         [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// Nonce to be set to Celo transaction. If not present, last known nonce will be used.
+        /// (Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic
         /// </summary>
-        /// <value>Nonce to be set to Celo transaction. If not present, last known nonce will be used.</value>
+        /// <value>(Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic</value>
+        [DataMember(Name = "index", EmitDefaultValue = false)]
+        public decimal Index { get; set; }
+
+        /// <summary>
+        /// The nonce to be set to the transfer transaction; if not present, the last known nonce will be used
+        /// </summary>
+        /// <value>The nonce to be set to the transfer transaction; if not present, the last known nonce will be used</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 
@@ -183,12 +183,12 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("class UpdateCashbackValueForAuthorNftKMSCelo {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
             sb.Append("  TokenId: ").Append(TokenId).Append("\n");
-            sb.Append("  CashbackValue: ").Append(CashbackValue).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
-            sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
-            sb.Append("  Nonce: ").Append(Nonce).Append("\n");
+            sb.Append("  CashbackValue: ").Append(CashbackValue).Append("\n");
             sb.Append("  FeeCurrency: ").Append(FeeCurrency).Append("\n");
+            sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
+            sb.Append("  Index: ").Append(Index).Append("\n");
+            sb.Append("  Nonce: ").Append(Nonce).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -234,18 +234,18 @@ namespace Tatum.CSharp.Core.Model
                     this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
-                    this.CashbackValue == input.CashbackValue ||
-                    (this.CashbackValue != null &&
-                    this.CashbackValue.Equals(input.CashbackValue))
-                ) && 
-                (
                     this.ContractAddress == input.ContractAddress ||
                     (this.ContractAddress != null &&
                     this.ContractAddress.Equals(input.ContractAddress))
                 ) && 
                 (
-                    this.Index == input.Index ||
-                    this.Index.Equals(input.Index)
+                    this.CashbackValue == input.CashbackValue ||
+                    (this.CashbackValue != null &&
+                    this.CashbackValue.Equals(input.CashbackValue))
+                ) && 
+                (
+                    this.FeeCurrency == input.FeeCurrency ||
+                    this.FeeCurrency.Equals(input.FeeCurrency)
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -253,12 +253,12 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId.Equals(input.SignatureId))
                 ) && 
                 (
-                    this.Nonce == input.Nonce ||
-                    this.Nonce.Equals(input.Nonce)
+                    this.Index == input.Index ||
+                    this.Index.Equals(input.Index)
                 ) && 
                 (
-                    this.FeeCurrency == input.FeeCurrency ||
-                    this.FeeCurrency.Equals(input.FeeCurrency)
+                    this.Nonce == input.Nonce ||
+                    this.Nonce.Equals(input.Nonce)
                 );
         }
 
@@ -276,21 +276,21 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
                 }
-                if (this.CashbackValue != null)
-                {
-                    hashCode = (hashCode * 59) + this.CashbackValue.GetHashCode();
-                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.Index.GetHashCode();
+                if (this.CashbackValue != null)
+                {
+                    hashCode = (hashCode * 59) + this.CashbackValue.GetHashCode();
+                }
+                hashCode = (hashCode * 59) + this.FeeCurrency.GetHashCode();
                 if (this.SignatureId != null)
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 hashCode = (hashCode * 59) + this.Nonce.GetHashCode();
-                hashCode = (hashCode * 59) + this.FeeCurrency.GetHashCode();
                 return hashCode;
             }
         }

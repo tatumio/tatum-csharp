@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class DeployNftCeloKMS : IEquatable<DeployNftCeloKMS>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,15 +49,15 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -83,9 +83,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas
+        /// The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas</value>
+        /// <value>The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", IsRequired = true, EmitDefaultValue = true)]
         public FeeCurrencyEnum FeeCurrency { get; set; }
         /// <summary>
@@ -96,16 +96,16 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployNftCeloKMS" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="name">Name of the NFT token (required).</param>
         /// <param name="symbol">Symbol of the NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">nonce.</param>
-        /// <param name="provenance">True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;.</param>
-        /// <param name="cashback">True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;.</param>
+        /// <param name="provenance">True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;.</param>
+        /// <param name="cashback">True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;.</param>
         /// <param name="publicMint">True if the contract is publicMint type. False by default..</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas (required).</param>
+        /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
         public DeployNftCeloKMS(ChainEnum chain = default(ChainEnum), string name = default(string), string symbol = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), bool provenance = default(bool), bool cashback = default(bool), bool publicMint = default(bool), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
             this.Chain = chain;
@@ -165,16 +165,16 @@ namespace Tatum.CSharp.Core.Model
         public decimal Nonce { get; set; }
 
         /// <summary>
-        /// True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;
+        /// True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;
         /// </summary>
-        /// <value>True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;</value>
+        /// <value>True if the contract is provenance percentage royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;</value>
         [DataMember(Name = "provenance", EmitDefaultValue = true)]
         public bool Provenance { get; set; }
 
         /// <summary>
-        /// True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;
+        /// True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;
         /// </summary>
-        /// <value>True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources avaiable here.&lt;/a&gt;</value>
+        /// <value>True if the contract is fixed price royalty type. False by default. &lt;a href&#x3D;\&quot;https://github.com/tatumio/smart-contracts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Details and sources available here.&lt;/a&gt;</value>
         [DataMember(Name = "cashback", EmitDefaultValue = true)]
         public bool Cashback { get; set; }
 

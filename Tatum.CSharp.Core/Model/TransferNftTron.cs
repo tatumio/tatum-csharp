@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class TransferNftTron : IEquatable<TransferNftTron>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -63,12 +63,12 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="TransferNftTron" /> class.
         /// </summary>
         /// <param name="value">If token to be transferred is Royalty NFT token, this is a value to be paid as a cashback to the authors of the token..</param>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="tokenId">ID of token. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
-        /// <param name="feeLimit">Max limit for fee to be paid, in TRX. (required).</param>
+        /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
         public TransferNftTron(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), string tokenId = default(string), string contractAddress = default(string), string fromPrivateKey = default(string), decimal feeLimit = default(decimal))
         {
             this.Chain = chain;
@@ -136,9 +136,9 @@ namespace Tatum.CSharp.Core.Model
         public string FromPrivateKey { get; set; }
 
         /// <summary>
-        /// Max limit for fee to be paid, in TRX.
+        /// The maximum amount to be paid as the transaction fee (in TRX)
         /// </summary>
-        /// <value>Max limit for fee to be paid, in TRX.</value>
+        /// <value>The maximum amount to be paid as the transaction fee (in TRX)</value>
         [DataMember(Name = "feeLimit", IsRequired = true, EmitDefaultValue = true)]
         public decimal FeeLimit { get; set; }
 

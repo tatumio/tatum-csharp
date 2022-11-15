@@ -95,7 +95,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="tokenId">The ID of the NFT to burn (required).</param>
         /// <param name="contractAddress">The blockchain address of the NFT to burn (required).</param>
-        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the specific address from the mnemonic.</param>
+        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic.</param>
         /// <param name="signatureId">The KMS identifier of the private key of the blockchain address from which the fee will be deducted (required).</param>
         /// <param name="nonce">The nonce to be set to the transfer transaction; if not present, the last known nonce will be used.</param>
         /// <param name="fee">fee.</param>
@@ -135,9 +135,9 @@ namespace Tatum.CSharp.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// (Only if the signature ID is mnemonic-based) The index of the specific address from the mnemonic
+        /// (Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic
         /// </summary>
-        /// <value>(Only if the signature ID is mnemonic-based) The index of the specific address from the mnemonic</value>
+        /// <value>(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic</value>
         [DataMember(Name = "index", EmitDefaultValue = false)]
         public decimal Index { get; set; }
 

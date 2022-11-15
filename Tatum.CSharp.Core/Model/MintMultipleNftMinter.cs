@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class MintMultipleNftMinter : IEquatable<MintMultipleNftMinter>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -85,15 +85,15 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
-        /// Currency to pay for transaction gas, only valid for CELO chain.
+        /// (Celo only) The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas, only valid for CELO chain.</value>
+        /// <value>(Celo only) The currency in which the transaction fee will be paid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FeeCurrencyEnum
         {
@@ -107,9 +107,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Currency to pay for transaction gas, only valid for CELO chain.
+        /// (Celo only) The currency in which the transaction fee will be paid
         /// </summary>
-        /// <value>Currency to pay for transaction gas, only valid for CELO chain.</value>
+        /// <value>(Celo only) The currency in which the transaction fee will be paid</value>
         [DataMember(Name = "feeCurrency", EmitDefaultValue = false)]
         public FeeCurrencyEnum? FeeCurrency { get; set; }
         /// <summary>
@@ -120,13 +120,13 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MintMultipleNftMinter" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to. (required).</param>
         /// <param name="tokenId">ID of token to be created. (required).</param>
         /// <param name="minter">Address of NFT minter, which will be used to mint the tokens. From this address, transaction fees will be deducted. (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
-        /// <param name="feeCurrency">Currency to pay for transaction gas, only valid for CELO chain..</param>
+        /// <param name="feeCurrency">(Celo only) The currency in which the transaction fee will be paid.</param>
         public MintMultipleNftMinter(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), List<string> tokenId = default(List<string>), string minter = default(string), List<string> url = default(List<string>), string contractAddress = default(string), FeeCurrencyEnum? feeCurrency = default(FeeCurrencyEnum?))
         {
             this.Chain = chain;

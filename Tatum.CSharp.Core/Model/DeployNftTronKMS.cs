@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class DeployNftTronKMS : IEquatable<DeployNftTronKMS>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,22 +62,22 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployNftTronKMS" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="from">Blockchain address to perform transaction from (required).</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
+        /// <param name="account">Blockchain address to perform transaction from (required).</param>
         /// <param name="name">Name of the NFT token (required).</param>
         /// <param name="symbol">Symbol of the NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="feeLimit">Max limit for fee to be paid, in TRX. For deploy, around 580 TRX is consumed. (required).</param>
-        public DeployNftTronKMS(ChainEnum chain = default(ChainEnum), string from = default(string), string name = default(string), string symbol = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
+        /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX); deployment of a smart contract on TRON costs around 580 TRX (required).</param>
+        public DeployNftTronKMS(ChainEnum chain = default(ChainEnum), string account = default(string), string name = default(string), string symbol = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
         {
             this.Chain = chain;
-            // to ensure "from" is required (not null)
-            if (from == null)
+            // to ensure "account" is required (not null)
+            if (account == null)
             {
-                throw new ArgumentNullException("from is a required property for DeployNftTronKMS and cannot be null");
+                throw new ArgumentNullException("account is a required property for DeployNftTronKMS and cannot be null");
             }
-            this.From = from;
+            this.Account = account;
             // to ensure "name" is required (not null)
             if (name == null)
             {
@@ -99,8 +99,8 @@ namespace Tatum.CSharp.Core.Model
         /// Blockchain address to perform transaction from
         /// </summary>
         /// <value>Blockchain address to perform transaction from</value>
-        [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = true)]
-        public string From { get; set; }
+        [DataMember(Name = "account", IsRequired = true, EmitDefaultValue = true)]
+        public string Account { get; set; }
 
         /// <summary>
         /// Name of the NFT token
@@ -131,9 +131,9 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// Max limit for fee to be paid, in TRX. For deploy, around 580 TRX is consumed.
+        /// The maximum amount to be paid as the transaction fee (in TRX); deployment of a smart contract on TRON costs around 580 TRX
         /// </summary>
-        /// <value>Max limit for fee to be paid, in TRX. For deploy, around 580 TRX is consumed.</value>
+        /// <value>The maximum amount to be paid as the transaction fee (in TRX); deployment of a smart contract on TRON costs around 580 TRX</value>
         [DataMember(Name = "feeLimit", IsRequired = true, EmitDefaultValue = true)]
         public decimal FeeLimit { get; set; }
 
@@ -146,7 +146,7 @@ namespace Tatum.CSharp.Core.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class DeployNftTronKMS {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  From: ").Append(From).Append("\n");
+            sb.Append("  Account: ").Append(Account).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Symbol: ").Append(Symbol).Append("\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
@@ -192,9 +192,9 @@ namespace Tatum.CSharp.Core.Model
                     this.Chain.Equals(input.Chain)
                 ) && 
                 (
-                    this.From == input.From ||
-                    (this.From != null &&
-                    this.From.Equals(input.From))
+                    this.Account == input.Account ||
+                    (this.Account != null &&
+                    this.Account.Equals(input.Account))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -231,9 +231,9 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.From != null)
+                if (this.Account != null)
                 {
-                    hashCode = (hashCode * 59) + this.From.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Account.GetHashCode();
                 }
                 if (this.Name != null)
                 {
@@ -260,16 +260,16 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // From (string) maxLength
-            if (this.From != null && this.From.Length > 34)
+            // Account (string) maxLength
+            if (this.Account != null && this.Account.Length > 34)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be less than 34.", new [] { "From" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be less than 34.", new [] { "Account" });
             }
 
-            // From (string) minLength
-            if (this.From != null && this.From.Length < 34)
+            // Account (string) minLength
+            if (this.Account != null && this.Account.Length < 34)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be greater than 34.", new [] { "From" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Account, length must be greater than 34.", new [] { "Account" });
             }
 
             // Name (string) maxLength

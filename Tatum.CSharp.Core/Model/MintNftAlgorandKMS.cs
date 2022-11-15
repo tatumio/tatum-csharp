@@ -67,9 +67,8 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="name">The name of the NFT (required).</param>
         /// <param name="from">The address of the minting account (required).</param>
         /// <param name="signatureId">The KMS identifier of the private key of the minting account; the transaction fee will be paid from this account (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="attr">attr.</param>
-        public MintNftAlgorandKMS(ChainEnum chain = default(ChainEnum), string url = default(string), string name = default(string), string from = default(string), Guid signatureId = default(Guid), decimal index = default(decimal), Object attr = default(Object))
+        public MintNftAlgorandKMS(ChainEnum chain = default(ChainEnum), string url = default(string), string name = default(string), string from = default(string), Guid signatureId = default(Guid), Object attr = default(Object))
         {
             this.Chain = chain;
             // to ensure "url" is required (not null)
@@ -91,7 +90,6 @@ namespace Tatum.CSharp.Core.Model
             }
             this.From = from;
             this.SignatureId = signatureId;
-            this.Index = index;
             this.Attr = attr;
         }
 
@@ -124,13 +122,6 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
-        /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
-
-        /// <summary>
         /// Gets or Sets Attr
         /// </summary>
         [DataMember(Name = "attr", EmitDefaultValue = false)]
@@ -149,7 +140,6 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  From: ").Append(From).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("  Attr: ").Append(Attr).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -211,10 +201,6 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId.Equals(input.SignatureId))
                 ) && 
                 (
-                    this.Index == input.Index ||
-                    this.Index.Equals(input.Index)
-                ) && 
-                (
                     this.Attr == input.Attr ||
                     (this.Attr != null &&
                     this.Attr.Equals(input.Attr))
@@ -247,7 +233,6 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 if (this.Attr != null)
                 {
                     hashCode = (hashCode * 59) + this.Attr.GetHashCode();
@@ -291,12 +276,6 @@ namespace Tatum.CSharp.Core.Model
             if (this.From != null && this.From.Length < 58)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for From, length must be greater than 58.", new [] { "From" });
-            }
-
-            // Index (decimal) minimum
-            if (this.Index < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value greater than or equal to 0.", new [] { "Index" });
             }
 
             yield break;

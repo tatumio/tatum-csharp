@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Core.Model
     public partial class TransferNftAlgo : IEquatable<TransferNftAlgo>, IValidatableObject
     {
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -49,9 +49,9 @@ namespace Tatum.CSharp.Core.Model
 
 
         /// <summary>
-        /// Chain to work with.
+        /// The blockchain to work with
         /// </summary>
-        /// <value>Chain to work with.</value>
+        /// <value>The blockchain to work with</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
         /// <summary>
@@ -62,12 +62,11 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferNftAlgo" /> class.
         /// </summary>
-        /// <param name="chain">Chain to work with. (required).</param>
-        /// <param name="value">Value to be sent..</param>
+        /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="contractAddress">AssetID of token. (required).</param>
         /// <param name="fromPrivateKey">Private key of sender address. (required).</param>
-        public TransferNftAlgo(ChainEnum chain = default(ChainEnum), string value = default(string), string to = default(string), string contractAddress = default(string), string fromPrivateKey = default(string))
+        public TransferNftAlgo(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string fromPrivateKey = default(string))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -88,15 +87,7 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("fromPrivateKey is a required property for TransferNftAlgo and cannot be null");
             }
             this.FromPrivateKey = fromPrivateKey;
-            this.Value = value;
         }
-
-        /// <summary>
-        /// Value to be sent.
-        /// </summary>
-        /// <value>Value to be sent.</value>
-        [DataMember(Name = "value", EmitDefaultValue = false)]
-        public string Value { get; set; }
 
         /// <summary>
         /// Blockchain address to send NFT token to
@@ -128,7 +119,6 @@ namespace Tatum.CSharp.Core.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class TransferNftAlgo {\n");
             sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  To: ").Append(To).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  FromPrivateKey: ").Append(FromPrivateKey).Append("\n");
@@ -172,11 +162,6 @@ namespace Tatum.CSharp.Core.Model
                     this.Chain.Equals(input.Chain)
                 ) && 
                 (
-                    this.Value == input.Value ||
-                    (this.Value != null &&
-                    this.Value.Equals(input.Value))
-                ) && 
-                (
                     this.To == input.To ||
                     (this.To != null &&
                     this.To.Equals(input.To))
@@ -203,10 +188,6 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.Value != null)
-                {
-                    hashCode = (hashCode * 59) + this.Value.GetHashCode();
-                }
                 if (this.To != null)
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
