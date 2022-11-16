@@ -104,14 +104,9 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="signatureId">The KMS identifier of the private key of the NFT author&#39;s address (required).</param>
         /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the NFT author&#39;s address that was generated from the mnemonic.</param>
         /// <param name="nonce">The nonce to be set to the transfer transaction; if not present, the last known nonce will be used.</param>
-        public UpdateCashbackValueForAuthorNftKMSCelo(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum), Guid signatureId = default(Guid), decimal index = default(decimal), decimal nonce = default(decimal))
+        public UpdateCashbackValueForAuthorNftKMSCelo(ChainEnum chain = default(ChainEnum), int tokenId = default(int), string contractAddress = default(string), string cashbackValue = default(string), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum), Guid signatureId = default(Guid), decimal index = default(decimal), decimal nonce = default(decimal))
         {
             this.Chain = chain;
-            // to ensure "tokenId" is required (not null)
-            if (tokenId == null)
-            {
-                throw new ArgumentNullException("tokenId is a required property for UpdateCashbackValueForAuthorNftKMSCelo and cannot be null");
-            }
             this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -136,7 +131,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>The ID of the NFT to update royalty information for</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public string TokenId { get; set; }
+        public int TokenId { get; set; }
 
         /// <summary>
         /// The blockchain address of the NFT to update royalty information for
@@ -230,8 +225,7 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
+                    this.TokenId.Equals(input.TokenId)
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -272,10 +266,7 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
@@ -302,10 +293,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 32)
+            // TokenId (int) minimum
+            if (this.TokenId < (int)0)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 32.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
             }
 
             // ContractAddress (string) maxLength

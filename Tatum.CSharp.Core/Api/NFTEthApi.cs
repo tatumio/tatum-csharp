@@ -129,7 +129,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="tokenId">The ID of the NFT to get provenance information for</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
-        List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
+        List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, int tokenId, string xTestnetType = default(string));
         /// <summary>
         /// Get NFT royalty information
         /// </summary>
@@ -437,7 +437,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="tokenId">The ID of the NFT to get provenance information for</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
-        ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
+        ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, int tokenId, string xTestnetType = default(string));
         /// <summary>
         /// Get NFT royalty information
         /// </summary>
@@ -754,7 +754,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
-        System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, int tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get NFT royalty information
         /// </summary>
@@ -1088,7 +1088,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, int tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get NFT royalty information
         /// </summary>
@@ -2600,7 +2600,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="tokenId">The ID of the NFT to get provenance information for</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
-        public List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string))
+        public List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, int tokenId, string xTestnetType = default(string))
         {
             var localVarResponse = NftGetProvenanceDataErc721WithHttpInfo(contractAddress, tokenId, xTestnetType);
 
@@ -2618,16 +2618,11 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="tokenId">The ID of the NFT to get provenance information for</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
-        public ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string))
+        public ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, int tokenId, string xTestnetType = default(string))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
                 throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTEthApi->NftGetProvenanceDataErc721");
-
-
-            // verify the required parameter 'tokenId' is set
-            if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTEthApi->NftGetProvenanceDataErc721");
 
 
             var localVarRequestOptions = new RequestOptions();
@@ -2674,7 +2669,7 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
-        public async System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, int tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var localVarResponse = await NftGetProvenanceDataErc721WithHttpInfoAsync(contractAddress, tokenId, xTestnetType, cancellationToken).ConfigureAwait(false);
             
@@ -2693,16 +2688,11 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, int tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
                 throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTEthApi->NftGetProvenanceDataErc721");
-
-
-            // verify the required parameter 'tokenId' is set
-            if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTEthApi->NftGetProvenanceDataErc721");
 
 
             var localVarRequestOptions = new RequestOptions();

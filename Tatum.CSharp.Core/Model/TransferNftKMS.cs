@@ -104,7 +104,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="fee">fee.</param>
-        public TransferNftKMS(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), string tokenId = default(string), string contractAddress = default(string), decimal index = default(decimal), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), Guid signatureId = default(Guid), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
+        public TransferNftKMS(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), int tokenId = default(int), string contractAddress = default(string), decimal index = default(decimal), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), Guid signatureId = default(Guid), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -113,11 +113,6 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("to is a required property for TransferNftKMS and cannot be null");
             }
             this.To = to;
-            // to ensure "tokenId" is required (not null)
-            if (tokenId == null)
-            {
-                throw new ArgumentNullException("tokenId is a required property for TransferNftKMS and cannot be null");
-            }
             this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -154,7 +149,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>ID of token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public string TokenId { get; set; }
+        public int TokenId { get; set; }
 
         /// <summary>
         /// Address of NFT token
@@ -282,8 +277,7 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
+                    this.TokenId.Equals(input.TokenId)
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -342,10 +336,7 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
                 }
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
@@ -392,10 +383,10 @@ namespace Tatum.CSharp.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for To, length must be greater than 42.", new [] { "To" });
             }
 
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 256)
+            // TokenId (int) minimum
+            if (this.TokenId < (int)0)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 256.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
             }
 
             // ContractAddress (string) maxLength

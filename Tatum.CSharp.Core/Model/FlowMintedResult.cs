@@ -37,7 +37,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="txId">Transaction ID.</param>
         /// <param name="tokenId">ID of the minted token.</param>
-        public FlowMintedResult(string txId = default(string), decimal tokenId = default(decimal))
+        public FlowMintedResult(string txId = default(string), int tokenId = default(int))
         {
             this.TxId = txId;
             this.TokenId = tokenId;
@@ -55,7 +55,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>ID of the minted token</value>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public decimal TokenId { get; set; }
+        public int TokenId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -138,6 +138,12 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
+            // TokenId (int) minimum
+            if (this.TokenId < (int)0)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+            }
+
             yield break;
         }
     }

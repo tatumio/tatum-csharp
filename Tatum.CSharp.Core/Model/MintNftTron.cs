@@ -71,7 +71,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="fromPrivateKey">The private key of the blockchain address that will pay the fee for the transaction (required).</param>
         /// <param name="authorAddresses">The blockchain addresses where the royalties will be sent every time the minted NFT is transferred; the royalties are paid in the native blockchain currency, TRX.</param>
         /// <param name="cashbackValues">The amounts of the royalties that will be paid to the authors of the minted NFT every time the NFT is transferred; the amount is defined as a fixed amount of the native blockchain currency.</param>
-        public MintNftTron(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string tokenId = default(string), string url = default(string), decimal feeLimit = default(decimal), string fromPrivateKey = default(string), List<string> authorAddresses = default(List<string>), List<string> cashbackValues = default(List<string>))
+        public MintNftTron(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), int tokenId = default(int), string url = default(string), decimal feeLimit = default(decimal), string fromPrivateKey = default(string), List<string> authorAddresses = default(List<string>), List<string> cashbackValues = default(List<string>))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -86,11 +86,6 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("contractAddress is a required property for MintNftTron and cannot be null");
             }
             this.ContractAddress = contractAddress;
-            // to ensure "tokenId" is required (not null)
-            if (tokenId == null)
-            {
-                throw new ArgumentNullException("tokenId is a required property for MintNftTron and cannot be null");
-            }
             this.TokenId = tokenId;
             // to ensure "url" is required (not null)
             if (url == null)
@@ -128,7 +123,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>The ID of the NFT</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public string TokenId { get; set; }
+        public int TokenId { get; set; }
 
         /// <summary>
         /// The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt;
@@ -233,8 +228,7 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
+                    this.TokenId.Equals(input.TokenId)
                 ) && 
                 (
                     this.Url == input.Url ||
@@ -282,10 +276,7 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
                 if (this.Url != null)
                 {
                     hashCode = (hashCode * 59) + this.Url.GetHashCode();
@@ -338,10 +329,10 @@ namespace Tatum.CSharp.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 34.", new [] { "ContractAddress" });
             }
 
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 32)
+            // TokenId (int) minimum
+            if (this.TokenId < (int)0)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 32.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
             }
 
             // Url (string) maxLength

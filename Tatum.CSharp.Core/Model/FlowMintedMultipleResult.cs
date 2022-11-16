@@ -37,7 +37,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="txId">Transaction ID.</param>
         /// <param name="tokenId">tokenId.</param>
-        public FlowMintedMultipleResult(string txId = default(string), List<decimal> tokenId = default(List<decimal>))
+        public FlowMintedMultipleResult(string txId = default(string), List<int> tokenId = default(List<int>))
         {
             this.TxId = txId;
             this.TokenId = tokenId;
@@ -54,7 +54,7 @@ namespace Tatum.CSharp.Core.Model
         /// Gets or Sets TokenId
         /// </summary>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public List<decimal> TokenId { get; set; }
+        public List<int> TokenId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

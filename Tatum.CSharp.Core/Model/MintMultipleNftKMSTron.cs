@@ -71,7 +71,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
-        public MintMultipleNftKMSTron(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), string account = default(string), List<string> tokenId = default(List<string>), List<string> url = default(List<string>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
+        public MintMultipleNftKMSTron(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), string account = default(string), List<int> tokenId = default(List<int>), List<string> url = default(List<string>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -128,7 +128,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>ID of token to be created.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public List<string> TokenId { get; set; }
+        public List<int> TokenId { get; set; }
 
         /// <summary>
         /// The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt;
