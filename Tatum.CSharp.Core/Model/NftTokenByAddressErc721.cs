@@ -44,7 +44,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="balances">On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs (required).</param>
         /// <param name="blockNumber">(EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address.</param>
         /// <param name="metadata">metadata (required).</param>
-        public NftTokenByAddressErc721(string contractAddress = default(string), List<string> balances = default(List<string>), List<decimal> blockNumber = default(List<decimal>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>))
+        public NftTokenByAddressErc721(string contractAddress = default(string), List<int> balances = default(List<int>), List<decimal> blockNumber = default(List<decimal>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>))
         {
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -79,7 +79,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs</value>
         [DataMember(Name = "balances", IsRequired = true, EmitDefaultValue = true)]
-        public List<string> Balances { get; set; }
+        public List<int> Balances { get; set; }
 
         /// <summary>
         /// (EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address

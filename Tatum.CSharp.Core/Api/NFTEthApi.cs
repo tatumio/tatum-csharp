@@ -113,11 +113,11 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftMetadataErc721</returns>
-        NftMetadataErc721 NftGetMetadataErc721(string contractAddress, string token, string account = default(string), string xTestnetType = default(string));
+        NftMetadataErc721 NftGetMetadataErc721(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string));
         /// <summary>
         /// Get NFT provenance information
         /// </summary>
@@ -421,11 +421,11 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftMetadataErc721</returns>
-        ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, string token, string account = default(string), string xTestnetType = default(string));
+        ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string));
         /// <summary>
         /// Get NFT provenance information
         /// </summary>
@@ -736,12 +736,12 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of NftMetadataErc721</returns>
-        System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, string token, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get NFT provenance information
         /// </summary>
@@ -1070,12 +1070,12 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (NftMetadataErc721)</returns>
-        System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, string token, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get NFT provenance information
         /// </summary>
@@ -2435,13 +2435,13 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftMetadataErc721</returns>
-        public NftMetadataErc721 NftGetMetadataErc721(string contractAddress, string token, string account = default(string), string xTestnetType = default(string))
+        public NftMetadataErc721 NftGetMetadataErc721(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string))
         {
-            var localVarResponse = NftGetMetadataErc721WithHttpInfo(contractAddress, token, account, xTestnetType);
+            var localVarResponse = NftGetMetadataErc721WithHttpInfo(contractAddress, tokenId, account, xTestnetType);
 
             var exception = ExceptionFactory?.Invoke("NftGetMetadataErc721", localVarResponse);
             if (exception != null) throw exception;
@@ -2454,20 +2454,15 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftMetadataErc721</returns>
-        public ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, string token, string account = default(string), string xTestnetType = default(string))
+        public ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
                 throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTEthApi->NftGetMetadataErc721");
-
-
-            // verify the required parameter 'token' is set
-            if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling NFTEthApi->NftGetMetadataErc721");
 
 
             var localVarRequestOptions = new RequestOptions();
@@ -2487,7 +2482,7 @@ namespace Tatum.CSharp.Core.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
-            localVarRequestOptions.PathParameters.Add("token", ClientUtils.ParameterToString(token)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
             if (account != null)
             {
                 localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "account", account));
@@ -2504,7 +2499,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{token}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -2514,14 +2509,14 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of NftMetadataErc721</returns>
-        public async System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, string token, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await NftGetMetadataErc721WithHttpInfoAsync(contractAddress, token, account, xTestnetType, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await NftGetMetadataErc721WithHttpInfoAsync(contractAddress, tokenId, account, xTestnetType, cancellationToken).ConfigureAwait(false);
             
             var exception = ExceptionFactory?.Invoke("NftGetMetadataErc721", localVarResponse);
             if (exception != null) throw exception;
@@ -2534,21 +2529,16 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="token">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (NftMetadataErc721)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, string token, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, int tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
                 throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTEthApi->NftGetMetadataErc721");
-
-
-            // verify the required parameter 'token' is set
-            if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling NFTEthApi->NftGetMetadataErc721");
 
 
             var localVarRequestOptions = new RequestOptions();
@@ -2569,7 +2559,7 @@ namespace Tatum.CSharp.Core.Api
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
-            localVarRequestOptions.PathParameters.Add("token", ClientUtils.ParameterToString(token)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
             if (account != null)
             {
                 localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "account", account));
@@ -2587,7 +2577,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{token}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
