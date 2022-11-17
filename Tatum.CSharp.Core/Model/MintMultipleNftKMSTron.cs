@@ -65,13 +65,13 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to. (required).</param>
         /// <param name="account">Blockchain address to perform transaction from (required).</param>
-        /// <param name="tokenId">ID of token to be created. (required).</param>
+        /// <param name="tokenId">ID of token to be created. (uint256 number) (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
-        public MintMultipleNftKMSTron(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), string account = default(string), List<int> tokenId = default(List<int>), List<string> url = default(List<string>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
+        public MintMultipleNftKMSTron(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), string account = default(string), List<string> tokenId = default(List<string>), List<string> url = default(List<string>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal feeLimit = default(decimal))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -124,11 +124,11 @@ namespace Tatum.CSharp.Core.Model
         public string Account { get; set; }
 
         /// <summary>
-        /// ID of token to be created.
+        /// ID of token to be created. (uint256 number)
         /// </summary>
-        /// <value>ID of token to be created.</value>
+        /// <value>ID of token to be created. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public List<int> TokenId { get; set; }
+        public List<string> TokenId { get; set; }
 
         /// <summary>
         /// The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt;

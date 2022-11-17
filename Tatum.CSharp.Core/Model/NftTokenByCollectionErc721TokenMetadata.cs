@@ -35,10 +35,10 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NftTokenByCollectionErc721TokenMetadata" /> class.
         /// </summary>
-        /// <param name="tokenId">TokenID of the NFT token owned by this address..</param>
+        /// <param name="tokenId">TokenID of the NFT token owned by this address. (uint256 number).</param>
         /// <param name="url">Metadata URL of the TokenID. This data don&#39;t have to be present, safest way (if not present) is to obtain them from the NFT Contract.tokenURI() method call..</param>
         /// <param name="metadata">Metadata scheme obtained from the url. This data don&#39;t have to be present, safest way (if not present) is to obtain them from the NFT Contract.tokenURI() method call..</param>
-        public NftTokenByCollectionErc721TokenMetadata(int tokenId = default(int), string url = default(string), Object metadata = default(Object))
+        public NftTokenByCollectionErc721TokenMetadata(string tokenId = default(string), string url = default(string), Object metadata = default(Object))
         {
             this.TokenId = tokenId;
             this.Url = url;
@@ -46,11 +46,11 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// TokenID of the NFT token owned by this address.
+        /// TokenID of the NFT token owned by this address. (uint256 number)
         /// </summary>
-        /// <value>TokenID of the NFT token owned by this address.</value>
+        /// <value>TokenID of the NFT token owned by this address. (uint256 number)</value>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// Metadata URL of the TokenID. This data don&#39;t have to be present, safest way (if not present) is to obtain them from the NFT Contract.tokenURI() method call.
@@ -114,7 +114,8 @@ namespace Tatum.CSharp.Core.Model
             return 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.Url == input.Url ||
@@ -137,7 +138,10 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.Url != null)
                 {
                     hashCode = (hashCode * 59) + this.Url.GetHashCode();
@@ -157,10 +161,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             yield break;

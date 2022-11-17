@@ -63,14 +63,19 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNftTron" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">The ID of the NFT to update royalty information for (required).</param>
+        /// <param name="tokenId">The ID of the NFT to update royalty information for. (uint256 number) (required).</param>
         /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
         /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
         /// <param name="fromPrivateKey">The private key of the NFT author&#39;s address (required).</param>
-        public UpdateCashbackValueForAuthorNftTron(ChainEnum chain = default(ChainEnum), int tokenId = default(int), string contractAddress = default(string), string cashbackValue = default(string), decimal feeLimit = default(decimal), string fromPrivateKey = default(string))
+        public UpdateCashbackValueForAuthorNftTron(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), decimal feeLimit = default(decimal), string fromPrivateKey = default(string))
         {
             this.Chain = chain;
+            // to ensure "tokenId" is required (not null)
+            if (tokenId == null)
+            {
+                throw new ArgumentNullException("tokenId is a required property for UpdateCashbackValueForAuthorNftTron and cannot be null");
+            }
             this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -94,11 +99,11 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// The ID of the NFT to update royalty information for
+        /// The ID of the NFT to update royalty information for. (uint256 number)
         /// </summary>
-        /// <value>The ID of the NFT to update royalty information for</value>
+        /// <value>The ID of the NFT to update royalty information for. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// The blockchain address of the NFT to update royalty information for
@@ -183,7 +188,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -216,7 +222,10 @@ namespace Tatum.CSharp.Core.Model
             {
                 int hashCode = 41;
                 hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
@@ -241,10 +250,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             // ContractAddress (string) maxLength

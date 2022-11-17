@@ -36,8 +36,8 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="FlowMintedResult" /> class.
         /// </summary>
         /// <param name="txId">Transaction ID.</param>
-        /// <param name="tokenId">ID of the minted token.</param>
-        public FlowMintedResult(string txId = default(string), int tokenId = default(int))
+        /// <param name="tokenId">ID of the token. (uint256 number).</param>
+        public FlowMintedResult(string txId = default(string), string tokenId = default(string))
         {
             this.TxId = txId;
             this.TokenId = tokenId;
@@ -51,11 +51,11 @@ namespace Tatum.CSharp.Core.Model
         public string TxId { get; set; }
 
         /// <summary>
-        /// ID of the minted token
+        /// ID of the token. (uint256 number)
         /// </summary>
-        /// <value>ID of the minted token</value>
+        /// <value>ID of the token. (uint256 number)</value>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -109,7 +109,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 );
         }
 
@@ -126,7 +127,10 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.TxId.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 return hashCode;
             }
         }
@@ -138,10 +142,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             yield break;

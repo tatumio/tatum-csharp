@@ -43,10 +43,10 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="blockNumber">Block number (required).</param>
         /// <param name="txId">Transaction ID (required).</param>
         /// <param name="contractAddress">Contract address (required).</param>
-        /// <param name="tokenId">ID of the token (required).</param>
+        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
         /// <param name="from">Sender (required).</param>
         /// <param name="to">recipient (required).</param>
-        public NftTx(decimal blockNumber = default(decimal), string txId = default(string), string contractAddress = default(string), int tokenId = default(int), string from = default(string), string to = default(string))
+        public NftTx(decimal blockNumber = default(decimal), string txId = default(string), string contractAddress = default(string), string tokenId = default(string), string from = default(string), string to = default(string))
         {
             this.BlockNumber = blockNumber;
             // to ensure "txId" is required (not null)
@@ -61,6 +61,11 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("contractAddress is a required property for NftTx and cannot be null");
             }
             this.ContractAddress = contractAddress;
+            // to ensure "tokenId" is required (not null)
+            if (tokenId == null)
+            {
+                throw new ArgumentNullException("tokenId is a required property for NftTx and cannot be null");
+            }
             this.TokenId = tokenId;
             // to ensure "from" is required (not null)
             if (from == null)
@@ -98,11 +103,11 @@ namespace Tatum.CSharp.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// ID of the token
+        /// ID of the token. (uint256 number)
         /// </summary>
-        /// <value>ID of the token</value>
+        /// <value>ID of the token. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// Sender
@@ -183,7 +188,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.From == input.From ||
@@ -215,7 +221,10 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.From != null)
                 {
                     hashCode = (hashCode * 59) + this.From.GetHashCode();
@@ -235,10 +244,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             yield break;

@@ -95,7 +95,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="value">If token to be transferred is Royalty NFT token, this is a value to be paid as a cashback to the authors of the token..</param>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
-        /// <param name="tokenId">ID of token. (required).</param>
+        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="provenance">True if the contract is provenance type.</param>
         /// <param name="provenanceData">data you want to store with transaction, optional and valid only if provenance contract.</param>
@@ -103,7 +103,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="fee">fee.</param>
-        public TransferNft(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), int tokenId = default(int), string contractAddress = default(string), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
+        public TransferNft(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), string tokenId = default(string), string contractAddress = default(string), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -112,6 +112,11 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("to is a required property for TransferNft and cannot be null");
             }
             this.To = to;
+            // to ensure "tokenId" is required (not null)
+            if (tokenId == null)
+            {
+                throw new ArgumentNullException("tokenId is a required property for TransferNft and cannot be null");
+            }
             this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -148,11 +153,11 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// ID of token.
+        /// ID of the token. (uint256 number)
         /// </summary>
-        /// <value>ID of token.</value>
+        /// <value>ID of the token. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// Address of NFT token
@@ -272,7 +277,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -327,7 +333,10 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
@@ -373,10 +382,10 @@ namespace Tatum.CSharp.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for To, length must be greater than 42.", new [] { "To" });
             }
 
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             // ContractAddress (string) maxLength

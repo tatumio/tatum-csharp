@@ -122,12 +122,12 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to. (required).</param>
-        /// <param name="tokenId">ID of token to be created. (required).</param>
+        /// <param name="tokenId">ID of token to be created. (uint256 number) (required).</param>
         /// <param name="minter">Address of NFT minter, which will be used to mint the tokens. From this address, transaction fees will be deducted. (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="feeCurrency">(Celo only) The currency in which the transaction fee will be paid.</param>
-        public MintMultipleNftMinter(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), List<int> tokenId = default(List<int>), string minter = default(string), List<string> url = default(List<string>), string contractAddress = default(string), FeeCurrencyEnum? feeCurrency = default(FeeCurrencyEnum?))
+        public MintMultipleNftMinter(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), List<string> tokenId = default(List<string>), string minter = default(string), List<string> url = default(List<string>), string contractAddress = default(string), FeeCurrencyEnum? feeCurrency = default(FeeCurrencyEnum?))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -171,11 +171,11 @@ namespace Tatum.CSharp.Core.Model
         public List<string> To { get; set; }
 
         /// <summary>
-        /// ID of token to be created.
+        /// ID of token to be created. (uint256 number)
         /// </summary>
-        /// <value>ID of token to be created.</value>
+        /// <value>ID of token to be created. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public List<int> TokenId { get; set; }
+        public List<string> TokenId { get; set; }
 
         /// <summary>
         /// Address of NFT minter, which will be used to mint the tokens. From this address, transaction fees will be deducted.

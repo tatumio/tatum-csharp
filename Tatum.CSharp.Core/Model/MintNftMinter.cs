@@ -96,9 +96,9 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="contractAddress">The blockchain address of the smart contract to build the NFT on (required).</param>
         /// <param name="minter">The blockchain address of the Tatum NFT minter; this is the address that you added as an NFT minter to your NFT smart contract (required).</param>
         /// <param name="to">The blockchain address to send the NFT to (required).</param>
-        /// <param name="tokenId">The ID of the NFT (required).</param>
+        /// <param name="tokenId">The ID of the NFT. (uint256 number) (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
-        public MintNftMinter(ChainEnum chain = default(ChainEnum), string contractAddress = default(string), string minter = default(string), string to = default(string), int tokenId = default(int), string url = default(string))
+        public MintNftMinter(ChainEnum chain = default(ChainEnum), string contractAddress = default(string), string minter = default(string), string to = default(string), string tokenId = default(string), string url = default(string))
         {
             this.Chain = chain;
             // to ensure "contractAddress" is required (not null)
@@ -119,6 +119,11 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("to is a required property for MintNftMinter and cannot be null");
             }
             this.To = to;
+            // to ensure "tokenId" is required (not null)
+            if (tokenId == null)
+            {
+                throw new ArgumentNullException("tokenId is a required property for MintNftMinter and cannot be null");
+            }
             this.TokenId = tokenId;
             // to ensure "url" is required (not null)
             if (url == null)
@@ -150,11 +155,11 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// The ID of the NFT
+        /// The ID of the NFT. (uint256 number)
         /// </summary>
-        /// <value>The ID of the NFT</value>
+        /// <value>The ID of the NFT. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt;
@@ -233,7 +238,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.Url == input.Url ||
@@ -264,7 +270,10 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.Url != null)
                 {
                     hashCode = (hashCode * 59) + this.Url.GetHashCode();
@@ -316,10 +325,10 @@ namespace Tatum.CSharp.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for To, length must be greater than 42.", new [] { "To" });
             }
 
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             // Url (string) maxLength

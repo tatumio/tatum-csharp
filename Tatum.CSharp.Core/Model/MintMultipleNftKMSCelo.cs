@@ -98,7 +98,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to. (required).</param>
-        /// <param name="tokenId">ID of token to be created. (required).</param>
+        /// <param name="tokenId">ID of token to be created. (uint256 number) (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="authorAddresses">List of addresses for every token, where royalty cashback for every transfer of this NFT will be send. Royalties are paid in native blockchain currency CELO..</param>
         /// <param name="cashbackValues">List of values for every token, which will be paid as a royalty for author of the NFT token with every token transfer. This is exact value in native blockchain currency..</param>
@@ -107,7 +107,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
         /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
         /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
-        public MintMultipleNftKMSCelo(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), List<int> tokenId = default(List<int>), List<string> url = default(List<string>), List<List<string>> authorAddresses = default(List<List<string>>), List<List<string>> cashbackValues = default(List<List<string>>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
+        public MintMultipleNftKMSCelo(ChainEnum chain = default(ChainEnum), List<string> to = default(List<string>), List<string> tokenId = default(List<string>), List<string> url = default(List<string>), List<List<string>> authorAddresses = default(List<List<string>>), List<List<string>> cashbackValues = default(List<List<string>>), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -150,11 +150,11 @@ namespace Tatum.CSharp.Core.Model
         public List<string> To { get; set; }
 
         /// <summary>
-        /// ID of token to be created.
+        /// ID of token to be created. (uint256 number)
         /// </summary>
-        /// <value>ID of token to be created.</value>
+        /// <value>ID of token to be created. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public List<int> TokenId { get; set; }
+        public List<string> TokenId { get; set; }
 
         /// <summary>
         /// The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt;

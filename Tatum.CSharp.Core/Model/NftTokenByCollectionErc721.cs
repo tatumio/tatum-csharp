@@ -40,10 +40,15 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NftTokenByCollectionErc721" /> class.
         /// </summary>
-        /// <param name="tokenId">ID of the token. (required).</param>
+        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
         /// <param name="metadata">metadata (required).</param>
-        public NftTokenByCollectionErc721(int tokenId = default(int), NftTokenByCollectionErc721TokenMetadata metadata = default(NftTokenByCollectionErc721TokenMetadata))
+        public NftTokenByCollectionErc721(string tokenId = default(string), NftTokenByCollectionErc721TokenMetadata metadata = default(NftTokenByCollectionErc721TokenMetadata))
         {
+            // to ensure "tokenId" is required (not null)
+            if (tokenId == null)
+            {
+                throw new ArgumentNullException("tokenId is a required property for NftTokenByCollectionErc721 and cannot be null");
+            }
             this.TokenId = tokenId;
             // to ensure "metadata" is required (not null)
             if (metadata == null)
@@ -54,11 +59,11 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// ID of the token.
+        /// ID of the token. (uint256 number)
         /// </summary>
-        /// <value>ID of the token.</value>
+        /// <value>ID of the token. (uint256 number)</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public int TokenId { get; set; }
+        public string TokenId { get; set; }
 
         /// <summary>
         /// Gets or Sets Metadata
@@ -113,7 +118,8 @@ namespace Tatum.CSharp.Core.Model
             return 
                 (
                     this.TokenId == input.TokenId ||
-                    this.TokenId.Equals(input.TokenId)
+                    (this.TokenId != null &&
+                    this.TokenId.Equals(input.TokenId))
                 ) && 
                 (
                     this.Metadata == input.Metadata ||
@@ -131,7 +137,10 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                if (this.TokenId != null)
+                {
+                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                }
                 if (this.Metadata != null)
                 {
                     hashCode = (hashCode * 59) + this.Metadata.GetHashCode();
@@ -147,10 +156,10 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (int) minimum
-            if (this.TokenId < (int)0)
+            // TokenId (string) maxLength
+            if (this.TokenId != null && this.TokenId.Length > 78)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, must be a value greater than or equal to 0.", new [] { "TokenId" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
             }
 
             yield break;
