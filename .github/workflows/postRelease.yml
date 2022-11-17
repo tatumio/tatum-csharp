@@ -25,7 +25,7 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
-      version: --version ${{ inputs.version }}
+      version: ${{ inputs.version }}
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     
@@ -34,6 +34,6 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Bitcoin
-      version: --version ${{ inputs.version }}
+      version: ${{ inputs.version }}
       rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit

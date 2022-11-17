@@ -57,9 +57,10 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Ethereum
+      version: ${{ needs.Build_Version.outputs.version }}
       rcFlag: --prerelease
     secrets: inherit
-    needs: ETH_Pack_RC
+    needs: [Build_Version, ETH_Pack_RC]
     
   BTC_Local_Pack_RC:
     name: BTC - Pack Local
@@ -86,6 +87,7 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: Bitcoin
+      version: ${{ needs.Build_Version.outputs.version }}
       rcFlag: --prerelease
     secrets: inherit
-    needs: BTC_Pack_RC
+    needs: [Build_Version, BTC_Pack_RC]
