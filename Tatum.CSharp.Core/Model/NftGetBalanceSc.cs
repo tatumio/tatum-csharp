@@ -36,7 +36,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="NftGetBalanceSc" /> class.
         /// </summary>
         /// <param name="data">The array returning the ID of the NFTs.</param>
-        public NftGetBalanceSc(List<int> data = default(List<int>))
+        public NftGetBalanceSc(List<string> data = default(List<string>))
         {
             this.Data = data;
         }
@@ -46,7 +46,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>The array returning the ID of the NFTs</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
-        public List<int> Data { get; set; }
+        public List<string> Data { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
