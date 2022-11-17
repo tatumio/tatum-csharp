@@ -43,7 +43,7 @@ public class EthereumController : ControllerBase
         _generatePrivateKeyExampleService.GeneratePrivateKey(request);
 
     [HttpGet]
-    public async Task<GeneratedAddressEth> GenerateAddress(string xpub, int index) => 
+    public GeneratedAddressEth GenerateAddress(string xpub, int index) => 
         _generateAddressExampleService.GenerateAddress(xpub, index);
 
     [HttpGet]

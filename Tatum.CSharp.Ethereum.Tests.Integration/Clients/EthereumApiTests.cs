@@ -12,6 +12,7 @@ using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -382,7 +383,7 @@ public class EthereumApiTests : IAsyncDisposable
             MaxFeePerGas = new HexBigInteger(21000),
             MaxPriorityFeePerGas = new HexBigInteger(300),
             Value = new HexBigInteger(50000000000000),
-            Nonce = new HexBigInteger((int)txCount + 1),
+            Nonce = new HexBigInteger((int)txCount),
             AccessList = new List<AccessList>()
         };
 
@@ -419,20 +420,5 @@ public class EthereumApiTests : IAsyncDisposable
                     debt.Value.ToString("G"),
                     debt.Key));
         }
-    }
-
-    private class TestData
-    {
-        public EthereumTestData EthereumTestData { get; set; }
-    }
-    
-    private class EthereumTestData
-    {
-        public string TestMnemonic { get; set; }
-        public string TestXPub { get; set; }
-        public string StorageAddress { get; set; }
-        public string StoragePrivKey { get; set; }
-        public string TargetAddress { get; set; }
-        public string TargetPrivKey { get; set; }
     }
 }

@@ -21,7 +21,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Tatum.CSharp.Bitcoin.Local" Version="2.0.0-alpha3250739054" />
+        <PackageReference Include="Tatum.CSharp.Bitcoin.Local" Version="2.0.0-alpha3488474335" />
     </ItemGroup>
     
 </Project>

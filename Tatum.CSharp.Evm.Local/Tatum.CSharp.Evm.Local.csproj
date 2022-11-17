@@ -22,7 +22,7 @@
 
     <ItemGroup>
       <PackageReference Include="Nethereum.HdWallet" Version="4.9.0" />
-      <PackageReference Include="Tatum.CSharp.Core" Version="2.0.0-alpha3250727420" />
+      <PackageReference Include="Tatum.CSharp.Core" Version="2.0.0-alpha3488474335" />
     </ItemGroup>
 
 </Project>
