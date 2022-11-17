@@ -41,7 +41,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="NftTokenByCollectionErc721" /> class.
         /// </summary>
         /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
-        /// <param name="metadata">metadata (required).</param>
+        /// <param name="metadata">metadata.</param>
         public NftTokenByCollectionErc721(string tokenId = default(string), NftTokenByCollectionErc721TokenMetadata metadata = default(NftTokenByCollectionErc721TokenMetadata))
         {
             // to ensure "tokenId" is required (not null)
@@ -50,11 +50,6 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("tokenId is a required property for NftTokenByCollectionErc721 and cannot be null");
             }
             this.TokenId = tokenId;
-            // to ensure "metadata" is required (not null)
-            if (metadata == null)
-            {
-                throw new ArgumentNullException("metadata is a required property for NftTokenByCollectionErc721 and cannot be null");
-            }
             this.Metadata = metadata;
         }
 
@@ -68,7 +63,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Gets or Sets Metadata
         /// </summary>
-        [DataMember(Name = "metadata", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "metadata", EmitDefaultValue = false)]
         public NftTokenByCollectionErc721TokenMetadata Metadata { get; set; }
 
         /// <summary>
