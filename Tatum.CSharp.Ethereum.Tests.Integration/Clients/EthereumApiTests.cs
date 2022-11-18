@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Hex.HexTypes;
@@ -12,6 +13,7 @@ using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -20,6 +22,7 @@ using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
 
 [UsesVerify]
+[Collection("Ethereum")]
 public class EthereumApiTests : IAsyncDisposable
 {
     private readonly IEthereumClient _ethereumApi;
@@ -32,7 +35,7 @@ public class EthereumApiTests : IAsyncDisposable
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        _testData = JsonSerializer.Deserialize<TestData>(secrets)?.EthereumTestData;
+        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
 
         _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
@@ -222,12 +225,14 @@ public class EthereumApiTests : IAsyncDisposable
         _debts.Add(_testData.TargetPrivKey, amount);
 
         transactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(transactionHash.TxId);
     }
 
     [Fact]
     public async Task EthGetTransaction_ShouldReturnTransaction_WhenCalledWithValidHash()
     {
-        var txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
+        const string txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(txHash);
 
@@ -256,7 +261,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetInternalTransactionByAddress_ShouldReturnTransactionList_WhenCalledOnWithValidAddress()
     {
-        var address = "0xAE682DFa32be2a60840a1499608Cb06F6E94F440";
+        const string address = "0xAE682DFa32be2a60840a1499608Cb06F6E94F440";
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthGetInternalTransactionByAddressAsync(address, 10);
 
@@ -269,7 +274,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnTransactionHash_WhenCalledOnWithValidPayload()
     {
-        var contractAddress = "0xf659eb344f8226331a7c85778c4d02847e120d96";
+        const string contractAddress = "0xf659eb344f8226331a7c85778c4d02847e120d96";
         
         var callSmartContractMethod = new CallSmartContractMethod(
             contractAddress,
@@ -323,12 +328,14 @@ public class EthereumApiTests : IAsyncDisposable
         var transaction = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);
 
         transaction.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(transaction.TxId);
     }
 
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnData_WhenCalledOnWithValidPayload()
     {
-        var contractAddress = "0x485eac12e9dcf596358a2708437bfbf42040544c";
+        const string contractAddress = "0x485eac12e9dcf596358a2708437bfbf42040544c";
         
         var callReadSmartContractMethod = new CallReadSmartContractMethod(
             contractAddress,
@@ -382,7 +389,7 @@ public class EthereumApiTests : IAsyncDisposable
             MaxFeePerGas = new HexBigInteger(21000),
             MaxPriorityFeePerGas = new HexBigInteger(300),
             Value = new HexBigInteger(50000000000000),
-            Nonce = new HexBigInteger((int)txCount + 1),
+            Nonce = new HexBigInteger((int)txCount),
             AccessList = new List<AccessList>()
         };
 
@@ -398,18 +405,45 @@ public class EthereumApiTests : IAsyncDisposable
         _debts.Add(_testData.TargetPrivKey, 0.00005M);
         
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
+
+        await WaitForTransactionSuccess(resultTransaction.TxId);
     }
 
     public async ValueTask DisposeAsync()
     {
         await PayDebts();
     }
+    
+    private async Task WaitForTransactionSuccess(string hash)
+    {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+        while (true)
+        {
+            cts.Token.ThrowIfCancellationRequested();
+            try
+            {
+                var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash, cancellationToken: cts.Token);
+                if (tx.Status)
+                {
+                    await Task.Delay(1000, cts.Token);
+                    break;
+                }
+            }
+            catch (ApiException e)
+            {
+                if(!e.Message.Contains("eth.tx.not.found"))
+                    throw;
+            }
+            
+            await Task.Delay(1000, cts.Token);
+        }
+    }
 
     private async Task PayDebts()
     {
         foreach (var debt in _debts)
         {
-            await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
+            var result = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
                 new TransferEthBlockchain(
                     null,
                     0,
@@ -418,21 +452,8 @@ public class EthereumApiTests : IAsyncDisposable
                     null,
                     debt.Value.ToString("G"),
                     debt.Key));
+            
+            await WaitForTransactionSuccess(result.TxId);
         }
-    }
-
-    private class TestData
-    {
-        public EthereumTestData EthereumTestData { get; set; }
-    }
-    
-    private class EthereumTestData
-    {
-        public string TestMnemonic { get; set; }
-        public string TestXPub { get; set; }
-        public string StorageAddress { get; set; }
-        public string StoragePrivKey { get; set; }
-        public string TargetAddress { get; set; }
-        public string TargetPrivKey { get; set; }
     }
 }
