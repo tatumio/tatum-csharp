@@ -223,6 +223,8 @@ public class EthereumApiTests : IAsyncDisposable
         _debts.Add(_testData.TargetPrivKey, amount);
 
         transactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(transactionHash.TxId);
     }
 
     [Fact]
@@ -324,6 +326,8 @@ public class EthereumApiTests : IAsyncDisposable
         var transaction = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);
 
         transaction.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(transaction.TxId);
     }
 
     [Fact]
@@ -399,11 +403,33 @@ public class EthereumApiTests : IAsyncDisposable
         _debts.Add(_testData.TargetPrivKey, 0.00005M);
         
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
+
+        await WaitForTransactionSuccess(resultTransaction.TxId);
     }
 
     public async ValueTask DisposeAsync()
     {
         await PayDebts();
+    }
+    
+    private async Task WaitForTransactionSuccess(string hash)
+    {
+        while (true)
+        {
+            try
+            {
+                var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash);
+                if (tx.Status)
+                    break;
+            }
+            catch (ApiException e)
+            {
+                if(e.Message.Contains("eth.tx.not.found"))
+                    throw;
+            }
+            
+            await Task.Delay(1000);
+        }
     }
 
     private async Task PayDebts()
