@@ -35,7 +35,7 @@ public class EthereumApiTests : IAsyncDisposable
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        _testData = JsonSerializer.Deserialize<TestData>(secrets)?.EthereumTestData;
+        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
 
         _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
@@ -232,7 +232,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetTransaction_ShouldReturnTransaction_WhenCalledWithValidHash()
     {
-        var txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
+        const string txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(txHash);
 
@@ -261,7 +261,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetInternalTransactionByAddress_ShouldReturnTransactionList_WhenCalledOnWithValidAddress()
     {
-        var address = "0xAE682DFa32be2a60840a1499608Cb06F6E94F440";
+        const string address = "0xAE682DFa32be2a60840a1499608Cb06F6E94F440";
         
         var transaction = await _ethereumApi.EthereumBlockchain.EthGetInternalTransactionByAddressAsync(address, 10);
 
@@ -274,7 +274,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnTransactionHash_WhenCalledOnWithValidPayload()
     {
-        var contractAddress = "0xf659eb344f8226331a7c85778c4d02847e120d96";
+        const string contractAddress = "0xf659eb344f8226331a7c85778c4d02847e120d96";
         
         var callSmartContractMethod = new CallSmartContractMethod(
             contractAddress,
@@ -335,7 +335,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnData_WhenCalledOnWithValidPayload()
     {
-        var contractAddress = "0x485eac12e9dcf596358a2708437bfbf42040544c";
+        const string contractAddress = "0x485eac12e9dcf596358a2708437bfbf42040544c";
         
         var callReadSmartContractMethod = new CallReadSmartContractMethod(
             contractAddress,
@@ -422,7 +422,7 @@ public class EthereumApiTests : IAsyncDisposable
             cts.Token.ThrowIfCancellationRequested();
             try
             {
-                var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash);
+                var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash, cancellationToken: cts.Token);
                 if (tx.Status)
                 {
                     await Task.Delay(1000, cts.Token);

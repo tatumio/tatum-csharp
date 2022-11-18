@@ -31,7 +31,7 @@ public class EthereumNftApiTests
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        _testData = JsonSerializer.Deserialize<TestData>(secrets)?.EthereumTestData;
+        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
         
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
 
@@ -163,19 +163,19 @@ public class EthereumNftApiTests
     }
 
     [Fact]
-    public async Task NftGetTransactionByAddress_ShouldReturnNftTxes_WhenCalledValidData()
+    public async Task NftGetTransactionByAddress_ShouldReturnNftTransactions_WhenCalledValidData()
     {
-        var nftTxes = await _ethereumApi.EthereumNft.NftGetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 50);
+        var nftTransactions = await _ethereumApi.EthereumNft.NftGetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 50);
 
-        nftTxes.Should().HaveCountGreaterThan(0);
+        nftTransactions.Should().HaveCountGreaterThan(0);
     }
     
     [Fact]
-    public async Task NftGetTransactionByToken_ShouldReturnNftTxes_WhenCalledValidData()
+    public async Task NftGetTransactionByToken_ShouldReturnNftTransactions_WhenCalledValidData()
     {
-        var nftTxes = await _ethereumApi.EthereumNft.NftGetTransactionByTokenAsync("1", TestSmartContractAddress, 50);
+        var nftTransactions = await _ethereumApi.EthereumNft.NftGetTransactionByTokenAsync("1", TestSmartContractAddress, 50);
 
-        nftTxes.Should().HaveCountGreaterThan(0);
+        nftTransactions.Should().HaveCountGreaterThan(0);
     }
     
     [Fact]
@@ -234,7 +234,7 @@ public class EthereumNftApiTests
         while (true)
         {
             cts.Token.ThrowIfCancellationRequested();
-            var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash);
+            var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
             if (tx.Status)
             {
                 await Task.Delay(1000, cts.Token);
