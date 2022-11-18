@@ -12,10 +12,6 @@ on:
       dependsOn:
         required: true
         type: string
-      rcFlag:
-        required: false
-        type: string
-
 
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
@@ -39,7 +35,7 @@ jobs:
           sed -i "s/Tatum_CSharp_SDK/Tatum_CSharp_SDK_v${{ inputs.version }}/g" ./Tatum.CSharp.Core/Client/Configuration.cs
       - name: ${{ inputs.name }} - Bump Dependencies Version
         if: ${{ inputs.dependsOn != '' }}
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore ${{ inputs.rcFlag }} --version ${{ inputs.version }}
+        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build
