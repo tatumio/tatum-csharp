@@ -58,7 +58,6 @@ jobs:
     with:
       name: Ethereum
       version: ${{ needs.Build_Version.outputs.version }}
-      rcFlag: --prerelease
     secrets: inherit
     needs: [Build_Version, ETH_Pack_RC]
     
@@ -88,6 +87,5 @@ jobs:
     with:
       name: Bitcoin
       version: ${{ needs.Build_Version.outputs.version }}
-      rcFlag: --prerelease
     secrets: inherit
     needs: [Build_Version, BTC_Pack_RC]
