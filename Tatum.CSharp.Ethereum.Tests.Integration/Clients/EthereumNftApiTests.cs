@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.Core.Client;
@@ -16,6 +17,7 @@ using Xunit;
 namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
 
 [UsesVerify]
+[Collection("Ethereum")]
 public class EthereumNftApiTests
 {
     private readonly IEthereumClient _ethereumApi;
@@ -228,16 +230,18 @@ public class EthereumNftApiTests
 
     private async Task WaitForTransactionSuccess(string hash)
     {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
         while (true)
         {
+            cts.Token.ThrowIfCancellationRequested();
             var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash);
             if (tx.Status)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1000, cts.Token);
                 break;
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(1000, cts.Token);
         }
     }
 }

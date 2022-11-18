@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Hex.HexTypes;
@@ -21,6 +22,7 @@ using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
 
 [UsesVerify]
+[Collection("Ethereum")]
 public class EthereumApiTests : IAsyncDisposable
 {
     private readonly IEthereumClient _ethereumApi;
@@ -414,24 +416,26 @@ public class EthereumApiTests : IAsyncDisposable
     
     private async Task WaitForTransactionSuccess(string hash)
     {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
         while (true)
         {
+            cts.Token.ThrowIfCancellationRequested();
             try
             {
                 var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash);
                 if (tx.Status)
                 {
-                    await Task.Delay(1000);
+                    await Task.Delay(1000, cts.Token);
                     break;
                 }
             }
             catch (ApiException e)
             {
-                if(e.Message.Contains("eth.tx.not.found"))
+                if(!e.Message.Contains("eth.tx.not.found"))
                     throw;
             }
             
-            await Task.Delay(1000);
+            await Task.Delay(1000, cts.Token);
         }
     }
 
