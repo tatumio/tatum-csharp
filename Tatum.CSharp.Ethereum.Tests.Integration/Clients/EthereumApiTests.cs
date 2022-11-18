@@ -420,7 +420,10 @@ public class EthereumApiTests : IAsyncDisposable
             {
                 var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash);
                 if (tx.Status)
+                {
+                    await Task.Delay(1000);
                     break;
+                }
             }
             catch (ApiException e)
             {
@@ -436,7 +439,7 @@ public class EthereumApiTests : IAsyncDisposable
     {
         foreach (var debt in _debts)
         {
-            await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
+            var result = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
                 new TransferEthBlockchain(
                     null,
                     0,
@@ -445,6 +448,8 @@ public class EthereumApiTests : IAsyncDisposable
                     null,
                     debt.Value.ToString("G"),
                     debt.Key));
+            
+            await WaitForTransactionSuccess(result.TxId);
         }
     }
 }

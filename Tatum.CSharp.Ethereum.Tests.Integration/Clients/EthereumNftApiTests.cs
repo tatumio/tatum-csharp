@@ -232,7 +232,11 @@ public class EthereumNftApiTests
         {
             var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash);
             if (tx.Status)
+            {
+                await Task.Delay(1000);
                 break;
+            }
+
             await Task.Delay(1000);
         }
     }
