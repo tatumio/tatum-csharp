@@ -20,12 +20,11 @@ env:
 
 jobs:
   Core_Release:
-    name: EVM - Release Local
+    name: Core - Release
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
-      name: Evm.Local
+      name: Core
       version: ${{ inputs.version }}
-      dependsOn: Core
     secrets: inherit
 
   Nuget_Wait_Core:
