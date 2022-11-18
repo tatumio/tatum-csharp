@@ -233,7 +233,10 @@ public class EthereumNftApiTests
         var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
         while (true)
         {
-            cts.Token.ThrowIfCancellationRequested();
+            if (cts.IsCancellationRequested)
+            {
+                break;
+            }
             var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
             if (tx.Status)
             {

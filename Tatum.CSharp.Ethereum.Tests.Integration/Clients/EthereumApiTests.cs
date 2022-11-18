@@ -419,7 +419,11 @@ public class EthereumApiTests : IAsyncDisposable
         var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
         while (true)
         {
-            cts.Token.ThrowIfCancellationRequested();
+            if (cts.IsCancellationRequested)
+            {
+                break;
+            }
+
             try
             {
                 var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash, cancellationToken: cts.Token);
