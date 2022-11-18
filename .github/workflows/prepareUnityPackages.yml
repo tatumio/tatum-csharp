@@ -1,0 +1,27 @@
+name: Tatum.CSharp Unity Packages
+run-name: ${{ inputs.source }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        type: string
+        description: 'Source of event'
+        required: false
+        default: ''
+      version:
+        description: 'Package Version'
+        required: true
+        type: string
+
+jobs:
+  Prepare_Unity_Package:
+    strategy:
+      matrix:
+        chain: [Ethereum, Bitcoin]
+    name: ${{ matrix.chain }} - Unity Package
+    uses: ./.github/workflows/packUnity.yml
+    with:
+      name: ${{ matrix.chain }}
+      version: ${{ inputs.version }}
+    secrets: inherit

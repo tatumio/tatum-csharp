@@ -20,6 +20,7 @@ on:
 
 env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
+  DOWNSTREAM_DISPATCH_ADDRESS_UNITY: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/prepareUnityPackages.yml/dispatches
 
 jobs:
   Core_Release:
@@ -133,3 +134,16 @@ jobs:
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}", "rcFlag": "${{ inputs.rcFlag }}"}}'
     needs: [Nuget_Wait_BTC, Nuget_Wait_ETH]
+    
+  Prepare_Unity_Package:
+    name: Dispatch Unity Package preparation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Unity Package preparation
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS_UNITY }}' \
+          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
+    needs: [ Nuget_Wait_BTC, Nuget_Wait_ETH ]
