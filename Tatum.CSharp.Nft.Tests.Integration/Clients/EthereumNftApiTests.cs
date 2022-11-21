@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
-using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Nft.Clients;
 using Tatum.CSharp.Nft.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
@@ -250,7 +250,7 @@ public class EthereumNftApiTests
                 await Task.Delay(1000, cts.Token);
             }
         }
-        catch (TaskCanceledException e)
+        catch (TaskCanceledException)
         {
             // we don't care
         }

@@ -16,7 +16,7 @@ env:
 
 jobs:
   integration_tests:
-    name: Run Integration Tests
+    name: ${{ inputs.name }} - Integration Tests
     runs-on: ubuntu-latest
     steps:
     - name: Check out code

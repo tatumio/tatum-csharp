@@ -445,7 +445,7 @@ public class EthereumApiTests : IAsyncDisposable
                 await Task.Delay(1000, cts.Token);
             }
         }
-        catch (TaskCanceledException e)
+        catch (TaskCanceledException)
         {
             // we don't care
         }
