@@ -18,7 +18,7 @@ env:
 
 jobs:
   preparePackage:
-    name: Build and Publish package
+    name: ${{ inputs.name }} - Build & Publish
     runs-on: ubuntu-latest
     steps:
       - name: Check out code

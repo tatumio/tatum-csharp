@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Core", "Tatum.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Nft", "Tatum.CSharp.Nft\Tatum.CSharp.Nft.csproj", "{11C44DF3-AFE2-4753-88A7-68877FB594CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp. Nft.Tests.Integration", "Tatum.CSharp.Nft.Tests.Integration\Tatum.CSharp. Nft.Tests.Integration.csproj", "{EA48F132-B057-4B54-AC6E-652A2DE96E4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Nft.Tests.Integration", "Tatum.CSharp.Nft.Tests.Integration\Tatum.CSharp.Nft.Tests.Integration.csproj", "{EA48F132-B057-4B54-AC6E-652A2DE96E4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
