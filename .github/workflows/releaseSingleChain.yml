@@ -1,4 +1,4 @@
-name: Tatum.CSharp Dev Package
+name: Tatum.CSharp Nuget Package
 run-name: ${{ inputs.source }}
 
 on:
@@ -18,30 +18,39 @@ on:
         type: string
 
 jobs:
-  Dependency_Pack_RC:
-    name: ${{ inputs.dependsOn }} - Pack Local
-    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
+  Dependency_Release:
+    name: ${{ inputs.dependsOn }} - Release Local
+    uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: ${{ inputs.dependsOn }}
       version: ${{ inputs.version }}
       dependsOn: Core
     secrets: inherit
+
+  Nuget_Wait_Dependency:
+    name: ${{ inputs.dependsOn }} - Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
+    with:
+      name: ${{ inputs.dependsOn }}
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: Dependency_Release
   
-  Pack_RC:
-    name: ${{ inputs.chain }} - Pack
-    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
+  Release:
+    name: ${{ inputs.chain }} - Release
+    uses: ./.github/workflows/releaseNugetPackage.yml
     with:
       name: ${{ inputs.chain }}
       version: ${{ inputs.version }}
       dependsOn: ${{ inputs.dependsOn }}
     secrets: inherit
-    needs: [Dependency_Pack_RC]
-    
-  Integration_Tests:
-    name: ${{ inputs.chain }} - Test
-    uses: ./.github/workflows/integrationTests.yml
+    needs: Nuget_Wait_Dependency
+
+  Nuget_Wait_Release:
+    name: ${{ inputs.chain }} - Nuget package wait
+    uses: ./.github/workflows/waitForNuget.yml
     with:
       name: ${{ inputs.chain }}
       version: ${{ inputs.version }}
     secrets: inherit
-    needs: [Pack_RC]
+    needs: Release

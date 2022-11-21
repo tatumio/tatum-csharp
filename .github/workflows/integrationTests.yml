@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       version:
-        required: false
+        required: true
         type: string
 
 env:
@@ -16,7 +16,7 @@ env:
 
 jobs:
   integration_tests:
-    name: Run Integration Tests
+    name: ${{ inputs.name }} - Integration Tests
     runs-on: ubuntu-latest
     steps:
     - name: Check out code

@@ -32,7 +32,7 @@ jobs:
     secrets: inherit
     needs: Build_Version
   
-  release_RC:
+  Release_RC:
     strategy:
       matrix:
         arrays: [
@@ -40,7 +40,7 @@ jobs:
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
           { chain: "Nft", dependsOn: "Evm.Local" },
         ]
-    name: Deploy Dev Package
+    name: Deploy Dev Packages
     uses: ./.github/workflows/developReleaseSingleChain.yml
     with:
       chain: ${{ matrix.arrays.chain }}
