@@ -32,7 +32,7 @@ jobs:
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         if: ${{ inputs.name == 'Core' }}     
         run: |
-          sed -i "s/Tatum_CSharp_SDK/Tatum_CSharp_SDK_v${{ inputs.version }}/g" ./Tatum.CSharp.Core/Client/Configuration.cs
+          sed -i "s/Tatum_SDK_CSharp/Tatum_SDK_CSharp_v${{ inputs.version }}/g" ./Tatum.CSharp.Core/Client/Configuration.cs
       - name: ${{ inputs.name }} - Bump Dependencies Version
         if: ${{ inputs.dependsOn != '' }}
         run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}
