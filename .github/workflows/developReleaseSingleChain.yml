@@ -1,24 +1,25 @@
 name: Tatum.CSharp Dev Package
 run-name: ${{ inputs.source }}
 
-workflow_dispatch:
-  inputs:
-    source:
-      description: 'Source of event'
-      required: false
-      default: ''
-    chain:
-      description: 'Chain to release'
-      required: true
-      type: string
-    version:
-      description: 'Package Version'
-      required: true
-      type: string
-    dependsOn:
-      description: 'Package to depend on'
-      required: false
-      type: string
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source of event'
+        required: false
+        default: ''
+      chain:
+        description: 'Chain to release'
+        required: true
+        type: string
+      version:
+        description: 'Package Version'
+        required: true
+        type: string
+      dependsOn:
+        description: 'Package to depend on'
+        required: false
+        type: string
 
 jobs:
   Dependency_Pack_RC:
