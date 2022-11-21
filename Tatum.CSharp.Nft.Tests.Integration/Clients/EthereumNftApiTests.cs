@@ -9,7 +9,7 @@ using FluentAssertions;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
-using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Nft.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -20,7 +20,7 @@ namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
 [Collection("Ethereum")]
 public class EthereumNftApiTests
 {
-    private readonly IEthereumClient _ethereumApi;
+    private readonly INftClient _nftApi;
     private readonly EthereumTestData _testData;
 
     private const string EthereumTestnetMinterAddress = "0x53e8577C4347C365E4e0DA5B57A589cB6f2AB848";
@@ -35,7 +35,7 @@ public class EthereumNftApiTests
         
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
 
-        _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
+        _nftApi = new NftClient(new HttpClient(), apiKey, true);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class EthereumNftApiTests
             name.Substring(0,10), 
             _testData.StoragePrivKey);
 
-        var deployTransactionHash = await _ethereumApi.EthereumNft.NftDeployErc721Async(deployNft);
+        var deployTransactionHash = await _nftApi.EthereumNft.NftDeployErc721Async(deployNft);
         
         deployTransactionHash.Should().NotBeNull();
         deployTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -65,7 +65,7 @@ public class EthereumNftApiTests
             EthereumTestnetMinterAddress, 
             _testData.StoragePrivKey);
         
-        var addNftMinterTransactionHash = await _ethereumApi.EthereumNft.NftAddMinterAsync(addNftMinter); 
+        var addNftMinterTransactionHash = await _nftApi.EthereumNft.NftAddMinterAsync(addNftMinter); 
         
         addNftMinterTransactionHash.Should().NotBeNull();
         addNftMinterTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -76,7 +76,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftMintTransferBurnFlow_ShouldReturnConfirmedTransactions_WhenCalledValidData()
     {
-        var mintedSoFar = await _ethereumApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress);
+        var mintedSoFar = await _nftApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress);
         
         var nextTokenId = mintedSoFar.Select(x => int.Parse(x.TokenId)).Max() + 1;
 
@@ -95,7 +95,7 @@ public class EthereumNftApiTests
             tokens[0], 
             "https://www.something.com");
         
-        var mintTransactionHash = await _ethereumApi.EthereumNft.NftMintErc721Async(mintNftMinter);
+        var mintTransactionHash = await _nftApi.EthereumNft.NftMintErc721Async(mintNftMinter);
 
         await WaitForTransactionSuccess(mintTransactionHash.TxId);
         
@@ -110,7 +110,7 @@ public class EthereumNftApiTests
             null, 
             _testData.StoragePrivKey);
         
-        var transferTransactionHash = await _ethereumApi.EthereumNft.NftTransferErc721Async(transferNft);
+        var transferTransactionHash = await _nftApi.EthereumNft.NftTransferErc721Async(transferNft);
         
         transferTransactionHash.Should().NotBeNull();
         transferTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -125,7 +125,7 @@ public class EthereumNftApiTests
             new List<string>{"https://www.something2.com", "https://www.something3.com"},
             TestSmartContractAddress);
         
-        var mintMultipleNftTransactionHash = await _ethereumApi.EthereumNft.NftMintMultipleErc721Async(mintMultipleNft);
+        var mintMultipleNftTransactionHash = await _nftApi.EthereumNft.NftMintMultipleErc721Async(mintMultipleNft);
         
         mintMultipleNftTransactionHash.Should().NotBeNull();
         mintMultipleNftTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -138,7 +138,7 @@ public class EthereumNftApiTests
             TestSmartContractAddress, 
             _testData.StoragePrivKey);
         
-        var burnTransactionHash = await _ethereumApi.EthereumNft.NftBurnErc721Async(burnNft);
+        var burnTransactionHash = await _nftApi.EthereumNft.NftBurnErc721Async(burnNft);
         
         burnTransactionHash.Should().NotBeNull();
         burnTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -149,7 +149,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetBalanceErc721_ShouldReturnTokenIds_WhenCalledValidData()
     {
-        var availableNftStorage = await _ethereumApi.EthereumNft.NftGetBalanceErc721Async(_testData.StorageAddress, TestSmartContractAddress);
+        var availableNftStorage = await _nftApi.EthereumNft.NftGetBalanceErc721Async(_testData.StorageAddress, TestSmartContractAddress);
 
         availableNftStorage.Data.Should().HaveCountGreaterThan(0);
     }
@@ -157,7 +157,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetTokensByAddressErc721Async_ShouldReturnTokensData_WhenCalledValidData()
     {
-        var availableNftStorage = await _ethereumApi.EthereumNft.NftGetTokensByAddressErc721Async(_testData.StorageAddress);
+        var availableNftStorage = await _nftApi.EthereumNft.NftGetTokensByAddressErc721Async(_testData.StorageAddress);
 
         availableNftStorage.Should().HaveCountGreaterThan(0);
     }
@@ -165,7 +165,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetTransactionByAddress_ShouldReturnNftTransactions_WhenCalledValidData()
     {
-        var nftTransactions = await _ethereumApi.EthereumNft.NftGetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 50);
+        var nftTransactions = await _nftApi.EthereumNft.NftGetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 50);
 
         nftTransactions.Should().HaveCountGreaterThan(0);
     }
@@ -173,7 +173,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetTransactionByToken_ShouldReturnNftTransactions_WhenCalledValidData()
     {
-        var nftTransactions = await _ethereumApi.EthereumNft.NftGetTransactionByTokenAsync("1", TestSmartContractAddress, 50);
+        var nftTransactions = await _nftApi.EthereumNft.NftGetTransactionByTokenAsync("1", TestSmartContractAddress, 50);
 
         nftTransactions.Should().HaveCountGreaterThan(0);
     }
@@ -181,7 +181,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetTransactErc721_ShouldReturnTx_WhenCalledValidData()
     {
-        var ethTx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async("0x3434cfbb3325de0550cdefa8f2cba1bb3c09a17c3fe39aa62d81aaefdab156f2");
+        var ethTx = await _nftApi.EthereumNft.NftGetTransactErc721Async("0x3434cfbb3325de0550cdefa8f2cba1bb3c09a17c3fe39aa62d81aaefdab156f2");
 
         await Verifier.Verify(ethTx);
     }
@@ -189,7 +189,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetMetadataErc721_ShouldReturnMetadata_WhenCalledValidData()
     {
-        var nftMetadata = await _ethereumApi.EthereumNft.NftGetMetadataErc721Async(TestSmartContractAddress, "5");
+        var nftMetadata = await _nftApi.EthereumNft.NftGetMetadataErc721Async(TestSmartContractAddress, "5");
 
         await Verifier.Verify(nftMetadata);
     }
@@ -197,7 +197,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetRoyaltyErc721_ShouldReturnRoyalties_WhenCalledValidData()
     {
-        var nftMetadata = await _ethereumApi.EthereumNft.NftGetRoyaltyErc721Async("0xeB0AD2f01197029C8BFB5bcfb70d025C408ff923", "5");
+        var nftMetadata = await _nftApi.EthereumNft.NftGetRoyaltyErc721Async("0xeB0AD2f01197029C8BFB5bcfb70d025C408ff923", "5");
 
         await Verifier.Verify(nftMetadata);
     }
@@ -205,7 +205,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftGetProvenanceDataErc721_ShouldReturnProvenances_WhenCalledValidData()
     {
-        var nftMetadata = await _ethereumApi.EthereumNft.NftGetProvenanceDataErc721Async("0xeB0AD2f01197029C8BFB5bcfb70d025C408ff923", "5");
+        var nftMetadata = await _nftApi.EthereumNft.NftGetProvenanceDataErc721Async("0xeB0AD2f01197029C8BFB5bcfb70d025C408ff923", "5");
 
         await Verifier.Verify(nftMetadata);
     }
@@ -220,7 +220,7 @@ public class EthereumNftApiTests
             "0.1", 
             _testData.StoragePrivKey);
         
-        var transferTransactionHash = await _ethereumApi.EthereumNft.NftUpdateCashbackErc721Async(updateCashback);
+        var transferTransactionHash = await _nftApi.EthereumNft.NftUpdateCashbackErc721Async(updateCashback);
         
         transferTransactionHash.Should().NotBeNull();
         transferTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
@@ -240,7 +240,7 @@ public class EthereumNftApiTests
                     break;
                 }
 
-                var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
+                var tx = await _nftApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
                 if (tx.Status)
                 {
                     await Task.Delay(1000, cts.Token);

@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Tests.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Core", "Tatum.CSharp.Core\Tatum.CSharp.Core.csproj", "{5C1BA338-4E9E-4961-B0EB-6F67EC98C54C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Nft", "Tatum.CSharp.Nft\Tatum.CSharp.Nft.csproj", "{11C44DF3-AFE2-4753-88A7-68877FB594CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp. Nft.Tests.Integration", "Tatum.CSharp.Nft.Tests.Integration\Tatum.CSharp. Nft.Tests.Integration.csproj", "{EA48F132-B057-4B54-AC6E-652A2DE96E4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +58,13 @@ Global
 		{5C1BA338-4E9E-4961-B0EB-6F67EC98C54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C1BA338-4E9E-4961-B0EB-6F67EC98C54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C1BA338-4E9E-4961-B0EB-6F67EC98C54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C44DF3-AFE2-4753-88A7-68877FB594CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C44DF3-AFE2-4753-88A7-68877FB594CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C44DF3-AFE2-4753-88A7-68877FB594CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C44DF3-AFE2-4753-88A7-68877FB594CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA48F132-B057-4B54-AC6E-652A2DE96E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA48F132-B057-4B54-AC6E-652A2DE96E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA48F132-B057-4B54-AC6E-652A2DE96E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA48F132-B057-4B54-AC6E-652A2DE96E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
