@@ -2,7 +2,7 @@ name: Tatum.CSharp Dev Package
 run-name: ${{ inputs.source }}
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       source:
         description: 'Source of event'
