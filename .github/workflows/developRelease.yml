@@ -32,7 +32,7 @@ jobs:
     secrets: inherit
     needs: Build_Version
   
-  release_RC:
+  Release_RC:
     strategy:
       matrix:
         arrays: [

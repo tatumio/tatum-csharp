@@ -15,19 +15,17 @@ on:
         type: string
 
 jobs:
-
-  ETH_Integration_Tests:
-    name: ETH - Test
-    uses: ./.github/workflows/integrationTests.yml
-    with:
-      name: Ethereum
-      version: ${{ inputs.version }}
-    secrets: inherit
-    
-  BTC_Integration_Tests:
-    name: BTC - Test
-    uses: ./.github/workflows/integrationTests.yml
-    with:
-      name: Bitcoin
-      version: ${{ inputs.version }}
-    secrets: inherit
+  Test_Chains:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Ethereum", dependsOn: "Evm.Local" },
+          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
+          { chain: "Nft", dependsOn: "Evm.Local" },
+        ]
+  name: Test Packages
+  uses: ./.github/workflows/integrationTests.yml
+  with:
+    name: ${{ matrix.arrays.chain }}
+    version: ${{ needs.Build_Version.outputs.version }}
+  secrets: inherit
