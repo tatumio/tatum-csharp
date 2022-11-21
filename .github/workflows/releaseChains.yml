@@ -44,14 +44,14 @@ jobs:
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
           { chain: "Nft", dependsOn: "Evm.Local" },
         ]
-  name: Deploy Nuget Packages
-  uses: ./.github/workflows/releaseSingleChain.yml
-  with:
-    chain: ${{ matrix.arrays.chain }}
-    dependsOn: ${{ matrix.arrays.dependsOn }}
-    version: ${{ needs.Build_Version.outputs.version }}
-  secrets: inherit
-  needs: Nuget_Wait_Core
+    name: Deploy Nuget Packages
+    uses: ./.github/workflows/releaseSingleChain.yml
+    with:
+      chain: ${{ matrix.arrays.chain }}
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: Nuget_Wait_Core
   
   Post_Release_Tests:
     name: Dispatch Post Release Tests
