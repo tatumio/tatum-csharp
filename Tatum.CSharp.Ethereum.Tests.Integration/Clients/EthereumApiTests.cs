@@ -439,6 +439,43 @@ public class EthereumApiTests : IAsyncDisposable
         }
     }
 
+    private async Task WaitForTransactionSuccess(string hash)
+    {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+        try
+        {
+            while (true)
+            {
+                if (cts.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                try
+                {
+                    var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash,
+                        cancellationToken: cts.Token);
+                    if (tx.Status)
+                    {
+                        await Task.Delay(1000, cts.Token);
+                        break;
+                    }
+                }
+                catch (ApiException e)
+                {
+                    if (!e.Message.Contains("eth.tx.not.found"))
+                        throw;
+                }
+
+                await Task.Delay(1000, cts.Token);
+            }
+        }
+        catch (TaskCanceledException e)
+        {
+            // we don't care
+        }
+    }
+
     private async Task PayDebts()
     {
         foreach (var debt in _debts)

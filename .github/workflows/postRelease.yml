@@ -13,10 +13,6 @@ on:
         description: 'Package Version'
         required: true
         type: string
-      rcFlag:
-        description: 'RC Flag'
-        required: false
-        type: string
 
 jobs:
 
@@ -26,7 +22,6 @@ jobs:
     with:
       name: Ethereum
       version: ${{ inputs.version }}
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     
   BTC_Integration_Tests:
@@ -35,5 +30,4 @@ jobs:
     with:
       name: Bitcoin
       version: ${{ inputs.version }}
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit

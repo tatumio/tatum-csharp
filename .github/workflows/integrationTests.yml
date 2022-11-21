@@ -9,9 +9,6 @@ on:
       version:
         required: false
         type: string
-      rcFlag:
-        required: false
-        type: string
 
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}.Tests.Integration/Tatum.CSharp.${{ inputs.name }}.Tests.Integration.csproj

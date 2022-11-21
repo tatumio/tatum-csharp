@@ -29,22 +29,11 @@ jobs:
     steps:
       - name: Trim package version
         run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
-      - name: Set RC flag
-        run: |
-          versionToCheck=${{ env.version }}
-          if [[ "$versionToCheck" =~ [0-9].[0-9]*.[0-9]*-rc[0-9]* ]]
-          then
-            echo "rcFlag=--prerelease" >> $GITHUB_ENV
-            echo "prerelease flag set"
-          else
-            echo "rcFlag=" >> $GITHUB_ENV
-            echo "prerelease flag NOT set"
-          fi
       - name: Trigger SDK release
         run: |
           curl -X POST \
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "master", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${{ env.version }}", "rcFlag": "${{ env.rcFlag }}"}}'
+          -d '{"ref": "master", "inputs": {"source": "New Tatum.CSharp version ${{ github.ref_name }} released", "version": "${{ env.version }}"}}'
     needs: Verify_Origin

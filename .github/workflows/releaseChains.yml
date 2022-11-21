@@ -13,10 +13,6 @@ on:
         description: 'Package Version'
         required: true
         type: string
-      rcFlag:
-        description: 'RC Flag'
-        required: false
-        type: string
 
 env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
@@ -24,13 +20,11 @@ env:
 
 jobs:
   Core_Release:
-    name: EVM - Release Local
+    name: Core - Release
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
-      name: Evm.Local
+      name: Core
       version: ${{ inputs.version }}
-      dependsOn: Core
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
 
   Nuget_Wait_Core:
@@ -49,7 +43,6 @@ jobs:
       name: Evm.Local
       version: ${{ inputs.version }}
       dependsOn: Core
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: Nuget_Wait_Core
 
@@ -69,7 +62,6 @@ jobs:
       name: Ethereum
       version: ${{ inputs.version }}
       dependsOn: Evm.Local
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: Nuget_Wait_EVM
 
@@ -89,7 +81,6 @@ jobs:
       name: Bitcoin.Local
       version: ${{ inputs.version }}
       dependsOn: Core
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: Nuget_Wait_Core
 
@@ -109,7 +100,6 @@ jobs:
       name: Bitcoin
       version: ${{ inputs.version }}
       dependsOn: Bitcoin.Local
-      rcFlag: ${{ inputs.rcFlag }}
     secrets: inherit
     needs: Nuget_Wait_BTC_Local
 
@@ -132,7 +122,7 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}", "rcFlag": "${{ inputs.rcFlag }}"}}'
+          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
     needs: [Nuget_Wait_BTC, Nuget_Wait_ETH]
     
   Prepare_Unity_Package:

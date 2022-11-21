@@ -1,0 +1,50 @@
+name: Tatum.CSharp Dev Packages
+run-name: ${{ inputs.source }}
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source of event'
+        required: false
+        default: ''
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  Build_Version:
+    name: Get Version
+    uses: ./.github/workflows/calculateBuildVersion.yml
+  
+  Core_Pack_RC:
+    name: Core - Pack Local
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
+    with:
+      name: Core
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: Build_Version
+  
+  release_RC:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Ethereum", dependsOn: "Evm.Local" },
+          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
+          { chain: "Nft", dependsOn: "Evm.Local" },
+        ]
+    name: Deploy Dev Package
+    uses: ./.github/workflows/developReleaseSingleChain.yml
+    with:
+      chain: ${{ matrix.arrays.chain }}
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: [ Build_Version, Core_Pack_RC ]
