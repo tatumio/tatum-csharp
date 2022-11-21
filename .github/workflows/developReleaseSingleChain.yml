@@ -4,10 +4,6 @@ run-name: ${{ inputs.source }}
 on:
   workflow_call:
     inputs:
-      source:
-        description: 'Source of event'
-        required: false
-        default: ''
       chain:
         description: 'Chain to release'
         required: true
