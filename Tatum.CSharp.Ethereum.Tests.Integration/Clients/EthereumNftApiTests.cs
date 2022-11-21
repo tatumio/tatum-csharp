@@ -231,20 +231,28 @@ public class EthereumNftApiTests
     private async Task WaitForTransactionSuccess(string hash)
     {
         var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-        while (true)
+        try
         {
-            if (cts.IsCancellationRequested)
+            while (true)
             {
-                break;
-            }
-            var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
-            if (tx.Status)
-            {
-                await Task.Delay(1000, cts.Token);
-                break;
-            }
+                if (cts.IsCancellationRequested)
+                {
+                    break;
+                }
 
-            await Task.Delay(1000, cts.Token);
+                var tx = await _ethereumApi.EthereumNft.NftGetTransactErc721Async(hash, cancellationToken: cts.Token);
+                if (tx.Status)
+                {
+                    await Task.Delay(1000, cts.Token);
+                    break;
+                }
+
+                await Task.Delay(1000, cts.Token);
+            }
+        }
+        catch (TaskCanceledException e)
+        {
+            // we don't care
         }
     }
 }
