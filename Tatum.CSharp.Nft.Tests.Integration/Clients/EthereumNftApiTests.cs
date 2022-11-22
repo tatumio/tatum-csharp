@@ -76,9 +76,7 @@ public class EthereumNftApiTests
     [Fact]
     public async Task NftMintTransferBurnFlow_ShouldReturnConfirmedTransactions_WhenCalledValidData()
     {
-        var mintedSoFar = await _nftApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress);
-        
-        var nextTokenId = mintedSoFar.Select(x => int.Parse(x.TokenId)).Max() + 1;
+        var nextTokenId = await GetNextTokenId();
 
         var tokens = new[]
         {
@@ -144,6 +142,23 @@ public class EthereumNftApiTests
         burnTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
         
         await WaitForTransactionSuccess(burnTransactionHash.TxId);
+    }
+
+    private async Task<int> GetNextTokenId()
+    {
+        var mintedSoFar = await _nftApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress);
+
+        var offset = 0;
+
+        while (mintedSoFar.Count == 50)
+        {
+            offset += 50;
+            mintedSoFar = await _nftApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress, offset);
+        }
+        
+
+        var nextTokenId = mintedSoFar.Select(x => int.Parse(x.TokenId)).Max() + 1;
+        return nextTokenId;
     }
 
     [Fact]
