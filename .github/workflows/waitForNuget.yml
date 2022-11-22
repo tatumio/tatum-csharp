@@ -12,7 +12,7 @@ on:
 
 jobs:
   nuget_wait:
-    name: Nuget package wait
+    name: ${{ inputs.name }} - Nuget listing wait
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

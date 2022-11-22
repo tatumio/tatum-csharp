@@ -23,7 +23,7 @@ jobs:
     secrets: inherit
 
   Nuget_Wait_Core:
-    name: Core Nuget package wait
+    name: Core - Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Core
@@ -39,7 +39,7 @@ jobs:
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
           { chain: "Nft", dependsOn: "Evm.Local" }
         ]
-    name: Deploy Nuget Packages
+    name: ${{ matrix.arrays.chain }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml
     with:
       chain: ${{ matrix.arrays.chain }}
