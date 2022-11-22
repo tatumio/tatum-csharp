@@ -97,11 +97,11 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="BurnNftKMSCelo" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">ID of token to be destroyed. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
+        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
         public BurnNftKMSCelo(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
@@ -125,9 +125,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// ID of token to be destroyed. (uint256 number)
+        /// ID of token to be destroyed.
         /// </summary>
-        /// <value>ID of token to be destroyed. (uint256 number)</value>
+        /// <value>ID of token to be destroyed.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
@@ -153,9 +153,9 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// Nonce to be set to Celo transaction. If not present, last known nonce will be used.
+        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
         /// </summary>
-        /// <value>Nonce to be set to Celo transaction. If not present, last known nonce will be used.</value>
+        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 

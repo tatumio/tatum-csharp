@@ -64,7 +64,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="account">Blockchain address to perform transaction from (required).</param>
-        /// <param name="tokenId">ID of token to be destroyed. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
@@ -103,9 +103,9 @@ namespace Tatum.CSharp.Core.Model
         public string Account { get; set; }
 
         /// <summary>
-        /// ID of token to be destroyed. (uint256 number)
+        /// ID of token to be destroyed.
         /// </summary>
-        /// <value>ID of token to be destroyed. (uint256 number)</value>
+        /// <value>ID of token to be destroyed.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

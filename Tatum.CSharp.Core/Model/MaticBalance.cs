@@ -27,35 +27,26 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// FlowMintedResult
+    /// MaticBalance
     /// </summary>
-    [DataContract(Name = "FlowMintedResult")]
-    public partial class FlowMintedResult : IEquatable<FlowMintedResult>, IValidatableObject
+    [DataContract(Name = "MaticBalance")]
+    public partial class MaticBalance : IEquatable<MaticBalance>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlowMintedResult" /> class.
+        /// Initializes a new instance of the <see cref="MaticBalance" /> class.
         /// </summary>
-        /// <param name="txId">Transaction ID.</param>
-        /// <param name="tokenId">ID of the token..</param>
-        public FlowMintedResult(string txId = default(string), string tokenId = default(string))
+        /// <param name="balance">Balance in MATIC.</param>
+        public MaticBalance(string balance = default(string))
         {
-            this.TxId = txId;
-            this.TokenId = tokenId;
+            this.Balance = balance;
         }
 
         /// <summary>
-        /// Transaction ID
+        /// Balance in MATIC
         /// </summary>
-        /// <value>Transaction ID</value>
-        [DataMember(Name = "txId", EmitDefaultValue = false)]
-        public string TxId { get; set; }
-
-        /// <summary>
-        /// ID of the token.
-        /// </summary>
-        /// <value>ID of the token.</value>
-        [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public string TokenId { get; set; }
+        /// <value>Balance in MATIC</value>
+        [DataMember(Name = "balance", EmitDefaultValue = false)]
+        public string Balance { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -64,9 +55,8 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class FlowMintedResult {\n");
-            sb.Append("  TxId: ").Append(TxId).Append("\n");
-            sb.Append("  TokenId: ").Append(TokenId).Append("\n");
+            sb.Append("class MaticBalance {\n");
+            sb.Append("  Balance: ").Append(Balance).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -87,15 +77,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as FlowMintedResult);
+            return this.Equals(input as MaticBalance);
         }
 
         /// <summary>
-        /// Returns true if FlowMintedResult instances are equal
+        /// Returns true if MaticBalance instances are equal
         /// </summary>
-        /// <param name="input">Instance of FlowMintedResult to be compared</param>
+        /// <param name="input">Instance of MaticBalance to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(FlowMintedResult input)
+        public bool Equals(MaticBalance input)
         {
             if (input == null)
             {
@@ -103,14 +93,9 @@ namespace Tatum.CSharp.Core.Model
             }
             return 
                 (
-                    this.TxId == input.TxId ||
-                    (this.TxId != null &&
-                    this.TxId.Equals(input.TxId))
-                ) && 
-                (
-                    this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
+                    this.Balance == input.Balance ||
+                    (this.Balance != null &&
+                    this.Balance.Equals(input.Balance))
                 );
         }
 
@@ -123,13 +108,9 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.TxId != null)
+                if (this.Balance != null)
                 {
-                    hashCode = (hashCode * 59) + this.TxId.GetHashCode();
-                }
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Balance.GetHashCode();
                 }
                 return hashCode;
             }
@@ -142,12 +123,6 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 78)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
-            }
-
             yield break;
         }
     }

@@ -99,14 +99,14 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="value">If token to be transferred is Royalty NFT token, this is a value to be paid as a cashback to the authors of the token..</param>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
-        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="provenance">True if the contract is provenance type.</param>
         /// <param name="provenanceData">data you want to store with transaction, optional and valid only if provenance contract.</param>
         /// <param name="tokenPrice">current price of the token, valid only for provenance.</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="nonce">Nonce to be set to Celo transaction. If not present, last known nonce will be used..</param>
+        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="feeCurrency">The currency in which the transaction fee will be paid (required).</param>
         public TransferNftKMSCelo(string value = default(string), ChainEnum chain = default(ChainEnum), string to = default(string), string tokenId = default(string), string contractAddress = default(string), bool provenance = default(bool), string provenanceData = default(string), string tokenPrice = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), FeeCurrencyEnum feeCurrency = default(FeeCurrencyEnum))
         {
@@ -154,9 +154,9 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
@@ -203,9 +203,9 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// Nonce to be set to Celo transaction. If not present, last known nonce will be used.
+        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
         /// </summary>
-        /// <value>Nonce to be set to Celo transaction. If not present, last known nonce will be used.</value>
+        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 

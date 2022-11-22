@@ -40,7 +40,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NftTokenByCollectionErc721" /> class.
         /// </summary>
-        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="metadata">metadata.</param>
         public NftTokenByCollectionErc721(string tokenId = default(string), NftTokenByCollectionErc721TokenMetadata metadata = default(NftTokenByCollectionErc721TokenMetadata))
         {
@@ -54,9 +54,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

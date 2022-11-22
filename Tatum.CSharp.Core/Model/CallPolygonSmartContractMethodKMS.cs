@@ -27,93 +27,53 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// BurnNftKMS
+    /// CallPolygonSmartContractMethodKMS
     /// </summary>
-    [DataContract(Name = "BurnNftKMS")]
-    public partial class BurnNftKMS : IEquatable<BurnNftKMS>, IValidatableObject
+    [DataContract(Name = "CallPolygonSmartContractMethodKMS")]
+    public partial class CallPolygonSmartContractMethodKMS : IEquatable<CallPolygonSmartContractMethodKMS>, IValidatableObject
     {
         /// <summary>
-        /// The blockchain to work with
-        /// </summary>
-        /// <value>The blockchain to work with</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum ChainEnum
-        {
-            /// <summary>
-            /// Enum ETH for value: ETH
-            /// </summary>
-            [EnumMember(Value = "ETH")]
-            ETH = 1,
-
-            /// <summary>
-            /// Enum MATIC for value: MATIC
-            /// </summary>
-            [EnumMember(Value = "MATIC")]
-            MATIC = 2,
-
-            /// <summary>
-            /// Enum KCS for value: KCS
-            /// </summary>
-            [EnumMember(Value = "KCS")]
-            KCS = 3,
-
-            /// <summary>
-            /// Enum ONE for value: ONE
-            /// </summary>
-            [EnumMember(Value = "ONE")]
-            ONE = 4,
-
-            /// <summary>
-            /// Enum KLAY for value: KLAY
-            /// </summary>
-            [EnumMember(Value = "KLAY")]
-            KLAY = 5,
-
-            /// <summary>
-            /// Enum BSC for value: BSC
-            /// </summary>
-            [EnumMember(Value = "BSC")]
-            BSC = 6
-
-        }
-
-
-        /// <summary>
-        /// The blockchain to work with
-        /// </summary>
-        /// <value>The blockchain to work with</value>
-        [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
-        public ChainEnum Chain { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BurnNftKMS" /> class.
+        /// Initializes a new instance of the <see cref="CallPolygonSmartContractMethodKMS" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BurnNftKMS() { }
+        protected CallPolygonSmartContractMethodKMS() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BurnNftKMS" /> class.
+        /// Initializes a new instance of the <see cref="CallPolygonSmartContractMethodKMS" /> class.
         /// </summary>
-        /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">The ID of the NFT to burn. (required).</param>
-        /// <param name="contractAddress">The blockchain address of the NFT to burn (required).</param>
-        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic.</param>
-        /// <param name="signatureId">The KMS identifier of the private key of the blockchain address from which the fee will be deducted (required).</param>
-        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
+        /// <param name="contractAddress">The address of the smart contract (required).</param>
+        /// <param name="methodName">Name of the method to invoke on smart contract. (required).</param>
+        /// <param name="methodABI">ABI of the method to invoke. (required).</param>
+        /// <param name="_params">Parameters of the method to be invoked. (required).</param>
+        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
+        /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
+        /// <param name="nonce">Nonce to be set to Polygon transaction. If not present, last known nonce will be used..</param>
         /// <param name="fee">fee.</param>
-        public BurnNftKMS(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
+        public CallPolygonSmartContractMethodKMS(string contractAddress = default(string), string methodName = default(string), Object methodABI = default(Object), List<string> _params = default(List<string>), decimal index = default(decimal), Guid signatureId = default(Guid), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
         {
-            this.Chain = chain;
-            // to ensure "tokenId" is required (not null)
-            if (tokenId == null)
-            {
-                throw new ArgumentNullException("tokenId is a required property for BurnNftKMS and cannot be null");
-            }
-            this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
             {
-                throw new ArgumentNullException("contractAddress is a required property for BurnNftKMS and cannot be null");
+                throw new ArgumentNullException("contractAddress is a required property for CallPolygonSmartContractMethodKMS and cannot be null");
             }
             this.ContractAddress = contractAddress;
+            // to ensure "methodName" is required (not null)
+            if (methodName == null)
+            {
+                throw new ArgumentNullException("methodName is a required property for CallPolygonSmartContractMethodKMS and cannot be null");
+            }
+            this.MethodName = methodName;
+            // to ensure "methodABI" is required (not null)
+            if (methodABI == null)
+            {
+                throw new ArgumentNullException("methodABI is a required property for CallPolygonSmartContractMethodKMS and cannot be null");
+            }
+            this.MethodABI = methodABI;
+            // to ensure "_params" is required (not null)
+            if (_params == null)
+            {
+                throw new ArgumentNullException("_params is a required property for CallPolygonSmartContractMethodKMS and cannot be null");
+            }
+            this.Params = _params;
             this.SignatureId = signatureId;
             this.Index = index;
             this.Nonce = nonce;
@@ -121,37 +81,51 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// The ID of the NFT to burn.
+        /// The address of the smart contract
         /// </summary>
-        /// <value>The ID of the NFT to burn.</value>
-        [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public string TokenId { get; set; }
-
-        /// <summary>
-        /// The blockchain address of the NFT to burn
-        /// </summary>
-        /// <value>The blockchain address of the NFT to burn</value>
+        /// <value>The address of the smart contract</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// (Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic
+        /// Name of the method to invoke on smart contract.
         /// </summary>
-        /// <value>(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic</value>
+        /// <value>Name of the method to invoke on smart contract.</value>
+        [DataMember(Name = "methodName", IsRequired = true, EmitDefaultValue = true)]
+        public string MethodName { get; set; }
+
+        /// <summary>
+        /// ABI of the method to invoke.
+        /// </summary>
+        /// <value>ABI of the method to invoke.</value>
+        [DataMember(Name = "methodABI", IsRequired = true, EmitDefaultValue = true)]
+        public Object MethodABI { get; set; }
+
+        /// <summary>
+        /// Parameters of the method to be invoked.
+        /// </summary>
+        /// <value>Parameters of the method to be invoked.</value>
+        [DataMember(Name = "params", IsRequired = true, EmitDefaultValue = true)]
+        public List<string> Params { get; set; }
+
+        /// <summary>
+        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
+        /// </summary>
+        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
         [DataMember(Name = "index", EmitDefaultValue = false)]
         public decimal Index { get; set; }
 
         /// <summary>
-        /// The KMS identifier of the private key of the blockchain address from which the fee will be deducted
+        /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
         /// </summary>
-        /// <value>The KMS identifier of the private key of the blockchain address from which the fee will be deducted</value>
+        /// <value>Identifier of the private key associated in signing application. Private key, or signature Id must be present.</value>
         [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
         public Guid SignatureId { get; set; }
 
         /// <summary>
-        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
+        /// Nonce to be set to Polygon transaction. If not present, last known nonce will be used.
         /// </summary>
-        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
+        /// <value>Nonce to be set to Polygon transaction. If not present, last known nonce will be used.</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 
@@ -168,10 +142,11 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class BurnNftKMS {\n");
-            sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  TokenId: ").Append(TokenId).Append("\n");
+            sb.Append("class CallPolygonSmartContractMethodKMS {\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
+            sb.Append("  MethodName: ").Append(MethodName).Append("\n");
+            sb.Append("  MethodABI: ").Append(MethodABI).Append("\n");
+            sb.Append("  Params: ").Append(Params).Append("\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
             sb.Append("  Nonce: ").Append(Nonce).Append("\n");
@@ -196,15 +171,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BurnNftKMS);
+            return this.Equals(input as CallPolygonSmartContractMethodKMS);
         }
 
         /// <summary>
-        /// Returns true if BurnNftKMS instances are equal
+        /// Returns true if CallPolygonSmartContractMethodKMS instances are equal
         /// </summary>
-        /// <param name="input">Instance of BurnNftKMS to be compared</param>
+        /// <param name="input">Instance of CallPolygonSmartContractMethodKMS to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BurnNftKMS input)
+        public bool Equals(CallPolygonSmartContractMethodKMS input)
         {
             if (input == null)
             {
@@ -212,18 +187,25 @@ namespace Tatum.CSharp.Core.Model
             }
             return 
                 (
-                    this.Chain == input.Chain ||
-                    this.Chain.Equals(input.Chain)
-                ) && 
-                (
-                    this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
-                ) && 
-                (
                     this.ContractAddress == input.ContractAddress ||
                     (this.ContractAddress != null &&
                     this.ContractAddress.Equals(input.ContractAddress))
+                ) && 
+                (
+                    this.MethodName == input.MethodName ||
+                    (this.MethodName != null &&
+                    this.MethodName.Equals(input.MethodName))
+                ) && 
+                (
+                    this.MethodABI == input.MethodABI ||
+                    (this.MethodABI != null &&
+                    this.MethodABI.Equals(input.MethodABI))
+                ) && 
+                (
+                    this.Params == input.Params ||
+                    this.Params != null &&
+                    input.Params != null &&
+                    this.Params.SequenceEqual(input.Params)
                 ) && 
                 (
                     this.Index == input.Index ||
@@ -254,14 +236,21 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
+                }
+                if (this.MethodName != null)
+                {
+                    hashCode = (hashCode * 59) + this.MethodName.GetHashCode();
+                }
+                if (this.MethodABI != null)
+                {
+                    hashCode = (hashCode * 59) + this.MethodABI.GetHashCode();
+                }
+                if (this.Params != null)
+                {
+                    hashCode = (hashCode * 59) + this.Params.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.Index.GetHashCode();
                 if (this.SignatureId != null)
@@ -284,12 +273,6 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 78)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
-            }
-
             // ContractAddress (string) maxLength
             if (this.ContractAddress != null && this.ContractAddress.Length > 42)
             {
@@ -300,6 +283,18 @@ namespace Tatum.CSharp.Core.Model
             if (this.ContractAddress != null && this.ContractAddress.Length < 42)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
+            }
+
+            // MethodName (string) maxLength
+            if (this.MethodName != null && this.MethodName.Length > 500)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MethodName, length must be less than 500.", new [] { "MethodName" });
+            }
+
+            // MethodName (string) minLength
+            if (this.MethodName != null && this.MethodName.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MethodName, length must be greater than 1.", new [] { "MethodName" });
             }
 
             // Index (decimal) minimum

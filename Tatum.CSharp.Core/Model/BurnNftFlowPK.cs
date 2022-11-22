@@ -63,7 +63,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="BurnNftFlowPK" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">ID of token to be destroyed. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="account">Blockchain address of the sender account. (required).</param>
         /// <param name="privateKey">Private key of sender address. Private key, mnemonic and index or signature Id must be present. (required).</param>
@@ -97,9 +97,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// ID of token to be destroyed. (uint256 number)
+        /// ID of token to be destroyed.
         /// </summary>
-        /// <value>ID of token to be destroyed. (uint256 number)</value>
+        /// <value>ID of token to be destroyed.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

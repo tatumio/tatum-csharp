@@ -63,7 +63,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNftTron" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">The ID of the NFT to update royalty information for. (uint256 number) (required).</param>
+        /// <param name="tokenId">The ID of the NFT to update royalty information for. (required).</param>
         /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
         /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
@@ -99,9 +99,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// The ID of the NFT to update royalty information for. (uint256 number)
+        /// The ID of the NFT to update royalty information for.
         /// </summary>
-        /// <value>The ID of the NFT to update royalty information for. (uint256 number)</value>
+        /// <value>The ID of the NFT to update royalty information for.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
