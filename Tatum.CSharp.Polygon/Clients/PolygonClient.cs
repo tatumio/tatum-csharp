@@ -68,7 +68,7 @@ namespace Tatum.CSharp.Polygon.Clients
             PolygonBlockchain = polygonApi;
             PolygonBlockchainWithHttpInfo = polygonApi;
             
-            var polygonNftApi = new NFTEthApi(httpClient);
+            var polygonNftApi = new NFTMaticApi(httpClient);
             
             polygonNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
