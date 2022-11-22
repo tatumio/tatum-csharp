@@ -49,7 +49,7 @@ jobs:
     with:
       chain: ${{ matrix.arrays.chain }}
       dependsOn: ${{ matrix.arrays.dependsOn }}
-      version: ${{ needs.Build_Version.outputs.version }}
+      version: ${{ inputs.version }}
     secrets: inherit
     needs: Nuget_Wait_Core
   
