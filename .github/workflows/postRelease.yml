@@ -36,4 +36,4 @@ jobs:
       name: ${{ matrix.arrays.chain }}
       version: ${{ inputs.version }}
     secrets: inherit
-    depends-on: Test_Chains
+    needs: Test_Chains
