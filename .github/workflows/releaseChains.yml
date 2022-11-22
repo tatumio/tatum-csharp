@@ -1,14 +1,9 @@
 name: Tatum.CSharp Nuget Release - Chains
-run-name: ${{ inputs.source }}
+run-name: ${{ inputs.version }} - Tatum.CSharp Nuget release
 
 on:
   workflow_dispatch:
     inputs:
-      source:
-        type: string
-        description: 'Source of event'
-        required: false
-        default: ''
       version:
         description: 'Package Version'
         required: true
@@ -28,7 +23,7 @@ jobs:
     secrets: inherit
 
   Nuget_Wait_Core:
-    name: Core Nuget package wait
+    name: Core - Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
       name: Core
@@ -42,9 +37,9 @@ jobs:
         arrays: [
           { chain: "Ethereum", dependsOn: "Evm.Local" },
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Nft", dependsOn: "Evm.Local" }
         ]
-    name: Deploy Nuget Packages
+    name: ${{ matrix.arrays.chain }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml
     with:
       chain: ${{ matrix.arrays.chain }}
@@ -63,7 +58,7 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
+          -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
     needs: Release_Chains
     
   Prepare_Unity_Package:
@@ -76,5 +71,5 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS_UNITY }}' \
-          -d '{"ref": "master", "inputs": {"source": "${{ inputs.source }}", "version": "${{ inputs.version }}"}}'
+          -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
     needs: Release_Chains

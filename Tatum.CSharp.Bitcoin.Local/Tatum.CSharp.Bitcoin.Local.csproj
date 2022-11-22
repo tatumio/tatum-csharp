@@ -15,8 +15,9 @@
         <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Tatum; BTC; Bitcoin; BTC Local; Bitcoin Local</PackageTags>
+        <PackageTags>Tatum; BTC; Bitcoin;</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

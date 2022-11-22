@@ -1,14 +1,9 @@
-name: Tatum.CSharp Latest Packages
-run-name: ${{ inputs.source }}
+name: Post release integration tests
+run-name: ${{ inputs.version }} - post release tests
 
 on:
   workflow_dispatch:
     inputs:
-      source:
-        type: string
-        description: 'Source of event'
-        required: false
-        default: ''
       version:
         description: 'Package Version'
         required: true
@@ -20,12 +15,25 @@ jobs:
       matrix:
         arrays: [
           { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" }
         ]
-    name: Test Packages
+    name: Test Chain Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: ${{ matrix.arrays.chain }}
-      version: ${{ needs.Build_Version.outputs.version }}
+      version: ${{ inputs.version }}
     secrets: inherit
+    
+  Test_Other:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Nft", dependsOn: "Evm.Local" }
+        ]
+    name: Test Other Packages
+    uses: ./.github/workflows/integrationTests.yml
+    with:
+      name: ${{ matrix.arrays.chain }}
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: Test_Chains
