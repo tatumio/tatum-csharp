@@ -1,14 +1,9 @@
-name: Tatum.CSharp Latest Packages
-run-name: ${{ inputs.source }}
+name: Post release integration tests
+run-name: ${{ inputs.version }} - post release tests
 
 on:
   workflow_dispatch:
     inputs:
-      source:
-        type: string
-        description: 'Source of event'
-        required: false
-        default: ''
       version:
         description: 'Package Version'
         required: true
@@ -27,5 +22,5 @@ jobs:
     uses: ./.github/workflows/integrationTests.yml
     with:
       name: ${{ matrix.arrays.chain }}
-      version: ${{ needs.Build_Version.outputs.version }}
+      version: ${{ inputs.version }}
     secrets: inherit

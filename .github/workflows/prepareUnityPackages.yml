@@ -1,14 +1,9 @@
 name: Tatum.CSharp Unity Packages
-run-name: ${{ inputs.source }}
+run-name: ${{ inputs.version }} - Unity Packages
 
 on:
   workflow_dispatch:
     inputs:
-      source:
-        type: string
-        description: 'Source of event'
-        required: false
-        default: ''
       version:
         description: 'Package Version'
         required: true

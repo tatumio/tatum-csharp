@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-    - name: Check if package avaliable
+    - name: Check if package is available
       run: |
           totalHits=0
           checkUntil=0
