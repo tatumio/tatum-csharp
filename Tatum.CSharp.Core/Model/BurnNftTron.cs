@@ -63,7 +63,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="BurnNftTron" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">ID of token to be destroyed. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of token to be destroyed. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
         /// <param name="feeLimit">The maximum amount to be paid as the transaction fee (in TRX) (required).</param>
@@ -92,9 +92,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// ID of token to be destroyed. (uint256 number)
+        /// ID of token to be destroyed.
         /// </summary>
-        /// <value>ID of token to be destroyed. (uint256 number)</value>
+        /// <value>ID of token to be destroyed.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

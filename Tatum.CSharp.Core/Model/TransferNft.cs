@@ -95,7 +95,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="value">If token to be transferred is Royalty NFT token, this is a value to be paid as a cashback to the authors of the token..</param>
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
-        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="provenance">True if the contract is provenance type.</param>
         /// <param name="provenanceData">data you want to store with transaction, optional and valid only if provenance contract.</param>
@@ -153,9 +153,9 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

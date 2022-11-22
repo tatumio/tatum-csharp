@@ -27,35 +27,26 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// FlowMintedResult
+    /// GeneratedAddressMatic
     /// </summary>
-    [DataContract(Name = "FlowMintedResult")]
-    public partial class FlowMintedResult : IEquatable<FlowMintedResult>, IValidatableObject
+    [DataContract(Name = "GeneratedAddressMatic")]
+    public partial class GeneratedAddressMatic : IEquatable<GeneratedAddressMatic>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlowMintedResult" /> class.
+        /// Initializes a new instance of the <see cref="GeneratedAddressMatic" /> class.
         /// </summary>
-        /// <param name="txId">Transaction ID.</param>
-        /// <param name="tokenId">ID of the token..</param>
-        public FlowMintedResult(string txId = default(string), string tokenId = default(string))
+        /// <param name="address">Polygon address.</param>
+        public GeneratedAddressMatic(string address = default(string))
         {
-            this.TxId = txId;
-            this.TokenId = tokenId;
+            this.Address = address;
         }
 
         /// <summary>
-        /// Transaction ID
+        /// Polygon address
         /// </summary>
-        /// <value>Transaction ID</value>
-        [DataMember(Name = "txId", EmitDefaultValue = false)]
-        public string TxId { get; set; }
-
-        /// <summary>
-        /// ID of the token.
-        /// </summary>
-        /// <value>ID of the token.</value>
-        [DataMember(Name = "tokenId", EmitDefaultValue = false)]
-        public string TokenId { get; set; }
+        /// <value>Polygon address</value>
+        [DataMember(Name = "address", EmitDefaultValue = false)]
+        public string Address { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -64,9 +55,8 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class FlowMintedResult {\n");
-            sb.Append("  TxId: ").Append(TxId).Append("\n");
-            sb.Append("  TokenId: ").Append(TokenId).Append("\n");
+            sb.Append("class GeneratedAddressMatic {\n");
+            sb.Append("  Address: ").Append(Address).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -87,15 +77,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as FlowMintedResult);
+            return this.Equals(input as GeneratedAddressMatic);
         }
 
         /// <summary>
-        /// Returns true if FlowMintedResult instances are equal
+        /// Returns true if GeneratedAddressMatic instances are equal
         /// </summary>
-        /// <param name="input">Instance of FlowMintedResult to be compared</param>
+        /// <param name="input">Instance of GeneratedAddressMatic to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(FlowMintedResult input)
+        public bool Equals(GeneratedAddressMatic input)
         {
             if (input == null)
             {
@@ -103,14 +93,9 @@ namespace Tatum.CSharp.Core.Model
             }
             return 
                 (
-                    this.TxId == input.TxId ||
-                    (this.TxId != null &&
-                    this.TxId.Equals(input.TxId))
-                ) && 
-                (
-                    this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
+                    this.Address == input.Address ||
+                    (this.Address != null &&
+                    this.Address.Equals(input.Address))
                 );
         }
 
@@ -123,13 +108,9 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.TxId != null)
+                if (this.Address != null)
                 {
-                    hashCode = (hashCode * 59) + this.TxId.GetHashCode();
-                }
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Address.GetHashCode();
                 }
                 return hashCode;
             }
@@ -142,12 +123,6 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 78)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
-            }
-
             yield break;
         }
     }

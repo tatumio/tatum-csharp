@@ -40,16 +40,16 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SignatureId" /> class.
         /// </summary>
-        /// <param name="signatureId">ID of prepared payment template to sign. This is should be stored on a client side to retrieve ID of the blockchain transaction, when signing application signs the transaction and broadcasts it to the blockchain. (required).</param>
+        /// <param name="signatureId">The internal Tatum ID of the prepared transaction for Key Management Sysytem (KMS) to sign&lt;br/&gt;This is different from the &lt;code&gt;signatureId&lt;/code&gt; parameter that you provided in the request body. The &lt;code&gt;signatureId&lt;/code&gt; parameter in the request body specifies the signature ID associated with the private key in KMS. (required).</param>
         public SignatureId(Guid signatureId = default(Guid))
         {
             this._SignatureId = signatureId;
         }
 
         /// <summary>
-        /// ID of prepared payment template to sign. This is should be stored on a client side to retrieve ID of the blockchain transaction, when signing application signs the transaction and broadcasts it to the blockchain.
+        /// The internal Tatum ID of the prepared transaction for Key Management Sysytem (KMS) to sign&lt;br/&gt;This is different from the &lt;code&gt;signatureId&lt;/code&gt; parameter that you provided in the request body. The &lt;code&gt;signatureId&lt;/code&gt; parameter in the request body specifies the signature ID associated with the private key in KMS.
         /// </summary>
-        /// <value>ID of prepared payment template to sign. This is should be stored on a client side to retrieve ID of the blockchain transaction, when signing application signs the transaction and broadcasts it to the blockchain.</value>
+        /// <value>The internal Tatum ID of the prepared transaction for Key Management Sysytem (KMS) to sign&lt;br/&gt;This is different from the &lt;code&gt;signatureId&lt;/code&gt; parameter that you provided in the request body. The &lt;code&gt;signatureId&lt;/code&gt; parameter in the request body specifies the signature ID associated with the private key in KMS.</value>
         [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
         public Guid _SignatureId { get; set; }
 

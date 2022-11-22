@@ -27,141 +27,109 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// UpdateCashbackValueForAuthorNft
+    /// CallPolygonSmartContractMethod
     /// </summary>
-    [DataContract(Name = "UpdateCashbackValueForAuthorNft")]
-    public partial class UpdateCashbackValueForAuthorNft : IEquatable<UpdateCashbackValueForAuthorNft>, IValidatableObject
+    [DataContract(Name = "CallPolygonSmartContractMethod")]
+    public partial class CallPolygonSmartContractMethod : IEquatable<CallPolygonSmartContractMethod>, IValidatableObject
     {
         /// <summary>
-        /// The blockchain to work with
-        /// </summary>
-        /// <value>The blockchain to work with</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum ChainEnum
-        {
-            /// <summary>
-            /// Enum BSC for value: BSC
-            /// </summary>
-            [EnumMember(Value = "BSC")]
-            BSC = 1,
-
-            /// <summary>
-            /// Enum ETH for value: ETH
-            /// </summary>
-            [EnumMember(Value = "ETH")]
-            ETH = 2,
-
-            /// <summary>
-            /// Enum KCS for value: KCS
-            /// </summary>
-            [EnumMember(Value = "KCS")]
-            KCS = 3,
-
-            /// <summary>
-            /// Enum KLAY for value: KLAY
-            /// </summary>
-            [EnumMember(Value = "KLAY")]
-            KLAY = 4,
-
-            /// <summary>
-            /// Enum MATIC for value: MATIC
-            /// </summary>
-            [EnumMember(Value = "MATIC")]
-            MATIC = 5,
-
-            /// <summary>
-            /// Enum ONE for value: ONE
-            /// </summary>
-            [EnumMember(Value = "ONE")]
-            ONE = 6
-
-        }
-
-
-        /// <summary>
-        /// The blockchain to work with
-        /// </summary>
-        /// <value>The blockchain to work with</value>
-        [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
-        public ChainEnum Chain { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNft" /> class.
+        /// Initializes a new instance of the <see cref="CallPolygonSmartContractMethod" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected UpdateCashbackValueForAuthorNft() { }
+        protected CallPolygonSmartContractMethod() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNft" /> class.
+        /// Initializes a new instance of the <see cref="CallPolygonSmartContractMethod" /> class.
         /// </summary>
-        /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">The ID of the NFT to update royalty information for. (required).</param>
-        /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
-        /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
-        /// <param name="fromPrivateKey">The private key of the NFT author&#39;s address (required).</param>
-        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
+        /// <param name="contractAddress">The address of the smart contract (required).</param>
+        /// <param name="amount">Amount of the assets to be sent..</param>
+        /// <param name="methodName">Name of the method to invoke on smart contract. (required).</param>
+        /// <param name="methodABI">ABI of the method to invoke. (required).</param>
+        /// <param name="_params">_params (required).</param>
+        /// <param name="fromPrivateKey">Private key of sender address. Private key, or signature Id must be present. (required).</param>
+        /// <param name="nonce">Nonce to be set to Polygon transaction. If not present, last known nonce will be used..</param>
         /// <param name="fee">fee.</param>
-        public UpdateCashbackValueForAuthorNft(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
+        public CallPolygonSmartContractMethod(string contractAddress = default(string), string amount = default(string), string methodName = default(string), Object methodABI = default(Object), List<string> _params = default(List<string>), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
         {
-            this.Chain = chain;
-            // to ensure "tokenId" is required (not null)
-            if (tokenId == null)
-            {
-                throw new ArgumentNullException("tokenId is a required property for UpdateCashbackValueForAuthorNft and cannot be null");
-            }
-            this.TokenId = tokenId;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
             {
-                throw new ArgumentNullException("contractAddress is a required property for UpdateCashbackValueForAuthorNft and cannot be null");
+                throw new ArgumentNullException("contractAddress is a required property for CallPolygonSmartContractMethod and cannot be null");
             }
             this.ContractAddress = contractAddress;
-            // to ensure "cashbackValue" is required (not null)
-            if (cashbackValue == null)
+            // to ensure "methodName" is required (not null)
+            if (methodName == null)
             {
-                throw new ArgumentNullException("cashbackValue is a required property for UpdateCashbackValueForAuthorNft and cannot be null");
+                throw new ArgumentNullException("methodName is a required property for CallPolygonSmartContractMethod and cannot be null");
             }
-            this.CashbackValue = cashbackValue;
+            this.MethodName = methodName;
+            // to ensure "methodABI" is required (not null)
+            if (methodABI == null)
+            {
+                throw new ArgumentNullException("methodABI is a required property for CallPolygonSmartContractMethod and cannot be null");
+            }
+            this.MethodABI = methodABI;
+            // to ensure "_params" is required (not null)
+            if (_params == null)
+            {
+                throw new ArgumentNullException("_params is a required property for CallPolygonSmartContractMethod and cannot be null");
+            }
+            this.Params = _params;
             // to ensure "fromPrivateKey" is required (not null)
             if (fromPrivateKey == null)
             {
-                throw new ArgumentNullException("fromPrivateKey is a required property for UpdateCashbackValueForAuthorNft and cannot be null");
+                throw new ArgumentNullException("fromPrivateKey is a required property for CallPolygonSmartContractMethod and cannot be null");
             }
             this.FromPrivateKey = fromPrivateKey;
+            this.Amount = amount;
             this.Nonce = nonce;
             this.Fee = fee;
         }
 
         /// <summary>
-        /// The ID of the NFT to update royalty information for.
+        /// The address of the smart contract
         /// </summary>
-        /// <value>The ID of the NFT to update royalty information for.</value>
-        [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
-        public string TokenId { get; set; }
-
-        /// <summary>
-        /// The blockchain address of the NFT to update royalty information for
-        /// </summary>
-        /// <value>The blockchain address of the NFT to update royalty information for</value>
+        /// <value>The address of the smart contract</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0
+        /// Amount of the assets to be sent.
         /// </summary>
-        /// <value>The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0</value>
-        [DataMember(Name = "cashbackValue", IsRequired = true, EmitDefaultValue = true)]
-        public string CashbackValue { get; set; }
+        /// <value>Amount of the assets to be sent.</value>
+        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        public string Amount { get; set; }
 
         /// <summary>
-        /// The private key of the NFT author&#39;s address
+        /// Name of the method to invoke on smart contract.
         /// </summary>
-        /// <value>The private key of the NFT author&#39;s address</value>
+        /// <value>Name of the method to invoke on smart contract.</value>
+        [DataMember(Name = "methodName", IsRequired = true, EmitDefaultValue = true)]
+        public string MethodName { get; set; }
+
+        /// <summary>
+        /// ABI of the method to invoke.
+        /// </summary>
+        /// <value>ABI of the method to invoke.</value>
+        [DataMember(Name = "methodABI", IsRequired = true, EmitDefaultValue = true)]
+        public Object MethodABI { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Params
+        /// </summary>
+        [DataMember(Name = "params", IsRequired = true, EmitDefaultValue = true)]
+        public List<string> Params { get; set; }
+
+        /// <summary>
+        /// Private key of sender address. Private key, or signature Id must be present.
+        /// </summary>
+        /// <value>Private key of sender address. Private key, or signature Id must be present.</value>
         [DataMember(Name = "fromPrivateKey", IsRequired = true, EmitDefaultValue = true)]
         public string FromPrivateKey { get; set; }
 
         /// <summary>
-        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
+        /// Nonce to be set to Polygon transaction. If not present, last known nonce will be used.
         /// </summary>
-        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
+        /// <value>Nonce to be set to Polygon transaction. If not present, last known nonce will be used.</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 
@@ -178,11 +146,12 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class UpdateCashbackValueForAuthorNft {\n");
-            sb.Append("  Chain: ").Append(Chain).Append("\n");
-            sb.Append("  TokenId: ").Append(TokenId).Append("\n");
+            sb.Append("class CallPolygonSmartContractMethod {\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
-            sb.Append("  CashbackValue: ").Append(CashbackValue).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
+            sb.Append("  MethodName: ").Append(MethodName).Append("\n");
+            sb.Append("  MethodABI: ").Append(MethodABI).Append("\n");
+            sb.Append("  Params: ").Append(Params).Append("\n");
             sb.Append("  FromPrivateKey: ").Append(FromPrivateKey).Append("\n");
             sb.Append("  Nonce: ").Append(Nonce).Append("\n");
             sb.Append("  Fee: ").Append(Fee).Append("\n");
@@ -206,15 +175,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as UpdateCashbackValueForAuthorNft);
+            return this.Equals(input as CallPolygonSmartContractMethod);
         }
 
         /// <summary>
-        /// Returns true if UpdateCashbackValueForAuthorNft instances are equal
+        /// Returns true if CallPolygonSmartContractMethod instances are equal
         /// </summary>
-        /// <param name="input">Instance of UpdateCashbackValueForAuthorNft to be compared</param>
+        /// <param name="input">Instance of CallPolygonSmartContractMethod to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(UpdateCashbackValueForAuthorNft input)
+        public bool Equals(CallPolygonSmartContractMethod input)
         {
             if (input == null)
             {
@@ -222,23 +191,30 @@ namespace Tatum.CSharp.Core.Model
             }
             return 
                 (
-                    this.Chain == input.Chain ||
-                    this.Chain.Equals(input.Chain)
-                ) && 
-                (
-                    this.TokenId == input.TokenId ||
-                    (this.TokenId != null &&
-                    this.TokenId.Equals(input.TokenId))
-                ) && 
-                (
                     this.ContractAddress == input.ContractAddress ||
                     (this.ContractAddress != null &&
                     this.ContractAddress.Equals(input.ContractAddress))
                 ) && 
                 (
-                    this.CashbackValue == input.CashbackValue ||
-                    (this.CashbackValue != null &&
-                    this.CashbackValue.Equals(input.CashbackValue))
+                    this.Amount == input.Amount ||
+                    (this.Amount != null &&
+                    this.Amount.Equals(input.Amount))
+                ) && 
+                (
+                    this.MethodName == input.MethodName ||
+                    (this.MethodName != null &&
+                    this.MethodName.Equals(input.MethodName))
+                ) && 
+                (
+                    this.MethodABI == input.MethodABI ||
+                    (this.MethodABI != null &&
+                    this.MethodABI.Equals(input.MethodABI))
+                ) && 
+                (
+                    this.Params == input.Params ||
+                    this.Params != null &&
+                    input.Params != null &&
+                    this.Params.SequenceEqual(input.Params)
                 ) && 
                 (
                     this.FromPrivateKey == input.FromPrivateKey ||
@@ -265,18 +241,25 @@ namespace Tatum.CSharp.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.Chain.GetHashCode();
-                if (this.TokenId != null)
-                {
-                    hashCode = (hashCode * 59) + this.TokenId.GetHashCode();
-                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                if (this.CashbackValue != null)
+                if (this.Amount != null)
                 {
-                    hashCode = (hashCode * 59) + this.CashbackValue.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Amount.GetHashCode();
+                }
+                if (this.MethodName != null)
+                {
+                    hashCode = (hashCode * 59) + this.MethodName.GetHashCode();
+                }
+                if (this.MethodABI != null)
+                {
+                    hashCode = (hashCode * 59) + this.MethodABI.GetHashCode();
+                }
+                if (this.Params != null)
+                {
+                    hashCode = (hashCode * 59) + this.Params.GetHashCode();
                 }
                 if (this.FromPrivateKey != null)
                 {
@@ -298,12 +281,6 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // TokenId (string) maxLength
-            if (this.TokenId != null && this.TokenId.Length > 78)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenId, length must be less than 78.", new [] { "TokenId" });
-            }
-
             // ContractAddress (string) maxLength
             if (this.ContractAddress != null && this.ContractAddress.Length > 42)
             {
@@ -314,6 +291,25 @@ namespace Tatum.CSharp.Core.Model
             if (this.ContractAddress != null && this.ContractAddress.Length < 42)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
+            }
+
+            // Amount (string) pattern
+            Regex regexAmount = new Regex(@"^[+]?((\\d+(\\.\\d*)?)|(\\.\\d+))$", RegexOptions.CultureInvariant);
+            if (false == regexAmount.Match(this.Amount).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
+            }
+
+            // MethodName (string) maxLength
+            if (this.MethodName != null && this.MethodName.Length > 500)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MethodName, length must be less than 500.", new [] { "MethodName" });
+            }
+
+            // MethodName (string) minLength
+            if (this.MethodName != null && this.MethodName.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MethodName, length must be greater than 1.", new [] { "MethodName" });
             }
 
             // FromPrivateKey (string) maxLength

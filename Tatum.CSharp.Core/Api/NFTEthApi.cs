@@ -113,7 +113,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftMetadataErc721</returns>
@@ -126,7 +126,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
         List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
@@ -138,7 +138,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftRoyaltyErc721</returns>
         NftRoyaltyErc721 NftGetRoyaltyErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
@@ -146,7 +146,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get all NFTs that a blockchain address holds
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -197,7 +197,7 @@ namespace Tatum.CSharp.Core.Api
         /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -421,7 +421,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftMetadataErc721</returns>
@@ -434,7 +434,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
         ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
@@ -446,7 +446,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftRoyaltyErc721</returns>
         ApiResponse<NftRoyaltyErc721> NftGetRoyaltyErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
@@ -454,7 +454,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get all NFTs that a blockchain address holds
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -505,7 +505,7 @@ namespace Tatum.CSharp.Core.Api
         /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -736,7 +736,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -750,7 +750,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
@@ -763,7 +763,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of NftRoyaltyErc721</returns>
@@ -772,7 +772,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get all NFTs that a blockchain address holds
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -827,7 +827,7 @@ namespace Tatum.CSharp.Core.Api
         /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -1070,7 +1070,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1084,7 +1084,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
@@ -1097,7 +1097,7 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (NftRoyaltyErc721)</returns>
@@ -1106,7 +1106,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get all NFTs that a blockchain address holds
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -1161,7 +1161,7 @@ namespace Tatum.CSharp.Core.Api
         /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -2435,7 +2435,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftMetadataErc721</returns>
@@ -2454,7 +2454,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftMetadataErc721</returns>
@@ -2514,7 +2514,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -2534,7 +2534,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
-        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -2597,7 +2597,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
         public List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string))
@@ -2615,7 +2615,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
         public ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string))
@@ -2670,7 +2670,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
@@ -2689,7 +2689,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
-        /// <param name="tokenId">The ID of the NFT to get provenance information for. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
@@ -2747,7 +2747,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>NftRoyaltyErc721</returns>
         public NftRoyaltyErc721 NftGetRoyaltyErc721(string contractAddress, string tokenId, string xTestnetType = default(string))
@@ -2765,7 +2765,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftRoyaltyErc721</returns>
         public ApiResponse<NftRoyaltyErc721> NftGetRoyaltyErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string))
@@ -2820,7 +2820,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of NftRoyaltyErc721</returns>
@@ -2839,7 +2839,7 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
-        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana. (uint256 number)</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (NftRoyaltyErc721)</returns>
@@ -2893,7 +2893,7 @@ namespace Tatum.CSharp.Core.Api
         }
 
         /// <summary>
-        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -2909,7 +2909,7 @@ namespace Tatum.CSharp.Core.Api
         }
 
         /// <summary>
-        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -2952,7 +2952,7 @@ namespace Tatum.CSharp.Core.Api
         }
 
         /// <summary>
-        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -2969,7 +2969,7 @@ namespace Tatum.CSharp.Core.Api
         }
 
         /// <summary>
-        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address that you want to get the token balance of</param>
@@ -3472,7 +3472,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -3493,7 +3493,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -3560,7 +3560,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
@@ -3582,7 +3582,7 @@ namespace Tatum.CSharp.Core.Api
         /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="tokenId">NFT Token ID. (uint256 number)</param>
+        /// <param name="tokenId">NFT Token ID.</param>
         /// <param name="tokenAddress">Address of the token smart contract</param>
         /// <param name="pageSize">Max number of items per page is 50.</param>
         /// <param name="offset">Offset to obtain next page of the data. (optional)</param>

@@ -49,6 +49,16 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <returns>EthGasEstimationBatch</returns>
         EthGasEstimationBatch EthEstimateGasBatch(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object PolygonEstimateGas(PolygonEstimateGas polygonEstimateGas);
         #endregion Synchronous Operations
     }
 
@@ -80,6 +90,16 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of EthGasEstimationBatch</returns>
         ApiResponse<EthGasEstimationBatch> EthEstimateGasBatchWithHttpInfo(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> PolygonEstimateGasWithHttpInfo(PolygonEstimateGas polygonEstimateGas);
         #endregion Synchronous Operations With Http Info
     }
 
@@ -113,6 +133,17 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of EthGasEstimationBatch</returns>
         System.Threading.Tasks.Task<EthGasEstimationBatch> EthEstimateGasBatchAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> PolygonEstimateGasAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -146,6 +177,17 @@ namespace Tatum.CSharp.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (EthGasEstimationBatch)</returns>
         System.Threading.Tasks.Task<ApiResponse<EthGasEstimationBatch>> EthEstimateGasBatchWithHttpInfoAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> PolygonEstimateGasWithHttpInfoAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -564,6 +606,130 @@ namespace Tatum.CSharp.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.PostAsync<EthGasEstimationBatch>("/v3/ethereum/gas/batch", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object PolygonEstimateGas(PolygonEstimateGas polygonEstimateGas)
+        {
+            var localVarResponse = PolygonEstimateGasWithHttpInfo(polygonEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("PolygonEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> PolygonEstimateGasWithHttpInfo(PolygonEstimateGas polygonEstimateGas)
+        {
+            // verify the required parameter 'polygonEstimateGas' is set
+            if (polygonEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'polygonEstimateGas' when calling BlockchainFeesApi->PolygonEstimateGas");
+
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = polygonEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/polygon/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> PolygonEstimateGasAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await PolygonEstimateGasWithHttpInfoAsync(polygonEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("PolygonEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> PolygonEstimateGasWithHttpInfoAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'polygonEstimateGas' is set
+            if (polygonEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'polygonEstimateGas' when calling BlockchainFeesApi->PolygonEstimateGas");
+
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = polygonEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/polygon/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }

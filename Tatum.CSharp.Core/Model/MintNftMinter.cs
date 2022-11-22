@@ -96,7 +96,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="contractAddress">The blockchain address of the smart contract to build the NFT on (required).</param>
         /// <param name="minter">The blockchain address of the Tatum NFT minter; this is the address that you added as an NFT minter to your NFT smart contract (required).</param>
         /// <param name="to">The blockchain address to send the NFT to (required).</param>
-        /// <param name="tokenId">The ID of the NFT. (uint256 number) (required).</param>
+        /// <param name="tokenId">The ID of the NFT. (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         public MintNftMinter(ChainEnum chain = default(ChainEnum), string contractAddress = default(string), string minter = default(string), string to = default(string), string tokenId = default(string), string url = default(string))
         {
@@ -155,9 +155,9 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// The ID of the NFT. (uint256 number)
+        /// The ID of the NFT.
         /// </summary>
-        /// <value>The ID of the NFT. (uint256 number)</value>
+        /// <value>The ID of the NFT.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
