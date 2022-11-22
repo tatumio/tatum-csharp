@@ -14,7 +14,7 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
-namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
+namespace Tatum.CSharp.Nft.Tests.Integration.Clients;
 
 [UsesVerify]
 [Collection("Ethereum")]
