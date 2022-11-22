@@ -16,8 +16,9 @@
         <VersionPrefix>2.0.0</VersionPrefix>
         <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Tatum; EVM; EVM Local</PackageTags>
+        <PackageTags>Tatum; EVM</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

@@ -33,6 +33,10 @@ jobs:
         if: ${{ inputs.name == 'Core' }}
         run: |
           sed -i "s/Tatum_SDK_CSharp/Tatum_SDK_CSharp_v${{ inputs.version }}/g" ./Tatum.CSharp.Core/Client/Configuration.cs
+      - name: Propagate PackageReleaseNotes from the Core package .csproj
+        if: ${{ inputs.name != 'Core' }}
+        run: |
+          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Bump Dependencies Version
         if: ${{ inputs.dependsOn != '' }}
         run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}

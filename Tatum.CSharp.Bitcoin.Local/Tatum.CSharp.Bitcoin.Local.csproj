@@ -17,6 +17,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>Tatum; BTC; Bitcoin; BTC Local; Bitcoin Local</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
