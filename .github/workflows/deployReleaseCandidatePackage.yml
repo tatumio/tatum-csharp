@@ -33,6 +33,7 @@ jobs:
         if: ${{ inputs.name == 'Core' }}     
         run: |
           sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/v${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs       
       - name: ${{ inputs.name }} - Bump Dependencies Version
         if: ${{ inputs.dependsOn != '' }}
         run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}
