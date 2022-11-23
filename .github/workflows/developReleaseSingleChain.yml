@@ -37,6 +37,10 @@ jobs:
         id: chains
         shell: bash
         run: echo "chainArray=${{ inputs.chains }}" >> $GITHUB_OUTPUT
+      - name: Parse Chains to a variable
+        id: chains2
+        shell: bash
+        run: echo $chainArray
   
   Pack_RC:
     strategy:
