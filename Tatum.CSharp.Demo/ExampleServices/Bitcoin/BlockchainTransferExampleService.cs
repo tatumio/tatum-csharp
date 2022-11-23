@@ -15,7 +15,7 @@ public class BlockchainTransferExampleService
         _bitcoinClient = bitcoinClient;
     }
     
-    private Dictionary<string, string> _someInternalPersistence = new Dictionary<string, string>()
+    private readonly Dictionary<string, string> _someInternalPersistence = new Dictionary<string, string>()
     {
         { "address1", "privateKey1" },
         { "address2", "privateKey2" },

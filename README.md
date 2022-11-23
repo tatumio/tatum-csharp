@@ -14,10 +14,11 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-|  Chain | Nuget_Package | Local Processing with                            |
-| ------------- |--------------------------|-----------|
-| [`Bitcoin`](Tatum.CSharp.Bitcoin) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a> | [NBitcoin](https://github.com/MetacoSA/NBitcoin) |
+| Chain                               | Nuget_Package                                                                                                                                  | Local Processing with                            |
+|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| [`Bitcoin`](Tatum.CSharp.Bitcoin)   | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>   | [NBitcoin](https://github.com/MetacoSA/NBitcoin) |
 | [`Ethereum`](Tatum.CSharp.Ethereum) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`Polygon`](Tatum.CSharp.Ethereum)  | <a href="https://www.nuget.org/packages/Tatum.CSharp.Polygon"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Polygon"></a>   | [NEthereum](https://github.com/Nethereum/Nethereum) |
 
 ## Quick Start
 
@@ -54,5 +55,6 @@ public EthereumController(IEthereumClient ethereumClient)
 
 - [Examples - ETH](Examples/Ethereum/ETH_Examples.md)
 - [Examples - BTC](Examples/Bitcoin/BTC_Examples.md)
+- [Examples - MATIC](Examples/Polygon/MATIC_Examples.md)
 
 Please check out [Demo App](Tatum.CSharp.Demo) or [Integration Tests](https://github.com/tatumio/tatum-csharp/tree/develop/Tatum.CSharp.Ethereum.Tests.Integration) to see the usage of all methods.
