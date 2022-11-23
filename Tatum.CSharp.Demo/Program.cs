@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Polygon.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services
 
 builder.Services
     .AddHttpClient<IBitcoinClient, BitcoinClient>(httpClient => new BitcoinClient(httpClient, apiKey));
+
+builder.Services
+    .AddHttpClient<IPolygonClient, PolygonClient>(httpClient => new PolygonClient(httpClient, apiKey));
 
 // Add example services for bitcoin
 builder.Services.AddTransient<BlockchainTransferExampleService>();

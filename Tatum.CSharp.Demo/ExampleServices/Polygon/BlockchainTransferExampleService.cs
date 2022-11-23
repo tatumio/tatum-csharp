@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core.Model;
-using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Polygon.Clients;
 
-namespace Tatum.CSharp.Demo.ExampleServices.Ethereum;
+namespace Tatum.CSharp.Demo.ExampleServices.Polygon;
 
 public class BlockchainTransferExampleService
 {
-    private readonly IEthereumClient _ethereumClient;
+    private readonly IPolygonClient _polygonClient;
 
-    public BlockchainTransferExampleService(IEthereumClient ethereumClient)
+    public BlockchainTransferExampleService(IPolygonClient polygonClient)
     {
-        _ethereumClient = ethereumClient;
+        _polygonClient = polygonClient;
     }
 
     private readonly Dictionary<string, string> _someInternalPersistence = new Dictionary<string, string>()
@@ -28,17 +28,17 @@ public class BlockchainTransferExampleService
         // In a real world scenario, you would store the private keys in a secure location.
         var fromPrivKey = _someInternalPersistence[fromAddress];
 
-        var transfer = new TransferEthBlockchain(
+        var transfer = new TransferPolygonBlockchain(
             null,
             0,
             toAddress, // address you would like to send to
-            TransferEthBlockchain.CurrencyEnum.ETH,
+            TransferPolygonBlockchain.CurrencyEnum.MATIC,
             null,
             amount, // amount you would like to send eg. "0.00001"
             fromPrivKey);
 
 
-        TransactionHash transactionHash = await _ethereumClient.EthereumBlockchain.EthBlockchainTransferAsync(transfer);
+        TransactionHash transactionHash = await _polygonClient.PolygonBlockchain.PolygonBlockchainTransferAsync(transfer);
         
         return transactionHash;
     }
