@@ -47,19 +47,3 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [ Build_Version, Core_Pack_RC ]
-    
-  Release_Other:
-    strategy:
-      matrix:
-        arrays: [
-          { chain: "Nft", dependsOn: "Evm.Local", deployDependency: false }
-        ]
-    name: ${{ matrix.arrays.chain }} - Deploy Other Dev Packages
-    uses: ./.github/workflows/developReleaseSingleChain.yml
-    with:
-      chain: ${{ matrix.arrays.chain }}
-      dependsOn: ${{ matrix.arrays.dependsOn }}
-      version: ${{ needs.Build_Version.outputs.version }}
-      deployDependency: ${{ matrix.arrays.deployDependency }}
-    secrets: inherit
-    needs: [ Build_Version, Release_Chains ]
