@@ -1,5 +1,4 @@
 name: Tatum.CSharp Dev Package
-run-name: ${{ inputs.source }}
 
 on:
   workflow_call:
@@ -19,7 +18,7 @@ on:
 
 jobs:
   Dependency_Pack_RC:
-    name: ${{ inputs.dependency }} - Pack Local
+    name: ${{ inputs.dependency }} - Pack Local for ${{ inputs.chains }}
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       name: ${{ inputs.dependency }}
