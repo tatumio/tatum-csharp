@@ -39,7 +39,7 @@ jobs:
           { dependency: "Evm.Local", chains: "[Ethereum, Polygon, Nft]" },
           { dependency: "Bitcoin.Local", chains: "[Bitcoin]" },
         ]
-    name: ${{ matrix.arrays.chain }} - Deploy Chain Dev Packages
+    name: ${{ matrix.arrays.chains }} - Deploy Chain Dev Packages
     uses: ./.github/workflows/developReleaseSingleChain.yml
     with:
       dependency: ${{ matrix.arrays.dependency }}
