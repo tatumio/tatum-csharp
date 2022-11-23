@@ -45,7 +45,7 @@ jobs:
   Pack_RC:
     strategy:
       matrix:
-        chain: ${{ needs.Parse_chains.outputs.chainArray }}
+        chain: ${{ inputs.chains }}
     name: ${{ matrix.chain }} - Pack
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
