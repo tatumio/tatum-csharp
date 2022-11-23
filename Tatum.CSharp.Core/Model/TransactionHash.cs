@@ -40,7 +40,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionHash" /> class.
         /// </summary>
-        /// <param name="txId">TX hash of successful transaction. (required).</param>
+        /// <param name="txId">The hash (ID) of the transaction (required).</param>
         public TransactionHash(string txId = default(string))
         {
             // to ensure "txId" is required (not null)
@@ -52,9 +52,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// TX hash of successful transaction.
+        /// The hash (ID) of the transaction
         /// </summary>
-        /// <value>TX hash of successful transaction.</value>
+        /// <value>The hash (ID) of the transaction</value>
         [DataMember(Name = "txId", IsRequired = true, EmitDefaultValue = true)]
         public string TxId { get; set; }
 

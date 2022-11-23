@@ -66,7 +66,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="account">Blockchain address to perform transaction from (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
-        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="contractAddress">Address of NFT token (required).</param>
         /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
@@ -126,9 +126,9 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

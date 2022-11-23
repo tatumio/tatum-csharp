@@ -32,15 +32,15 @@ jobs:
     secrets: inherit
     needs: Build_Version
   
-  Release_RC:
+  Release_Chains:
     strategy:
       matrix:
         arrays: [
           { chain: "Ethereum", dependsOn: "Evm.Local" },
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Polygon", dependsOn: "Evm.Local" }
         ]
-    name: ${{ matrix.arrays.chain }} - Deploy Dev Packages
+    name: ${{ matrix.arrays.chain }} - Deploy Chain Dev Packages
     uses: ./.github/workflows/developReleaseSingleChain.yml
     with:
       chain: ${{ matrix.arrays.chain }}
@@ -48,3 +48,18 @@ jobs:
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [ Build_Version, Core_Pack_RC ]
+    
+  Release_Other:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Nft", dependsOn: "Evm.Local" }
+        ]
+    name: ${{ matrix.arrays.chain }} - Deploy Other Dev Packages
+    uses: ./.github/workflows/developReleaseSingleChain.yml
+    with:
+      chain: ${{ matrix.arrays.chain }}
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: [ Build_Version, Release_Chains ]

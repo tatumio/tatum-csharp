@@ -35,7 +35,7 @@ namespace Tatum.CSharp.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NftTokenByCollectionErc721TokenMetadata" /> class.
         /// </summary>
-        /// <param name="tokenId">TokenID of the NFT token owned by this address. (uint256 number).</param>
+        /// <param name="tokenId">TokenID of the NFT token owned by this address..</param>
         /// <param name="url">Metadata URL of the TokenID. This data don&#39;t have to be present, safest way (if not present) is to obtain them from the NFT Contract.tokenURI() method call..</param>
         /// <param name="metadata">Metadata scheme obtained from the url. This data don&#39;t have to be present, safest way (if not present) is to obtain them from the NFT Contract.tokenURI() method call..</param>
         public NftTokenByCollectionErc721TokenMetadata(string tokenId = default(string), string url = default(string), Object metadata = default(Object))
@@ -46,9 +46,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// TokenID of the NFT token owned by this address. (uint256 number)
+        /// TokenID of the NFT token owned by this address.
         /// </summary>
-        /// <value>TokenID of the NFT token owned by this address. (uint256 number)</value>
+        /// <value>TokenID of the NFT token owned by this address.</value>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
         public string TokenId { get; set; }
 

@@ -43,7 +43,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="blockNumber">Block number (required).</param>
         /// <param name="txId">Transaction ID (required).</param>
         /// <param name="contractAddress">Contract address (required).</param>
-        /// <param name="tokenId">ID of the token. (uint256 number) (required).</param>
+        /// <param name="tokenId">ID of the token. (required).</param>
         /// <param name="from">Sender (required).</param>
         /// <param name="to">recipient (required).</param>
         public NftTx(decimal blockNumber = default(decimal), string txId = default(string), string contractAddress = default(string), string tokenId = default(string), string from = default(string), string to = default(string))
@@ -103,9 +103,9 @@ namespace Tatum.CSharp.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 

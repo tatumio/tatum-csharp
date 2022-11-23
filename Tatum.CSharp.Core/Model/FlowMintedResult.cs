@@ -36,7 +36,7 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="FlowMintedResult" /> class.
         /// </summary>
         /// <param name="txId">Transaction ID.</param>
-        /// <param name="tokenId">ID of the token. (uint256 number).</param>
+        /// <param name="tokenId">ID of the token..</param>
         public FlowMintedResult(string txId = default(string), string tokenId = default(string))
         {
             this.TxId = txId;
@@ -51,9 +51,9 @@ namespace Tatum.CSharp.Core.Model
         public string TxId { get; set; }
 
         /// <summary>
-        /// ID of the token. (uint256 number)
+        /// ID of the token.
         /// </summary>
-        /// <value>ID of the token. (uint256 number)</value>
+        /// <value>ID of the token.</value>
         [DataMember(Name = "tokenId", EmitDefaultValue = false)]
         public string TokenId { get; set; }
 

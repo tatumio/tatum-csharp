@@ -13,6 +13,12 @@ namespace Tatum.CSharp.Nft.Clients
         
         /// <inheritdoc />
         public INFTEthApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public INFTMaticApiAsync PolygonNft { get; }
+        
+        /// <inheritdoc />
+        public INFTMaticApiWithHttpInfoAsync PolygonNftWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -61,6 +67,13 @@ namespace Tatum.CSharp.Nft.Clients
             
             EthereumNft = ethereumNftApi;
             EthereumNftWithHttpInfo = ethereumNftApi;
+            
+            var polygonNftApi = new NFTMaticApi(httpClient);
+            
+            polygonNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            PolygonNft = polygonNftApi;
+            PolygonNftWithHttpInfo = polygonNftApi;
 
             Local = new EvmLocalService(isTestNet);
         }

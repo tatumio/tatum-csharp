@@ -13,27 +13,22 @@ jobs:
   Test_Chains:
     strategy:
       matrix:
-        arrays: [
-          { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" }
-        ]
+        chain: [Ethereum, Bitcoin]
     name: Test Chain Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
-      name: ${{ matrix.arrays.chain }}
+      name: ${{ matrix.chain }}
       version: ${{ inputs.version }}
     secrets: inherit
     
   Test_Other:
     strategy:
       matrix:
-        arrays: [
-          { chain: "Nft", dependsOn: "Evm.Local" }
-        ]
+        chain: [Nft]
     name: Test Other Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
-      name: ${{ matrix.arrays.chain }}
+      name: ${{ matrix.chain }}
       version: ${{ inputs.version }}
     secrets: inherit
     needs: Test_Chains

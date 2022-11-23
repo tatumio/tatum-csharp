@@ -37,11 +37,11 @@ jobs:
     secrets: inherit
     needs: [Dependency_Pack_RC]
     
-  Integration_Tests:
-    name: ${{ inputs.chain }} - Test
-    uses: ./.github/workflows/integrationTests.yml
-    with:
-      name: ${{ inputs.chain }}
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: [Pack_RC]
+#  Integration_Tests:
+#    name: ${{ inputs.chain }} - Test
+#    uses: ./.github/workflows/integrationTests.yml
+#    with:
+#      name: ${{ inputs.chain }}
+#      version: ${{ inputs.version }}
+#    secrets: inherit
+#    needs: [Pack_RC]

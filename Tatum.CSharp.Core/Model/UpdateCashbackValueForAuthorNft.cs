@@ -93,11 +93,11 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="UpdateCashbackValueForAuthorNft" /> class.
         /// </summary>
         /// <param name="chain">The blockchain to work with (required).</param>
-        /// <param name="tokenId">The ID of the NFT to update royalty information for. (uint256 number) (required).</param>
+        /// <param name="tokenId">The ID of the NFT to update royalty information for. (required).</param>
         /// <param name="contractAddress">The blockchain address of the NFT to update royalty information for (required).</param>
         /// <param name="cashbackValue">The new value of the royalty cashback to be set for the author of the NFT; to disable the royalties for the NFT completely, set this parameter to 0 (required).</param>
         /// <param name="fromPrivateKey">The private key of the NFT author&#39;s address (required).</param>
-        /// <param name="nonce">The nonce to be set to the transfer transaction; if not present, the last known nonce will be used.</param>
+        /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
         /// <param name="fee">fee.</param>
         public UpdateCashbackValueForAuthorNft(ChainEnum chain = default(ChainEnum), string tokenId = default(string), string contractAddress = default(string), string cashbackValue = default(string), string fromPrivateKey = default(string), decimal nonce = default(decimal), CustomFee fee = default(CustomFee))
         {
@@ -131,9 +131,9 @@ namespace Tatum.CSharp.Core.Model
         }
 
         /// <summary>
-        /// The ID of the NFT to update royalty information for. (uint256 number)
+        /// The ID of the NFT to update royalty information for.
         /// </summary>
-        /// <value>The ID of the NFT to update royalty information for. (uint256 number)</value>
+        /// <value>The ID of the NFT to update royalty information for.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
@@ -159,9 +159,9 @@ namespace Tatum.CSharp.Core.Model
         public string FromPrivateKey { get; set; }
 
         /// <summary>
-        /// The nonce to be set to the transfer transaction; if not present, the last known nonce will be used
+        /// The nonce to be set to the transaction; if not present, the last known nonce will be used
         /// </summary>
-        /// <value>The nonce to be set to the transfer transaction; if not present, the last known nonce will be used</value>
+        /// <value>The nonce to be set to the transaction; if not present, the last known nonce will be used</value>
         [DataMember(Name = "nonce", EmitDefaultValue = false)]
         public decimal Nonce { get; set; }
 

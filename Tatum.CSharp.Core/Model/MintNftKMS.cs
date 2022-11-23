@@ -95,7 +95,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">The blockchain address to send the NFT to (required).</param>
         /// <param name="contractAddress">The blockchain address of the smart contract to build the NFT on (required).</param>
-        /// <param name="tokenId">The ID of the NFT. (uint256 number) (required).</param>
+        /// <param name="tokenId">The ID of the NFT. (required).</param>
         /// <param name="url">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="signatureId">The KMS identifier of the private key of the blockchain address that will pay the fee for the transaction (required).</param>
         /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the address to pay the transaction fee that was generated from the mnemonic.</param>
@@ -159,9 +159,9 @@ namespace Tatum.CSharp.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// The ID of the NFT. (uint256 number)
+        /// The ID of the NFT.
         /// </summary>
-        /// <value>The ID of the NFT. (uint256 number)</value>
+        /// <value>The ID of the NFT.</value>
         [DataMember(Name = "tokenId", IsRequired = true, EmitDefaultValue = true)]
         public string TokenId { get; set; }
 
