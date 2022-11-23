@@ -33,6 +33,7 @@ jobs:
         if: ${{ inputs.name == 'Core' }}
         run: |
           sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/v${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
       - name: Propagate PackageReleaseNotes from the Core package .csproj
         if: ${{ inputs.name != 'Core' }}
         run: |

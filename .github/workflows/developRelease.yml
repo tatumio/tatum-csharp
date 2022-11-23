@@ -36,9 +36,8 @@ jobs:
     strategy:
       matrix:
         arrays: [
-          { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Polygon", dependsOn: "Evm.Local" }
+          { dependency: "Evm.Local", chains: "[Ethereum, Polygon, Nft]" },
+          { dependency: "Bitcoin.Local", chains: "[Bitcoin]" },
         ]
     name: ${{ matrix.arrays.chain }} - Deploy Chain Dev Packages
     uses: ./.github/workflows/developReleaseSingleChain.yml
@@ -53,7 +52,7 @@ jobs:
     strategy:
       matrix:
         arrays: [
-          { chain: "Nft", dependsOn: "Evm.Local" }
+          { chain: "Nft", dependsOn: "Evm.Local", deployDependency: false }
         ]
     name: ${{ matrix.arrays.chain }} - Deploy Other Dev Packages
     uses: ./.github/workflows/developReleaseSingleChain.yml
@@ -61,5 +60,6 @@ jobs:
       chain: ${{ matrix.arrays.chain }}
       dependsOn: ${{ matrix.arrays.dependsOn }}
       version: ${{ needs.Build_Version.outputs.version }}
+      deployDependency: ${{ matrix.arrays.deployDependency }}
     secrets: inherit
     needs: [ Build_Version, Release_Chains ]

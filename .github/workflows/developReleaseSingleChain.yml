@@ -4,44 +4,38 @@ run-name: ${{ inputs.source }}
 on:
   workflow_call:
     inputs:
-      chain:
-        description: 'Chain to release'
+      dependency:
+        description: 'Package that chains depend on'
+        required: false
+        type: string
+      chains:
+        description: 'Chains to release'
         required: true
         type: string
       version:
         description: 'Package Version'
         required: true
         type: string
-      dependsOn:
-        description: 'Package to depend on'
-        required: false
-        type: string
 
 jobs:
   Dependency_Pack_RC:
-    name: ${{ inputs.dependsOn }} - Pack Local
+    name: ${{ inputs.dependency }} - Pack Local
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
-      name: ${{ inputs.dependsOn }}
+      name: ${{ inputs.dependency }}
       version: ${{ inputs.version }}
       dependsOn: Core
     secrets: inherit
   
   Pack_RC:
-    name: ${{ inputs.chain }} - Pack
+    strategy:
+      matrix:
+        chain: ${{ inputs.chains }}
+    name: ${{ matrix.chain }} - Pack
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
-      name: ${{ inputs.chain }}
+      name: ${{ matrix.chain }}
       version: ${{ inputs.version }}
-      dependsOn: ${{ inputs.dependsOn }}
+      dependsOn: ${{ inputs.dependency }}
     secrets: inherit
     needs: [Dependency_Pack_RC]
-    
-#  Integration_Tests:
-#    name: ${{ inputs.chain }} - Test
-#    uses: ./.github/workflows/integrationTests.yml
-#    with:
-#      name: ${{ inputs.chain }}
-#      version: ${{ inputs.version }}
-#    secrets: inherit
-#    needs: [Pack_RC]
