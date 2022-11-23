@@ -37,7 +37,8 @@ jobs:
         arrays: [
           { chain: "Ethereum", dependsOn: "Evm.Local" },
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" }
+          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Polygon", dependsOn: "Evm.Local" }
         ]
     name: ${{ matrix.arrays.chain }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml

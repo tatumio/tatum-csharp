@@ -13,7 +13,7 @@ jobs:
   Test_Chains:
     strategy:
       matrix:
-        chain: [Ethereum, Bitcoin]
+        chain: [Ethereum, Bitcoin, Polygon]
     name: Test Chain Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
