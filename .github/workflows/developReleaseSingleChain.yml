@@ -11,7 +11,7 @@ on:
       chains:
         description: 'Chains to release'
         required: true
-        type: array
+        type: string
       version:
         description: 'Package Version'
         required: true
@@ -27,10 +27,21 @@ jobs:
       dependsOn: Core
     secrets: inherit
   
+  Parse_chains:
+    name: Parse Chains
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{steps.chains.outputs.chainArray}}
+    steps:
+      - name: Parse Chains to a variable
+        id: chains
+        shell: bash
+        run: echo "chainArray=${{ inputs.chains }}" >> $GITHUB_OUTPUT
+  
   Pack_RC:
     strategy:
       matrix:
-        chain: ${{ inputs.chains }}
+        chain: ${{ needs.Parse_chains.outputs.chainArray }}
     name: ${{ matrix.chain }} - Pack
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
@@ -38,4 +49,4 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: ${{ inputs.dependency }}
     secrets: inherit
-    needs: [Dependency_Pack_RC]
+    needs: [Parse_chains, Dependency_Pack_RC]
