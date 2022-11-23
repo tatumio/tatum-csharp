@@ -11,7 +11,7 @@ on:
       chains:
         description: 'Chains to release'
         required: true
-        type: string
+        type: array
       version:
         description: 'Package Version'
         required: true
