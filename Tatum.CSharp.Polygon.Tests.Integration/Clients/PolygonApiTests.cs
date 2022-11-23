@@ -261,7 +261,7 @@ public class PolygonApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnTransactionHash_WhenCalledOnWithValidPayload()
     {
-        const string contractAddress = "0xf659eb344f8226331a7c85778c4d02847e120d96";
+        const string contractAddress = "0x87dcbd8e3eae528b50ddb1e94c85f16b30940a62";
         
         var callSmartContractMethod = new CallPolygonSmartContractMethod(
             contractAddress,
@@ -303,9 +303,9 @@ public class PolygonApiTests : IAsyncDisposable
             },
             new List<string>
             {
-                "0x811dfbff13adfbc3cf653dcc373c03616d3471c9",
-                "0x8c76887d2e738371bd750362fb55887343472346", 
-                "1"
+                "0xda54cb99712957c10b9f73279c2e84af4ff45ff0",
+                "0x409eb7cafdec6aa83a8221b3af227e67841c1c0d", 
+                "100"
             },
             _testData.StoragePrivKey,
             0,
@@ -322,7 +322,7 @@ public class PolygonApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBlockchainSmartContractInvocation_ShouldReturnData_WhenCalledOnWithValidPayload()
     {
-        const string contractAddress = "0x485eac12e9dcf596358a2708437bfbf42040544c";
+        const string contractAddress = "0x87dcbd8e3eae528b50ddb1e94c85f16b30940a62";
         
         var callReadSmartContractMethod = new CallPolygonSmartContractReadMethod(
             contractAddress,
@@ -417,7 +417,10 @@ public class PolygonApiTests : IAsyncDisposable
                 {
                     var tx = await _polygonApi.PolygonBlockchain.PolygonGetTransactionAsync(hash,
                         cancellationToken: cts.Token);
-                    if (tx.Status)
+                    if (tx.Status || tx.BlockNumber != null)
+                    {
+                        break;
+                    }
                     {
                         await Task.Delay(1000, cts.Token);
                         break;
