@@ -51,7 +51,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="cumulativeGasUsed">The total amount of gas used when this transaction was executed in the block..</param>
         /// <param name="contractAddress">The contract address created, if the transaction was a contract creation, otherwise null..</param>
         /// <param name="logs">Log events, that happened in this transaction..</param>
-        public PolygonTx(string blockHash = default(string), bool status = default(bool), decimal blockNumber = default(decimal), string from = default(string), decimal gas = default(decimal), string gasPrice = default(string), string transactionHash = default(string), string input = default(string), decimal nonce = default(decimal), string to = default(string), decimal transactionIndex = default(decimal), string value = default(string), decimal gasUsed = default(decimal), decimal cumulativeGasUsed = default(decimal), string contractAddress = default(string), List<PolygonTxLog> logs = default(List<PolygonTxLog>))
+        public PolygonTx(string blockHash = default(string), bool status = default(bool), decimal? blockNumber = default(decimal?), string from = default(string), decimal gas = default(decimal), string gasPrice = default(string), string transactionHash = default(string), string input = default(string), decimal nonce = default(decimal), string to = default(string), decimal? transactionIndex = default(decimal?), string value = default(string), decimal? gasUsed = default(decimal?), decimal? cumulativeGasUsed = default(decimal?), string contractAddress = default(string), List<PolygonTxLog> logs = default(List<PolygonTxLog>))
         {
             this.BlockHash = blockHash;
             this.Status = status;
@@ -89,8 +89,8 @@ namespace Tatum.CSharp.Core.Model
         /// Block number where this transaction was in.
         /// </summary>
         /// <value>Block number where this transaction was in.</value>
-        [DataMember(Name = "blockNumber", EmitDefaultValue = false)]
-        public decimal BlockNumber { get; set; }
+        [DataMember(Name = "blockNumber", EmitDefaultValue = true)]
+        public decimal? BlockNumber { get; set; }
 
         /// <summary>
         /// Address of the sender.
@@ -145,8 +145,8 @@ namespace Tatum.CSharp.Core.Model
         /// Integer of the transactions index position in the block.
         /// </summary>
         /// <value>Integer of the transactions index position in the block.</value>
-        [DataMember(Name = "transactionIndex", EmitDefaultValue = false)]
-        public decimal TransactionIndex { get; set; }
+        [DataMember(Name = "transactionIndex", EmitDefaultValue = true)]
+        public decimal? TransactionIndex { get; set; }
 
         /// <summary>
         /// Value transferred in wei.
@@ -159,15 +159,15 @@ namespace Tatum.CSharp.Core.Model
         /// The amount of gas used by this specific transaction alone.
         /// </summary>
         /// <value>The amount of gas used by this specific transaction alone.</value>
-        [DataMember(Name = "gasUsed", EmitDefaultValue = false)]
-        public decimal GasUsed { get; set; }
+        [DataMember(Name = "gasUsed", EmitDefaultValue = true)]
+        public decimal? GasUsed { get; set; }
 
         /// <summary>
         /// The total amount of gas used when this transaction was executed in the block.
         /// </summary>
         /// <value>The total amount of gas used when this transaction was executed in the block.</value>
-        [DataMember(Name = "cumulativeGasUsed", EmitDefaultValue = false)]
-        public decimal CumulativeGasUsed { get; set; }
+        [DataMember(Name = "cumulativeGasUsed", EmitDefaultValue = true)]
+        public decimal? CumulativeGasUsed { get; set; }
 
         /// <summary>
         /// The contract address created, if the transaction was a contract creation, otherwise null.
@@ -253,7 +253,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.BlockNumber == input.BlockNumber ||
-                    this.BlockNumber.Equals(input.BlockNumber)
+                    (this.BlockNumber != null &&
+                    this.BlockNumber.Equals(input.BlockNumber))
                 ) && 
                 (
                     this.From == input.From ||
@@ -290,7 +291,8 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.TransactionIndex == input.TransactionIndex ||
-                    this.TransactionIndex.Equals(input.TransactionIndex)
+                    (this.TransactionIndex != null &&
+                    this.TransactionIndex.Equals(input.TransactionIndex))
                 ) && 
                 (
                     this.Value == input.Value ||
@@ -299,11 +301,13 @@ namespace Tatum.CSharp.Core.Model
                 ) && 
                 (
                     this.GasUsed == input.GasUsed ||
-                    this.GasUsed.Equals(input.GasUsed)
+                    (this.GasUsed != null &&
+                    this.GasUsed.Equals(input.GasUsed))
                 ) && 
                 (
                     this.CumulativeGasUsed == input.CumulativeGasUsed ||
-                    this.CumulativeGasUsed.Equals(input.CumulativeGasUsed)
+                    (this.CumulativeGasUsed != null &&
+                    this.CumulativeGasUsed.Equals(input.CumulativeGasUsed))
                 ) && 
                 (
                     this.ContractAddress == input.ContractAddress ||
@@ -332,7 +336,10 @@ namespace Tatum.CSharp.Core.Model
                     hashCode = (hashCode * 59) + this.BlockHash.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.Status.GetHashCode();
-                hashCode = (hashCode * 59) + this.BlockNumber.GetHashCode();
+                if (this.BlockNumber != null)
+                {
+                    hashCode = (hashCode * 59) + this.BlockNumber.GetHashCode();
+                }
                 if (this.From != null)
                 {
                     hashCode = (hashCode * 59) + this.From.GetHashCode();
@@ -355,13 +362,22 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TransactionIndex.GetHashCode();
+                if (this.TransactionIndex != null)
+                {
+                    hashCode = (hashCode * 59) + this.TransactionIndex.GetHashCode();
+                }
                 if (this.Value != null)
                 {
                     hashCode = (hashCode * 59) + this.Value.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.GasUsed.GetHashCode();
-                hashCode = (hashCode * 59) + this.CumulativeGasUsed.GetHashCode();
+                if (this.GasUsed != null)
+                {
+                    hashCode = (hashCode * 59) + this.GasUsed.GetHashCode();
+                }
+                if (this.CumulativeGasUsed != null)
+                {
+                    hashCode = (hashCode * 59) + this.CumulativeGasUsed.GetHashCode();
+                }
                 if (this.ContractAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
