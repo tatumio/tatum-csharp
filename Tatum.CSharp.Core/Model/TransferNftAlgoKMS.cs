@@ -67,7 +67,8 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="contractAddress">AssetID of token. (required).</param>
         /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        public TransferNftAlgoKMS(ChainEnum chain = default(ChainEnum), string from = default(string), string to = default(string), string contractAddress = default(string), Guid signatureId = default(Guid))
+        /// <param name="amount">The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt; (default to 1M).</param>
+        public TransferNftAlgoKMS(ChainEnum chain = default(ChainEnum), string from = default(string), string to = default(string), string contractAddress = default(string), Guid signatureId = default(Guid), decimal amount = 1M)
         {
             this.Chain = chain;
             // to ensure "from" is required (not null)
@@ -89,6 +90,7 @@ namespace Tatum.CSharp.Core.Model
             }
             this.ContractAddress = contractAddress;
             this.SignatureId = signatureId;
+            this.Amount = amount;
         }
 
         /// <summary>
@@ -120,6 +122,13 @@ namespace Tatum.CSharp.Core.Model
         public Guid SignatureId { get; set; }
 
         /// <summary>
+        /// The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
+        /// </summary>
+        /// <value>The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
+        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        public decimal Amount { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -132,6 +141,7 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("  To: ").Append(To).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -190,6 +200,10 @@ namespace Tatum.CSharp.Core.Model
                     this.SignatureId == input.SignatureId ||
                     (this.SignatureId != null &&
                     this.SignatureId.Equals(input.SignatureId))
+                ) && 
+                (
+                    this.Amount == input.Amount ||
+                    this.Amount.Equals(input.Amount)
                 );
         }
 
@@ -219,6 +233,7 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 return hashCode;
             }
         }
@@ -258,6 +273,12 @@ namespace Tatum.CSharp.Core.Model
             if (this.ContractAddress != null && this.ContractAddress.Length > 256)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 256.", new [] { "ContractAddress" });
+            }
+
+            // Amount (decimal) minimum
+            if (this.Amount < (decimal)0)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must be a value greater than or equal to 0.", new [] { "Amount" });
             }
 
             yield break;

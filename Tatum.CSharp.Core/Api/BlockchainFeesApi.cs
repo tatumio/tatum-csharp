@@ -28,6 +28,16 @@ namespace Tatum.CSharp.Core.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object BscEstimateGas(BscEstimateGas bscEstimateGas);
+        /// <summary>
         /// Estimate Ethereum transaction fees
         /// </summary>
         /// <remarks>
@@ -69,6 +79,16 @@ namespace Tatum.CSharp.Core.Api
     {
         #region Synchronous Operations With Http Info
         /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas);
+        /// <summary>
         /// Estimate Ethereum transaction fees
         /// </summary>
         /// <remarks>
@@ -109,6 +129,17 @@ namespace Tatum.CSharp.Core.Api
     public interface IBlockchainFeesApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Estimate Ethereum transaction fees
         /// </summary>
@@ -153,6 +184,17 @@ namespace Tatum.CSharp.Core.Api
     public interface IBlockchainFeesApiWithHttpInfoAsync : IApiAccessor
     {
         #region Asynchronous Operations With Http Info
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Estimate Ethereum transaction fees
         /// </summary>
@@ -336,6 +378,130 @@ namespace Tatum.CSharp.Core.Api
                 return _exceptionFactory;
             }
             set => _exceptionFactory = value;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object BscEstimateGas(BscEstimateGas bscEstimateGas)
+        {
+            var localVarResponse = BscEstimateGasWithHttpInfo(bscEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("BscEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas)
+        {
+            // verify the required parameter 'bscEstimateGas' is set
+            if (bscEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'bscEstimateGas' when calling BlockchainFeesApi->BscEstimateGas");
+
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = bscEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/bsc/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await BscEstimateGasWithHttpInfoAsync(bscEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("BscEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'bscEstimateGas' is set
+            if (bscEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'bscEstimateGas' when calling BlockchainFeesApi->BscEstimateGas");
+
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = bscEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/bsc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
         }
 
         /// <summary>

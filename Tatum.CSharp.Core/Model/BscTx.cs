@@ -27,13 +27,13 @@ using OpenAPIDateConverter = Tatum.CSharp.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Core.Model
 {
     /// <summary>
-    /// PolygonTx
+    /// BscTx
     /// </summary>
-    [DataContract(Name = "PolygonTx")]
-    public partial class PolygonTx : IEquatable<PolygonTx>, IValidatableObject
+    [DataContract(Name = "BscTx")]
+    public partial class BscTx : IEquatable<BscTx>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonTx" /> class.
+        /// Initializes a new instance of the <see cref="BscTx" /> class.
         /// </summary>
         /// <param name="blockHash">Hash of the block where this transaction was in..</param>
         /// <param name="status">TRUE if the transaction was successful, FALSE, if the EVM reverted the transaction..</param>
@@ -51,7 +51,7 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="cumulativeGasUsed">The total amount of gas used when this transaction was executed in the block; if not returned, the transaction has not been included in a block yet..</param>
         /// <param name="contractAddress">The contract address created, if the transaction was a contract creation, otherwise null..</param>
         /// <param name="logs">Log events, that happened in this transaction..</param>
-        public PolygonTx(string blockHash = default(string), bool status = default(bool), decimal? blockNumber = default(decimal?), string from = default(string), decimal gas = default(decimal), string gasPrice = default(string), string transactionHash = default(string), string input = default(string), decimal nonce = default(decimal), string to = default(string), decimal? transactionIndex = default(decimal?), string value = default(string), decimal? gasUsed = default(decimal?), decimal? cumulativeGasUsed = default(decimal?), string contractAddress = default(string), List<PolygonTxLog> logs = default(List<PolygonTxLog>))
+        public BscTx(string blockHash = default(string), bool status = default(bool), decimal? blockNumber = default(decimal?), string from = default(string), decimal gas = default(decimal), string gasPrice = default(string), string transactionHash = default(string), string input = default(string), decimal nonce = default(decimal), string to = default(string), decimal? transactionIndex = default(decimal?), string value = default(string), decimal? gasUsed = default(decimal?), decimal? cumulativeGasUsed = default(decimal?), string contractAddress = default(string), List<BscTxLog> logs = default(List<BscTxLog>))
         {
             this.BlockHash = blockHash;
             this.Status = status;
@@ -181,7 +181,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <value>Log events, that happened in this transaction.</value>
         [DataMember(Name = "logs", EmitDefaultValue = false)]
-        public List<PolygonTxLog> Logs { get; set; }
+        public List<BscTxLog> Logs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -190,7 +190,7 @@ namespace Tatum.CSharp.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class PolygonTx {\n");
+            sb.Append("class BscTx {\n");
             sb.Append("  BlockHash: ").Append(BlockHash).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  BlockNumber: ").Append(BlockNumber).Append("\n");
@@ -227,15 +227,15 @@ namespace Tatum.CSharp.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as PolygonTx);
+            return this.Equals(input as BscTx);
         }
 
         /// <summary>
-        /// Returns true if PolygonTx instances are equal
+        /// Returns true if BscTx instances are equal
         /// </summary>
-        /// <param name="input">Instance of PolygonTx to be compared</param>
+        /// <param name="input">Instance of BscTx to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(PolygonTx input)
+        public bool Equals(BscTx input)
         {
             if (input == null)
             {
