@@ -8,10 +8,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
-using Nethereum.Web3.Accounts;
 using Tatum.CSharp.Bsc.Clients;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
@@ -19,7 +16,6 @@ using Tatum.CSharp.Bsc.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
 namespace Tatum.CSharp.Bsc.Tests.Integration.Clients;
 
