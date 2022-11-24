@@ -32,18 +32,37 @@ jobs:
     secrets: inherit
     needs: Build_Version
   
-  Release_Chains:
+  Release_L1_Chains:
     strategy:
       matrix:
         arrays: [
-          { dependency: "Evm.Local", chains: "[Ethereum, Polygon, Nft]" },
-          { dependency: "Bitcoin.Local", chains: "[Bitcoin]" },
+          { "chain": "Evm.Local", "dependsOn": "Core" },
+          { "chain": "Bitcoin.Local", "dependsOn": "Core" }
         ]
-    name: ${{ matrix.arrays.chains }} - Deploy Chain Dev Packages
-    uses: ./.github/workflows/developReleaseSingleChain.yml
+    name: ${{ matrix.chain }} - Deploy Chain Dev Packages
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
-      dependency: ${{ matrix.arrays.dependency }}
-      chains: ${{ matrix.arrays.chains }}
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      chain: ${{ matrix.arrays.chain }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [ Build_Version, Core_Pack_RC ]
+  
+  Release_L2_Chains:
+    strategy:
+      matrix:
+        arrays: [
+          { "chain": "Evm", "dependsOn": "Evm.Local" },
+          { "chain": "Polygon", "dependsOn": "Evm.Local" },
+          { "chain": "Nft", "dependsOn": "Evm.Local" },
+          { "chain": "BSC", "dependsOn": "Evm.Local" },
+          { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" },
+        ]
+    name: ${{ matrix.arrays.chain }} - Deploy Chain Dev Packages
+    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
+    with:
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      chain: ${{ matrix.arrays.chain }}
+      version: ${{ needs.Build_Version.outputs.version }}
+    secrets: inherit
+    needs: [ Build_Version, Release_L2_Chains ]
