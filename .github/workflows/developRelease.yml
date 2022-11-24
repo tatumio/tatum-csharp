@@ -65,4 +65,4 @@ jobs:
       chain: ${{ matrix.arrays.chain }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
-    needs: [ Build_Version, Release_L2_Chains ]
+    needs: [ Build_Version, Release_L1_Chains ]
