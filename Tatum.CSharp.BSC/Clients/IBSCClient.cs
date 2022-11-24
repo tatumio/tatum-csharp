@@ -4,27 +4,27 @@ using Tatum.CSharp.Evm.Local;
 
 namespace Tatum.CSharp.Bsc.Clients
 {
-    public interface IBSCClient
+    public interface IBscClient
     {
         /// <summary>
-        /// Client wrapping all operations related directly to the BSC blockchain.
+        /// Client wrapping all operations related directly to the Bsc blockchain.
         /// </summary>
-        IBNBSmartChainApiAsync BSCBlockchain { get; }
+        IBNBSmartChainApiAsync BscBlockchain { get; }
         
         /// <summary>
-        /// Client wrapping all operations related directly to the BSC blockchain with full <see cref="ApiResponse{T}"/> return types.
+        /// Client wrapping all operations related directly to the Bsc blockchain with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        IBNBSmartChainApiWithHttpInfoAsync BSCBlockchainWithHttpInfo { get; }
+        IBNBSmartChainApiWithHttpInfoAsync BscBlockchainWithHttpInfo { get; }
         
         /// <summary>
-        /// Client wrapping all operations related to the BSC NFTs.
+        /// Client wrapping all operations related to the Bsc NFTs.
         /// </summary>
-        INFTBscApiAsync BSCNft { get; }
+        INFTBscApiAsync BscNft { get; }
         
         /// <summary>
-        /// Client wrapping all operations related to the BSC NFTs with full <see cref="ApiResponse{T}"/> return types.
+        /// Client wrapping all operations related to the Bsc NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        INFTBscApiWithHttpInfoAsync BSCNftWithHttpInfo { get; }
+        INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }

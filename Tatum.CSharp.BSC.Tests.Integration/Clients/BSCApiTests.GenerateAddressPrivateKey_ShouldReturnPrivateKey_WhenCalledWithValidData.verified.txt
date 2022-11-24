@@ -1,3 +1,0 @@
-﻿{
-  key: 0x60777ea8c3dd031cb6515fc3cfd5dd627749ff9623db51c56f5ef13db52ebc02
-}
