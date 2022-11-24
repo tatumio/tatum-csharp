@@ -32,14 +32,14 @@ jobs:
     secrets: inherit
     needs: Build_Version
   
-  Release_L1_Chains:
+  Release_L1_Packages:
     strategy:
       matrix:
         arrays: [
           { "chain": "Evm.Local", "dependsOn": "Core" },
           { "chain": "Bitcoin.Local", "dependsOn": "Core" }
         ]
-    name: ${{ matrix.chain }} - Deploy Chain Dev Packages
+    name: ${{ matrix.arrays.chain }} - Deploy Dev Packages
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}
@@ -48,7 +48,7 @@ jobs:
     secrets: inherit
     needs: [ Build_Version, Core_Pack_RC ]
   
-  Release_L2_Chains:
+  Release_L2_Packages:
     strategy:
       matrix:
         arrays: [
@@ -58,11 +58,11 @@ jobs:
           { "chain": "BSC", "dependsOn": "Evm.Local" },
           { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" },
         ]
-    name: ${{ matrix.arrays.chain }} - Deploy Chain Dev Packages
+    name: ${{ matrix.arrays.chain }} - Deploy Dev Packages
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}
       name: ${{ matrix.arrays.chain }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
-    needs: [ Build_Version, Release_L1_Chains ]
+    needs: [ Build_Version, Release_L1_Packages ]
