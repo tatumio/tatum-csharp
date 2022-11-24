@@ -26,9 +26,8 @@ jobs:
       version: ${{ inputs.version }}
       dependsOn: ${{ inputs.dependsOn }}
     secrets: inherit
-    needs: Nuget_Wait_Dependency
 
-  Nuget_Wait_Release:
+  Nuget_Wait:
     name: ${{ inputs.chain }} - Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
