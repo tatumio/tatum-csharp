@@ -43,7 +43,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}
-      chain: ${{ matrix.arrays.chain }}
+      name: ${{ matrix.arrays.chain }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [ Build_Version, Core_Pack_RC ]
@@ -62,7 +62,7 @@ jobs:
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}
-      chain: ${{ matrix.arrays.chain }}
+      name: ${{ matrix.arrays.chain }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: [ Build_Version, Release_L1_Chains ]
