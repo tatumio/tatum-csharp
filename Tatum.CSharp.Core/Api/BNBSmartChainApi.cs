@@ -35,8 +35,8 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
-        /// <returns>TransactionHash</returns>
-        TransactionHash BscBlockchainSmartContractInvocation(CallBscSmartContractReadMethod callBscSmartContractReadMethod);
+        /// <returns>Data</returns>
+        Data BscBlockchainSmartContractInvocation(CallBscSmartContractReadMethod callBscSmartContractReadMethod);
         /// <summary>
         /// Invoke a method in a smart contract on BNB Smart Chain
         /// </summary>
@@ -184,8 +184,8 @@ namespace Tatum.CSharp.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
-        /// <returns>ApiResponse of TransactionHash</returns>
-        ApiResponse<TransactionHash> BscBlockchainSmartContractInvocationWithHttpInfo(CallBscSmartContractReadMethod callBscSmartContractReadMethod);
+        /// <returns>ApiResponse of Data</returns>
+        ApiResponse<Data> BscBlockchainSmartContractInvocationWithHttpInfo(CallBscSmartContractReadMethod callBscSmartContractReadMethod);
         /// <summary>
         /// Invoke a method in a smart contract on BNB Smart Chain
         /// </summary>
@@ -334,8 +334,8 @@ namespace Tatum.CSharp.Core.Api
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of TransactionHash</returns>
-        System.Threading.Tasks.Task<TransactionHash> BscBlockchainSmartContractInvocationAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of Data</returns>
+        System.Threading.Tasks.Task<Data> BscBlockchainSmartContractInvocationAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Invoke a method in a smart contract on BNB Smart Chain
         /// </summary>
@@ -497,8 +497,8 @@ namespace Tatum.CSharp.Core.Api
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (TransactionHash)</returns>
-        System.Threading.Tasks.Task<ApiResponse<TransactionHash>> BscBlockchainSmartContractInvocationWithHttpInfoAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (Data)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Data>> BscBlockchainSmartContractInvocationWithHttpInfoAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Invoke a method in a smart contract on BNB Smart Chain
         /// </summary>
@@ -797,8 +797,8 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
-        /// <returns>TransactionHash</returns>
-        public TransactionHash BscBlockchainSmartContractInvocation(CallBscSmartContractReadMethod callBscSmartContractReadMethod)
+        /// <returns>Data</returns>
+        public Data BscBlockchainSmartContractInvocation(CallBscSmartContractReadMethod callBscSmartContractReadMethod)
         {
             var localVarResponse = BscBlockchainSmartContractInvocationWithHttpInfo(callBscSmartContractReadMethod);
 
@@ -813,8 +813,8 @@ namespace Tatum.CSharp.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
-        /// <returns>ApiResponse of TransactionHash</returns>
-        public ApiResponse<TransactionHash> BscBlockchainSmartContractInvocationWithHttpInfo(CallBscSmartContractReadMethod callBscSmartContractReadMethod)
+        /// <returns>ApiResponse of Data</returns>
+        public ApiResponse<Data> BscBlockchainSmartContractInvocationWithHttpInfo(CallBscSmartContractReadMethod callBscSmartContractReadMethod)
         {
             // verify the required parameter 'callBscSmartContractReadMethod' is set
             if (callBscSmartContractReadMethod == null)
@@ -847,7 +847,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Post<TransactionHash>("/v3/bsc/smartcontract", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Post<Data>("/v3/bsc/smartcontract", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -858,8 +858,8 @@ namespace Tatum.CSharp.Core.Api
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of TransactionHash</returns>
-        public async System.Threading.Tasks.Task<TransactionHash> BscBlockchainSmartContractInvocationAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of Data</returns>
+        public async System.Threading.Tasks.Task<Data> BscBlockchainSmartContractInvocationAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var localVarResponse = await BscBlockchainSmartContractInvocationWithHttpInfoAsync(callBscSmartContractReadMethod, cancellationToken).ConfigureAwait(false);
             
@@ -875,8 +875,8 @@ namespace Tatum.CSharp.Core.Api
         /// <exception cref="Tatum.CSharp.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="callBscSmartContractReadMethod"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (TransactionHash)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<TransactionHash>> BscBlockchainSmartContractInvocationWithHttpInfoAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (Data)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Data>> BscBlockchainSmartContractInvocationWithHttpInfoAsync(CallBscSmartContractReadMethod callBscSmartContractReadMethod, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'callBscSmartContractReadMethod' is set
             if (callBscSmartContractReadMethod == null)
@@ -911,7 +911,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.PostAsync<TransactionHash>("/v3/bsc/smartcontract", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.PostAsync<Data>("/v3/bsc/smartcontract", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
