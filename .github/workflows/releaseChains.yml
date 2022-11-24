@@ -31,14 +31,12 @@ jobs:
     secrets: inherit
     needs: Core_Release
     
-  Release_Chains:
+  Release_L1_Packages:
     strategy:
       matrix:
         arrays: [
-          { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
-          { chain: "Polygon", dependsOn: "Evm.Local" }
+          { chain: "Evm.Local", dependsOn: "Core" },
+          { chain: "Bitcoin.Local", dependsOn: "Core" }
         ]
     name: ${{ matrix.arrays.chain }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml
@@ -48,6 +46,25 @@ jobs:
       version: ${{ inputs.version }}
     secrets: inherit
     needs: Nuget_Wait_Core
+  
+  Release_L2_Packages:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Ethereum", dependsOn: "Evm.Local" },
+          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
+          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Polygon", dependsOn: "Evm.Local" },
+          { chain: "Bsc", dependsOn: "Evm.Local" }
+        ]
+    name: ${{ matrix.arrays.chain }} - Release
+    uses: ./.github/workflows/releaseSingleChain.yml
+    with:
+      chain: ${{ matrix.arrays.chain }}
+      dependsOn: ${{ matrix.arrays.dependsOn }}
+      version: ${{ inputs.version }}
+    secrets: inherit
+    needs: Release_L1_Packages
   
   Post_Release_Tests:
     name: Dispatch Post Release Tests

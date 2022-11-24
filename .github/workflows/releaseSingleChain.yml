@@ -18,24 +18,6 @@ on:
         type: string
 
 jobs:
-  Dependency_Release:
-    name: ${{ inputs.dependsOn }} - Release Local
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: ${{ inputs.dependsOn }}
-      version: ${{ inputs.version }}
-      dependsOn: Core
-    secrets: inherit
-
-  Nuget_Wait_Dependency:
-    name: ${{ inputs.dependsOn }} - Nuget package wait
-    uses: ./.github/workflows/waitForNuget.yml
-    with:
-      name: ${{ inputs.dependsOn }}
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: Dependency_Release
-  
   Release:
     name: ${{ inputs.chain }} - Release
     uses: ./.github/workflows/releaseNugetPackage.yml

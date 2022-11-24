@@ -19,6 +19,12 @@ namespace Tatum.CSharp.Nft.Clients
         
         /// <inheritdoc />
         public INFTMaticApiWithHttpInfoAsync PolygonNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public INFTBscApiAsync BscNft { get; }
+        
+        /// <inheritdoc />
+        public INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -74,6 +80,13 @@ namespace Tatum.CSharp.Nft.Clients
             
             PolygonNft = polygonNftApi;
             PolygonNftWithHttpInfo = polygonNftApi;
+            
+            var bscNftApi = new NFTBscApi(httpClient);
+            
+            bscNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BscNft = bscNftApi;
+            BscNftWithHttpInfo = bscNftApi;
 
             Local = new EvmLocalService(isTestNet);
         }

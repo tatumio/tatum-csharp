@@ -65,9 +65,8 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="chain">The blockchain to work with (required).</param>
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="contractAddress">AssetID of token. (required).</param>
-        /// <param name="amount">The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be minted. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt; (default to 1M).</param>
-        /// <param name="decimals">The decimal places of the NFT to transfer. Defaults to 0 - which means regular NFT will be transfered. Value above 0 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt; (default to 0M).</param>
-        public TransferNftAlgoExpress(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), decimal amount = 1M, decimal decimals = 0M)
+        /// <param name="amount">The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt; (default to 1M).</param>
+        public TransferNftAlgoExpress(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), decimal amount = 1M)
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -83,7 +82,6 @@ namespace Tatum.CSharp.Core.Model
             }
             this.ContractAddress = contractAddress;
             this.Amount = amount;
-            this.Decimals = decimals;
         }
 
         /// <summary>
@@ -101,18 +99,11 @@ namespace Tatum.CSharp.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be minted. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
+        /// The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
         /// </summary>
-        /// <value>The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be minted. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
+        /// <value>The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transfered. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
         public decimal Amount { get; set; }
-
-        /// <summary>
-        /// The decimal places of the NFT to transfer. Defaults to 0 - which means regular NFT will be transfered. Value above 0 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
-        /// </summary>
-        /// <value>The decimal places of the NFT to transfer. Defaults to 0 - which means regular NFT will be transfered. Value above 0 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
-        [DataMember(Name = "decimals", EmitDefaultValue = false)]
-        public decimal Decimals { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -126,7 +117,6 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("  To: ").Append(To).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  Amount: ").Append(Amount).Append("\n");
-            sb.Append("  Decimals: ").Append(Decimals).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -179,10 +169,6 @@ namespace Tatum.CSharp.Core.Model
                 (
                     this.Amount == input.Amount ||
                     this.Amount.Equals(input.Amount)
-                ) && 
-                (
-                    this.Decimals == input.Decimals ||
-                    this.Decimals.Equals(input.Decimals)
                 );
         }
 
@@ -205,7 +191,6 @@ namespace Tatum.CSharp.Core.Model
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.Amount.GetHashCode();
-                hashCode = (hashCode * 59) + this.Decimals.GetHashCode();
                 return hashCode;
             }
         }
@@ -239,12 +224,6 @@ namespace Tatum.CSharp.Core.Model
             if (this.Amount < (decimal)0)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must be a value greater than or equal to 0.", new [] { "Amount" });
-            }
-
-            // Decimals (decimal) minimum
-            if (this.Decimals < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Decimals, must be a value greater than or equal to 0.", new [] { "Decimals" });
             }
 
             yield break;

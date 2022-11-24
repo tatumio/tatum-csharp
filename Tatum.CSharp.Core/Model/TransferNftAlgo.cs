@@ -66,7 +66,8 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="to">Blockchain address to send NFT token to (required).</param>
         /// <param name="contractAddress">AssetID of token. (required).</param>
         /// <param name="fromPrivateKey">Private key of sender address. (required).</param>
-        public TransferNftAlgo(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string fromPrivateKey = default(string))
+        /// <param name="amount">The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transferred. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt; (default to 1M).</param>
+        public TransferNftAlgo(ChainEnum chain = default(ChainEnum), string to = default(string), string contractAddress = default(string), string fromPrivateKey = default(string), decimal amount = 1M)
         {
             this.Chain = chain;
             // to ensure "to" is required (not null)
@@ -87,6 +88,7 @@ namespace Tatum.CSharp.Core.Model
                 throw new ArgumentNullException("fromPrivateKey is a required property for TransferNftAlgo and cannot be null");
             }
             this.FromPrivateKey = fromPrivateKey;
+            this.Amount = amount;
         }
 
         /// <summary>
@@ -111,6 +113,13 @@ namespace Tatum.CSharp.Core.Model
         public string FromPrivateKey { get; set; }
 
         /// <summary>
+        /// The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transferred. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
+        /// </summary>
+        /// <value>The total amount of the NFTs to transfer. Defaults to 1 - which means 1 NFT will be transferred. Value above 1 means, you are going to transfer &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
+        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        public decimal Amount { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -122,6 +131,7 @@ namespace Tatum.CSharp.Core.Model
             sb.Append("  To: ").Append(To).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  FromPrivateKey: ").Append(FromPrivateKey).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -175,6 +185,10 @@ namespace Tatum.CSharp.Core.Model
                     this.FromPrivateKey == input.FromPrivateKey ||
                     (this.FromPrivateKey != null &&
                     this.FromPrivateKey.Equals(input.FromPrivateKey))
+                ) && 
+                (
+                    this.Amount == input.Amount ||
+                    this.Amount.Equals(input.Amount)
                 );
         }
 
@@ -200,6 +214,7 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.FromPrivateKey.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 return hashCode;
             }
         }
@@ -239,6 +254,12 @@ namespace Tatum.CSharp.Core.Model
             if (this.FromPrivateKey != null && this.FromPrivateKey.Length < 106)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for FromPrivateKey, length must be greater than 106.", new [] { "FromPrivateKey" });
+            }
+
+            // Amount (decimal) minimum
+            if (this.Amount < (decimal)1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must be a value greater than or equal to 1.", new [] { "Amount" });
             }
 
             yield break;

@@ -37,7 +37,7 @@ namespace Tatum.CSharp.Core.Model
         /// </summary>
         /// <param name="blockHash">Hash of the block where this transaction was in..</param>
         /// <param name="status">TRUE if the transaction was successful, FALSE, if the EVM reverted the transaction..</param>
-        /// <param name="blockNumber">Block number where this transaction was in..</param>
+        /// <param name="blockNumber">The number of the block that the transaction is included in; if not returned, the transaction has not been included in a block yet..</param>
         /// <param name="from">Address of the sender..</param>
         /// <param name="gas">Gas provided by the sender..</param>
         /// <param name="gasPrice">Gas price provided by the sender in wei..</param>
@@ -45,10 +45,10 @@ namespace Tatum.CSharp.Core.Model
         /// <param name="input">The data sent along with the transaction..</param>
         /// <param name="nonce">The number of transactions made by the sender prior to this one..</param>
         /// <param name="to">Address of the receiver. &#39;null&#39; when its a contract creation transaction..</param>
-        /// <param name="transactionIndex">Integer of the transactions index position in the block..</param>
+        /// <param name="transactionIndex">The integer of the transactions index position in the block; if not returned, the transaction has not been included in a block yet..</param>
         /// <param name="value">Value transferred in wei..</param>
-        /// <param name="gasUsed">The amount of gas used by this specific transaction alone..</param>
-        /// <param name="cumulativeGasUsed">The total amount of gas used when this transaction was executed in the block..</param>
+        /// <param name="gasUsed">The amount of gas used by this specific transaction alone; if not returned, the transaction has not been included in a block yet..</param>
+        /// <param name="cumulativeGasUsed">The total amount of gas used when this transaction was executed in the block; if not returned, the transaction has not been included in a block yet..</param>
         /// <param name="contractAddress">The contract address created, if the transaction was a contract creation, otherwise null..</param>
         /// <param name="logs">Log events, that happened in this transaction..</param>
         public PolygonTx(string blockHash = default(string), bool status = default(bool), decimal? blockNumber = default(decimal?), string from = default(string), decimal gas = default(decimal), string gasPrice = default(string), string transactionHash = default(string), string input = default(string), decimal nonce = default(decimal), string to = default(string), decimal? transactionIndex = default(decimal?), string value = default(string), decimal? gasUsed = default(decimal?), decimal? cumulativeGasUsed = default(decimal?), string contractAddress = default(string), List<PolygonTxLog> logs = default(List<PolygonTxLog>))
@@ -86,9 +86,9 @@ namespace Tatum.CSharp.Core.Model
         public bool Status { get; set; }
 
         /// <summary>
-        /// Block number where this transaction was in.
+        /// The number of the block that the transaction is included in; if not returned, the transaction has not been included in a block yet.
         /// </summary>
-        /// <value>Block number where this transaction was in.</value>
+        /// <value>The number of the block that the transaction is included in; if not returned, the transaction has not been included in a block yet.</value>
         [DataMember(Name = "blockNumber", EmitDefaultValue = true)]
         public decimal? BlockNumber { get; set; }
 
@@ -142,9 +142,9 @@ namespace Tatum.CSharp.Core.Model
         public string To { get; set; }
 
         /// <summary>
-        /// Integer of the transactions index position in the block.
+        /// The integer of the transactions index position in the block; if not returned, the transaction has not been included in a block yet.
         /// </summary>
-        /// <value>Integer of the transactions index position in the block.</value>
+        /// <value>The integer of the transactions index position in the block; if not returned, the transaction has not been included in a block yet.</value>
         [DataMember(Name = "transactionIndex", EmitDefaultValue = true)]
         public decimal? TransactionIndex { get; set; }
 
@@ -156,16 +156,16 @@ namespace Tatum.CSharp.Core.Model
         public string Value { get; set; }
 
         /// <summary>
-        /// The amount of gas used by this specific transaction alone.
+        /// The amount of gas used by this specific transaction alone; if not returned, the transaction has not been included in a block yet.
         /// </summary>
-        /// <value>The amount of gas used by this specific transaction alone.</value>
+        /// <value>The amount of gas used by this specific transaction alone; if not returned, the transaction has not been included in a block yet.</value>
         [DataMember(Name = "gasUsed", EmitDefaultValue = true)]
         public decimal? GasUsed { get; set; }
 
         /// <summary>
-        /// The total amount of gas used when this transaction was executed in the block.
+        /// The total amount of gas used when this transaction was executed in the block; if not returned, the transaction has not been included in a block yet.
         /// </summary>
-        /// <value>The total amount of gas used when this transaction was executed in the block.</value>
+        /// <value>The total amount of gas used when this transaction was executed in the block; if not returned, the transaction has not been included in a block yet.</value>
         [DataMember(Name = "cumulativeGasUsed", EmitDefaultValue = true)]
         public decimal? CumulativeGasUsed { get; set; }
 
