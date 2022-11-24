@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tatum.CSharp.Bitcoin.Clients;
+using Tatum.CSharp.Bsc.Clients;
 using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
 using Tatum.CSharp.Polygon.Clients;
@@ -27,6 +28,9 @@ builder.Services
 
 builder.Services
     .AddHttpClient<IPolygonClient, PolygonClient>(httpClient => new PolygonClient(httpClient, apiKey));
+
+builder.Services
+    .AddHttpClient<IBscClient, BscClient>(httpClient => new BscClient(httpClient, apiKey));
 
 // Add example services for bitcoin
 builder.Services.AddTransient<BlockchainTransferExampleService>();
