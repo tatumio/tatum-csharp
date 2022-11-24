@@ -39,7 +39,7 @@ jobs:
           { "chain": "Evm.Local", "dependsOn": "Core" },
           { "chain": "Bitcoin.Local", "dependsOn": "Core" }
         ]
-    name: ${{ matrix.arrays.chain }} - Deploy Dev Packages
+    name: ${{ matrix.arrays.chain }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}
@@ -58,7 +58,7 @@ jobs:
           { "chain": "Bsc", "dependsOn": "Evm.Local" },
           { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" },
         ]
-    name: ${{ matrix.arrays.chain }} - Deploy Dev Packages
+    name: ${{ matrix.arrays.chain }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
       dependsOn: ${{ matrix.arrays.dependsOn }}

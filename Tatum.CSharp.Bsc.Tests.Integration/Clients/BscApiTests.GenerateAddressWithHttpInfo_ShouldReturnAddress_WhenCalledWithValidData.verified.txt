@@ -1,0 +1,12 @@
+﻿{
+  StatusCode: OK,
+  Data: {
+    address: 0x828874ef9aa1277e32561940e22c7866584badb9
+  },
+  ErrorText: OK,
+  ResponseType: GeneratedAddressBsc,
+  Content: {
+    address: 0x828874ef9aa1277e32561940e22c7866584badb9
+  },
+  RawContent: {"address":"0x828874ef9aa1277e32561940e22c7866584badb9"}
+}
