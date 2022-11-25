@@ -315,8 +315,8 @@ public class EthereumApiTests : IAsyncDisposable
             },
             new List<object>
             {
-                "0x811dfbff13adfbc3cf653dcc373c03616d3471c9",
-                "0x8c76887d2e738371bd750362fb55887343472346", 
+                _testData.StorageAddress,
+                _testData.TargetAddress, 
                 "1"
             },
             null,
@@ -438,7 +438,7 @@ public class EthereumApiTests : IAsyncDisposable
                 }
                 catch (ApiException e)
                 {
-                    if (!e.Message.Contains("eth.tx.not.found"))
+                    if (!e.Message.Contains(".tx.not.found"))
                         throw;
                 }
 

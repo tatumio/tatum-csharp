@@ -419,16 +419,13 @@ public class PolygonApiTests : IAsyncDisposable
                         cancellationToken: cts.Token);
                     if (tx.Status || tx.BlockNumber != null)
                     {
-                        break;
-                    }
-                    {
                         await Task.Delay(1000, cts.Token);
                         break;
                     }
                 }
                 catch (ApiException e)
                 {
-                    if (!e.Message.Contains("eth.tx.not.found"))
+                    if (!e.Message.Contains(".tx.not.found"))
                         throw;
                 }
     
