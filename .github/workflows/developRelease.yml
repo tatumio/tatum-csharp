@@ -56,7 +56,8 @@ jobs:
           { "chain": "Polygon", "dependsOn": "Evm.Local" },
           { "chain": "Nft", "dependsOn": "Evm.Local" },
           { "chain": "Bsc", "dependsOn": "Evm.Local" },
-          { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" },
+          { "chain": "Harmony", "dependsOn": "Evm.Local" },
+          { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" }
         ]
     name: ${{ matrix.arrays.chain }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml

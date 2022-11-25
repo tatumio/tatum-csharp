@@ -25,6 +25,12 @@ namespace Tatum.CSharp.Nft.Clients
         
         /// <inheritdoc />
         public INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public INFTOneApiAsync HarmonyNft { get; }
+        
+        /// <inheritdoc />
+        public INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -87,6 +93,13 @@ namespace Tatum.CSharp.Nft.Clients
             
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
+            
+            var oneNftApi = new NFTOneApi(httpClient);
+            
+            oneNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            HarmonyNft = oneNftApi;
+            HarmonyNftWithHttpInfo = oneNftApi;
 
             Local = new EvmLocalService(isTestNet);
         }

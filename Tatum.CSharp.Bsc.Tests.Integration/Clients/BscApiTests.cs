@@ -401,7 +401,7 @@ public class BscApiTests : IAsyncDisposable
                 }
                 catch (ApiException e)
                 {
-                    if (!e.Message.Contains("eth.tx.not.found"))
+                    if (!e.Message.Contains(".tx.not.found"))
                         throw;
                 }
 
