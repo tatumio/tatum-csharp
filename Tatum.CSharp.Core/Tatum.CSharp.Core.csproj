@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>BSC chain introduced. NFT support for BSC.</PackageReleaseNotes>
+    <PackageReleaseNotes>Harmony chain introduced. NFT support for Harmony.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
