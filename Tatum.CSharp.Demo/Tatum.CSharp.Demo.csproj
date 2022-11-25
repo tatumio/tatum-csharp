@@ -8,10 +8,10 @@
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageReference Include="Tatum.CSharp.Bitcoin" Version="2.4.0-alpha3546880999" />
-        <PackageReference Include="Tatum.CSharp.Ethereum" Version="2.4.0-alpha3546880999" />
-        <PackageReference Include="Tatum.CSharp.Bsc" Version="2.4.0-alpha3546880999" />
-        <PackageReference Include="Tatum.CSharp.Polygon" Version="2.4.0-alpha3546880999" />
+        <PackageReference Include="Tatum.CSharp.Bitcoin" Version="2.4.0-alpha3548258356" />
+        <PackageReference Include="Tatum.CSharp.Ethereum" Version="2.4.0-alpha3548258356" />
+        <PackageReference Include="Tatum.CSharp.Bsc" Version="2.4.0-alpha3548258356" />
+        <PackageReference Include="Tatum.CSharp.Polygon" Version="2.4.0-alpha3548258356" />
     </ItemGroup>
 
     <ItemGroup>

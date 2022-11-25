@@ -35,6 +35,16 @@ namespace Tatum.CSharp.Nft.Clients
         /// Client wrapping all operations related to the Bsc NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Harmony NFTs.
+        /// </summary>
+        INFTOneApiAsync HarmonyNft { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Harmony NFTs with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
