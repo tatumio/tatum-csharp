@@ -18,6 +18,7 @@
       <ProjectReference Include="..\Tatum.CSharp.Bsc\Tatum.CSharp.Bsc.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Core\Tatum.CSharp.Core.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Ethereum\Tatum.CSharp.Ethereum.csproj" />
+      <ProjectReference Include="..\Tatum.CSharp.Harmony\Tatum.CSharp.Harmony.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Polygon\Tatum.CSharp.Polygon.csproj" />
     </ItemGroup>
 

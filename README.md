@@ -20,6 +20,7 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 | [`Ethereum`](Tatum.CSharp.Ethereum) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> | [NEthereum](https://github.com/Nethereum/Nethereum) |
 | [`Polygon`](Tatum.CSharp.Ethereum)  | <a href="https://www.nuget.org/packages/Tatum.CSharp.Polygon"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Polygon"></a>   | [NEthereum](https://github.com/Nethereum/Nethereum) |
 | [`BSC`](Tatum.CSharp.Ethereum)      | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bsc"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bsc"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`Harmony`](Tatum.CSharp.Harmony)  | <a href="https://www.nuget.org/packages/Tatum.CSharp.Harmony"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Harmony"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
 
 ## Quick Start
 
@@ -58,5 +59,6 @@ public EthereumController(IEthereumClient ethereumClient)
 - [Examples - BTC](Examples/Bitcoin/BTC_Examples.md)
 - [Examples - MATIC](Examples/Polygon/MATIC_Examples.md)
 - [Examples - BSC](Examples/BSC/BSC_Examples.md)
+- [Examples - ONE](Examples/Harmony/ONE_Examples.md)
 
 Please check out [Demo App](Tatum.CSharp.Demo) or [Integration Tests](https://github.com/tatumio/tatum-csharp/tree/develop/Tatum.CSharp.Ethereum.Tests.Integration) to see the usage of all methods.
