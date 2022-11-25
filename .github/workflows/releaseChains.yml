@@ -77,7 +77,7 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
-    needs: Release_Chains
+    needs: Release_L2_Packages
     
   Prepare_Unity_Package:
     name: Dispatch Unity Package preparation
@@ -90,4 +90,4 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS_UNITY }}' \
           -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
-    needs: Release_Chains
+    needs: Release_L2_Packages
