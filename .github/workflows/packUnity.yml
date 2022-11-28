@@ -34,7 +34,7 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add version number to 'Tatum_SDK_Unity' string in Configuration.cs
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/v${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
           grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
       - name: Ethereum - Get Dependencies
         run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
