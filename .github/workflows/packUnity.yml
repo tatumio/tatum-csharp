@@ -3,25 +3,28 @@ name: Pack Unity DLLs
 on:
   workflow_call:
     inputs:
-      name:
-        required: true
-        type: string
-      dependsOn:
-        required: true
-        type: string
       version:
         required: true
         type: string
 
-env:
-  PACKAGE_NAME: Tatum.CSharp.${{ inputs.name }}
-  DEPENDENCY_NAME: Tatum.CSharp.${{ inputs.dependsOn }}
-  ARTEFACT_NAME: Unity-${{ inputs.name }}
-
 jobs:
-  preparePackage:
-    name: Build and Publish package
+  Pack_Unity:
+    strategy:
+      matrix:
+        arrays: [
+          { chain: "Ethereum", dependsOn: "Evm.Local" },
+          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
+          { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "Polygon", dependsOn: "Evm.Local" },
+          { chain: "Bsc", dependsOn: "Evm.Local" },
+          { chain: "Harmony", dependsOn: "Evm.Local" }
+        ]
+    name: ${{ matrix.arrays.chain }} - Unity Package Artifact
     runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.chain }}
+      DEPENDENCY_NAME: Tatum.CSharp.${{ matrix.arrays.dependsOn }}
+      ARTEFACT_NAME: Unity-${{ matrix.arrays.chain }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -30,7 +33,6 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Add version number to 'Tatum_SDK_Unity' string in Configuration.cs
-        if: ${{ inputs.name == 'Core' }}
         run: |
           sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/v${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
           grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
