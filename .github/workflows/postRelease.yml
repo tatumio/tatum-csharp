@@ -24,7 +24,7 @@ jobs:
   Test_Other:
     strategy:
       matrix:
-        chain: [Nft]
+        chain: [Nft, FungibleTokens]
     name: Test Other Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
