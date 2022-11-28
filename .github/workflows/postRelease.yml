@@ -1,4 +1,4 @@
-name: Post release integration tests
+name: Integration Tests
 run-name: ${{ inputs.version }} - post release tests
 
 on:
