@@ -6,12 +6,16 @@ on:
       name:
         required: true
         type: string
+      dependsOn:
+        required: true
+        type: string
       version:
         required: true
         type: string
 
 env:
   PACKAGE_NAME: Tatum.CSharp.${{ inputs.name }}
+  DEPENDENCY_NAME: Tatum.CSharp.${{ inputs.dependsOn }}
   ARTEFACT_NAME: Unity-${{ inputs.name }}
 
 jobs:
@@ -25,11 +29,16 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
+      - name: Add version number to 'Tatum_SDK_Unity' string in Configuration.cs
+        if: ${{ inputs.name == 'Core' }}
+        run: |
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/v${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
       - name: Ethereum - Get Dependencies
-        run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./${{ env.PACKAGE_NAME }}_DLLs
+        run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
       - name: Gather DLLs
         run: |
-          fromPath=./${{ env.PACKAGE_NAME }}_DLLs
+          fromPath=./packages
           for dir in "$fromPath"/*/; do
             dest="$fromPath"/${{ env.PACKAGE_NAME }}
             mkdir -p "$dest"
@@ -58,11 +67,17 @@ jobs:
                 cp -v "$match" "$dest"
                 break
               fi
-            done
-          
+            done          
           done
       - name: Create Unity Package Artefact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTEFACT_NAME }}
-          path: ./${{ env.PACKAGE_NAME }}_DLLs/${{ env.PACKAGE_NAME }}
+          path: |
+            ./Tatum.CSharp.Core
+            ./${{ env.DEPENDENCY_NAME }}
+            ./${{ env.PACKAGE_NAME }}
+            ./packages
+            !./packages/Tatum.CSharp.Core.dll
+            !./packages/${{ env.DEPENDENCY_NAME }}.dll
+            !./packages/${{ env.PACKAGE_NAME }}.dll
