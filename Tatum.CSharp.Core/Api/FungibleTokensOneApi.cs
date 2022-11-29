@@ -1718,7 +1718,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<Erc20Balance>("/v3/blockchain/token/balance/ETH/{contractAddress}/{address}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<Erc20Balance>("/v3/blockchain/token/balance/ONE/{contractAddress}/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -1795,7 +1795,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<Erc20Balance>("/v3/blockchain/token/balance/ETH/{contractAddress}/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<Erc20Balance>("/v3/blockchain/token/balance/ONE/{contractAddress}/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -1854,7 +1854,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/ETH/{address}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/ONE/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -1917,7 +1917,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/ETH/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/ONE/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -2011,7 +2011,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<FungibleTx>>("/v3/blockchain/token/transaction/ETH/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<FungibleTx>>("/v3/blockchain/token/transaction/ONE/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -2109,7 +2109,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<FungibleTx>>("/v3/blockchain/token/transaction/ETH/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<FungibleTx>>("/v3/blockchain/token/transaction/ONE/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
