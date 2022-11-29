@@ -23,4 +23,4 @@ jobs:
     - name: Generate build version
       id: versionStep
       shell: bash
-      run: echo "version=2.4.0-alpha${{ github.run_id }}" >> $GITHUB_OUTPUT
+      run: echo "version=2.5.0-alpha${{ github.run_id }}" >> $GITHUB_OUTPUT

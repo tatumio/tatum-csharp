@@ -55,6 +55,7 @@ jobs:
           { "chain": "Ethereum", "dependsOn": "Evm.Local" },
           { "chain": "Polygon", "dependsOn": "Evm.Local" },
           { "chain": "Nft", "dependsOn": "Evm.Local" },
+          { "chain": "FungibleTokens", "dependsOn": "Evm.Local" },
           { "chain": "Bsc", "dependsOn": "Evm.Local" },
           { "chain": "Harmony", "dependsOn": "Evm.Local" },
           { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" }

@@ -19,6 +19,12 @@ namespace Tatum.CSharp.Ethereum.Clients
         
         /// <inheritdoc />
         public INFTEthApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensEthApiAsync EthereumFungibleTokens { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensEthApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -74,6 +80,13 @@ namespace Tatum.CSharp.Ethereum.Clients
             
             EthereumNft = ethereumNftApi;
             EthereumNftWithHttpInfo = ethereumNftApi;
+            
+            var ethereumFungibleTokensApi = new FungibleTokensEthApi(httpClient);
+            
+            ethereumFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            EthereumFungibleTokens = ethereumFungibleTokensApi;
+            EthereumFungibleTokensWithHttpInfo = ethereumFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
         }

@@ -32,6 +32,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Harmony", "Tat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Harmony.Tests.Integration", "Tatum.CSharp.Harmony.Tests.Integration\Tatum.CSharp.Harmony.Tests.Integration.csproj", "{35657360-20E3-4E87-94CE-43A1186BE828}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.FungibleTokens", "Tatum.CSharp.FungibleTokens\Tatum.CSharp.FungibleTokens.csproj", "{5D30AF5A-C541-499F-8342-0653A5289BF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.FungibleTokens.Tests.Integration", "Tatum.CSharp.FungibleTokens.Tests.Integration\Tatum.CSharp.FungibleTokens.Tests.Integration.csproj", "{4C384F47-F882-4FEC-9981-9F51C9AA625E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,5 +106,13 @@ Global
 		{35657360-20E3-4E87-94CE-43A1186BE828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35657360-20E3-4E87-94CE-43A1186BE828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35657360-20E3-4E87-94CE-43A1186BE828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D30AF5A-C541-499F-8342-0653A5289BF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D30AF5A-C541-499F-8342-0653A5289BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D30AF5A-C541-499F-8342-0653A5289BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D30AF5A-C541-499F-8342-0653A5289BF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C384F47-F882-4FEC-9981-9F51C9AA625E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C384F47-F882-4FEC-9981-9F51C9AA625E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C384F47-F882-4FEC-9981-9F51C9AA625E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C384F47-F882-4FEC-9981-9F51C9AA625E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

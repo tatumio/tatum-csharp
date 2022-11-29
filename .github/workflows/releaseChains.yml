@@ -11,7 +11,7 @@ on:
 
 env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
-  DOWNSTREAM_DISPATCH_ADDRESS_UNITY: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/prepareUnityPackages.yml/dispatches
+  DOWNSTREAM_DISPATCH_ADDRESS_UNITY: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/packUnity.yml/dispatches
 
 jobs:
   Core_Release:
@@ -54,6 +54,7 @@ jobs:
           { chain: "Ethereum", dependsOn: "Evm.Local" },
           { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
           { chain: "Nft", dependsOn: "Evm.Local" },
+          { chain: "FungibleTokens", dependsOn: "Evm.Local" },
           { chain: "Polygon", dependsOn: "Evm.Local" },
           { chain: "Bsc", dependsOn: "Evm.Local" },
           { chain: "Harmony", dependsOn: "Evm.Local" }

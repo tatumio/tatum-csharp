@@ -19,6 +19,12 @@ namespace Tatum.CSharp.Bsc.Clients
         
         /// <inheritdoc />
         public INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensBscApiAsync BscFungibleTokens { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensBscApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -74,6 +80,13 @@ namespace Tatum.CSharp.Bsc.Clients
             
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
+            
+            var bscFungibleTokensApi = new FungibleTokensBscApi(httpClient);
+            
+            bscFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BscFungibleTokens = bscFungibleTokensApi;
+            BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
         }

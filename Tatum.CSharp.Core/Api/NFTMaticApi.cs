@@ -2504,7 +2504,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -2587,7 +2587,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<NftMetadataErc721>("/v3/nft/metadata/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<NftMetadataErc721>("/v3/nft/metadata/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -2660,7 +2660,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<NftProvenanceDataErc721>>("/v3/nft/provenance/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<NftProvenanceDataErc721>>("/v3/nft/provenance/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -2737,7 +2737,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<NftProvenanceDataErc721>>("/v3/nft/provenance/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftProvenanceDataErc721>>("/v3/nft/provenance/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -2810,7 +2810,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<NftRoyaltyErc721>("/v3/nft/royalty/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<NftRoyaltyErc721>("/v3/nft/royalty/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -2887,7 +2887,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<NftRoyaltyErc721>("/v3/nft/royalty/ETH/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<NftRoyaltyErc721>("/v3/nft/royalty/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -2946,7 +2946,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/ETH/{address}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/MATIC/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -3009,7 +3009,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/ETH/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/MATIC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -3077,7 +3077,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<NftTokenByCollectionErc721>>("/v3/nft/collection/ETH/{address}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<NftTokenByCollectionErc721>>("/v3/nft/collection/MATIC/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -3149,7 +3149,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByCollectionErc721>>("/v3/nft/collection/ETH/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByCollectionErc721>>("/v3/nft/collection/MATIC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -3371,7 +3371,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/ETH/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/MATIC/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -3463,7 +3463,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/ETH/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/MATIC/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -3551,7 +3551,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/tokenId/ETH/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/tokenId/MATIC/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -3643,7 +3643,7 @@ namespace Tatum.CSharp.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/tokenId/ETH/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/tokenId/MATIC/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
