@@ -2,25 +2,26 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.FungibleTokens.Clients;
 using Tatum.CSharp.FungibleTokens.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Polygon.Clients;
 using VerifyTests;
-using VerifyXunit;
 using Xunit;
 
 namespace Tatum.CSharp.FungibleTokens.Tests.Integration.Clients;
 
-[UsesVerify]
 [Collection("Ethereum")]
 public class PolygonFungibleTokensApiTests
 {
     private readonly IFungibleTokensClient _fungibleTokensApi;
     private readonly PolygonTestData _testData;
-    
+    private readonly PolygonClient _polygonApi;
+
     private const string TestSmartContractAddress = "0x87dcbd8e3eae528b50ddb1e94c85f16b30940a62";
 
     public PolygonFungibleTokensApiTests()
@@ -33,6 +34,7 @@ public class PolygonFungibleTokensApiTests
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
 
         _fungibleTokensApi = new FungibleTokensClient(new HttpClient(), apiKey, true);
+        _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
     }
     
     [Fact]
@@ -54,6 +56,8 @@ public class PolygonFungibleTokensApiTests
         
         deployTransactionHash.Should().NotBeNull();
         deployTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+
+        await WaitForTransactionSuccess(deployTransactionHash.TxId);
     }
     
     [Fact]
@@ -70,6 +74,8 @@ public class PolygonFungibleTokensApiTests
         
         mintTransactionHash.Should().NotBeNull();
         mintTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(mintTransactionHash.TxId);
     }
     
     [Fact]
@@ -85,6 +91,8 @@ public class PolygonFungibleTokensApiTests
         
         burnTransactionHash.Should().NotBeNull();
         burnTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(burnTransactionHash.TxId);
     }
     
     [Fact]
@@ -101,6 +109,8 @@ public class PolygonFungibleTokensApiTests
         
         approveTransactionHash.Should().NotBeNull();
         approveTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(approveTransactionHash.TxId);
     }
     
     [Fact]
@@ -118,6 +128,8 @@ public class PolygonFungibleTokensApiTests
         
         transferTransactionHash.Should().NotBeNull();
         transferTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        
+        await WaitForTransactionSuccess(transferTransactionHash.TxId);
     }
     
     [Fact]
@@ -143,6 +155,49 @@ public class PolygonFungibleTokensApiTests
     {
         var transactions = await _fungibleTokensApi.PolygonFungibleTokens.Erc20GetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 1);
 
-        await Verifier.Verify(transactions);
+        transactions.Should().HaveCountGreaterThan(0);
+        transactions.First().Amount.Should().NotBeNullOrWhiteSpace();
+        transactions.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
+        transactions.First().From.Should().NotBeNullOrWhiteSpace();
+        transactions.First().To.Should().NotBeNullOrWhiteSpace();
+        transactions.First().TxId.Should().NotBeNullOrWhiteSpace();
+        transactions.First().BlockNumber.Should().BePositive();
+    }
+    
+    private async Task WaitForTransactionSuccess(string hash)
+    {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+        try
+        {
+            while (true)
+            {
+                if (cts.IsCancellationRequested)
+                {
+                    break;
+                }
+    
+                try
+                {
+                    var tx = await _polygonApi.PolygonBlockchain.PolygonGetTransactionAsync(hash,
+                        cancellationToken: cts.Token);
+                    if (tx.Status || tx.BlockNumber != null)
+                    {
+                        await Task.Delay(1000, cts.Token);
+                        break;
+                    }
+                }
+                catch (ApiException e)
+                {
+                    if (!e.Message.Contains(".tx.not.found"))
+                        throw;
+                }
+    
+                await Task.Delay(1000, cts.Token);
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // we don't care
+        }
     }
 }
