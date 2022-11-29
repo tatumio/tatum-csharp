@@ -25,7 +25,7 @@ namespace Tatum.CSharp.Harmony.Clients
         /// Client wrapping all operations related to the Harmony NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
-        
+
         /// <summary>
         /// Client wrapping all operations related to the Harmony FungibleTokens.
         /// </summary>

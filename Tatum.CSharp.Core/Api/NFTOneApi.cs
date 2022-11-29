@@ -2504,6 +2504,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/ONE/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -2660,6 +2661,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<List<NftProvenanceDataErc721>>("/v3/nft/provenance/ONE/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -2810,6 +2812,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<NftRoyaltyErc721>("/v3/nft/royalty/ONE/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -2946,6 +2949,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/ONE/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -3077,6 +3081,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<List<NftTokenByCollectionErc721>>("/v3/nft/collection/ONE/{address}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -3371,6 +3376,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/ONE/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
@@ -3551,6 +3557,7 @@ namespace Tatum.CSharp.Core.Api
             }
 
             // make the HTTP request
+
             var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/tokenId/ONE/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
