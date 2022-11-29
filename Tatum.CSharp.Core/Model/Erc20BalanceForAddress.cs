@@ -36,11 +36,11 @@ namespace Tatum.CSharp.Core.Model
         /// Initializes a new instance of the <see cref="Erc20BalanceForAddress" /> class.
         /// </summary>
         /// <param name="contractAddress">The address of the smart contract that the fungible tokens were minted on.</param>
-        /// <param name="balance">The number of the fungible tokens.</param>
-        public Erc20BalanceForAddress(string contractAddress = default(string), string balance = default(string))
+        /// <param name="amount">The number of the fungible tokens.</param>
+        public Erc20BalanceForAddress(string contractAddress = default(string), string amount = default(string))
         {
             this.ContractAddress = contractAddress;
-            this.Balance = balance;
+            this.Amount = amount;
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace Tatum.CSharp.Core.Model
         /// The number of the fungible tokens
         /// </summary>
         /// <value>The number of the fungible tokens</value>
-        [DataMember(Name = "balance", EmitDefaultValue = false)]
-        public string Balance { get; set; }
+        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        public string Amount { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,7 +66,7 @@ namespace Tatum.CSharp.Core.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class Erc20BalanceForAddress {\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
-            sb.Append("  Balance: ").Append(Balance).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -108,9 +108,9 @@ namespace Tatum.CSharp.Core.Model
                     this.ContractAddress.Equals(input.ContractAddress))
                 ) && 
                 (
-                    this.Balance == input.Balance ||
-                    (this.Balance != null &&
-                    this.Balance.Equals(input.Balance))
+                    this.Amount == input.Amount ||
+                    (this.Amount != null &&
+                    this.Amount.Equals(input.Amount))
                 );
         }
 
@@ -127,9 +127,9 @@ namespace Tatum.CSharp.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
-                if (this.Balance != null)
+                if (this.Amount != null)
                 {
-                    hashCode = (hashCode * 59) + this.Balance.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 }
                 return hashCode;
             }
