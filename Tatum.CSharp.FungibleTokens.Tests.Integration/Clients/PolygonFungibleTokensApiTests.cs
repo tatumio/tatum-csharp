@@ -143,6 +143,6 @@ public class PolygonFungibleTokensApiTests
     {
         var transactions = await _fungibleTokensApi.PolygonFungibleTokens.Erc20GetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 1);
 
-        Verifier.Verify(transactions);
+        await Verifier.Verify(transactions);
     }
 }

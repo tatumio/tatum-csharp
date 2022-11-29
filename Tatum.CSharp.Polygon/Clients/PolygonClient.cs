@@ -19,6 +19,12 @@ namespace Tatum.CSharp.Polygon.Clients
         
         /// <inheritdoc />
         public INFTMaticApiWithHttpInfoAsync PolygonNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensMaticApiAsync PolygonFungibleTokens { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensMaticApiWithHttpInfoAsync PolygonFungibleTokensWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -74,6 +80,13 @@ namespace Tatum.CSharp.Polygon.Clients
             
             PolygonNft = polygonNftApi;
             PolygonNftWithHttpInfo = polygonNftApi;
+            
+            var polygonFungibleTokensApi = new FungibleTokensMaticApi(httpClient);
+            
+            polygonFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            PolygonFungibleTokens = polygonFungibleTokensApi;
+            PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
         }

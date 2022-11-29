@@ -19,6 +19,12 @@ namespace Tatum.CSharp.Harmony.Clients
         
         /// <inheritdoc />
         public INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensOneApiAsync HarmonyFungibleTokens { get; }
+        
+        /// <inheritdoc />
+        public IFungibleTokensOneApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -74,6 +80,13 @@ namespace Tatum.CSharp.Harmony.Clients
             
             HarmonyNft = harmonyNftApi;
             HarmonyNftWithHttpInfo = harmonyNftApi;
+            
+            var harmonyFungibleTokensApi = new FungibleTokensOneApi(httpClient);
+            
+            harmonyFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            HarmonyFungibleTokens = harmonyFungibleTokensApi;
+            HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
         }

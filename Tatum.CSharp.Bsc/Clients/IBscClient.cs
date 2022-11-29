@@ -25,6 +25,16 @@ namespace Tatum.CSharp.Bsc.Clients
         /// Client wrapping all operations related to the Bsc NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Bsc FungibleTokens.
+        /// </summary>
+        IFungibleTokensBscApiAsync BscFungibleTokens { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Bsc FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        IFungibleTokensBscApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
