@@ -1,6 +1,6 @@
-namespace Tatum.CSharp.Nft.Tests.Integration.TestDataModels;
+namespace Tatum.CSharp.FungibleTokens.Tests.Integration.TestDataModels;
 
-public class EthereumTestData
+public class PolygonTestData
 {
     public string TestMnemonic { get; set; }
     public string TestXPub { get; set; }
