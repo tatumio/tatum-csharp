@@ -36,6 +36,6 @@ jobs:
       - name: ${{ inputs.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.package }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} -IncludeReferencedProjects --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+        run: dotnet pack ${{ env.PROJECT_PATH }} --IncludeReferencedProjects --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.package }} - Push to Github Packages
         run: dotnet nuget push "./Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
