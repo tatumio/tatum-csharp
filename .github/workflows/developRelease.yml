@@ -38,7 +38,7 @@ jobs:
     name: ${{ matrix.package }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
-      name: ${{ matrix.package }}
+      package: ${{ matrix.package }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: Build_Version
