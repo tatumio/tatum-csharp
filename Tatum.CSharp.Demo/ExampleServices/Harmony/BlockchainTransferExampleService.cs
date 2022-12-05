@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Harmony.Clients;
+using Tatum.CSharp.Harmony.Core.Model;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Harmony;
 

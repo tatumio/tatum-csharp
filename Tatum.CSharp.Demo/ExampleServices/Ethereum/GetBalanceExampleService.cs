@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Ethereum.Core.Model;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Ethereum;
 

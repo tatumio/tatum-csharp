@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Tatum.CSharp.Bitcoin</RootNamespace>
+        <Nullable>disable</Nullable>
+        <LangVersion>8.0</LangVersion>
+        <AssemblyName>Tatum.CSharp.Bitcoin</AssemblyName>
+        <PackageId>Tatum.CSharp.Bitcoin</PackageId>
+        <OutputType>Library</OutputType>
+        <Authors>Tatum</Authors>
+        <Company>Tatum</Company>
+        <AssemblyTitle>Bitcoin SDK</AssemblyTitle>
+        <Description>Bitcoin SDK v2</Description>
+        <Copyright>Tatum</Copyright>
+        <VersionPrefix>2.0.0</VersionPrefix>
+        <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Tatum; BTC; Bitcoin</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj" />
+      <ProjectReference Include="..\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj" />
+    </ItemGroup>
+    
+</Project>

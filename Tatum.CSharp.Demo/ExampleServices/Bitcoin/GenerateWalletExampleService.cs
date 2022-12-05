@@ -1,5 +1,6 @@
+
 using Tatum.CSharp.Bitcoin.Clients;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Bitcoin.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 
@@ -12,9 +13,9 @@ public class GenerateWalletExampleService
         _bitcoinClient = bitcoinClient;
     }
     
-    public Wallet GenerateWallet()
+    public WalletLocal GenerateWallet()
     {
-        Wallet wallet = _bitcoinClient.Local.GenerateWallet();
+        WalletLocal wallet = _bitcoinClient.Local.GenerateWallet();
         
         return wallet;
     }

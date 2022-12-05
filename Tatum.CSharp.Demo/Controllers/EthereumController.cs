@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Demo.ExampleServices.Ethereum;
+using Tatum.CSharp.Ethereum.Core.Model;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.Controllers;
 
@@ -33,15 +34,15 @@ public class EthereumController : ControllerBase
     }
 
     [HttpGet]
-    public Wallet GenerateWallet() =>
+    public WalletLocal GenerateWallet() =>
         _generateWalletExampleService.GenerateWallet();
 
     [HttpPost]
-    public PrivKey GeneratePrivateKey([FromBody] PrivKeyRequest request) =>
+    public PrivKeyLocal GeneratePrivateKey([FromBody] PrivKeyRequestLocal request) =>
         _generatePrivateKeyExampleService.GeneratePrivateKey(request);
 
     [HttpGet]
-    public GeneratedAddressEth GenerateAddress(string xpub, int index) => 
+    public GeneratedAddressEthLocal GenerateAddress(string xpub, int index) => 
         _generateAddressExampleService.GenerateAddress(xpub, index);
 
     [HttpGet]

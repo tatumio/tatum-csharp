@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Tatum.CSharp.Bitcoin.Clients;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Bitcoin.Core.Model;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 

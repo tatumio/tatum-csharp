@@ -8,7 +8,6 @@
  */
 
 
-using System;
 using System.Threading.Tasks;
 
 namespace Tatum.CSharp.Core.Client

@@ -1,6 +1,5 @@
 using NBitcoin;
-using Tatum.CSharp.Core.Model;
-using Wallet = Tatum.CSharp.Core.Model.Wallet;
+using Tatum.CSharp.Bitcoin.Local.Models;
 
 namespace Tatum.CSharp.Bitcoin.Local
 {
@@ -23,7 +22,7 @@ namespace Tatum.CSharp.Bitcoin.Local
         }
 
         /// <inheritdoc />
-        public Wallet GenerateWallet()
+        public WalletLocal GenerateWallet()
         {
             var mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
 
@@ -33,11 +32,11 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .Neuter()
                 .ToString(_targetNetwork);
             
-            return new Wallet(string.Join(" ", mnemonic.Words), extPubKey);
+            return new WalletLocal(string.Join(" ", mnemonic.Words), extPubKey);
         }
 
         /// <inheritdoc />
-        public Wallet GenerateWallet(string mnemonic)
+        public WalletLocal GenerateWallet(string mnemonic)
         {
             var extPubKey = new Mnemonic(mnemonic)
                 .DeriveExtKey()
@@ -45,11 +44,11 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .Neuter()
                 .ToString(_targetNetwork);
             
-            return new Wallet(mnemonic, extPubKey);
+            return new WalletLocal(mnemonic, extPubKey);
         }
 
         /// <inheritdoc />
-        public GeneratedAddressBtc GenerateAddress(string walletXpub, int index)
+        public GeneratedAddressBtcLocal GenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
 
@@ -59,11 +58,11 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .GetAddress(ScriptPubKeyType.Segwit, _targetNetwork)
                 .ToString();
             
-            return new GeneratedAddressBtc(address);
+            return new GeneratedAddressBtcLocal(address);
         }
 
         /// <inheritdoc />
-        public PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
+        public PrivKeyLocal GenerateAddressPrivateKey(PrivKeyRequestLocal privKeyRequest)
         {
             var privKey = new Mnemonic(privKeyRequest.Mnemonic)
                 .DeriveExtKey()
@@ -72,7 +71,7 @@ namespace Tatum.CSharp.Bitcoin.Local
                 .PrivateKey
                 .ToString(_targetNetwork);
 
-            return new PrivKey(privKey);
+            return new PrivKeyLocal(privKey);
         }
     }
 }

@@ -8,18 +8,19 @@
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageReference Include="Tatum.CSharp.Bitcoin" Version="2.5.0-alpha3573396814" />
-        <PackageReference Include="Tatum.CSharp.Ethereum" Version="2.5.0-alpha3573396814" />
-        <PackageReference Include="Tatum.CSharp.Bsc" Version="2.5.0-alpha3573396814" />
-        <PackageReference Include="Tatum.CSharp.Polygon" Version="2.5.0-alpha3573396814" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tatum.CSharp.Bsc\Tatum.CSharp.Bsc.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Core\Tatum.CSharp.Core.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Ethereum\Tatum.CSharp.Ethereum.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Harmony\Tatum.CSharp.Harmony.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Polygon\Tatum.CSharp.Polygon.csproj" />
+      <ProjectReference Include="..\Bitcoin\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj" />
+      <ProjectReference Include="..\Bitcoin\Tatum.CSharp.Bitcoin\Tatum.CSharp.Bitcoin.csproj" />
+      <ProjectReference Include="..\Bsc\Tatum.CSharp.Bsc.Core\Tatum.CSharp.Bsc.Core.csproj" />
+      <ProjectReference Include="..\Bsc\Tatum.CSharp.Bsc\Tatum.CSharp.Bsc.csproj" />
+      <ProjectReference Include="..\Ethereum\Tatum.CSharp.Ethereum.Core\Tatum.CSharp.Ethereum.Core.csproj" />
+      <ProjectReference Include="..\Ethereum\Tatum.CSharp.Ethereum\Tatum.CSharp.Ethereum.csproj" />
+      <ProjectReference Include="..\Harmony\Tatum.CSharp.Harmony.Core\Tatum.CSharp.Harmony.Core.csproj" />
+      <ProjectReference Include="..\Harmony\Tatum.CSharp.Harmony\Tatum.CSharp.Harmony.csproj" />
+      <ProjectReference Include="..\Polygon\Tatum.CSharp.Polygon\Tatum.CSharp.Polygon.csproj" />
+      <ProjectReference Include="..\Polygon\Tatum.CSharp.Polygon.Core\Tatum.CSharp.Polygon.Core.csproj" />
     </ItemGroup>
 
 </Project>

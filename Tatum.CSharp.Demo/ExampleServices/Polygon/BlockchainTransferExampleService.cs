@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Polygon.Clients;
+using Tatum.CSharp.Polygon.Core.Model;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Polygon;
 

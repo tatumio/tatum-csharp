@@ -1,5 +1,5 @@
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Ethereum;
 
@@ -12,9 +12,9 @@ public class GenerateWalletExampleService
         _ethereumClient = ethereumClient;
     }
     
-    public Wallet GenerateWallet()
+    public WalletLocal GenerateWallet()
     {
-        Wallet wallet = _ethereumClient.Local.GenerateWallet();
+        WalletLocal wallet = _ethereumClient.Local.GenerateWallet();
         
         return wallet;
     }

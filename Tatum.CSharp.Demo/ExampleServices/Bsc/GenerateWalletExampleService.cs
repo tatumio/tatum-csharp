@@ -1,5 +1,5 @@
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Bsc.Clients;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bsc;
 
@@ -12,9 +12,9 @@ public class GenerateWalletExampleService
         _bscClient = bscClient;
     }
     
-    public Wallet GenerateWallet()
+    public WalletLocal GenerateWallet()
     {
-        Wallet wallet = _bscClient.Local.GenerateWallet();
+        WalletLocal wallet = _bscClient.Local.GenerateWallet();
         
         return wallet;
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatum.CSharp.Bsc.Clients;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Bsc.Core.Model;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bsc;
 

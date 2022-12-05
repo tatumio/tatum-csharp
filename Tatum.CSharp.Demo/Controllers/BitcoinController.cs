@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Bitcoin.Core.Model;
+using Tatum.CSharp.Bitcoin.Local.Models;
 using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 
 namespace Tatum.CSharp.Demo.Controllers;
@@ -34,11 +35,11 @@ public class BitcoinController : ControllerBase
     }
 
     [HttpGet]
-    public Wallet GenerateWallet() => 
+    public WalletLocal GenerateWallet() => 
         _generateWalletExampleService.GenerateWallet();
 
     [HttpPost]
-    public PrivKey GeneratePrivateKey([FromBody] PrivKeyRequest request) =>
+    public PrivKeyLocal GeneratePrivateKey([FromBody] PrivKeyRequestLocal request) =>
         _generatePrivateKeyExampleService.GeneratePrivateKey(request);
 
 
