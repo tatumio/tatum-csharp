@@ -36,9 +36,7 @@ jobs:
           grep -i "Tatum_SDK_CSharp" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs     
       - name: ${{ inputs.package }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: ${{ inputs.package }} - Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.package }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.package }} - Push to Github Packages
         run: dotnet nuget push "./Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
