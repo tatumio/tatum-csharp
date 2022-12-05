@@ -35,6 +35,11 @@ namespace Tatum.CSharp.Bitcoin.Local
             return new WalletLocal(string.Join(" ", mnemonic.Words), extPubKey);
         }
 
+        public Mnemonic GenerateMnemonic()
+        {
+            return new Mnemonic(Wordlist.English, WordCount.TwentyFour);
+        }
+
         /// <inheritdoc />
         public WalletLocal GenerateWallet(string mnemonic)
         {
