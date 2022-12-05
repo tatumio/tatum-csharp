@@ -28,7 +28,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="NBitcoin" Version="7.0.20" />
+        <PackageReference Include="NBitcoin" Version="7.0.20" >
+            <IncludeAssets>all</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
     
 </Project>
