@@ -28,8 +28,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NBitcoin" Version="7.0.20" />
-        <Using Include="NBitcoin" />
+      <PackageReference Include="NBitcoin" Version="7.0.20" >
+          <IncludeAssets>buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
     
 </Project>
