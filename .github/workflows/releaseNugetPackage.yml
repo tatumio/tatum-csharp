@@ -41,6 +41,6 @@ jobs:
       - name: ${{ inputs.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.package }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+        run: dotnet pack ${{ env.PROJECT_PATH }} -IncludeReferencedProjects --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.package }} - Push to Nuget
         run: dotnet nuget push "./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}
