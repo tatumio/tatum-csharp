@@ -20,6 +20,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
         <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,11 +29,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NBitcoin" Version="7.0.20" PrivateAssets="all" />
-        <PackageReference Include="Teronis.MSBuild.Packaging.ProjectBuildInPackage" Version="1.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="NBitcoin" Version="7.0.20" />
     </ItemGroup>
+
+    <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+        <ItemGroup>
+            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+        </ItemGroup>
+    </Target>
     
 </Project>
