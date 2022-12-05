@@ -22,49 +22,23 @@ jobs:
   Build_Version:
     name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
-  
-  Core_Pack_RC:
-    name: Core - Deploy Dev Package
+
+  Release_Packages:
+    strategy:
+      matrix:
+        package: [
+          Ethereum,
+          Polygon,
+          Nft,
+          FungibleTokens,
+          Bsc,
+          Harmony,
+          Bitcoin
+        ]
+    name: ${{ matrix.package }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
     with:
-      name: Core
+      name: ${{ matrix.package }}
       version: ${{ needs.Build_Version.outputs.version }}
     secrets: inherit
     needs: Build_Version
-  
-  Release_L1_Packages:
-    strategy:
-      matrix:
-        arrays: [
-          { "chain": "Evm.Local", "dependsOn": "Core" },
-          { "chain": "Bitcoin.Local", "dependsOn": "Core" }
-        ]
-    name: ${{ matrix.arrays.chain }} - Deploy Dev Package
-    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
-    with:
-      dependsOn: ${{ matrix.arrays.dependsOn }}
-      name: ${{ matrix.arrays.chain }}
-      version: ${{ needs.Build_Version.outputs.version }}
-    secrets: inherit
-    needs: [ Build_Version, Core_Pack_RC ]
-  
-  Release_L2_Packages:
-    strategy:
-      matrix:
-        arrays: [
-          { "chain": "Ethereum", "dependsOn": "Evm.Local" },
-          { "chain": "Polygon", "dependsOn": "Evm.Local" },
-          { "chain": "Nft", "dependsOn": "Evm.Local" },
-          { "chain": "FungibleTokens", "dependsOn": "Evm.Local" },
-          { "chain": "Bsc", "dependsOn": "Evm.Local" },
-          { "chain": "Harmony", "dependsOn": "Evm.Local" },
-          { "chain": "Bitcoin", "dependsOn": "Bitcoin.Local" }
-        ]
-    name: ${{ matrix.arrays.chain }} - Deploy Dev Package
-    uses: ./.github/workflows/deployReleaseCandidatePackage.yml
-    with:
-      dependsOn: ${{ matrix.arrays.dependsOn }}
-      name: ${{ matrix.arrays.chain }}
-      version: ${{ needs.Build_Version.outputs.version }}
-    secrets: inherit
-    needs: [ Build_Version, Release_L1_Packages ]

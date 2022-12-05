@@ -9,8 +9,6 @@ on:
       version:
         required: true
         type: string
-      dependsOn:
-        type: string
         
 env:
   PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
@@ -32,11 +30,8 @@ jobs:
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         if: ${{ inputs.name == 'Core' }}     
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
-          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs       
-      - name: ${{ inputs.name }} - Bump Dependencies Version
-        if: ${{ inputs.dependsOn != '' }}
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/${{ inputs.version }},g" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Core/Client/Configuration.cs     
       - name: ${{ inputs.name }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.name }} - Build
