@@ -1,2 +1,0 @@
-<!-- include NBitcoin package -->
-<PackageReference Include="NBitcoin" Version="7.0.20" />
