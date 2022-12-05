@@ -11,7 +11,7 @@ on:
         type: string
 
 env:
-  PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}.Tests.Integration/Tatum.CSharp.${{ inputs.name }}.Tests.Integration.csproj
+  PROJECT_PATH: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/Tatum.CSharp.${{ inputs.name }}.Tests.Integration.csproj
 
 jobs:
   integration_tests:
