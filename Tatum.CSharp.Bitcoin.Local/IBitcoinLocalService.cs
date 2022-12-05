@@ -28,5 +28,12 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
         /// </summary>
         PrivKeyLocal GenerateAddressPrivateKey(PrivKeyRequestLocal privKeyRequest);
+
+        /// <summary>
+        /// Creates <see cref="BitcoinSecret"/> from private key.
+        /// </summary>
+        /// <param name="privateKey">Private key string.</param>
+        /// <param name="network">Target network type.</param>
+        BitcoinSecret CreateBitcoinSecret(string privateKey, Network network);
     }
 }

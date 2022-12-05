@@ -73,5 +73,11 @@ namespace Tatum.CSharp.Bitcoin.Local
 
             return new PrivKeyLocal(privKey);
         }
+
+        /// <inheritdoc />
+        public BitcoinSecret CreateBitcoinSecret(string privateKey, Network network)
+        {
+            return new BitcoinSecret(privateKey, network);
+        }
     }
 }
