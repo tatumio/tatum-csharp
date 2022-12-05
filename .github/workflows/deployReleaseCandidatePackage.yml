@@ -25,6 +25,9 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_PUBLISH_KEY }}
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs 
@@ -36,6 +39,6 @@ jobs:
       - name: ${{ inputs.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.package }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --include-referenced-projects --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
+        run: nuget pack ${{ env.PROJECT_PATH }} -Version ${{ inputs.version }} -IncludeReferencedProjects -OutputDirectory .
       - name: ${{ inputs.package }} - Push to Github Packages
         run: dotnet nuget push "./Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
