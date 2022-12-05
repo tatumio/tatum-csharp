@@ -25,5 +25,9 @@
       <ProjectReference Include="..\..\Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NBitcoin" Version="7.0.20" />
+    </ItemGroup>
     
 </Project>

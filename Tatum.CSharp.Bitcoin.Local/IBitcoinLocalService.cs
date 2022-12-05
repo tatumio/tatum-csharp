@@ -9,11 +9,6 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
         /// </summary>
         WalletLocal GenerateWallet();
-        
-        /// <summary>
-        /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
-        /// </summary>
-        Mnemonic GenerateMnemonic();
 
         /// <summary>
         /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
