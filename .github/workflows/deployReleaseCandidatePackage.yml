@@ -11,7 +11,7 @@ on:
         type: string
         
 env:
-  PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
+  PROJECT_PATH: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
 
 jobs:
