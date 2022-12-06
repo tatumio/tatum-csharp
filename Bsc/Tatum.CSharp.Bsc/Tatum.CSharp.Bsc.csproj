@@ -19,16 +19,24 @@
         <PackageTags>Tatum; BSC; BEP20; BNB</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
       <PackageReference Include="System.Text.Json" Version="6.0.5" />
+        <PackageReference Include="Nethereum.HdWallet" Version="4.11.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Bsc.Core\Tatum.CSharp.Bsc.Core.csproj" />
     </ItemGroup>
+
+    <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+        <ItemGroup>
+            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+        </ItemGroup>
+    </Target>
 
 </Project>

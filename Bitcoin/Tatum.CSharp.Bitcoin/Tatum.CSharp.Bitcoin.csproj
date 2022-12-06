@@ -27,6 +27,10 @@
       <ProjectReference Include="..\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj" PrivateAssets="all"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="NBitcoin" Version="7.0.20" />
+    </ItemGroup>
+    
     <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
         <ItemGroup>
             <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
