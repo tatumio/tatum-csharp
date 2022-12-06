@@ -1,6 +1,7 @@
 
 using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Bitcoin.Local.Models;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 

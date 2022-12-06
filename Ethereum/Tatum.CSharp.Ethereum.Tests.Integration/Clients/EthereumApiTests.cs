@@ -10,10 +10,11 @@ using FluentAssertions;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Ethereum.Core.Client;
+using Tatum.CSharp.Ethereum.Core.Model;
 using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Evm.Local.Models;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -167,7 +168,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _ethereumApi.Local.GenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = _ethereumApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -176,9 +177,10 @@ public class EthereumApiTests : IAsyncDisposable
     public async Task GenerateAddressPrivateKey_ShouldReturnSamePrivateKey_WhenCalledWithSameDataOnLocal()
     {
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
+        var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
         
         var privKey = await _ethereumApi.EthereumBlockchain.EthGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _ethereumApi.Local.GenerateAddressPrivateKey(privKeyRequest);
+        var privKeyLocal = _ethereumApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
 
         privKey.Key.Should().Be(privKeyLocal.Key);
     }

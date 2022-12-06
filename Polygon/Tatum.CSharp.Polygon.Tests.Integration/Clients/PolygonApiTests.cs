@@ -10,9 +10,10 @@ using FluentAssertions;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Evm.Local.Models;
 using Tatum.CSharp.Polygon.Clients;
+using Tatum.CSharp.Polygon.Core.Client;
+using Tatum.CSharp.Polygon.Core.Model;
 using Tatum.CSharp.Polygon.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
@@ -167,7 +168,7 @@ public class PolygonApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _polygonApi.Local.GenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = _polygonApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
     
         await Verifier.Verify(privKey);
     }
@@ -176,9 +177,10 @@ public class PolygonApiTests : IAsyncDisposable
     public async Task GenerateAddressPrivateKey_ShouldReturnSamePrivateKey_WhenCalledWithSameDataOnLocal()
     {
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
+        var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
         
         var privKey = await _polygonApi.PolygonBlockchain.PolygonGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _polygonApi.Local.GenerateAddressPrivateKey(privKeyRequest);
+        var privKeyLocal = _polygonApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
     
         privKey.Key.Should().Be(privKeyLocal.Key);
     }

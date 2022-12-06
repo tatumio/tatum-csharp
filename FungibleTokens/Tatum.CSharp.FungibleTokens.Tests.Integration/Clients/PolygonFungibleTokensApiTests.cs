@@ -5,9 +5,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.FungibleTokens.Clients;
+using Tatum.CSharp.FungibleTokens.Core.Client;
+using Tatum.CSharp.FungibleTokens.Core.Model;
 using Tatum.CSharp.FungibleTokens.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Polygon.Clients;
 using VerifyTests;
@@ -30,8 +30,6 @@ public class PolygonFungibleTokensApiTests
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
-        
-        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
 
         _fungibleTokensApi = new FungibleTokensClient(new HttpClient(), apiKey, true);
         _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);

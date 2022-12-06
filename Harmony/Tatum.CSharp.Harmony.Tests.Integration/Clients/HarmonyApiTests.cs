@@ -10,9 +10,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Signer;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Evm.Local.Models;
 using Tatum.CSharp.Harmony.Clients;
+using Tatum.CSharp.Harmony.Core.Client;
+using Tatum.CSharp.Harmony.Core.Model;
 using Tatum.CSharp.Harmony.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
@@ -174,7 +175,7 @@ public class HarmonyApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _harmonyApi.Local.GenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = _harmonyApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -183,9 +184,10 @@ public class HarmonyApiTests : IAsyncDisposable
     public async Task GenerateAddressPrivateKey_ShouldReturnSamePrivateKey_WhenCalledWithSameDataOnLocal()
     {
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
+        var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
         
         var privKey = await _harmonyApi.HarmonyBlockchain.OneGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _harmonyApi.Local.GenerateAddressPrivateKey(privKeyRequest);
+        var privKeyLocal = _harmonyApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
 
         privKey.Key.Should().Be(privKeyLocal.Key);
     }

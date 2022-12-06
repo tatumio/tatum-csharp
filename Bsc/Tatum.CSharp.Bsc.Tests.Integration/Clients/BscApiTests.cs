@@ -11,8 +11,6 @@ using FluentAssertions;
 using Nethereum.Signer;
 using Tatum.CSharp.Bsc.Clients;
 using Tatum.CSharp.Bsc.Tests.Integration.TestDataModels;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;

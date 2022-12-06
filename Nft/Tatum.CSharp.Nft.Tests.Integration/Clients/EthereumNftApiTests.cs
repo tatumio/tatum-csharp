@@ -6,9 +6,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Tatum.CSharp.Core.Client;
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Nft.Clients;
+using Tatum.CSharp.Nft.Core.Client;
+using Tatum.CSharp.Nft.Core.Model;
 using Tatum.CSharp.Nft.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
@@ -32,8 +32,6 @@ public class EthereumNftApiTests
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
-        
-        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
 
         _nftApi = new NftClient(new HttpClient(), apiKey, true);
     }
