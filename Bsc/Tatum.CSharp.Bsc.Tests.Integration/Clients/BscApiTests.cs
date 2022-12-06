@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Signer;
 using Tatum.CSharp.Bsc.Clients;
+using Tatum.CSharp.Bsc.Core.Client;
+using Tatum.CSharp.Bsc.Core.Model;
 using Tatum.CSharp.Bsc.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Evm.Local.Models;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -163,7 +166,7 @@ public class BscApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _bscApi.Local.GenerateAddressPrivateKey(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = _bscApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -172,9 +175,10 @@ public class BscApiTests : IAsyncDisposable
     public async Task GenerateAddressPrivateKey_ShouldReturnSamePrivateKey_WhenCalledWithSameDataOnLocal()
     {
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
+        var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
         
         var privKey = await _bscApi.BscBlockchain.BscGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _bscApi.Local.GenerateAddressPrivateKey(privKeyRequest);
+        var privKeyLocal = _bscApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
 
         privKey.Key.Should().Be(privKeyLocal.Key);
     }

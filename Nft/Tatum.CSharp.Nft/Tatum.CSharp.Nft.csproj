@@ -29,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Nft.Core\Tatum.CSharp.Nft.Core.csproj" />
+      <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" PrivateAssets="all" />
+      <ProjectReference Include="..\Tatum.CSharp.Nft.Core\Tatum.CSharp.Nft.Core.csproj" PrivateAssets="all" />
     </ItemGroup>
 
     <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
