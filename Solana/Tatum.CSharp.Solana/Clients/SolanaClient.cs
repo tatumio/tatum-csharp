@@ -2,7 +2,6 @@
 using System.Net.Http;
 using Tatum.CSharp.Solana.Configuration;
 using Tatum.CSharp.Solana.Core.Api;
-using Tatum.CSharp.Evm.Local;
 
 namespace Tatum.CSharp.Solana.Clients
 {
@@ -14,9 +13,6 @@ namespace Tatum.CSharp.Solana.Clients
         /// <inheritdoc />
         public ISolanaApiWithHttpInfoAsync SolanaBlockchainWithHttpInfo { get; }
 
-        /// <inheritdoc />
-        public ISolanaLocalService Local { get; }
-        
         /// <summary>
         /// Creates an instance of <see cref="SolanaClient"/>.
         /// </summary>
@@ -61,8 +57,6 @@ namespace Tatum.CSharp.Solana.Clients
 
             SolanaBlockchain = SolanaApi;
             SolanaBlockchainWithHttpInfo = SolanaApi;
-
-            Local = new EvmLocalService(isTestNet);
         }
     }
 }

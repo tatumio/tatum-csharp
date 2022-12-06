@@ -1,6 +1,6 @@
-namespace Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
+namespace Tatum.CSharp.Solana.Tests.Integration.TestDataModels;
 
 public class TestData
 {
-    public EthereumTestData EthereumTestData { get; set; }
+    public SolanaTestData SolanaTestData { get; set; }
 }

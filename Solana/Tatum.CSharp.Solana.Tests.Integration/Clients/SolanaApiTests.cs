@@ -7,45 +7,37 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
-using Nethereum.Web3.Accounts;
-using Tatum.CSharp.Ethereum.Clients;
-using Tatum.CSharp.Ethereum.Core.Client;
-using Tatum.CSharp.Ethereum.Core.Model;
-using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
-using Tatum.CSharp.Evm.Local.Models;
+using Tatum.CSharp.Solana.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
-namespace Tatum.CSharp.Ethereum.Tests.Integration.Clients;
+namespace Tatum.CSharp.Solana.Tests.Integration.Clients;
 
 [UsesVerify]
-[Collection("Ethereum")]
-public class EthereumApiTests : IAsyncDisposable
+[Collection("Solana")]
+public class SolanaApiTests : IAsyncDisposable
 {
-    private readonly IEthereumClient _ethereumApi;
+    private readonly ISolanaClient _solanaApi;
     private readonly Dictionary<string, decimal> _debts = new();
 
-    private readonly EthereumTestData _testData;
+    private readonly SolanaTestData _testData;
 
-    public EthereumApiTests()
+    public SolanaApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
+        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.SolanaTestData;
 
-        _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
+        _solanaApi = new SolanaClient(new HttpClient(), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
     }
 
     [Fact]
     public async Task GenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
     {
-        var wallet = await _ethereumApi.EthereumBlockchain.EthGenerateWalletAsync();
+        var wallet = await _solanaApi.SolanaBlockchain.EthGenerateWalletAsync();
 
         wallet.Mnemonic.Should().NotBeNullOrWhiteSpace();
         wallet.Xpub.Should().NotBeNullOrWhiteSpace();
@@ -54,7 +46,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateWalletWithHttpInfo_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
     {
-        var response = await _ethereumApi.EthereumBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync();
+        var response = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync();
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         response.Data.Mnemonic.Should().NotBeNullOrWhiteSpace();
@@ -64,7 +56,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
     {
-        var wallet = await _ethereumApi.EthereumBlockchain.EthGenerateWalletAsync(_testData.TestMnemonic);
+        var wallet = await _solanaApi.SolanaBlockchain.EthGenerateWalletAsync(_testData.TestMnemonic);
 
         wallet.Mnemonic.Should().Be(_testData.TestMnemonic);
         wallet.Xpub.Should().Be(_testData.TestXPub);
@@ -73,7 +65,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateWalletWithHttpInfo_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
     {
-        var response = await _ethereumApi.EthereumBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync(_testData.TestMnemonic);
+        var response = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync(_testData.TestMnemonic);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         response.Data.Mnemonic.Should().Be(_testData.TestMnemonic);
@@ -83,7 +75,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
     {
-        var wallet = _ethereumApi.Local.GenerateWallet();
+        var wallet = _solanaApi.Local.GenerateWallet();
 
         wallet.Mnemonic.Should().NotBeNullOrWhiteSpace();
         wallet.Xpub.Should().NotBeNullOrWhiteSpace();
@@ -92,7 +84,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
     {
-        var wallet = _ethereumApi.Local.GenerateWallet(_testData.TestMnemonic);
+        var wallet = _solanaApi.Local.GenerateWallet(_testData.TestMnemonic);
 
         wallet.Mnemonic.Should().Be(_testData.TestMnemonic);
         wallet.Xpub.Should().Be(_testData.TestXPub);
@@ -101,7 +93,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateAddress_ShouldReturnAddress_WhenCalledWithValidData()
     {
-        var address = await _ethereumApi.EthereumBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
+        var address = await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
 
         await Verifier.Verify(address);
     }
@@ -109,7 +101,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void GenerateAddress_ShouldThrowApiException_WhenCalledWithInvalidXpub()
     {
-        Func<Task> action = async () => await _ethereumApi.EthereumBlockchain.EthGenerateAddressAsync("some random text", 0);
+        Func<Task> action = async () => await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync("some random text", 0);
 
         action.Should().ThrowAsync<ApiException>()
             .WithMessage("Unable to generate address for some random text.");
@@ -118,7 +110,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateAddressWithHttpInfo_ShouldReturnAddress_WhenCalledWithValidData()
     {
-        var address = await _ethereumApi.EthereumBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync(_testData.TestXPub, 0);
+        var address = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync(_testData.TestXPub, 0);
         
         await Verifier.Verify(address);
     }
@@ -126,7 +118,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateAddressWithHttpInfo_ShouldReturnNotSuccessApiResponse_WhenCalledWithInvalidData()
     {
-        var address = await _ethereumApi.EthereumBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync("some random text", 0);
+        var address = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync("some random text", 0);
 
         await Verifier.Verify(address);
     }
@@ -134,7 +126,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddress_ShouldReturnAddress_WhenCalledWithValidData()
     {
-        var address = _ethereumApi.Local.GenerateAddress(_testData.TestXPub, 0);
+        var address = _solanaApi.Local.GenerateAddress(_testData.TestXPub, 0);
 
         await Verifier.Verify(address);
     }
@@ -142,7 +134,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public void LocalGenerateAddress_ShouldThrowInvalidFormatException_WhenCalledWithInvalidXpub()
     {
-        var action = () => _ethereumApi.Local.GenerateAddress("some random text", 0);
+        var action = () => _solanaApi.Local.GenerateAddress("some random text", 0);
 
         action.Should().Throw<FormatException>()
             .WithMessage("Invalid base58 data");
@@ -151,8 +143,8 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateAddress_ShouldReturnSameAddress_WhenCalledWithSameDataOnLocal()
     {
-        var address = await _ethereumApi.EthereumBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
-        var addressLocal = _ethereumApi.Local.GenerateAddress(_testData.TestXPub, 0);
+        var address = await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
+        var addressLocal = _solanaApi.Local.GenerateAddress(_testData.TestXPub, 0);
 
         address.Address.Should().Be(addressLocal.Address.ToLower());
     }
@@ -160,7 +152,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = await _ethereumApi.EthereumBlockchain.EthGenerateAddressPrivateKeyAsync(new PrivKeyRequest(0, _testData.TestMnemonic));
+        var privKey = await _solanaApi.SolanaBlockchain.EthGenerateAddressPrivateKeyAsync(new PrivKeyRequest(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -168,7 +160,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
     {
-        var privKey = _ethereumApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
+        var privKey = _solanaApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
 
         await Verifier.Verify(privKey);
     }
@@ -179,8 +171,8 @@ public class EthereumApiTests : IAsyncDisposable
         var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
         var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
         
-        var privKey = await _ethereumApi.EthereumBlockchain.EthGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _ethereumApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
+        var privKey = await _solanaApi.SolanaBlockchain.EthGenerateAddressPrivateKeyAsync(privKeyRequest);
+        var privKeyLocal = _solanaApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
 
         privKey.Key.Should().Be(privKeyLocal.Key);
     }
@@ -188,7 +180,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GetCurrentBlock_ShouldReturnBlockNumber_WhenCalledWithoutData()
     {
-        var blockNumber = await _ethereumApi.EthereumBlockchain.EthGetCurrentBlockAsync();
+        var blockNumber = await _solanaApi.SolanaBlockchain.EthGetCurrentBlockAsync();
 
         blockNumber.Should().BeGreaterThan(0);
     }
@@ -196,7 +188,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GetBlock_ShouldReturnBlockData_WhenCalledWithCorrectBlockNumber()
     {
-        var block = await _ethereumApi.EthereumBlockchain.EthGetBlockAsync("0");
+        var block = await _solanaApi.SolanaBlockchain.EthGetBlockAsync("0");
 
         await Verifier.Verify(block);
     }
@@ -204,7 +196,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task GetBalance_ShouldReturnValue_WhenCalledOnExistingAccount()
     {
-        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetBalanceAsync(_testData.StorageAddress);
+        var accountBalance = await _solanaApi.SolanaBlockchain.EthGetBalanceAsync(_testData.StorageAddress);
 
         accountBalance.Balance.Should().NotBeNullOrWhiteSpace();
     }
@@ -214,7 +206,7 @@ public class EthereumApiTests : IAsyncDisposable
     {
         var amount = 0.00005m;
 
-        var transactionHash = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
+        var transactionHash = await _solanaApi.SolanaBlockchain.EthBlockchainTransferAsync(
             new TransferEthBlockchain(
             null, 
             0, 
@@ -236,7 +228,7 @@ public class EthereumApiTests : IAsyncDisposable
     {
         const string txHash = "0x3b525f0cfd92aeecfb80c1eb18c5251a0d259bada603513c4069f59c11e7938a";
         
-        var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(txHash);
+        var transaction = await _solanaApi.SolanaBlockchain.EthGetTransactionAsync(txHash);
 
         await Verifier.Verify(transaction);
     }
@@ -244,7 +236,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetTransactionCount_ShouldReturnPositiveNumber_WhenCalledOnExistingAccount()
     {
-        var accountBalance = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync(_testData.StorageAddress);
+        var accountBalance = await _solanaApi.SolanaBlockchain.EthGetTransactionCountAsync(_testData.StorageAddress);
 
         accountBalance.Should().BeGreaterThan(0);
     }
@@ -252,7 +244,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthGetTransactionByAddress_ShouldReturnTransactionList_WhenCalledOnWithValidAddress()
     {
-        var transaction = await _ethereumApi.EthereumBlockchain.EthGetTransactionByAddressAsync(_testData.StorageAddress, 10);
+        var transaction = await _solanaApi.SolanaBlockchain.EthGetTransactionByAddressAsync(_testData.StorageAddress, 10);
 
         transaction.Should()
             .NotBeNull()
@@ -265,7 +257,7 @@ public class EthereumApiTests : IAsyncDisposable
     {
         const string address = "0xAE682DFa32be2a60840a1499608Cb06F6E94F440";
         
-        var transaction = await _ethereumApi.EthereumBlockchain.EthGetInternalTransactionByAddressAsync(address, 10);
+        var transaction = await _solanaApi.SolanaBlockchain.EthGetInternalTransactionByAddressAsync(address, 10);
 
         transaction.Should()
             .NotBeNull()
@@ -327,7 +319,7 @@ public class EthereumApiTests : IAsyncDisposable
             new CustomFee("100000", "3")
         );
         
-        var transaction = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);
+        var transaction = await _solanaApi.SolanaBlockchain.EthBlockchainSmartContractInvocationAsync(callSmartContractMethod);
 
         transaction.TxId.Should().NotBeNullOrWhiteSpace();
         
@@ -372,7 +364,7 @@ public class EthereumApiTests : IAsyncDisposable
             }
         );
         
-        var data = await _ethereumApi.EthereumBlockchain.EthBlockchainSmartContractInvocationAsync(callReadSmartContractMethod);
+        var data = await _solanaApi.SolanaBlockchain.EthBlockchainSmartContractInvocationAsync(callReadSmartContractMethod);
 
         data._Data.Should().Be("0");
     }
@@ -380,7 +372,7 @@ public class EthereumApiTests : IAsyncDisposable
     [Fact]
     public async Task EthBroadcastAsync_ShouldReturnTransactionHash_WhenCalledOnSignedTransaction()
     {
-        var txCount = await _ethereumApi.EthereumBlockchain.EthGetTransactionCountAsync(_testData.StorageAddress);
+        var txCount = await _solanaApi.SolanaBlockchain.EthGetTransactionCountAsync(_testData.StorageAddress);
         var transaction = new Transaction
         {
             Type = new HexBigInteger(2),
@@ -402,7 +394,7 @@ public class EthereumApiTests : IAsyncDisposable
 
         var signedTransaction = transactionManager.SignTransaction(account, transactionInput);
 
-        var resultTransaction = await _ethereumApi.EthereumBlockchain.EthBroadcastAsync(new BroadcastKMS("0x" + signedTransaction));
+        var resultTransaction = await _solanaApi.SolanaBlockchain.EthBroadcastAsync(new BroadcastKMS("0x" + signedTransaction));
 
         _debts.Add(_testData.TargetPrivKey, 0.00005M);
         
@@ -430,7 +422,7 @@ public class EthereumApiTests : IAsyncDisposable
 
                 try
                 {
-                    var tx = await _ethereumApi.EthereumBlockchain.EthGetTransactionAsync(hash,
+                    var tx = await _solanaApi.SolanaBlockchain.EthGetTransactionAsync(hash,
                         cancellationToken: cts.Token);
                     if (tx.Status)
                     {
@@ -457,7 +449,7 @@ public class EthereumApiTests : IAsyncDisposable
     {
         foreach (var debt in _debts)
         {
-            var result = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
+            var result = await _solanaApi.SolanaBlockchain.EthBlockchainTransferAsync(
                 new TransferEthBlockchain(
                     null,
                     0,
