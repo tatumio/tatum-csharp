@@ -6,7 +6,10 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using FluentAssertions;
+using Tatum.CSharp.Solana.Clients;
+using Tatum.CSharp.Solana.Core.Client;
 using Tatum.CSharp.Solana.Tests.Integration.TestDataModels;
 using VerifyTests;
 using VerifyXunit;
@@ -31,15 +34,14 @@ public class SolanaApiTests : IAsyncDisposable
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.SolanaTestData;
 
         _solanaApi = new SolanaClient(new HttpClient(), apiKey, true);
-        VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
     }
 
     [Fact]
     public async Task GenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
     {
-        var wallet = await _solanaApi.SolanaBlockchain.EthGenerateWalletAsync();
+        var wallet = await _solanaApi.SolanaBlockchain.SolanaGenerateWalletAsync();
 
-        wallet.Mnemonic.Should().NotBeNullOrWhiteSpace();
+        wallet.Address.Should().NotBeNullOrWhiteSpace();
         wallet.Xpub.Should().NotBeNullOrWhiteSpace();
     }
 
