@@ -19,7 +19,6 @@
         <PackageTags>Tatum; BTC; Bitcoin</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
-        <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
         <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     </PropertyGroup>
 
