@@ -37,152 +37,19 @@ public class SolanaApiTests : IAsyncDisposable
     }
 
     [Fact]
-    public async Task GenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
+    public async Task SolanaGenerateWalletWallet_ShouldReturnWalletData_WhenCalledWithoutData()
     {
         var wallet = await _solanaApi.SolanaBlockchain.SolanaGenerateWalletAsync();
 
         wallet.Address.Should().NotBeNullOrWhiteSpace();
-        wallet.Xpub.Should().NotBeNullOrWhiteSpace();
-    }
-
-    [Fact]
-    public async Task GenerateWalletWithHttpInfo_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
-    {
-        var response = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync();
-
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        response.Data.Mnemonic.Should().NotBeNullOrWhiteSpace();
-        response.Data.Xpub.Should().NotBeNullOrWhiteSpace();
-    }
-
-    [Fact]
-    public async Task GenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
-    {
-        var wallet = await _solanaApi.SolanaBlockchain.EthGenerateWalletAsync(_testData.TestMnemonic);
-
-        wallet.Mnemonic.Should().Be(_testData.TestMnemonic);
-        wallet.Xpub.Should().Be(_testData.TestXPub);
-    }
-
-    [Fact]
-    public async Task GenerateWalletWithHttpInfo_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
-    {
-        var response = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateWalletWithHttpInfoAsync(_testData.TestMnemonic);
-
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        response.Data.Mnemonic.Should().Be(_testData.TestMnemonic);
-        response.Data.Xpub.Should().Be(_testData.TestXPub);
-    }
-
-    [Fact]
-    public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithoutData()
-    {
-        var wallet = _solanaApi.Local.GenerateWallet();
-
+        wallet.PrivateKey.Should().NotBeNullOrWhiteSpace();
         wallet.Mnemonic.Should().NotBeNullOrWhiteSpace();
-        wallet.Xpub.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
-    public void LocalGenerateWallet_ShouldReturnXpuAndMnemonic_WhenCalledWithMnemonic()
+    public async Task SolanaGetCurrentBlock_ShouldReturnBlockNumber_WhenCalledWithoutData()
     {
-        var wallet = _solanaApi.Local.GenerateWallet(_testData.TestMnemonic);
-
-        wallet.Mnemonic.Should().Be(_testData.TestMnemonic);
-        wallet.Xpub.Should().Be(_testData.TestXPub);
-    }
-
-    [Fact]
-    public async Task GenerateAddress_ShouldReturnAddress_WhenCalledWithValidData()
-    {
-        var address = await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
-
-        await Verifier.Verify(address);
-    }
-
-    [Fact]
-    public void GenerateAddress_ShouldThrowApiException_WhenCalledWithInvalidXpub()
-    {
-        Func<Task> action = async () => await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync("some random text", 0);
-
-        action.Should().ThrowAsync<ApiException>()
-            .WithMessage("Unable to generate address for some random text.");
-    }
-
-    [Fact]
-    public async Task GenerateAddressWithHttpInfo_ShouldReturnAddress_WhenCalledWithValidData()
-    {
-        var address = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync(_testData.TestXPub, 0);
-        
-        await Verifier.Verify(address);
-    }
-
-    [Fact]
-    public async Task GenerateAddressWithHttpInfo_ShouldReturnNotSuccessApiResponse_WhenCalledWithInvalidData()
-    {
-        var address = await _solanaApi.SolanaBlockchainWithHttpInfo.EthGenerateAddressWithHttpInfoAsync("some random text", 0);
-
-        await Verifier.Verify(address);
-    }
-
-    [Fact]
-    public async Task LocalGenerateAddress_ShouldReturnAddress_WhenCalledWithValidData()
-    {
-        var address = _solanaApi.Local.GenerateAddress(_testData.TestXPub, 0);
-
-        await Verifier.Verify(address);
-    }
-
-    [Fact]
-    public void LocalGenerateAddress_ShouldThrowInvalidFormatException_WhenCalledWithInvalidXpub()
-    {
-        var action = () => _solanaApi.Local.GenerateAddress("some random text", 0);
-
-        action.Should().Throw<FormatException>()
-            .WithMessage("Invalid base58 data");
-    }
-
-    [Fact]
-    public async Task GenerateAddress_ShouldReturnSameAddress_WhenCalledWithSameDataOnLocal()
-    {
-        var address = await _solanaApi.SolanaBlockchain.EthGenerateAddressAsync(_testData.TestXPub, 0);
-        var addressLocal = _solanaApi.Local.GenerateAddress(_testData.TestXPub, 0);
-
-        address.Address.Should().Be(addressLocal.Address.ToLower());
-    }
-
-    [Fact]
-    public async Task GenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
-    {
-        var privKey = await _solanaApi.SolanaBlockchain.EthGenerateAddressPrivateKeyAsync(new PrivKeyRequest(0, _testData.TestMnemonic));
-
-        await Verifier.Verify(privKey);
-    }
-
-    [Fact]
-    public async Task LocalGenerateAddressPrivateKey_ShouldReturnPrivateKey_WhenCalledWithValidData()
-    {
-        var privKey = _solanaApi.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, _testData.TestMnemonic));
-
-        await Verifier.Verify(privKey);
-    }
-
-    [Fact]
-    public async Task GenerateAddressPrivateKey_ShouldReturnSamePrivateKey_WhenCalledWithSameDataOnLocal()
-    {
-        var privKeyRequest = new PrivKeyRequest(0, _testData.TestMnemonic);
-        var privKeyRequestLocal = new PrivKeyRequestLocal(0, _testData.TestMnemonic);
-        
-        var privKey = await _solanaApi.SolanaBlockchain.EthGenerateAddressPrivateKeyAsync(privKeyRequest);
-        var privKeyLocal = _solanaApi.Local.GenerateAddressPrivateKey(privKeyRequestLocal);
-
-        privKey.Key.Should().Be(privKeyLocal.Key);
-    }
-
-    [Fact]
-    public async Task GetCurrentBlock_ShouldReturnBlockNumber_WhenCalledWithoutData()
-    {
-        var blockNumber = await _solanaApi.SolanaBlockchain.EthGetCurrentBlockAsync();
+        var blockNumber = await _solanaApi.SolanaBlockchain.SolanaGetCurrentBlockAsync();
 
         blockNumber.Should().BeGreaterThan(0);
     }
