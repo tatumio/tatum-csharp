@@ -35,14 +35,23 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SolanaWallet" /> class.
         /// </summary>
+        /// <param name="mnemonic">Generated mnemonic for wallet..</param>
         /// <param name="address">Generated account address..</param>
         /// <param name="privateKey">Generated private key for account..</param>
-        public SolanaWallet(string address = default(string), string privateKey = default(string))
+        public SolanaWallet(string mnemonic = default(string), string address = default(string), string privateKey = default(string))
         {
+            this.Mnemonic = mnemonic;
             this.Address = address;
             this.PrivateKey = privateKey;
         }
 
+
+        /// <summary>
+        /// Generated mnemonic for wallet.
+        /// </summary>
+        /// <value>Generated mnemonic for wallet.</value>
+        [DataMember(Name = "mnemonic", EmitDefaultValue = false)]
+        public string Mnemonic { get; set; }
 
         /// <summary>
         /// Generated account address.
@@ -66,6 +75,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class SolanaWallet {\n");
+            sb.Append("  Mnemonic: ").Append(Mnemonic).Append("\n");
             sb.Append("  Address: ").Append(Address).Append("\n");
             sb.Append("  PrivateKey: ").Append(PrivateKey).Append("\n");
             sb.Append("}\n");
@@ -104,6 +114,11 @@ namespace Tatum.CSharp.Solana.Core.Model
             }
             return 
                 (
+                    this.Mnemonic == input.Mnemonic ||
+                    (this.Mnemonic != null &&
+                    this.Mnemonic.Equals(input.Mnemonic))
+                ) && 
+                (
                     this.Address == input.Address ||
                     (this.Address != null &&
                     this.Address.Equals(input.Address))
@@ -124,6 +139,10 @@ namespace Tatum.CSharp.Solana.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Mnemonic != null)
+                {
+                    hashCode = (hashCode * 59) + this.Mnemonic.GetHashCode();
+                }
                 if (this.Address != null)
                 {
                     hashCode = (hashCode * 59) + this.Address.GetHashCode();
