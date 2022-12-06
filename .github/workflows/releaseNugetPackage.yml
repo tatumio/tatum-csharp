@@ -29,9 +29,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - uses: nuget/setup-nuget@v1
-        with:
-          nuget-api-key: ${{ secrets.NUGET_PUBLISH_KEY }}
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
           sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ inputs.package }}/${{ inputs.version }},g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
@@ -44,6 +41,6 @@ jobs:
       - name: ${{ inputs.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ inputs.package }} - Pack
-        run: nuget pack ${{ env.PROJECT_PATH }} -Version ${{ inputs.version }} -IncludeReferencedProjects -Properties Configuration=Release -OutputDirectory .
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ inputs.version }} --output .
       - name: ${{ inputs.package }} - Push to Nuget
         run: dotnet nuget push "./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}
