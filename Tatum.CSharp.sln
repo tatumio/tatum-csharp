@@ -48,6 +48,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Core",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Harmony.Core", "Harmony\Tatum.CSharp.Harmony.Core\Tatum.CSharp.Harmony.Core.csproj", "{CF756ABF-54FF-41B9-966D-BE490B1DD278}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Solana", "Solana\Tatum.CSharp.Solana\Tatum.CSharp.Solana.csproj", "{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Solana.Core", "Solana\Tatum.CSharp.Solana.Core\Tatum.CSharp.Solana.Core.csproj", "{CD5D57C9-F31A-4340-A49E-36A309D71ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Solana.Tests.Integration", "Solana\Tatum.CSharp.Solana.Tests.Integration\Tatum.CSharp.Solana.Tests.Integration.csproj", "{7F988C64-C500-4F18-8ACE-266B7F410FB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,5 +156,17 @@ Global
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5D57C9-F31A-4340-A49E-36A309D71ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5D57C9-F31A-4340-A49E-36A309D71ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5D57C9-F31A-4340-A49E-36A309D71ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5D57C9-F31A-4340-A49E-36A309D71ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F988C64-C500-4F18-8ACE-266B7F410FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F988C64-C500-4F18-8ACE-266B7F410FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F988C64-C500-4F18-8ACE-266B7F410FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F988C64-C500-4F18-8ACE-266B7F410FB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

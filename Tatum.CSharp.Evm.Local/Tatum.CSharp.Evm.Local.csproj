@@ -19,7 +19,6 @@
         <PackageTags>Tatum; EVM</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
-        <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     </PropertyGroup>
 
     <ItemGroup>
