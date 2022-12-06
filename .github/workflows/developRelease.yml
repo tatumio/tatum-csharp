@@ -33,7 +33,8 @@ jobs:
           FungibleTokens,
           Bsc,
           Harmony,
-          Bitcoin
+          Bitcoin,
+          Solana
         ]
     name: ${{ matrix.package }} - Deploy Dev Package
     uses: ./.github/workflows/deployReleaseCandidatePackage.yml
