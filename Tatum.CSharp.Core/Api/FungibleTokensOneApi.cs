@@ -10,11 +10,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Mime;
 using Tatum.CSharp.Core.Client;
 using Tatum.CSharp.Core.Model;
 

@@ -1,3 +1,0 @@
-﻿{
-  address: 0x49fa0aE27Aecdc0528003fA24041CbF7497cA66F
-}

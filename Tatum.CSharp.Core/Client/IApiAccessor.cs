@@ -8,8 +8,6 @@
  */
 
 
-using System;
-
 namespace Tatum.CSharp.Core.Client
 {
     /// <summary>

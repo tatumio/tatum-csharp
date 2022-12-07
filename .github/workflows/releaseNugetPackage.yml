@@ -3,7 +3,7 @@ name: Release Nuget Package
 on:
   workflow_call:
     inputs:
-      name:
+      package:
         required: true
         type: string
       version:
@@ -14,13 +14,13 @@ on:
         type: string
 
 env:
-  PROJECT_PATH: ./Tatum.CSharp.${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.csproj
+  PROJECT_PATH: ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.csproj
   PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
   
 jobs:
 
   preparePackage:
-    name: ${{ inputs.name }} - Build and Publish
+    name: ${{ inputs.package }} - Build and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -30,22 +30,17 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
-        if: ${{ inputs.name == 'Core' }}
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
-          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ inputs.package }}/${{ inputs.version }},g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs   
       - name: Propagate PackageReleaseNotes from the Core package .csproj
-        if: ${{ inputs.name != 'Core' }}
         run: |
-          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Tatum.CSharp.Core/Tatum.CSharp.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
-      - name: ${{ inputs.name }} - Bump Dependencies Version
-        if: ${{ inputs.dependsOn != '' }}
-        run: dotnet add ${{ env.PROJECT_PATH }} package Tatum.CSharp.${{ inputs.dependsOn }} --no-restore --version ${{ inputs.version }}
-      - name: ${{ inputs.name }} - Restore dependencies
+          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Tatum.CSharp.${{ inputs.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
+      - name: ${{ inputs.package }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: ${{ inputs.name }} - Build
+      - name: ${{ inputs.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
-      - name: ${{ inputs.name }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release /p:Version=${{ inputs.version }} --output .
-      - name: ${{ inputs.name }} - Push to Nuget
-        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.name }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}
+      - name: ${{ inputs.package }} - Pack
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ inputs.version }} --output .
+      - name: ${{ inputs.package }} - Push to Nuget
+        run: dotnet nuget push "./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PACKAGE_SOURCE }}

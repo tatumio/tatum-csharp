@@ -6,6 +6,7 @@ using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Bsc.Clients;
 using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Polygon.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,9 @@ builder.Services
 
 builder.Services
     .AddHttpClient<IBscClient, BscClient>(httpClient => new BscClient(httpClient, apiKey));
+
+builder.Services
+    .AddHttpClient<IHarmonyClient, HarmonyClient>(httpClient => new HarmonyClient(httpClient, apiKey));
 
 // Add example services for bitcoin
 builder.Services.AddTransient<BlockchainTransferExampleService>();

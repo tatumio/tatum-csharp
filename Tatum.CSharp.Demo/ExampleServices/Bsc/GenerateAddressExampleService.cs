@@ -1,5 +1,5 @@
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Bsc.Clients;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bsc;
 
@@ -12,12 +12,12 @@ public class GenerateAddressExampleService
         _bscClient = bscClient;
     }
     
-    public GeneratedAddressEth GenerateAddress(string xpub, int index)
+    public GeneratedAddressEthLocal GenerateAddress(string xpub, int index)
     {
         //xpub = "xpub from your wallet"
         //index = index of the address you would like to generate
         
-        GeneratedAddressEth address = _bscClient.Local.GenerateAddress(xpub, index);
+        GeneratedAddressEthLocal address = _bscClient.Local.GenerateAddress(xpub, index);
      
         return address;
     }

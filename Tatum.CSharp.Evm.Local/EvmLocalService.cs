@@ -1,8 +1,7 @@
 using NBitcoin;
 using Nethereum.HdWallet;
 using Nethereum.Hex.HexConvertors.Extensions;
-using Tatum.CSharp.Core.Model;
-using Wallet = Tatum.CSharp.Core.Model.Wallet;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Evm.Local
 {
@@ -25,11 +24,11 @@ namespace Tatum.CSharp.Evm.Local
         }
 
         /// <inheritdoc />
-        public Wallet GenerateWallet()
+        public WalletLocal GenerateWallet()
         {
             var wallet = new Nethereum.HdWallet.Wallet(Wordlist.English, WordCount.TwentyFour, null, _targetDerivationPath);
 
-            return new Wallet
+            return new WalletLocal
             {
                 Mnemonic = string.Join(" ", wallet.Words),
                 Xpub = wallet.GetMasterExtPubKey().ToString(_targetNetwork)
@@ -37,11 +36,11 @@ namespace Tatum.CSharp.Evm.Local
         }
 
         /// <inheritdoc />
-        public Wallet GenerateWallet(string mnemonic)
+        public WalletLocal GenerateWallet(string mnemonic)
         {
             var wallet = new Nethereum.HdWallet.Wallet(mnemonic, null, _targetDerivationPath);
 
-            return new Wallet()
+            return new WalletLocal()
             {
                 Mnemonic = mnemonic,
                 Xpub = wallet.GetMasterExtPubKey().ToString(_targetNetwork)
@@ -49,25 +48,25 @@ namespace Tatum.CSharp.Evm.Local
         }
 
         /// <inheritdoc />
-        public GeneratedAddressEth GenerateAddress(string walletXpub, int index)
+        public GeneratedAddressEthLocal GenerateAddress(string walletXpub, int index)
         {
             var bitcoinExtPubKey = new BitcoinExtPubKey(walletXpub, _targetNetwork);
             var wallet = new PublicWallet(bitcoinExtPubKey.ExtPubKey);
             
-            return new GeneratedAddressEth
+            return new GeneratedAddressEthLocal
             {
                 Address = wallet.GetAddress(index)
             };
         }
 
         /// <inheritdoc />
-        public PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest)
+        public PrivKeyLocal GenerateAddressPrivateKey(PrivKeyRequestLocal privKeyRequest)
         {
             var wallet = new Nethereum.HdWallet.Wallet(privKeyRequest.Mnemonic,null, _targetDerivationPath);
 
             var privKey = wallet.GetPrivateKey(privKeyRequest.Index);
             
-            return new PrivKey()
+            return new PrivKeyLocal()
             {
                 Key = privKey.ToHex(true)
             };

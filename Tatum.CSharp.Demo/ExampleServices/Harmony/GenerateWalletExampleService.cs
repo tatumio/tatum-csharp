@@ -1,4 +1,4 @@
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Evm.Local.Models;
 using Tatum.CSharp.Harmony.Clients;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Harmony;
@@ -12,9 +12,9 @@ public class GenerateWalletExampleService
         _harmonyClient = harmonyClient;
     }
     
-    public Wallet GenerateWallet()
+    public WalletLocal GenerateWallet()
     {
-        Wallet wallet = _harmonyClient.Local.GenerateWallet();
+        WalletLocal wallet = _harmonyClient.Local.GenerateWallet();
         
         return wallet;
     }

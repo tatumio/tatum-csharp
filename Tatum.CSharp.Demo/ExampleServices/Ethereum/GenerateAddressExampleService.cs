@@ -1,5 +1,5 @@
-using Tatum.CSharp.Core.Model;
 using Tatum.CSharp.Ethereum.Clients;
+using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Ethereum;
 
@@ -12,12 +12,12 @@ public class GenerateAddressExampleService
         _ethereumClient = ethereumClient;
     }
     
-    public GeneratedAddressEth GenerateAddress(string xpub, int index)
+    public GeneratedAddressEthLocal GenerateAddress(string xpub, int index)
     {
         //xpub = "xpub from your wallet"
         //index = index of the address you would like to generate
         
-        GeneratedAddressEth address = _ethereumClient.Local.GenerateAddress(xpub, index);
+        GeneratedAddressEthLocal address = _ethereumClient.Local.GenerateAddress(xpub, index);
      
         return address;
     }

@@ -1,5 +1,5 @@
 using Tatum.CSharp.Bitcoin.Clients;
-using Tatum.CSharp.Core.Model;
+using Tatum.CSharp.Bitcoin.Local.Models;
 
 namespace Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 
@@ -12,12 +12,12 @@ public class GeneratePrivateKeyExampleService
         _bitcoinClient = bitcoinClient;
     }
     
-    public PrivKey GeneratePrivateKey(PrivKeyRequest request)
+    public PrivKeyLocal GeneratePrivateKey(PrivKeyRequestLocal request)
     {
         //request.Mnemonic = "mnemonic from your wallet"
         //request.Index = index of the private key you would like to generate
         
-        PrivKey privateKey = _bitcoinClient.Local.GenerateAddressPrivateKey(request);
+        PrivKeyLocal privateKey = _bitcoinClient.Local.GenerateAddressPrivateKey(request);
         
         return privateKey;
     }

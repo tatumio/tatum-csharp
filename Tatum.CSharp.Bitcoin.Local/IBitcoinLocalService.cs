@@ -1,5 +1,5 @@
-using Tatum.CSharp.Core.Model;
-using Wallet = Tatum.CSharp.Core.Model.Wallet;
+using NBitcoin;
+using Tatum.CSharp.Bitcoin.Local.Models;
 
 namespace Tatum.CSharp.Bitcoin.Local
 {
@@ -8,13 +8,13 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// <summary>
         /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
         /// </summary>
-        Wallet GenerateWallet();
+        WalletLocal GenerateWallet();
 
         /// <summary>
         /// Generates a BIP44 compatible EVM wallet with the derivation path m/44'/60'/0'/0.
         /// </summary>
         /// <param name="mnemonic">Mnemonic to use for generating extended public and private keys.</param>
-        Wallet GenerateWallet(string mnemonic);
+        WalletLocal GenerateWallet(string mnemonic);
 
         /// <summary>
         /// Generates an EVM account deposit address from an Extended public key.
@@ -22,11 +22,18 @@ namespace Tatum.CSharp.Bitcoin.Local
         /// <param name="walletXpub">Extended public key of wallet.</param>
         /// <param name="index">Derivation index of the address to be generated.</param>
         /// <returns></returns>
-        GeneratedAddressBtc GenerateAddress(string walletXpub, int index);
+        GeneratedAddressBtcLocal GenerateAddress(string walletXpub, int index);
 
         /// <summary>
         /// Generates the private key of an address from a mnemonic for a given derivation path index.
         /// </summary>
-        PrivKey GenerateAddressPrivateKey(PrivKeyRequest privKeyRequest);
+        PrivKeyLocal GenerateAddressPrivateKey(PrivKeyRequestLocal privKeyRequest);
+
+        /// <summary>
+        /// Creates <see cref="BitcoinSecret"/> from private key.
+        /// </summary>
+        /// <param name="privateKey">Private key string.</param>
+        /// <param name="network">Target network type.</param>
+        BitcoinSecret CreateBitcoinSecret(string privateKey, Network network);
     }
 }

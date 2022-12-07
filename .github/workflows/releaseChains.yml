@@ -14,59 +14,25 @@ env:
   DOWNSTREAM_DISPATCH_ADDRESS_UNITY: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/packUnity.yml/dispatches
 
 jobs:
-  Core_Release:
-    name: Core - Release
-    uses: ./.github/workflows/releaseNugetPackage.yml
-    with:
-      name: Core
-      version: ${{ inputs.version }}
-    secrets: inherit
-
-  Nuget_Wait_Core:
-    name: Core - Nuget package wait
-    uses: ./.github/workflows/waitForNuget.yml
-    with:
-      name: Core
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: Core_Release
-    
-  Release_L1_Packages:
-    strategy:
-      matrix:
-        arrays: [
-          { chain: "Evm.Local", dependsOn: "Core" },
-          { chain: "Bitcoin.Local", dependsOn: "Core" }
-        ]
-    name: ${{ matrix.arrays.chain }} - Release
-    uses: ./.github/workflows/releaseSingleChain.yml
-    with:
-      chain: ${{ matrix.arrays.chain }}
-      dependsOn: ${{ matrix.arrays.dependsOn }}
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: Nuget_Wait_Core
-  
   Release_L2_Packages:
     strategy:
       matrix:
-        arrays: [
-          { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
-          { chain: "FungibleTokens", dependsOn: "Evm.Local" },
-          { chain: "Polygon", dependsOn: "Evm.Local" },
-          { chain: "Bsc", dependsOn: "Evm.Local" },
-          { chain: "Harmony", dependsOn: "Evm.Local" }
+        package: [
+          Ethereum,
+          Polygon,
+          Nft,
+          FungibleTokens,
+          Bsc,
+          Harmony,
+          Bitcoin,
+          Solana
         ]
-    name: ${{ matrix.arrays.chain }} - Release
+    name: ${{ matrix.package }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml
     with:
-      chain: ${{ matrix.arrays.chain }}
-      dependsOn: ${{ matrix.arrays.dependsOn }}
+      package: ${{ matrix.package }}
       version: ${{ inputs.version }}
     secrets: inherit
-    needs: Release_L1_Packages
   
   Post_Release_Tests:
     name: Dispatch Post Release Tests

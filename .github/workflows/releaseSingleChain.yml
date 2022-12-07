@@ -4,7 +4,7 @@ run-name: ${{ inputs.source }}
 on:
   workflow_call:
     inputs:
-      chain:
+      package:
         description: 'Chain to release'
         required: true
         type: string
@@ -12,26 +12,21 @@ on:
         description: 'Package Version'
         required: true
         type: string
-      dependsOn:
-        description: 'Package to depend on'
-        required: false
-        type: string
 
 jobs:
   Release:
-    name: ${{ inputs.chain }} - Release
+    name: ${{ inputs.package }} - Release
     uses: ./.github/workflows/releaseNugetPackage.yml
     with:
-      name: ${{ inputs.chain }}
+      package: ${{ inputs.package }}
       version: ${{ inputs.version }}
-      dependsOn: ${{ inputs.dependsOn }}
     secrets: inherit
 
   Nuget_Wait:
-    name: ${{ inputs.chain }} - Nuget package wait
+    name: ${{ inputs.package }} - Nuget package wait
     uses: ./.github/workflows/waitForNuget.yml
     with:
-      name: ${{ inputs.chain }}
+      package: ${{ inputs.package }}
       version: ${{ inputs.version }}
     secrets: inherit
     needs: Release
