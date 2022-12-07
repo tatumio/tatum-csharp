@@ -39,7 +39,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <param name="decimals">Number of decimals configured for token&#39;s mint..</param>
         /// <param name="uiAmount">Token amount as a float, accounting for decimals..</param>
         /// <param name="uiAmountString">Token amount as a string, accounting for decimals..</param>
-        public UiTokenAmount(string amount = default(string), decimal decimals = default(decimal), decimal uiAmount = default(decimal), string uiAmountString = default(string))
+        public UiTokenAmount(string amount = default(string), decimal decimals = default(decimal), decimal? uiAmount = default(decimal?), string uiAmountString = default(string))
         {
             this.Amount = amount;
             this.Decimals = decimals;
@@ -66,8 +66,8 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// Token amount as a float, accounting for decimals.
         /// </summary>
         /// <value>Token amount as a float, accounting for decimals.</value>
-        [DataMember(Name = "uiAmount", EmitDefaultValue = false)]
-        public decimal UiAmount { get; set; }
+        [DataMember(Name = "uiAmount", EmitDefaultValue = true)]
+        public decimal? UiAmount { get; set; }
 
         /// <summary>
         /// Token amount as a string, accounting for decimals.
@@ -134,7 +134,8 @@ namespace Tatum.CSharp.Solana.Core.Model
                 ) && 
                 (
                     this.UiAmount == input.UiAmount ||
-                    this.UiAmount.Equals(input.UiAmount)
+                    (this.UiAmount != null &&
+                    this.UiAmount.Equals(input.UiAmount))
                 ) && 
                 (
                     this.UiAmountString == input.UiAmountString ||
@@ -157,7 +158,10 @@ namespace Tatum.CSharp.Solana.Core.Model
                     hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.Decimals.GetHashCode();
-                hashCode = (hashCode * 59) + this.UiAmount.GetHashCode();
+                if (this.UiAmount != null)
+                {
+                    hashCode = (hashCode * 59) + this.UiAmount.GetHashCode();
+                }
                 if (this.UiAmountString != null)
                 {
                     hashCode = (hashCode * 59) + this.UiAmountString.GetHashCode();
