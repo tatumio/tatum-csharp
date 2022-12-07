@@ -40,7 +40,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <param name="recentBlockhash">recentBlockhash.</param>
         /// <param name="instructions">instructions.</param>
         /// <param name="indexToProgramIds">indexToProgramIds.</param>
-        public SolanaTxMessage(SolanaTxMessageHeader header = default(SolanaTxMessageHeader), List<SolanaTxMessageAccountKey> accountKeys = default(List<SolanaTxMessageAccountKey>), string recentBlockhash = default(string), List<SolanaTxMessageInstruction> instructions = default(List<SolanaTxMessageInstruction>), Object indexToProgramIds = default(Object))
+        public SolanaTxMessage(SolanaTxMessageHeader header = default(SolanaTxMessageHeader), List<string> accountKeys = default(List<string>), string recentBlockhash = default(string), List<SolanaTxMessageInstruction> instructions = default(List<SolanaTxMessageInstruction>), Object indexToProgramIds = default(Object))
         {
             this.Header = header;
             this.AccountKeys = accountKeys;
@@ -60,7 +60,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// Gets or Sets AccountKeys
         /// </summary>
         [DataMember(Name = "accountKeys", EmitDefaultValue = false)]
-        public List<SolanaTxMessageAccountKey> AccountKeys { get; set; }
+        public List<string> AccountKeys { get; set; }
 
         /// <summary>
         /// Gets or Sets RecentBlockhash
