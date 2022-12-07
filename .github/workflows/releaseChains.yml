@@ -24,7 +24,8 @@ jobs:
           FungibleTokens,
           Bsc,
           Harmony,
-          Bitcoin
+          Bitcoin,
+          Solana
         ]
     name: ${{ matrix.package }} - Release
     uses: ./.github/workflows/releaseSingleChain.yml

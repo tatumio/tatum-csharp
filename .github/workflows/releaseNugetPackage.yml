@@ -35,7 +35,7 @@ jobs:
           grep -i "Tatum_SDK_CSharp" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs   
       - name: Propagate PackageReleaseNotes from the Core package .csproj
         run: |
-          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/Tatum.CSharp/${{ inputs.package }}.Core/Tatum.CSharp.${{ inputs.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
+          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Tatum.CSharp.${{ inputs.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.package }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ inputs.package }} - Build
