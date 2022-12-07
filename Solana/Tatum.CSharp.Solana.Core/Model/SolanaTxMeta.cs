@@ -43,7 +43,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <param name="postTokenBalances">postTokenBalances.</param>
         /// <param name="preBalances">preBalances.</param>
         /// <param name="preTokenBalances">preTokenBalances.</param>
-        public SolanaTxMeta(string err = default(string), decimal fee = default(decimal), List<Object> innerInstructions = default(List<Object>), List<string> logMessages = default(List<string>), List<decimal> postBalances = default(List<decimal>), List<decimal> postTokenBalances = default(List<decimal>), List<decimal> preBalances = default(List<decimal>), List<decimal> preTokenBalances = default(List<decimal>))
+        public SolanaTxMeta(Object err = default(Object), decimal fee = default(decimal), List<Object> innerInstructions = default(List<Object>), List<string> logMessages = default(List<string>), List<decimal> postBalances = default(List<decimal>), List<decimal> postTokenBalances = default(List<decimal>), List<decimal> preBalances = default(List<decimal>), List<decimal> preTokenBalances = default(List<decimal>))
         {
             this.Err = err;
             this.Fee = fee;
@@ -60,7 +60,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// Gets or Sets Err
         /// </summary>
         [DataMember(Name = "err", EmitDefaultValue = false)]
-        public string Err { get; set; }
+        public Object Err { get; set; }
 
         /// <summary>
         /// Gets or Sets Fee
