@@ -13,7 +13,7 @@ jobs:
   Test_Chains:
     strategy:
       matrix:
-        chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony]
+        chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony, Solana]
     name: Test Chain Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
