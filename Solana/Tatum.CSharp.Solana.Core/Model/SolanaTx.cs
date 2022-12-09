@@ -35,14 +35,24 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SolanaTx" /> class.
         /// </summary>
+        /// <param name="blockTime">blockTime.</param>
         /// <param name="meta">meta.</param>
         /// <param name="transaction">transaction.</param>
-        public SolanaTx(SolanaTxMeta meta = default(SolanaTxMeta), SolanaTxTransaction transaction = default(SolanaTxTransaction))
+        /// <param name="slot">slot.</param>
+        public SolanaTx(decimal blockTime = default(decimal), SolanaTxMeta meta = default(SolanaTxMeta), SolanaTxTransaction transaction = default(SolanaTxTransaction), decimal slot = default(decimal))
         {
+            this.BlockTime = blockTime;
             this.Meta = meta;
             this.Transaction = transaction;
+            this.Slot = slot;
         }
 
+
+        /// <summary>
+        /// Gets or Sets BlockTime
+        /// </summary>
+        [DataMember(Name = "blockTime", EmitDefaultValue = false)]
+        public decimal BlockTime { get; set; }
 
         /// <summary>
         /// Gets or Sets Meta
@@ -57,6 +67,12 @@ namespace Tatum.CSharp.Solana.Core.Model
         public SolanaTxTransaction Transaction { get; set; }
 
         /// <summary>
+        /// Gets or Sets Slot
+        /// </summary>
+        [DataMember(Name = "slot", EmitDefaultValue = false)]
+        public decimal Slot { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -64,8 +80,10 @@ namespace Tatum.CSharp.Solana.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class SolanaTx {\n");
+            sb.Append("  BlockTime: ").Append(BlockTime).Append("\n");
             sb.Append("  Meta: ").Append(Meta).Append("\n");
             sb.Append("  Transaction: ").Append(Transaction).Append("\n");
+            sb.Append("  Slot: ").Append(Slot).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -102,6 +120,10 @@ namespace Tatum.CSharp.Solana.Core.Model
             }
             return 
                 (
+                    this.BlockTime == input.BlockTime ||
+                    this.BlockTime.Equals(input.BlockTime)
+                ) && 
+                (
                     this.Meta == input.Meta ||
                     (this.Meta != null &&
                     this.Meta.Equals(input.Meta))
@@ -110,6 +132,10 @@ namespace Tatum.CSharp.Solana.Core.Model
                     this.Transaction == input.Transaction ||
                     (this.Transaction != null &&
                     this.Transaction.Equals(input.Transaction))
+                ) && 
+                (
+                    this.Slot == input.Slot ||
+                    this.Slot.Equals(input.Slot)
                 );
         }
 
@@ -122,6 +148,7 @@ namespace Tatum.CSharp.Solana.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = (hashCode * 59) + this.BlockTime.GetHashCode();
                 if (this.Meta != null)
                 {
                     hashCode = (hashCode * 59) + this.Meta.GetHashCode();
@@ -130,6 +157,7 @@ namespace Tatum.CSharp.Solana.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.Transaction.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Slot.GetHashCode();
                 return hashCode;
             }
         }

@@ -41,10 +41,12 @@ namespace Tatum.CSharp.Nft.Core.Model
         /// Initializes a new instance of the <see cref="NftTokenByAddressErc721" /> class.
         /// </summary>
         /// <param name="contractAddress">On Algorand, this is the asset ID (the ID of the NFT); on the other blockchains, this is the address of the NFT smart contract (required).</param>
-        /// <param name="balances">On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs. (required).</param>
+        /// <param name="balances">On Algorand, an array of \&quot;1\&quot; to indicate that the NFTs with the specified IDs exist, or array with amount of fractions for &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;; on the other blockchains, this is an array of the IDs of the NFTs. (required).</param>
         /// <param name="blockNumber">(EVM-based blockchains only) On EVM-based blockchains like Celo, Polygon or Ethereum, this is an array of block numbers, in which the NFT was received by the address.</param>
         /// <param name="metadata">metadata (required).</param>
-        public NftTokenByAddressErc721(string contractAddress = default(string), List<string> balances = default(List<string>), List<decimal> blockNumber = default(List<decimal>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>))
+        /// <param name="supply">Only on Algorand, shows supply of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;.</param>
+        /// <param name="decimals">Only on Algorand, shows decimals of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;.</param>
+        public NftTokenByAddressErc721(string contractAddress = default(string), List<string> balances = default(List<string>), List<decimal> blockNumber = default(List<decimal>), List<NftTokenByAddressErc721TokenMetadata> metadata = default(List<NftTokenByAddressErc721TokenMetadata>), decimal supply = default(decimal), decimal decimals = default(decimal))
         {
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
@@ -65,6 +67,8 @@ namespace Tatum.CSharp.Nft.Core.Model
             }
             this.Metadata = metadata;
             this.BlockNumber = blockNumber;
+            this.Supply = supply;
+            this.Decimals = decimals;
         }
 
 
@@ -76,9 +80,9 @@ namespace Tatum.CSharp.Nft.Core.Model
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs.
+        /// On Algorand, an array of \&quot;1\&quot; to indicate that the NFTs with the specified IDs exist, or array with amount of fractions for &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;; on the other blockchains, this is an array of the IDs of the NFTs.
         /// </summary>
-        /// <value>On Algorand, this is an array of &lt;code&gt;1&lt;/code&gt; to indicate that the NFTs with the specified IDs exist; on the other blockchains, this is an array of the IDs of the NFTs.</value>
+        /// <value>On Algorand, an array of \&quot;1\&quot; to indicate that the NFTs with the specified IDs exist, or array with amount of fractions for &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;; on the other blockchains, this is an array of the IDs of the NFTs.</value>
         [DataMember(Name = "balances", IsRequired = true, EmitDefaultValue = true)]
         public List<string> Balances { get; set; }
 
@@ -96,6 +100,20 @@ namespace Tatum.CSharp.Nft.Core.Model
         public List<NftTokenByAddressErc721TokenMetadata> Metadata { get; set; }
 
         /// <summary>
+        /// Only on Algorand, shows supply of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
+        /// </summary>
+        /// <value>Only on Algorand, shows supply of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
+        [DataMember(Name = "supply", EmitDefaultValue = false)]
+        public decimal Supply { get; set; }
+
+        /// <summary>
+        /// Only on Algorand, shows decimals of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;
+        /// </summary>
+        /// <value>Only on Algorand, shows decimals of &lt;a href&#x3D;\&quot;https://developer.algorand.org/docs/get-started/tokenization/nft/#fractional-nfts\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Fractional NFTs.&lt;/a&gt;</value>
+        [DataMember(Name = "decimals", EmitDefaultValue = false)]
+        public decimal Decimals { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -107,6 +125,8 @@ namespace Tatum.CSharp.Nft.Core.Model
             sb.Append("  Balances: ").Append(Balances).Append("\n");
             sb.Append("  BlockNumber: ").Append(BlockNumber).Append("\n");
             sb.Append("  Metadata: ").Append(Metadata).Append("\n");
+            sb.Append("  Supply: ").Append(Supply).Append("\n");
+            sb.Append("  Decimals: ").Append(Decimals).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -164,6 +184,14 @@ namespace Tatum.CSharp.Nft.Core.Model
                     this.Metadata != null &&
                     input.Metadata != null &&
                     this.Metadata.SequenceEqual(input.Metadata)
+                ) && 
+                (
+                    this.Supply == input.Supply ||
+                    this.Supply.Equals(input.Supply)
+                ) && 
+                (
+                    this.Decimals == input.Decimals ||
+                    this.Decimals.Equals(input.Decimals)
                 );
         }
 
@@ -192,6 +220,8 @@ namespace Tatum.CSharp.Nft.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.Metadata.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Supply.GetHashCode();
+                hashCode = (hashCode * 59) + this.Decimals.GetHashCode();
                 return hashCode;
             }
         }

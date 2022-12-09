@@ -42,7 +42,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <param name="previousBlockhash">previousBlockhash.</param>
         /// <param name="rewards">rewards.</param>
         /// <param name="transactions">transactions.</param>
-        public SolanaBlock(decimal blockHeight = default(decimal), decimal blockTime = default(decimal), string blockhash = default(string), decimal parentSlot = default(decimal), string previousBlockhash = default(string), List<SolanaBlockReward> rewards = default(List<SolanaBlockReward>), List<SolanaTx> transactions = default(List<SolanaTx>))
+        public SolanaBlock(decimal blockHeight = default(decimal), decimal blockTime = default(decimal), string blockhash = default(string), decimal parentSlot = default(decimal), string previousBlockhash = default(string), List<SolanaBlockReward> rewards = default(List<SolanaBlockReward>), List<SolanaBlockTx> transactions = default(List<SolanaBlockTx>))
         {
             this.BlockHeight = blockHeight;
             this.BlockTime = blockTime;
@@ -94,7 +94,7 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// Gets or Sets Transactions
         /// </summary>
         [DataMember(Name = "transactions", EmitDefaultValue = false)]
-        public List<SolanaTx> Transactions { get; set; }
+        public List<SolanaBlockTx> Transactions { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

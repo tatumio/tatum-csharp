@@ -43,7 +43,9 @@ namespace Tatum.CSharp.Solana.Core.Model
         /// <param name="postTokenBalances">postTokenBalances.</param>
         /// <param name="preBalances">preBalances.</param>
         /// <param name="preTokenBalances">preTokenBalances.</param>
-        public SolanaTxMeta(Object err = default(Object), decimal fee = default(decimal), List<Object> innerInstructions = default(List<Object>), List<string> logMessages = default(List<string>), List<decimal> postBalances = default(List<decimal>), List<TokenBalance> postTokenBalances = default(List<TokenBalance>), List<decimal> preBalances = default(List<decimal>), List<TokenBalance> preTokenBalances = default(List<TokenBalance>))
+        /// <param name="rewards">rewards.</param>
+        /// <param name="status">status.</param>
+        public SolanaTxMeta(Object err = default(Object), decimal fee = default(decimal), List<Object> innerInstructions = default(List<Object>), List<string> logMessages = default(List<string>), List<decimal> postBalances = default(List<decimal>), List<TokenBalance> postTokenBalances = default(List<TokenBalance>), List<decimal> preBalances = default(List<decimal>), List<TokenBalance> preTokenBalances = default(List<TokenBalance>), List<Object> rewards = default(List<Object>), Object status = default(Object))
         {
             this.Err = err;
             this.Fee = fee;
@@ -53,6 +55,8 @@ namespace Tatum.CSharp.Solana.Core.Model
             this.PostTokenBalances = postTokenBalances;
             this.PreBalances = preBalances;
             this.PreTokenBalances = preTokenBalances;
+            this.Rewards = rewards;
+            this.Status = status;
         }
 
 
@@ -105,6 +109,18 @@ namespace Tatum.CSharp.Solana.Core.Model
         public List<TokenBalance> PreTokenBalances { get; set; }
 
         /// <summary>
+        /// Gets or Sets Rewards
+        /// </summary>
+        [DataMember(Name = "rewards", EmitDefaultValue = false)]
+        public List<Object> Rewards { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Status
+        /// </summary>
+        [DataMember(Name = "status", EmitDefaultValue = false)]
+        public Object Status { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -120,6 +136,8 @@ namespace Tatum.CSharp.Solana.Core.Model
             sb.Append("  PostTokenBalances: ").Append(PostTokenBalances).Append("\n");
             sb.Append("  PreBalances: ").Append(PreBalances).Append("\n");
             sb.Append("  PreTokenBalances: ").Append(PreTokenBalances).Append("\n");
+            sb.Append("  Rewards: ").Append(Rewards).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -199,6 +217,17 @@ namespace Tatum.CSharp.Solana.Core.Model
                     this.PreTokenBalances != null &&
                     input.PreTokenBalances != null &&
                     this.PreTokenBalances.SequenceEqual(input.PreTokenBalances)
+                ) && 
+                (
+                    this.Rewards == input.Rewards ||
+                    this.Rewards != null &&
+                    input.Rewards != null &&
+                    this.Rewards.SequenceEqual(input.Rewards)
+                ) && 
+                (
+                    this.Status == input.Status ||
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 );
         }
 
@@ -239,6 +268,14 @@ namespace Tatum.CSharp.Solana.Core.Model
                 if (this.PreTokenBalances != null)
                 {
                     hashCode = (hashCode * 59) + this.PreTokenBalances.GetHashCode();
+                }
+                if (this.Rewards != null)
+                {
+                    hashCode = (hashCode * 59) + this.Rewards.GetHashCode();
+                }
+                if (this.Status != null)
+                {
+                    hashCode = (hashCode * 59) + this.Status.GetHashCode();
                 }
                 return hashCode;
             }

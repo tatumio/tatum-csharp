@@ -27,7 +27,7 @@ using OpenAPIDateConverter = Tatum.CSharp.Nft.Core.Client.OpenAPIDateConverter;
 namespace Tatum.CSharp.Nft.Core.Model
 {
     /// <summary>
-    /// The custom defined fee; if not present, will be calculated automatically.
+    /// The custom defined fee; if not present, will be calculated automatically
     /// </summary>
     [DataContract(Name = "CustomFee")]
     public partial class CustomFee : IEquatable<CustomFee>, IValidatableObject
