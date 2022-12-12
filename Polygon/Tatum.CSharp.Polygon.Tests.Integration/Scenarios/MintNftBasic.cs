@@ -10,7 +10,7 @@ using Xunit;
 namespace Tatum.CSharp.Polygon.Tests.Integration.Scenarios;
 
 [Collection("Polygon")]
-public class MintNft
+public class MintNftBasic
 {
     /// <summary>
     /// This example shows how to mint NFT on Polygon (MATIC).
