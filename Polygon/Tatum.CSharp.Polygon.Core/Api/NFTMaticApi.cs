@@ -106,6 +106,65 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <returns>NftGetBalanceSc</returns>
         NftGetBalanceSc NftGetBalanceErc721(string address, string contractAddress, string xTestnetType = default(string));
         /// <summary>
+        /// Get NFT metadata
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>NftMetadataErc721</returns>
+        NftMetadataErc721 NftGetMetadataErc721(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT provenance information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
+        List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT royalty information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>NftRoyaltyErc721</returns>
+        NftRoyaltyErc721 NftGetRoyaltyErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;NftTokenByAddressErc721&gt;</returns>
+        List<NftTokenByAddressErc721> NftGetTokensByAddressErc721(string address);
+        /// <summary>
+        /// Get all NFTs from a collection
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <returns>List&lt;NftTokenByCollectionErc721&gt;</returns>
+        List<NftTokenByCollectionErc721> NftGetTokensByCollectionErc721(decimal pageSize, string address, decimal? offset = default(decimal?));
+        /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
         /// <remarks>
@@ -116,6 +175,36 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>EthTx</returns>
         EthTx NftGetTransactErc721(string hash, string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>List&lt;NftTx&gt;</returns>
+        List<NftTx> NftGetTransactionByAddress(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?));
+        /// <summary>
+        /// Get NFT transactions for an NFT
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>List&lt;NftTx&gt;</returns>
+        List<NftTx> NftGetTransactionByToken(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?));
         /// <summary>
         /// Mint an NFT
         /// </summary>
@@ -325,6 +414,65 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <returns>ApiResponse of NftGetBalanceSc</returns>
         ApiResponse<NftGetBalanceSc> NftGetBalanceErc721WithHttpInfo(string address, string contractAddress, string xTestnetType = default(string));
         /// <summary>
+        /// Get NFT metadata
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of NftMetadataErc721</returns>
+        ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT provenance information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
+        ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT royalty information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of NftRoyaltyErc721</returns>
+        ApiResponse<NftRoyaltyErc721> NftGetRoyaltyErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByAddressErc721&gt;</returns>
+        ApiResponse<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721WithHttpInfo(string address);
+        /// <summary>
+        /// Get all NFTs from a collection
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByCollectionErc721&gt;</returns>
+        ApiResponse<List<NftTokenByCollectionErc721>> NftGetTokensByCollectionErc721WithHttpInfo(decimal pageSize, string address, decimal? offset = default(decimal?));
+        /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
         /// <remarks>
@@ -335,6 +483,36 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of EthTx</returns>
         ApiResponse<EthTx> NftGetTransactErc721WithHttpInfo(string hash, string xTestnetType = default(string));
+        /// <summary>
+        /// Get NFT transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTx&gt;</returns>
+        ApiResponse<List<NftTx>> NftGetTransactionByAddressWithHttpInfo(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?));
+        /// <summary>
+        /// Get NFT transactions for an NFT
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTx&gt;</returns>
+        ApiResponse<List<NftTx>> NftGetTransactionByTokenWithHttpInfo(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?));
         /// <summary>
         /// Mint an NFT
         /// </summary>
@@ -551,6 +729,70 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <returns>Task of NftGetBalanceSc</returns>
         System.Threading.Tasks.Task<NftGetBalanceSc> NftGetBalanceErc721Async(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Get NFT metadata
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of NftMetadataErc721</returns>
+        System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT provenance information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
+        System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT royalty information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of NftRoyaltyErc721</returns>
+        System.Threading.Tasks.Task<NftRoyaltyErc721> NftGetRoyaltyErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByAddressErc721&gt;</returns>
+        System.Threading.Tasks.Task<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721Async(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs from a collection
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByCollectionErc721&gt;</returns>
+        System.Threading.Tasks.Task<List<NftTokenByCollectionErc721>> NftGetTokensByCollectionErc721Async(decimal pageSize, string address, decimal? offset = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
         /// <remarks>
@@ -562,6 +804,38 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of EthTx</returns>
         System.Threading.Tasks.Task<EthTx> NftGetTransactErc721Async(string hash, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTx&gt;</returns>
+        System.Threading.Tasks.Task<List<NftTx>> NftGetTransactionByAddressAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT transactions for an NFT
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTx&gt;</returns>
+        System.Threading.Tasks.Task<List<NftTx>> NftGetTransactionByTokenAsync(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Mint an NFT
         /// </summary>
@@ -789,6 +1063,70 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <returns>Task of ApiResponse (NftGetBalanceSc)</returns>
         System.Threading.Tasks.Task<ApiResponse<NftGetBalanceSc>> NftGetBalanceErc721WithHttpInfoAsync(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Get NFT metadata
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (NftMetadataErc721)</returns>
+        System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT provenance information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT royalty information
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (NftRoyaltyErc721)</returns>
+        System.Threading.Tasks.Task<ApiResponse<NftRoyaltyErc721>> NftGetRoyaltyErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByAddressErc721&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftTokenByAddressErc721>>> NftGetTokensByAddressErc721WithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs from a collection
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByCollectionErc721&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftTokenByCollectionErc721>>> NftGetTokensByCollectionErc721WithHttpInfoAsync(decimal pageSize, string address, decimal? offset = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
         /// <remarks>
@@ -800,6 +1138,38 @@ namespace Tatum.CSharp.Polygon.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (EthTx)</returns>
         System.Threading.Tasks.Task<ApiResponse<EthTx>> NftGetTransactErc721WithHttpInfoAsync(string hash, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTx&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftTx>>> NftGetTransactionByAddressWithHttpInfoAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get NFT transactions for an NFT
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTx&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftTx>>> NftGetTransactionByTokenWithHttpInfoAsync(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Mint an NFT
         /// </summary>
@@ -2033,6 +2403,714 @@ namespace Tatum.CSharp.Polygon.Core.Api
         }
 
         /// <summary>
+        /// Get NFT metadata 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>NftMetadataErc721</returns>
+        public NftMetadataErc721 NftGetMetadataErc721(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string))
+        {
+            var localVarResponse = NftGetMetadataErc721WithHttpInfo(contractAddress, tokenId, account, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("NftGetMetadataErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT metadata 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of NftMetadataErc721</returns>
+        public ApiResponse<NftMetadataErc721> NftGetMetadataErc721WithHttpInfo(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetMetadataErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetMetadataErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (account != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "account", account));
+            }
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<NftMetadataErc721>("/v3/nft/metadata/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT metadata 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of NftMetadataErc721</returns>
+        public async System.Threading.Tasks.Task<NftMetadataErc721> NftGetMetadataErc721Async(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetMetadataErc721WithHttpInfoAsync(contractAddress, tokenId, account, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetMetadataErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT metadata 1 credit per API call Get metadata of an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get metadata for</param>
+        /// <param name="tokenId">The ID of the NFT to get metadata for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="account">(Flow only) The account that holds the NFT (optional)</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (NftMetadataErc721)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<NftMetadataErc721>> NftGetMetadataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string account = default(string), string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetMetadataErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetMetadataErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (account != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "account", account));
+            }
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<NftMetadataErc721>("/v3/nft/metadata/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT provenance information 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>List&lt;NftProvenanceDataErc721&gt;</returns>
+        public List<NftProvenanceDataErc721> NftGetProvenanceDataErc721(string contractAddress, string tokenId, string xTestnetType = default(string))
+        {
+            var localVarResponse = NftGetProvenanceDataErc721WithHttpInfo(contractAddress, tokenId, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("NftGetProvenanceDataErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT provenance information 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of List&lt;NftProvenanceDataErc721&gt;</returns>
+        public ApiResponse<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetProvenanceDataErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetProvenanceDataErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftProvenanceDataErc721>>("/v3/nft/provenance/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT provenance information 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftProvenanceDataErc721&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftProvenanceDataErc721>> NftGetProvenanceDataErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetProvenanceDataErc721WithHttpInfoAsync(contractAddress, tokenId, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetProvenanceDataErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT provenance information 1 credit per API call Get provenance information for an NFT. NOTE: This API works only for provenance NFT smart contracts. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get provenance information for</param>
+        /// <param name="tokenId">The ID of the NFT to get provenance information for.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftProvenanceDataErc721&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftProvenanceDataErc721>>> NftGetProvenanceDataErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetProvenanceDataErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetProvenanceDataErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftProvenanceDataErc721>>("/v3/nft/provenance/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT royalty information 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>NftRoyaltyErc721</returns>
+        public NftRoyaltyErc721 NftGetRoyaltyErc721(string contractAddress, string tokenId, string xTestnetType = default(string))
+        {
+            var localVarResponse = NftGetRoyaltyErc721WithHttpInfo(contractAddress, tokenId, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("NftGetRoyaltyErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT royalty information 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of NftRoyaltyErc721</returns>
+        public ApiResponse<NftRoyaltyErc721> NftGetRoyaltyErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetRoyaltyErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetRoyaltyErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<NftRoyaltyErc721>("/v3/nft/royalty/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT royalty information 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of NftRoyaltyErc721</returns>
+        public async System.Threading.Tasks.Task<NftRoyaltyErc721> NftGetRoyaltyErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetRoyaltyErc721WithHttpInfoAsync(contractAddress, tokenId, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetRoyaltyErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT royalty information 1 credit per API call Get information about royalties for an NFT. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana TRON
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="contractAddress">The blockchain address of the NFT to get royalty information for</param>
+        /// <param name="tokenId">The ID of the NFT to get royalty information for&lt;br/&gt;Do &lt;b&gt;not&lt;/b&gt; use this parameter if you are getting metadata for an NFT on Solana, this parameter is irrelevant on Solana.</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (NftRoyaltyErc721)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<NftRoyaltyErc721>> NftGetRoyaltyErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTMaticApi->NftGetRoyaltyErc721");
+
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetRoyaltyErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<NftRoyaltyErc721>("/v3/nft/royalty/MATIC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;NftTokenByAddressErc721&gt;</returns>
+        public List<NftTokenByAddressErc721> NftGetTokensByAddressErc721(string address)
+        {
+            var localVarResponse = NftGetTokensByAddressErc721WithHttpInfo(address);
+
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByAddressErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByAddressErc721&gt;</returns>
+        public ApiResponse<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721WithHttpInfo(string address)
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTokensByAddressErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/MATIC/{address}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByAddressErc721&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721Async(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetTokensByAddressErc721WithHttpInfoAsync(address, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByAddressErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByAddressErc721&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftTokenByAddressErc721>>> NftGetTokensByAddressErc721WithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTokensByAddressErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/MATIC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs from a collection 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <returns>List&lt;NftTokenByCollectionErc721&gt;</returns>
+        public List<NftTokenByCollectionErc721> NftGetTokensByCollectionErc721(decimal pageSize, string address, decimal? offset = default(decimal?))
+        {
+            var localVarResponse = NftGetTokensByCollectionErc721WithHttpInfo(pageSize, address, offset);
+
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByCollectionErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs from a collection 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByCollectionErc721&gt;</returns>
+        public ApiResponse<List<NftTokenByCollectionErc721>> NftGetTokensByCollectionErc721WithHttpInfo(decimal pageSize, string address, decimal? offset = default(decimal?))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTokensByCollectionErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftTokenByCollectionErc721>>("/v3/nft/collection/MATIC/{address}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs from a collection 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByCollectionErc721&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftTokenByCollectionErc721>> NftGetTokensByCollectionErc721Async(decimal pageSize, string address, decimal? offset = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetTokensByCollectionErc721WithHttpInfoAsync(pageSize, address, offset, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByCollectionErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs from a collection 1 credit per API call + 5 credits for each listed NFT Get all NFTs from a collection (all the NFTs that were minted on the smart contract). This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="address">The blockchain address of the collection</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByCollectionErc721&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftTokenByCollectionErc721>>> NftGetTokensByCollectionErc721WithHttpInfoAsync(decimal pageSize, string address, decimal? offset = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTokensByCollectionErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByCollectionErc721>>("/v3/nft/collection/MATIC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Get an NFT transaction by its hash 1 credit per API call Get an NFT transaction by its hash. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Flow Harmony Klaytn KuCoin Community Chain Polygon TRON
         /// </summary>
         /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
@@ -2160,6 +3238,358 @@ namespace Tatum.CSharp.Polygon.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.GetAsync<EthTx>("/v3/nft/transaction/MATIC/{hash}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT transactions on a blockchain address 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>List&lt;NftTx&gt;</returns>
+        public List<NftTx> NftGetTransactionByAddress(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?))
+        {
+            var localVarResponse = NftGetTransactionByAddressWithHttpInfo(address, tokenAddress, pageSize, offset, from, to);
+
+            var exception = ExceptionFactory?.Invoke("NftGetTransactionByAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT transactions on a blockchain address 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTx&gt;</returns>
+        public ApiResponse<List<NftTx>> NftGetTransactionByAddressWithHttpInfo(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTransactionByAddress");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling NFTMaticApi->NftGetTransactionByAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/MATIC/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT transactions on a blockchain address 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTx&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftTx>> NftGetTransactionByAddressAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetTransactionByAddressWithHttpInfoAsync(address, tokenAddress, pageSize, offset, from, to, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetTransactionByAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT transactions on a blockchain address 1 credit per API call Get incoming and outgoing NFT transactions on a blockchain address. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTx&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftTx>>> NftGetTransactionByAddressWithHttpInfoAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTMaticApi->NftGetTransactionByAddress");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling NFTMaticApi->NftGetTransactionByAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/MATIC/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>List&lt;NftTx&gt;</returns>
+        public List<NftTx> NftGetTransactionByToken(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?))
+        {
+            var localVarResponse = NftGetTransactionByTokenWithHttpInfo(tokenId, tokenAddress, pageSize, offset, from, to);
+
+            var exception = ExceptionFactory?.Invoke("NftGetTransactionByToken", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <returns>ApiResponse of List&lt;NftTx&gt;</returns>
+        public ApiResponse<List<NftTx>> NftGetTransactionByTokenWithHttpInfo(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?))
+        {
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetTransactionByToken");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling NFTMaticApi->NftGetTransactionByToken");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftTx>>("/v3/nft/transaction/tokenId/MATIC/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTx&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftTx>> NftGetTransactionByTokenAsync(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetTransactionByTokenWithHttpInfoAsync(tokenId, tokenAddress, pageSize, offset, from, to, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetTransactionByToken", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get NFT transactions for an NFT 1 credit per API call Get incoming and outgoing transactions for an NFT. This API is supported for the following blockchains: Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Polygon.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="tokenId">NFT Token ID.</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTx&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftTx>>> NftGetTransactionByTokenWithHttpInfoAsync(string tokenId, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'tokenId' is set
+            if (tokenId == null)
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTMaticApi->NftGetTransactionByToken");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling NFTMaticApi->NftGetTransactionByToken");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("tokenId", ClientUtils.ParameterToString(tokenId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTx>>("/v3/nft/transaction/tokenId/MATIC/{tokenAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }

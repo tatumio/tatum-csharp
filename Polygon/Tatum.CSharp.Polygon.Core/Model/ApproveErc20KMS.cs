@@ -40,32 +40,32 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ApproveErc20KMS" /> class.
         /// </summary>
-        /// <param name="amount">Amount to be approved for the spender. (required).</param>
-        /// <param name="spender">Blockchain address of the new spender. (required).</param>
-        /// <param name="contractAddress">Address of ERC-20 token (required).</param>
-        /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
+        /// <param name="contractAddress">The address of the smart contract (required).</param>
+        /// <param name="spender">The blockchain address to be allowed to transfer or burn the fungible tokens (required).</param>
+        /// <param name="amount">The amount of the tokens allowed to be transferred or burnt (required).</param>
+        /// <param name="signatureId">The KMS identifier of the private key of the smart contract&#39;s owner; the fee will be deducted from the owner&#39;s address (required).</param>
         /// <param name="fee">fee.</param>
         /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
-        public ApproveErc20KMS(string amount = default(string), string spender = default(string), string contractAddress = default(string), Guid signatureId = default(Guid), CustomFee fee = default(CustomFee), decimal nonce = default(decimal))
+        public ApproveErc20KMS(string contractAddress = default(string), string spender = default(string), string amount = default(string), Guid signatureId = default(Guid), CustomFee fee = default(CustomFee), decimal nonce = default(decimal))
         {
-            // to ensure "amount" is required (not null)
-            if (amount == null)
-            {
-                throw new ArgumentNullException("amount is a required property for ApproveErc20KMS and cannot be null");
-            }
-            this.Amount = amount;
-            // to ensure "spender" is required (not null)
-            if (spender == null)
-            {
-                throw new ArgumentNullException("spender is a required property for ApproveErc20KMS and cannot be null");
-            }
-            this.Spender = spender;
             // to ensure "contractAddress" is required (not null)
             if (contractAddress == null)
             {
                 throw new ArgumentNullException("contractAddress is a required property for ApproveErc20KMS and cannot be null");
             }
             this.ContractAddress = contractAddress;
+            // to ensure "spender" is required (not null)
+            if (spender == null)
+            {
+                throw new ArgumentNullException("spender is a required property for ApproveErc20KMS and cannot be null");
+            }
+            this.Spender = spender;
+            // to ensure "amount" is required (not null)
+            if (amount == null)
+            {
+                throw new ArgumentNullException("amount is a required property for ApproveErc20KMS and cannot be null");
+            }
+            this.Amount = amount;
             this.SignatureId = signatureId;
             this.Fee = fee;
             this.Nonce = nonce;
@@ -80,30 +80,30 @@ namespace Tatum.CSharp.Polygon.Core.Model
 
 
         /// <summary>
-        /// Amount to be approved for the spender.
+        /// The address of the smart contract
         /// </summary>
-        /// <value>Amount to be approved for the spender.</value>
-        [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
-        public string Amount { get; set; }
-
-        /// <summary>
-        /// Blockchain address of the new spender.
-        /// </summary>
-        /// <value>Blockchain address of the new spender.</value>
-        [DataMember(Name = "spender", IsRequired = true, EmitDefaultValue = true)]
-        public string Spender { get; set; }
-
-        /// <summary>
-        /// Address of ERC-20 token
-        /// </summary>
-        /// <value>Address of ERC-20 token</value>
+        /// <value>The address of the smart contract</value>
         [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
+        /// The blockchain address to be allowed to transfer or burn the fungible tokens
         /// </summary>
-        /// <value>Identifier of the private key associated in signing application. Private key, or signature Id must be present.</value>
+        /// <value>The blockchain address to be allowed to transfer or burn the fungible tokens</value>
+        [DataMember(Name = "spender", IsRequired = true, EmitDefaultValue = true)]
+        public string Spender { get; set; }
+
+        /// <summary>
+        /// The amount of the tokens allowed to be transferred or burnt
+        /// </summary>
+        /// <value>The amount of the tokens allowed to be transferred or burnt</value>
+        [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
+        public string Amount { get; set; }
+
+        /// <summary>
+        /// The KMS identifier of the private key of the smart contract&#39;s owner; the fee will be deducted from the owner&#39;s address
+        /// </summary>
+        /// <value>The KMS identifier of the private key of the smart contract&#39;s owner; the fee will be deducted from the owner&#39;s address</value>
         [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
         public Guid SignatureId { get; set; }
 
@@ -128,9 +128,9 @@ namespace Tatum.CSharp.Polygon.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class ApproveErc20KMS {\n");
-            sb.Append("  Amount: ").Append(Amount).Append("\n");
-            sb.Append("  Spender: ").Append(Spender).Append("\n");
             sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
+            sb.Append("  Spender: ").Append(Spender).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
             sb.Append("  Fee: ").Append(Fee).Append("\n");
             sb.Append("  Nonce: ").Append(Nonce).Append("\n");
@@ -170,9 +170,9 @@ namespace Tatum.CSharp.Polygon.Core.Model
             }
             return 
                 (
-                    this.Amount == input.Amount ||
-                    (this.Amount != null &&
-                    this.Amount.Equals(input.Amount))
+                    this.ContractAddress == input.ContractAddress ||
+                    (this.ContractAddress != null &&
+                    this.ContractAddress.Equals(input.ContractAddress))
                 ) && 
                 (
                     this.Spender == input.Spender ||
@@ -180,9 +180,9 @@ namespace Tatum.CSharp.Polygon.Core.Model
                     this.Spender.Equals(input.Spender))
                 ) && 
                 (
-                    this.ContractAddress == input.ContractAddress ||
-                    (this.ContractAddress != null &&
-                    this.ContractAddress.Equals(input.ContractAddress))
+                    this.Amount == input.Amount ||
+                    (this.Amount != null &&
+                    this.Amount.Equals(input.Amount))
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -209,17 +209,17 @@ namespace Tatum.CSharp.Polygon.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Amount != null)
+                if (this.ContractAddress != null)
                 {
-                    hashCode = (hashCode * 59) + this.Amount.GetHashCode();
+                    hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
                 }
                 if (this.Spender != null)
                 {
                     hashCode = (hashCode * 59) + this.Spender.GetHashCode();
                 }
-                if (this.ContractAddress != null)
+                if (this.Amount != null)
                 {
-                    hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 }
                 if (this.SignatureId != null)
                 {
@@ -241,11 +241,16 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // Amount (string) pattern
-            Regex regexAmount = new Regex(@"^[+]?((\\d+(\\.\\d*)?)|(\\.\\d+))$", RegexOptions.CultureInvariant);
-            if (false == regexAmount.Match(this.Amount).Success)
+            // ContractAddress (string) maxLength
+            if (this.ContractAddress != null && this.ContractAddress.Length > 43)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 43.", new [] { "ContractAddress" });
+            }
+
+            // ContractAddress (string) minLength
+            if (this.ContractAddress != null && this.ContractAddress.Length < 42)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
             }
 
             // Spender (string) maxLength
@@ -260,16 +265,11 @@ namespace Tatum.CSharp.Polygon.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Spender, length must be greater than 42.", new [] { "Spender" });
             }
 
-            // ContractAddress (string) maxLength
-            if (this.ContractAddress != null && this.ContractAddress.Length > 43)
+            // Amount (string) pattern
+            Regex regexAmount = new Regex(@"^[+]?((\\d+(\\.\\d*)?)|(\\.\\d+))$", RegexOptions.CultureInvariant);
+            if (false == regexAmount.Match(this.Amount).Success)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 43.", new [] { "ContractAddress" });
-            }
-
-            // ContractAddress (string) minLength
-            if (this.ContractAddress != null && this.ContractAddress.Length < 42)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
             }
 
             // Nonce (decimal) minimum

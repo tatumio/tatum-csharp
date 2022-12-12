@@ -29,26 +29,30 @@ public class PolygonController : ControllerBase
 }
 ```
 
-### How to generate Polygon wallet
+### How to **generate** Polygon **wallet**
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/GenerateWalletExampleService.cs)
 
-### How to generate Polygon private key from mnemonic
+### How to **generate** Polygon **private key** from mnemonic
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/GeneratePrivateKeyExampleService.cs)
 
-### How to generate Polygon address from private key
+### How to **generate** Polygon **address** from private key
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/GenerateAddressExampleService.cs)
 
-### How to get balance of Polygon address
+### How to **get balance** of Polygon address
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/GetBalanceExampleService.cs)
 
-### How to get Polygon transaction by hash
+### How to **get** Polygon **transaction** by hash
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/GetTransactionExampleService.cs)
 
-### How to send Polygon from account to account
+### How to **send MAIC** from account to account
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/BlockchainTransferExampleService.cs)
+
+### How to **Mint NFT**
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Polygon.Tests.Integration/Scenarios/MintNftBasic.cs)

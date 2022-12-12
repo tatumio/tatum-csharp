@@ -111,7 +111,7 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferPolygonBlockchainKMS" /> class.
         /// </summary>
-        /// <param name="data">Additional data, that can be passed to blockchain transaction as data property. Only for MATIC transactions..</param>
+        /// <param name="data">Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format.</param>
         /// <param name="nonce">Nonce to be set to Polygon transaction. If not present, last known nonce will be used..</param>
         /// <param name="to">Blockchain address to send assets (required).</param>
         /// <param name="currency">Currency to transfer from Polygon Blockchain Account. ERC20 tokens BETH, BBTC, BADA, WMATIC, BDOT, BXRP, BLTC, BBCH are available only for mainnet use. (required).</param>
@@ -143,9 +143,9 @@ namespace Tatum.CSharp.Polygon.Core.Model
 
 
         /// <summary>
-        /// Additional data, that can be passed to blockchain transaction as data property. Only for MATIC transactions.
+        /// Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format
         /// </summary>
-        /// <value>Additional data, that can be passed to blockchain transaction as data property. Only for MATIC transactions.</value>
+        /// <value>Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         public string Data { get; set; }
 

@@ -28,10 +28,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -39,10 +39,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <returns>TransactionHash</returns>
         TransactionHash Erc20Approve(ApproveErc20 approveErc20, string xTestnetType = default(string));
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -93,6 +93,44 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>SignatureId</returns>
         SignatureId Erc20Deploy(ChainDeployErc20KMS chainDeployErc20KMS, string xTestnetType = default(string));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>Erc20Balance</returns>
+        Erc20Balance Erc20GetBalance(string address, string contractAddress, string xTestnetType = default(string));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;Erc20BalanceForAddress&gt;</returns>
+        List<Erc20BalanceForAddress> Erc20GetBalanceAddress(string address);
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <returns>List&lt;FungibleTx&gt;</returns>
+        List<FungibleTx> Erc20GetTransactionByAddress(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string));
         /// <summary>
         /// Mint fungible tokens
         /// </summary>
@@ -169,10 +207,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
     {
         #region Synchronous Operations With Http Info
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -180,10 +218,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <returns>ApiResponse of TransactionHash</returns>
         ApiResponse<TransactionHash> Erc20ApproveWithHttpInfo(ApproveErc20 approveErc20, string xTestnetType = default(string));
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -234,6 +272,44 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of SignatureId</returns>
         ApiResponse<SignatureId> Erc20DeployWithHttpInfo(ChainDeployErc20KMS chainDeployErc20KMS, string xTestnetType = default(string));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of Erc20Balance</returns>
+        ApiResponse<Erc20Balance> Erc20GetBalanceWithHttpInfo(string address, string contractAddress, string xTestnetType = default(string));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;Erc20BalanceForAddress&gt;</returns>
+        ApiResponse<List<Erc20BalanceForAddress>> Erc20GetBalanceAddressWithHttpInfo(string address);
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <returns>ApiResponse of List&lt;FungibleTx&gt;</returns>
+        ApiResponse<List<FungibleTx>> Erc20GetTransactionByAddressWithHttpInfo(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string));
         /// <summary>
         /// Mint fungible tokens
         /// </summary>
@@ -310,10 +386,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -322,10 +398,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <returns>Task of TransactionHash</returns>
         System.Threading.Tasks.Task<TransactionHash> Erc20ApproveAsync(ApproveErc20 approveErc20, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -381,6 +457,47 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of SignatureId</returns>
         System.Threading.Tasks.Task<SignatureId> Erc20DeployAsync(ChainDeployErc20KMS chainDeployErc20KMS, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Erc20Balance</returns>
+        System.Threading.Tasks.Task<Erc20Balance> Erc20GetBalanceAsync(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;Erc20BalanceForAddress&gt;</returns>
+        System.Threading.Tasks.Task<List<Erc20BalanceForAddress>> Erc20GetBalanceAddressAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;FungibleTx&gt;</returns>
+        System.Threading.Tasks.Task<List<FungibleTx>> Erc20GetTransactionByAddressAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Mint fungible tokens
         /// </summary>
@@ -463,10 +580,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
     {
         #region Asynchronous Operations With Http Info
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -475,10 +592,10 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <returns>Task of ApiResponse (TransactionHash)</returns>
         System.Threading.Tasks.Task<ApiResponse<TransactionHash>> Erc20ApproveWithHttpInfoAsync(ApproveErc20 approveErc20, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Approve spending of fungible tokens
+        /// Allow a blockchain address to transfer and burn fungible tokens
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -534,6 +651,47 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (SignatureId)</returns>
         System.Threading.Tasks.Task<ApiResponse<SignatureId>> Erc20DeployWithHttpInfoAsync(ChainDeployErc20KMS chainDeployErc20KMS, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Erc20Balance)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Erc20Balance>> Erc20GetBalanceWithHttpInfoAsync(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;Erc20BalanceForAddress&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Erc20BalanceForAddress>>> Erc20GetBalanceAddressWithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;FungibleTx&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<FungibleTx>>> Erc20GetTransactionByAddressWithHttpInfoAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Mint fungible tokens
         /// </summary>
@@ -757,7 +915,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -774,7 +932,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -822,7 +980,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -840,7 +998,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20"></param>
@@ -891,7 +1049,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -908,7 +1066,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -956,7 +1114,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -974,7 +1132,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         }
 
         /// <summary>
-        /// Approve spending of fungible tokens 2 credits per API call Allow another blockchain address (the spender parameter in the request body) to spend and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When approving spending of fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Allow a blockchain address to transfer and burn fungible tokens 2 credits per API call Allow a blockchain address (the spender parameter in the request body) to transfer and burn fungible tokens on behalf of the smart contract owner. This API is supported for the following blockchains: BNB Smart Chain Celo Ethereum Harmony Klaytn Polygon Signing a transaction When allowing a blockchain address to transfer and burn fungible tokens, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="approveErc20KMS"></param>
@@ -1556,6 +1714,460 @@ namespace Tatum.CSharp.Bsc.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.PostAsync<SignatureId>("/v3/blockchain/token/deploy", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>Erc20Balance</returns>
+        public Erc20Balance Erc20GetBalance(string address, string contractAddress, string xTestnetType = default(string))
+        {
+            var localVarResponse = Erc20GetBalanceWithHttpInfo(address, contractAddress, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("Erc20GetBalance", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of Erc20Balance</returns>
+        public ApiResponse<Erc20Balance> Erc20GetBalanceWithHttpInfo(string address, string contractAddress, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetBalance");
+
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling FungibleTokensBscApi->Erc20GetBalance");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<Erc20Balance>("/v3/blockchain/token/balance/BSC/{contractAddress}/{address}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Erc20Balance</returns>
+        public async System.Threading.Tasks.Task<Erc20Balance> Erc20GetBalanceAsync(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await Erc20GetBalanceWithHttpInfoAsync(address, contractAddress, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("Erc20GetBalance", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds in a smart contract 1 credit per API call Get the number of the fungible tokens minted on a specific smart contract (the contractAddress path parameter in the request endpoint URL) that a blockchain address holds. This API is supported for the following blockchains: Algorand BNB Smart Chain Celo Elrond Ethereum Harmony Klaytn KuCoin Community Chain Polygon Solana XinFin
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="contractAddress">The address of the fungible token smart contract</param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Erc20Balance)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Erc20Balance>> Erc20GetBalanceWithHttpInfoAsync(string address, string contractAddress, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetBalance");
+
+            // verify the required parameter 'contractAddress' is set
+            if (contractAddress == null)
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling FungibleTokensBscApi->Erc20GetBalance");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("contractAddress", ClientUtils.ParameterToString(contractAddress)); // path parameter
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<Erc20Balance>("/v3/blockchain/token/balance/BSC/{contractAddress}/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;Erc20BalanceForAddress&gt;</returns>
+        public List<Erc20BalanceForAddress> Erc20GetBalanceAddress(string address)
+        {
+            var localVarResponse = Erc20GetBalanceAddressWithHttpInfo(address);
+
+            var exception = ExceptionFactory?.Invoke("Erc20GetBalanceAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;Erc20BalanceForAddress&gt;</returns>
+        public ApiResponse<List<Erc20BalanceForAddress>> Erc20GetBalanceAddressWithHttpInfo(string address)
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetBalanceAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/BSC/{address}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;Erc20BalanceForAddress&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Erc20BalanceForAddress>> Erc20GetBalanceAddressAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await Erc20GetBalanceAddressWithHttpInfoAsync(address, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("Erc20GetBalanceAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get the number of fungible tokens that a blockchain address holds across a blockchain 1 credit per API call Get the number of fungible tokens that a blockchain address holds across a blockchain. The tokens are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon Solana
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;Erc20BalanceForAddress&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<Erc20BalanceForAddress>>> Erc20GetBalanceAddressWithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetBalanceAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<Erc20BalanceForAddress>>("/v3/blockchain/token/address/BSC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <returns>List&lt;FungibleTx&gt;</returns>
+        public List<FungibleTx> Erc20GetTransactionByAddress(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string))
+        {
+            var localVarResponse = Erc20GetTransactionByAddressWithHttpInfo(address, tokenAddress, pageSize, offset, from, to, sort);
+
+            var exception = ExceptionFactory?.Invoke("Erc20GetTransactionByAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <returns>ApiResponse of List&lt;FungibleTx&gt;</returns>
+        public ApiResponse<List<FungibleTx>> Erc20GetTransactionByAddressWithHttpInfo(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetTransactionByAddress");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling FungibleTokensBscApi->Erc20GetTransactionByAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+            if (sort != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "sort", sort));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<FungibleTx>>("/v3/blockchain/token/transaction/BSC/{address}/{tokenAddress}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;FungibleTx&gt;</returns>
+        public async System.Threading.Tasks.Task<List<FungibleTx>> Erc20GetTransactionByAddressAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await Erc20GetTransactionByAddressWithHttpInfoAsync(address, tokenAddress, pageSize, offset, from, to, sort, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("Erc20GetTransactionByAddress", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get fungible token transactions on a blockchain address 1 credit per API call Get incoming and outgoing transactions related to fungible tokens on a blockchain address. This API is supported for the following blockchains: Algorand Celo Ethereum Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">Account address you want to get balance of</param>
+        /// <param name="tokenAddress">Address of the token smart contract</param>
+        /// <param name="pageSize">Max number of items per page is 50.</param>
+        /// <param name="offset">Offset to obtain next page of the data. (optional)</param>
+        /// <param name="from">Transactions from this block onwards will be included. (optional)</param>
+        /// <param name="to">Transactions up to this block will be included. (optional)</param>
+        /// <param name="sort">Sorting of the data. ASC - oldest first, DESC - newest first. (optional, default to DESC)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;FungibleTx&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<FungibleTx>>> Erc20GetTransactionByAddressWithHttpInfoAsync(string address, string tokenAddress, decimal pageSize, decimal? offset = default(decimal?), decimal? from = default(decimal?), decimal? to = default(decimal?), string sort = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling FungibleTokensBscApi->Erc20GetTransactionByAddress");
+
+            // verify the required parameter 'tokenAddress' is set
+            if (tokenAddress == null)
+                throw new ApiException(400, "Missing required parameter 'tokenAddress' when calling FungibleTokensBscApi->Erc20GetTransactionByAddress");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+            localVarRequestOptions.PathParameters.Add("tokenAddress", ClientUtils.ParameterToString(tokenAddress)); // path parameter
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "pageSize", pageSize));
+            if (offset != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+            }
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+            if (sort != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "sort", sort));
+            }
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<FungibleTx>>("/v3/blockchain/token/transaction/BSC/{address}/{tokenAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }

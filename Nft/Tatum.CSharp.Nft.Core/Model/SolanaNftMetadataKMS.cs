@@ -42,7 +42,7 @@ namespace Tatum.CSharp.Nft.Core.Model
         /// </summary>
         /// <param name="name">The name of the NFT (required).</param>
         /// <param name="symbol">The symbol or abbreviated name of the NFT (required).</param>
-        /// <param name="sellerFeeBasisPoints">The basis points of the seller fee (required).</param>
+        /// <param name="sellerFeeBasisPoints">The royalty that will be paid to the authors of the minted NFT every time the NFT is transferred&lt;br/&gt;The royalty is calculated as a percentage of the NFT price. To set the royalty to 1%, set this parameter to &lt;code&gt;100&lt;/code&gt;; to set 10%, set this parameter to &lt;code&gt;1000&lt;/code&gt;; to set 50%, set this parameter to &lt;code&gt;5000&lt;/code&gt;, and so on.&lt;br/&gt;To specify the NFT authors and their shares in the royalty, set the &lt;code&gt;creators&lt;/code&gt; parameter.&lt;br/&gt;To disable the royalty for the NFT completely, set &lt;code&gt;sellerFeeBasisPoints&lt;/code&gt; to &lt;code&gt;0&lt;/code&gt; and do not set &lt;code&gt;creators&lt;/code&gt;. (required).</param>
         /// <param name="uri">The URL pointing to the NFT metadata; for more information, see &lt;a href&#x3D;\&quot;https://eips.ethereum.org/EIPS/eip-721#specification\&quot; target&#x3D;\&quot;_blank\&quot;&gt;EIP-721&lt;/a&gt; (required).</param>
         /// <param name="collection">The blockchain address of the NFT collection where the NFT will be minted in. The minted NFT will get verified in the collection on behalf of the blockchain address specified in the &lt;code&gt;from&lt;/code&gt; parameter. To know more about Solana collections and verification, refer to the &lt;a href&#x3D;\&quot;https://docs.metaplex.com/programs/token-metadata/certified-collections\&quot; target&#x3D;\&quot;_blank\&quot;&gt;Solana user documentation&lt;/a&gt; and &lt;a href&#x3D;\&quot;https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftVerifyInCollection\&quot; target&#x3D;\&quot;_blank\&quot;&gt;NFT verification API&lt;/a&gt;..</param>
         /// <param name="mutable">Specifies whether the NFT metadata is mutable (\&quot;true\&quot;) or immutable (\&quot;false\&quot;); if not set, defaults to \&quot;true\&quot; (default to true).</param>
@@ -89,9 +89,9 @@ namespace Tatum.CSharp.Nft.Core.Model
         public string Symbol { get; set; }
 
         /// <summary>
-        /// The basis points of the seller fee
+        /// The royalty that will be paid to the authors of the minted NFT every time the NFT is transferred&lt;br/&gt;The royalty is calculated as a percentage of the NFT price. To set the royalty to 1%, set this parameter to &lt;code&gt;100&lt;/code&gt;; to set 10%, set this parameter to &lt;code&gt;1000&lt;/code&gt;; to set 50%, set this parameter to &lt;code&gt;5000&lt;/code&gt;, and so on.&lt;br/&gt;To specify the NFT authors and their shares in the royalty, set the &lt;code&gt;creators&lt;/code&gt; parameter.&lt;br/&gt;To disable the royalty for the NFT completely, set &lt;code&gt;sellerFeeBasisPoints&lt;/code&gt; to &lt;code&gt;0&lt;/code&gt; and do not set &lt;code&gt;creators&lt;/code&gt;.
         /// </summary>
-        /// <value>The basis points of the seller fee</value>
+        /// <value>The royalty that will be paid to the authors of the minted NFT every time the NFT is transferred&lt;br/&gt;The royalty is calculated as a percentage of the NFT price. To set the royalty to 1%, set this parameter to &lt;code&gt;100&lt;/code&gt;; to set 10%, set this parameter to &lt;code&gt;1000&lt;/code&gt;; to set 50%, set this parameter to &lt;code&gt;5000&lt;/code&gt;, and so on.&lt;br/&gt;To specify the NFT authors and their shares in the royalty, set the &lt;code&gt;creators&lt;/code&gt; parameter.&lt;br/&gt;To disable the royalty for the NFT completely, set &lt;code&gt;sellerFeeBasisPoints&lt;/code&gt; to &lt;code&gt;0&lt;/code&gt; and do not set &lt;code&gt;creators&lt;/code&gt;.</value>
         [DataMember(Name = "sellerFeeBasisPoints", IsRequired = true, EmitDefaultValue = true)]
         public decimal SellerFeeBasisPoints { get; set; }
 

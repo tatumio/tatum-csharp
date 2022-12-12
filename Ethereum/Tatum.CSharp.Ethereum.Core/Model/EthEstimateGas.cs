@@ -44,7 +44,7 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         /// <param name="to">Blockchain address to send assets (required).</param>
         /// <param name="contractAddress">Contract address of ERC20 token, if transaction is ERC20 token.</param>
         /// <param name="amount">Amount to be sent in Ether or ERC20. (required).</param>
-        /// <param name="data">Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions..</param>
+        /// <param name="data">Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format.</param>
         public EthEstimateGas(string from = default(string), string to = default(string), string contractAddress = default(string), string amount = default(string), string data = default(string))
         {
             // to ensure "from" is required (not null)
@@ -99,9 +99,9 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         public string Amount { get; set; }
 
         /// <summary>
-        /// Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions.
+        /// Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format
         /// </summary>
-        /// <value>Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions.</value>
+        /// <value>Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         public string Data { get; set; }
 

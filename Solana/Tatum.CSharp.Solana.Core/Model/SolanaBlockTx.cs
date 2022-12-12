@@ -21,57 +21,40 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
-using FileParameter = Tatum.CSharp.Bsc.Core.Client.FileParameter;
-using OpenAPIDateConverter = Tatum.CSharp.Bsc.Core.Client.OpenAPIDateConverter;
+using FileParameter = Tatum.CSharp.Solana.Core.Client.FileParameter;
+using OpenAPIDateConverter = Tatum.CSharp.Solana.Core.Client.OpenAPIDateConverter;
 
-namespace Tatum.CSharp.Bsc.Core.Model
+namespace Tatum.CSharp.Solana.Core.Model
 {
     /// <summary>
-    /// The custom defined fee; if not present, will be calculated automatically
+    /// SolanaBlockTx
     /// </summary>
-    [DataContract(Name = "CustomFee")]
-    public partial class CustomFee : IEquatable<CustomFee>, IValidatableObject
+    [DataContract(Name = "SolanaBlockTx")]
+    public partial class SolanaBlockTx : IEquatable<SolanaBlockTx>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomFee" /> class.
+        /// Initializes a new instance of the <see cref="SolanaBlockTx" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected CustomFee() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CustomFee" /> class.
-        /// </summary>
-        /// <param name="gasLimit">Gas limit for transaction in gas price. (required).</param>
-        /// <param name="gasPrice">Gas price in Gwei. (required).</param>
-        public CustomFee(string gasLimit = default(string), string gasPrice = default(string))
+        /// <param name="meta">meta.</param>
+        /// <param name="transaction">transaction.</param>
+        public SolanaBlockTx(SolanaTxMeta meta = default(SolanaTxMeta), SolanaTxTransaction transaction = default(SolanaTxTransaction))
         {
-            // to ensure "gasLimit" is required (not null)
-            if (gasLimit == null)
-            {
-                throw new ArgumentNullException("gasLimit is a required property for CustomFee and cannot be null");
-            }
-            this.GasLimit = gasLimit;
-            // to ensure "gasPrice" is required (not null)
-            if (gasPrice == null)
-            {
-                throw new ArgumentNullException("gasPrice is a required property for CustomFee and cannot be null");
-            }
-            this.GasPrice = gasPrice;
+            this.Meta = meta;
+            this.Transaction = transaction;
         }
 
 
         /// <summary>
-        /// Gas limit for transaction in gas price.
+        /// Gets or Sets Meta
         /// </summary>
-        /// <value>Gas limit for transaction in gas price.</value>
-        [DataMember(Name = "gasLimit", IsRequired = true, EmitDefaultValue = true)]
-        public string GasLimit { get; set; }
+        [DataMember(Name = "meta", EmitDefaultValue = false)]
+        public SolanaTxMeta Meta { get; set; }
 
         /// <summary>
-        /// Gas price in Gwei.
+        /// Gets or Sets Transaction
         /// </summary>
-        /// <value>Gas price in Gwei.</value>
-        [DataMember(Name = "gasPrice", IsRequired = true, EmitDefaultValue = true)]
-        public string GasPrice { get; set; }
+        [DataMember(Name = "transaction", EmitDefaultValue = false)]
+        public SolanaTxTransaction Transaction { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -80,9 +63,9 @@ namespace Tatum.CSharp.Bsc.Core.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class CustomFee {\n");
-            sb.Append("  GasLimit: ").Append(GasLimit).Append("\n");
-            sb.Append("  GasPrice: ").Append(GasPrice).Append("\n");
+            sb.Append("class SolanaBlockTx {\n");
+            sb.Append("  Meta: ").Append(Meta).Append("\n");
+            sb.Append("  Transaction: ").Append(Transaction).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -103,15 +86,15 @@ namespace Tatum.CSharp.Bsc.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as CustomFee);
+            return this.Equals(input as SolanaBlockTx);
         }
 
         /// <summary>
-        /// Returns true if CustomFee instances are equal
+        /// Returns true if SolanaBlockTx instances are equal
         /// </summary>
-        /// <param name="input">Instance of CustomFee to be compared</param>
+        /// <param name="input">Instance of SolanaBlockTx to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(CustomFee input)
+        public bool Equals(SolanaBlockTx input)
         {
             if (input == null)
             {
@@ -119,14 +102,14 @@ namespace Tatum.CSharp.Bsc.Core.Model
             }
             return 
                 (
-                    this.GasLimit == input.GasLimit ||
-                    (this.GasLimit != null &&
-                    this.GasLimit.Equals(input.GasLimit))
+                    this.Meta == input.Meta ||
+                    (this.Meta != null &&
+                    this.Meta.Equals(input.Meta))
                 ) && 
                 (
-                    this.GasPrice == input.GasPrice ||
-                    (this.GasPrice != null &&
-                    this.GasPrice.Equals(input.GasPrice))
+                    this.Transaction == input.Transaction ||
+                    (this.Transaction != null &&
+                    this.Transaction.Equals(input.Transaction))
                 );
         }
 
@@ -139,13 +122,13 @@ namespace Tatum.CSharp.Bsc.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.GasLimit != null)
+                if (this.Meta != null)
                 {
-                    hashCode = (hashCode * 59) + this.GasLimit.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Meta.GetHashCode();
                 }
-                if (this.GasPrice != null)
+                if (this.Transaction != null)
                 {
-                    hashCode = (hashCode * 59) + this.GasPrice.GetHashCode();
+                    hashCode = (hashCode * 59) + this.Transaction.GetHashCode();
                 }
                 return hashCode;
             }
@@ -158,20 +141,6 @@ namespace Tatum.CSharp.Bsc.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // GasLimit (string) pattern
-            Regex regexGasLimit = new Regex(@"^[+]?\\d+$", RegexOptions.CultureInvariant);
-            if (false == regexGasLimit.Match(this.GasLimit).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for GasLimit, must match a pattern of " + regexGasLimit, new [] { "GasLimit" });
-            }
-
-            // GasPrice (string) pattern
-            Regex regexGasPrice = new Regex(@"^[+]?\\d+$", RegexOptions.CultureInvariant);
-            if (false == regexGasPrice.Match(this.GasPrice).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for GasPrice, must match a pattern of " + regexGasPrice, new [] { "GasPrice" });
-            }
-
             yield break;
         }
     }

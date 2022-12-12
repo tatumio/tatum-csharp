@@ -171,7 +171,7 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferEthBlockchainKMS" /> class.
         /// </summary>
-        /// <param name="data">Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions..</param>
+        /// <param name="data">Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format.</param>
         /// <param name="nonce">Nonce to be set to Ethereum transaction. If not present, last known nonce will be used..</param>
         /// <param name="to">Blockchain address to send assets (required).</param>
         /// <param name="currency">Currency to transfer from Ethereum Blockchain Account. (required).</param>
@@ -203,9 +203,9 @@ namespace Tatum.CSharp.Ethereum.Core.Model
 
 
         /// <summary>
-        /// Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions.
+        /// Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format
         /// </summary>
-        /// <value>Additinal data, that can be passed to blockchain transaction as data property. Only for ETH transactions.</value>
+        /// <value>Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         public string Data { get; set; }
 

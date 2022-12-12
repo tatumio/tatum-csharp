@@ -43,7 +43,7 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <param name="from">Sender address. (required).</param>
         /// <param name="to">Blockchain address to send assets (required).</param>
         /// <param name="amount">Amount to be sent in MATIC. (required).</param>
-        /// <param name="data">Additional data, that can be passed to blockchain transaction as data property..</param>
+        /// <param name="data">Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format.</param>
         public PolygonEstimateGas(string from = default(string), string to = default(string), string amount = default(string), string data = default(string))
         {
             // to ensure "from" is required (not null)
@@ -90,9 +90,9 @@ namespace Tatum.CSharp.Polygon.Core.Model
         public string Amount { get; set; }
 
         /// <summary>
-        /// Additional data, that can be passed to blockchain transaction as data property.
+        /// Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format
         /// </summary>
-        /// <value>Additional data, that can be passed to blockchain transaction as data property.</value>
+        /// <value>Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         public string Data { get; set; }
 

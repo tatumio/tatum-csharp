@@ -72,7 +72,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Get the balance of a Bitcoin address
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call Get the balance of a Bitcoin address.
+        /// 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -243,7 +243,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Get the balance of a Bitcoin address
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call Get the balance of a Bitcoin address.
+        /// 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -418,7 +418,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Get the balance of a Bitcoin address
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call Get the balance of a Bitcoin address.
+        /// 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -605,7 +605,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Get the balance of a Bitcoin address
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call Get the balance of a Bitcoin address.
+        /// 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -1373,7 +1373,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address.
+        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -1389,7 +1389,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address.
+        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -1431,7 +1431,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address.
+        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
@@ -1448,7 +1448,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address.
+        /// Get the balance of a Bitcoin address 1 credit per API call Get the balance of a Bitcoin address. The API returns the balance only if the address has up to 50,000 UTXOs (Unspent Transaction Outputs). For an address with more than 50,000 UTXOs, the API returns an error with the 403 response code.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="address">The blockchain address to get the balance for</param>
