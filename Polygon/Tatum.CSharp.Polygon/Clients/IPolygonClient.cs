@@ -1,5 +1,6 @@
 ﻿using Tatum.CSharp.Evm.Local;
 using Tatum.CSharp.Polygon.Core.Api;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Polygon.Clients
 {
@@ -37,5 +38,8 @@ namespace Tatum.CSharp.Polygon.Clients
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
+        
+        // Utility tools for the client.
+        ITatumUtils Utils { get; }
     }
 }

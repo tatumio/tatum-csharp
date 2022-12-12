@@ -3,6 +3,9 @@ using System.Net.Http;
 using Tatum.CSharp.Evm.Local;
 using Tatum.CSharp.Polygon.Configuration;
 using Tatum.CSharp.Polygon.Core.Api;
+using Tatum.CSharp.Polygon.Core.Model;
+using Tatum.CSharp.Polygon.Utils;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Polygon.Clients
 {
@@ -28,7 +31,10 @@ namespace Tatum.CSharp.Polygon.Clients
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
-        
+
+        /// <inheritdoc />
+        public ITatumUtils Utils { get; }
+
         /// <summary>
         /// Creates an instance of <see cref="PolygonClient"/>.
         /// </summary>
@@ -89,6 +95,8 @@ namespace Tatum.CSharp.Polygon.Clients
             PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
+            
+            Utils = new TatumUtils<PolygonTx>(new PolygonTransactionWaiter(this));
         }
     }
 }
