@@ -98,9 +98,9 @@ public class PolygonFungibleTokensApiTests
     {
         var approveErc20 = new ApproveErc20(
             ApproveErc20.ChainEnum.MATIC,
-            "100",
-            _testData.TargetAddress,
             TestSmartContractAddress,
+            _testData.TargetAddress,
+            "100",
             _testData.StoragePrivKey);
         
         var approveTransactionHash = await _fungibleTokensApi.PolygonFungibleTokens.Erc20ApproveAsync(approveErc20);
