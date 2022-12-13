@@ -5,11 +5,11 @@ using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Ethereum.Utils
 {
-    public class PolygonTransactionWaiter : TransactionWaiter<EthTx>
+    public class EthereumTransactionWaiter : TransactionWaiter<EthTx>
     {
         private const string NotFoundTransactionSearchString = ".tx.not.found";
         
-        public PolygonTransactionWaiter(IEthereumClient ethereumClient) 
+        public EthereumTransactionWaiter(IEthereumClient ethereumClient) 
             : base(
                 (txId, token) => ethereumClient.EthereumBlockchain.EthGetTransactionAsync(txId, cancellationToken: token), 
                 tx => tx.Status || tx.BlockNumber != null)
