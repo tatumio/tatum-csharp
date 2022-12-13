@@ -1,5 +1,7 @@
 ﻿using Tatum.CSharp.Bsc.Core.Api;
+using Tatum.CSharp.Bsc.Core.Client;
 using Tatum.CSharp.Evm.Local;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Bsc.Clients
 {
@@ -37,5 +39,8 @@ namespace Tatum.CSharp.Bsc.Clients
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
+        
+        // Utility tools for the client.
+        ITatumUtils Utils { get; }
     }
 }

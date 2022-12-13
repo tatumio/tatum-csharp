@@ -3,22 +3,23 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Tatum.CSharp.Polygon.Clients;
-using Tatum.CSharp.Polygon.Core.Model;
+using Tatum.CSharp.Harmony.Clients;
+using Tatum.CSharp.Harmony.Core.Model;
+using Tatum.CSharp.Harmony.Utils;
 using Xunit;
 
-namespace Tatum.CSharp.Polygon.Tests.Integration.Scenarios;
+namespace Tatum.CSharp.Harmony.Tests.Integration.Scenarios;
 
-[Collection("Polygon")]
+[Collection("Harmony")]
 public class MintNftBasic
 {
     /// <summary>
-    /// This example shows how to mint NFT on Polygon (MATIC).
+    /// This example shows how to mint NFT on Harmony (ONE).
     /// You can find all the relevant documentation one https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
     /// </summary>
-    public async Task<EthTx> MintNft_Polygon_Example()
+    public async Task<EthTx> MintNft_Harmony_Example()
     {
-        var polygonClient = new PolygonClient
+        var harmonyClient = new HarmonyClient
             (
                 new HttpClient(), 
                 "75ea3138-d0a1-47df-932e-acb3ee807dab", // Use your API key from https://dashboard.tatum.io, this one is our public API Key for testing.
@@ -26,8 +27,8 @@ public class MintNftBasic
             );
 
         // Generate wallet and accompanying address on index 0
-        var wallet = polygonClient.Local.GenerateWallet();
-        var address = polygonClient.Local.GenerateAddress(wallet.Xpub, 0).Address;
+        var wallet = harmonyClient.Local.GenerateWallet();
+        var address = harmonyClient.Local.GenerateAddress(wallet.Xpub, 0).Address;
 
         var yourNftUrl = "https://nft.url.com/";
         
@@ -38,18 +39,18 @@ public class MintNftBasic
                 yourNftUrl // The URL pointing to the NFT
             );
 
-        var transactionHash = await polygonClient.PolygonNft.NftMintErc721Async(mintRequest);
+        var transactionHash = await harmonyClient.HarmonyNft.NftMintErc721Async(mintRequest);
 
         // Wait for transaction to be processed on the blockchain
-        await polygonClient.Utils.WaitForTransactionAsync(transactionHash.TxId);
+        await harmonyClient.Utils.WaitForTransactionAsync(transactionHash.TxId);
 
-        var transaction = await polygonClient.PolygonNft.NftGetTransactErc721Async(transactionHash.TxId);
+        var transaction = await harmonyClient.HarmonyNft.NftGetTransactErc721Async(transactionHash.TxId);
 
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
         // Check address to see if Nft is there
-        var tokens = await polygonClient.PolygonNft.NftGetTokensByAddressErc721Async(address);
+        var tokens = await harmonyClient.HarmonyNft.NftGetTokensByAddressErc721Async(address);
         var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
@@ -57,8 +58,8 @@ public class MintNftBasic
     }
     
     [Fact] 
-    public async Task Test_MintNft_Polygon_Example() => 
-        (await MintNft_Polygon_Example()).Status
+    public async Task Test_MintNft_Harmony_Example() => 
+        (await MintNft_Harmony_Example()).Status
         .Should()
         .BeTrue();
 }

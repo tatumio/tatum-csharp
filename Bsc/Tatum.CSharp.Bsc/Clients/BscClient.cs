@@ -2,7 +2,10 @@
 using System.Net.Http;
 using Tatum.CSharp.Bsc.Configuration;
 using Tatum.CSharp.Bsc.Core.Api;
+using Tatum.CSharp.Bsc.Core.Model;
+using Tatum.CSharp.Bsc.Utils;
 using Tatum.CSharp.Evm.Local;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Bsc.Clients
 {
@@ -28,7 +31,10 @@ namespace Tatum.CSharp.Bsc.Clients
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
-        
+
+        /// <inheritdoc />
+        public ITatumUtils Utils { get; }
+
         /// <summary>
         /// Creates an instance of <see cref="BscClient"/>.
         /// </summary>
@@ -89,6 +95,8 @@ namespace Tatum.CSharp.Bsc.Clients
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
+            
+            Utils = new TatumUtils<BscTx>(new BscTransactionWaiter(this));
         }
     }
 }

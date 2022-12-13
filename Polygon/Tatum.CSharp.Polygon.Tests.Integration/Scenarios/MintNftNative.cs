@@ -1,22 +1,25 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Tatum.CSharp.Evm.Local.Models;
 using Tatum.CSharp.Polygon.Clients;
 using Tatum.CSharp.Polygon.Core.Model;
+using Tatum.CSharp.Polygon.Tests.Integration.TestDataModels;
 using Xunit;
 
 namespace Tatum.CSharp.Polygon.Tests.Integration.Scenarios;
 
 [Collection("Polygon")]
-public class MintNftBasic
+public class MintNftNative
 {
     /// <summary>
     /// This example shows how to mint NFT on Polygon (MATIC).
     /// You can find all the relevant documentation one https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
     /// </summary>
-    public async Task<EthTx> MintNft_Polygon_Example()
+    public async Task<EthTx> MintNftNative_Polygon_Example()
     {
         var polygonClient = new PolygonClient
             (
@@ -25,17 +28,27 @@ public class MintNftBasic
                 isTestNet: true // If you use TestNet API key then argument isTestNet should be set to true
             );
 
-        // Generate wallet and accompanying address on index 0
+        // Generate wallet and accompanying address on index 0 with private key
         var wallet = polygonClient.Local.GenerateWallet();
         var address = polygonClient.Local.GenerateAddress(wallet.Xpub, 0).Address;
+        var privateKey = polygonClient.Local.GenerateAddressPrivateKey(new PrivKeyRequestLocal(0, wallet.Mnemonic)).Key;
+        
+        // THIS IS NOT PART OF THE ACTUAL FLOW - for testing purposes we replace private key from generated wallet with our own private key containing some MATIC
+        // --- IGNORE ---
+        privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.PolygonTestData.StoragePrivKey;
+        // --- /IGNORE ---
 
         var yourNftUrl = "https://nft.url.com/";
         
-        // We will be minting using NFT Express - this is only possible with paid plan on mainnet or on testnet with any plan.
-        var mintRequest = new MintNftExpress
+        // We will be minting using Tatum NFT minter contract - you will pay for fees using your private key
+        // (if testing on Test Net you can use https://faucet.polygon.technology/ faucet to get some MATIC)
+        var mintRequest = new MintNft
             (
-                address, // The blockchain address to send the NFT to
-                yourNftUrl // The URL pointing to the NFT
+                address, // Address to which NFT will be minted
+                "0x542b9ac4945a3836fd12ad98acbc76a0c8b743f5", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
+                "1", // Token ID
+                yourNftUrl, // NFT URL
+                privateKey // Private key of address on index 0 - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES
             );
 
         var transactionHash = await polygonClient.PolygonNft.NftMintErc721Async(mintRequest);
@@ -57,8 +70,8 @@ public class MintNftBasic
     }
     
     [Fact] 
-    public async Task Test_MintNft_Polygon_Example() => 
-        (await MintNft_Polygon_Example()).Status
+    public async Task Test_MintNftNative_Polygon_Example() => 
+        (await MintNftNative_Polygon_Example()).Status
         .Should()
         .BeTrue();
 }

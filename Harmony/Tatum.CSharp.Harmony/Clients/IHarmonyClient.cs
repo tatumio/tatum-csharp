@@ -1,5 +1,7 @@
 ﻿using Tatum.CSharp.Evm.Local;
 using Tatum.CSharp.Harmony.Core.Api;
+using Tatum.CSharp.Harmony.Core.Client;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Harmony.Clients
 {
@@ -37,5 +39,8 @@ namespace Tatum.CSharp.Harmony.Clients
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
+        
+        // Utility tools for the client.
+        ITatumUtils Utils { get; }
     }
 }

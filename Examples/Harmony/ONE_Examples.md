@@ -52,3 +52,17 @@ Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.C
 ### How to send Harmony from account to account
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/BlockchainTransferExampleService.cs)
+
+## Scenarios:
+
+### How to **Mint NFT** with NFT Express
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftBasic.cs)
+
+### How to **Mint NFT** natively on a blockchain
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftNative.cs)
+
+### How to **Mint & Transfer ERC20** tokens
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)

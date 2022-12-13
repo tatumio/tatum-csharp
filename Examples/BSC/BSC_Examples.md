@@ -20,11 +20,11 @@ Inject IBscClient into your service
 ```csharp
 public class BscController : ControllerBase
 {
-    private readonly IBscClient _ethereumClient;
+    private readonly IBscClient _BscClient;
 
-    public BscController(IBscClient ethereumClient)
+    public BscController(IBscClient BscClient)
     {
-        _ethereumClient = ethereumClient;
+        _BscClient = BscClient;
     }
 }
 ```
@@ -52,3 +52,17 @@ Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.C
 ### How to send BSC from account to account
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Bsc/BlockchainTransferExampleService.cs)
+
+## Scenarios:
+
+### How to **Mint NFT** with NFT Express
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Bsc/Tatum.CSharp.Bsc.Tests.Integration/Scenarios/MintNftBasic.cs)
+
+### How to **Mint NFT** natively on a blockchain
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Bsc/Tatum.CSharp.Bsc.Tests.Integration/Scenarios/MintNftNative.cs)
+
+### How to **Mint & Transfer ERC20** tokens
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Bsc/Tatum.CSharp.Bsc.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
