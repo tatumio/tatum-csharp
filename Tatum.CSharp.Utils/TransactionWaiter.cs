@@ -81,6 +81,8 @@ namespace Tatum.CSharp.Utils
                 catch (Exception exception)
                 {
                     ExceptionHandler?.Invoke(exception);
+                    
+                    await Task.Delay(retryTime, linkedTokenSource.Token).ConfigureAwait(false);
                 }
             }
         }
