@@ -45,7 +45,7 @@ public class MintNftNative
         var mintRequest = new MintNft
             (
                 address, // Address to which NFT will be minted
-                "0x53e8577C4347C365E4e0DA5B57A589cB6f2AB848", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
+                "0x542b9ac4945a3836fd12ad98acbc76a0c8b743f5", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
                 "1", // Token ID
                 yourNftUrl, // NFT URL
                 privateKey // Private key of address on index 0 - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES

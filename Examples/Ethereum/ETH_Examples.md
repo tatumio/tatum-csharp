@@ -52,3 +52,17 @@ Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.C
 ### How to send Ethereum from account to account
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/BlockchainTransferExampleService.cs)
+
+## Scenarios:
+
+### How to **Mint NFT** with NFT Express
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftBasic.cs)
+
+### How to **Mint NFT** natively on a blockchain
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftNative.cs)
+
+### How to **Mint & Transfer ERC20** tokens
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
