@@ -3,6 +3,9 @@ using System.Net.Http;
 using Tatum.CSharp.Harmony.Configuration;
 using Tatum.CSharp.Evm.Local;
 using Tatum.CSharp.Harmony.Core.Api;
+using Tatum.CSharp.Harmony.Core.Model;
+using Tatum.CSharp.Harmony.Utils;
+using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Harmony.Clients
 {
@@ -28,7 +31,10 @@ namespace Tatum.CSharp.Harmony.Clients
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
-        
+
+        /// <inheritdoc />
+        public ITatumUtils Utils { get; }
+
         /// <summary>
         /// Creates an instance of <see cref="HarmonyClient"/>.
         /// </summary>
@@ -89,6 +95,8 @@ namespace Tatum.CSharp.Harmony.Clients
             HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
 
             Local = new EvmLocalService(isTestNet);
+            
+            Utils = new TatumUtils<OneTx>(new HarmonyTransactionWaiter(this));
         }
     }
 }

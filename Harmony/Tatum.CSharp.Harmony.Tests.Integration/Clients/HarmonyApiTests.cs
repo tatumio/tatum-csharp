@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Numerics;
 using System.Text.Json;
-using System.Threading;
+using Tatum.CSharp.Harmony.Utils;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Signer;
@@ -237,7 +237,7 @@ public class HarmonyApiTests : IAsyncDisposable
 
         transactionHash.TxId.Should().NotBeNullOrWhiteSpace();
         
-        await WaitForTransactionSuccess(transactionHash.TxId);
+        await _harmonyApi.Utils.WaitForTransactionAsync(transactionHash.TxId);
     }
 
     [Fact]
@@ -316,7 +316,7 @@ public class HarmonyApiTests : IAsyncDisposable
 
         transaction.TxId.Should().NotBeNullOrWhiteSpace();
         
-        await WaitForTransactionSuccess(transaction.TxId);
+        await _harmonyApi.Utils.WaitForTransactionAsync(transaction.TxId);
     }
 
     [Fact]
@@ -384,49 +384,12 @@ public class HarmonyApiTests : IAsyncDisposable
         
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
 
-        await WaitForTransactionSuccess(resultTransaction.TxId);
+        await _harmonyApi.Utils.WaitForTransactionAsync(resultTransaction.TxId);
     }
 
     public async ValueTask DisposeAsync()
     {
         await PayDebts();
-    }
-
-    private async Task WaitForTransactionSuccess(string hash)
-    {
-        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-        try
-        {
-            while (true)
-            {
-                if (cts.IsCancellationRequested)
-                {
-                    break;
-                }
-
-                try
-                {
-                    var tx = await _harmonyApi.HarmonyBlockchain.OneGetTransactionAsync(hash,
-                        cancellationToken: cts.Token);
-                    if (tx.Status || tx.BlockNumber != null)
-                    {
-                        await Task.Delay(1000, cts.Token);
-                        break;
-                    }
-                }
-                catch (ApiException e)
-                {
-                    if (!e.Message.Contains(".tx.not.found"))
-                        throw;
-                }
-
-                await Task.Delay(1000, cts.Token);
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            // we don't care
-        }
     }
 
     private async Task PayDebts()
@@ -443,7 +406,7 @@ public class HarmonyApiTests : IAsyncDisposable
                     debt.Value.ToString("G"),
                     debt.Key));
             
-            await WaitForTransactionSuccess(result.TxId);
+            await _harmonyApi.Utils.WaitForTransactionAsync(result.TxId);
         }
     }
 }
