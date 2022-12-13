@@ -53,6 +53,14 @@ Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.C
 
 Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Polygon/BlockchainTransferExampleService.cs)
 
-### How to **Mint NFT**
+### How to **Mint NFT** with NFT Express
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Polygon.Tests.Integration/Scenarios/MintNftBasic.cs)
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Polygon/Tatum.CSharp.Polygon.Tests.Integration/Scenarios/MintNftBasic.cs)
+
+### How to **Mint NFT** natively on a blockchain
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Polygon/Tatum.CSharp.Polygon.Tests.Integration/Scenarios/MintNftNative.cs)
+
+### How to **Mint & Transfer ERC20** tokens
+
+Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Polygon/Tatum.CSharp.Polygon.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
