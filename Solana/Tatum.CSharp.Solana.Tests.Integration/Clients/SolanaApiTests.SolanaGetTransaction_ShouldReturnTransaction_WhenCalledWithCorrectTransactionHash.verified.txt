@@ -1,4 +1,5 @@
 ﻿{
+  blockTime: 1670401190.0,
   meta: {
     fee: 5000.0,
     logMessages: [
@@ -14,7 +15,10 @@
       1000000000.0,
       0.0,
       1.0
-    ]
+    ],
+    status: {
+      Ok: null
+    }
   },
   transaction: {
     message: {
@@ -43,5 +47,6 @@
     signatures: [
       5DQWDgw2HGfYqaNKAD8KkZu2QqMLM7YtsdhhxvwBgBZqg3xft6rmgMKE4vKetuz9TvFiu9jfbrVB2hR2S6ncmkEU
     ]
-  }
+  },
+  slot: 180491294.0
 }

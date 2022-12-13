@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nethereum.Hex.HexTypes;
@@ -228,7 +227,7 @@ public class PolygonApiTests : IAsyncDisposable
     
         transactionHash.TxId.Should().NotBeNullOrWhiteSpace();
         
-        await WaitForTransactionSuccess(transactionHash.TxId);
+        await _polygonApi.Utils.WaitForTransactionAsync(transactionHash.TxId);
     }
     
     [Fact]
@@ -318,7 +317,7 @@ public class PolygonApiTests : IAsyncDisposable
     
         transaction.TxId.Should().NotBeNullOrWhiteSpace();
         
-        await WaitForTransactionSuccess(transaction.TxId);
+        await _polygonApi.Utils.WaitForTransactionAsync(transaction.TxId);
     }
     
     [Fact]
@@ -395,49 +394,12 @@ public class PolygonApiTests : IAsyncDisposable
         
         resultTransaction.TxId.Should().NotBeNullOrWhiteSpace();
     
-        await WaitForTransactionSuccess(resultTransaction.TxId);
+        await _polygonApi.Utils.WaitForTransactionAsync(resultTransaction.TxId);
     }
     
     public async ValueTask DisposeAsync()
     {
         await PayDebts();
-    }
-    
-    private async Task WaitForTransactionSuccess(string hash)
-    {
-        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-        try
-        {
-            while (true)
-            {
-                if (cts.IsCancellationRequested)
-                {
-                    break;
-                }
-    
-                try
-                {
-                    var tx = await _polygonApi.PolygonBlockchain.PolygonGetTransactionAsync(hash,
-                        cancellationToken: cts.Token);
-                    if (tx.Status || tx.BlockNumber != null)
-                    {
-                        await Task.Delay(1000, cts.Token);
-                        break;
-                    }
-                }
-                catch (ApiException e)
-                {
-                    if (!e.Message.Contains(".tx.not.found"))
-                        throw;
-                }
-    
-                await Task.Delay(1000, cts.Token);
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            // we don't care
-        }
     }
     
     private async Task PayDebts()
@@ -454,7 +416,7 @@ public class PolygonApiTests : IAsyncDisposable
                     debt.Value.ToString("G"),
                     debt.Key));
             
-            await WaitForTransactionSuccess(result.TxId);
+            await _polygonApi.Utils.WaitForTransactionAsync(result.TxId);
         }
     }
 }

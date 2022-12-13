@@ -66,7 +66,7 @@ public class SolanaApiTests
     [Fact]
     public async Task SolanaGetBlock_ShouldReturnBlockData_WhenCalledWithCorrectBlockNumber()
     {
-        var solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(180490340);
+        var solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(181624700);
 
         await Verifier.Verify(solanaBlock);
     }
