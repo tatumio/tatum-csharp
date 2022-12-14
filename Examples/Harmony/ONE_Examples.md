@@ -28,41 +28,22 @@ public class HarmonyController : ControllerBase
     }
 }
 ```
+## Examples:
 
-### How to generate Harmony wallet
+|    | How to                                                                                                                                                                            |
+|---|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:moneybag:| [Generate Harmony wallet](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GenerateWalletExampleService.cs)                        |
+|:key:| [Generate Harmony private key from mnemonic](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GeneratePrivateKeyExampleService.cs) |
+|:mailbox_with_mail:| [Generate Harmony address from private key](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GenerateAddressExampleService.cs) |
+|:dollar:| [Get balance of Harmony address](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GetBalanceExampleService.cs)                |
+|:scroll:| [Get Harmony transaction by hash](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GetTransactionExampleService.cs)           |
+|:outbox_tray:| [Send Harmony from account to account](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/BlockchainTransferExampleService.cs)  |
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GenerateWalletExampleService.cs)
-
-### How to generate Harmony private key from mnemonic
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GeneratePrivateKeyExampleService.cs)
-
-### How to generate Harmony address from private key
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GenerateAddressExampleService.cs)
-
-### How to get balance of Harmony address
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GetBalanceExampleService.cs)
-
-### How to get Harmony transaction by hash
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/GetTransactionExampleService.cs)
-
-### How to send Harmony from account to account
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Harmony/BlockchainTransferExampleService.cs)
 
 ## Scenarios:
 
-### How to **Mint NFT** with NFT Express
+### `NFT` > [**Mint** with NFT Express](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftBasic.cs)
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftBasic.cs)
+### `NFT` > [**Mint** natively on a blockchain](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftNative.cs)
 
-### How to **Mint NFT** natively on a blockchain
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintNftNative.cs)
-
-### How to **Mint & Transfer ERC20** tokens
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
+### `ERC-20` > [**Mint & Transfer** tokens](https://github.com/tatumio/tatum-csharp/blob/master/Harmony/Tatum.CSharp.Harmony.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
