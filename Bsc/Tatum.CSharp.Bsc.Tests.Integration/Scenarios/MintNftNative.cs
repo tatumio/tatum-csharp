@@ -46,7 +46,7 @@ public class MintNftNative
         var mintRequest = new MintNft
             (
                 address, // Address to which NFT will be minted
-                "0x53e8577C4347C365E4e0DA5B57A589cB6f2AB848", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
+                "0xc16ae5e8c985b906935a0cadf4e24f0400531883", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
                 "1", // Token ID
                 yourNftUrl, // NFT URL
                 privateKey // Private key of address on index 0 - YOU NEED TO HAVE BSC ON THIS ADDRESS TO PAY FOR FEES
@@ -63,8 +63,8 @@ public class MintNftNative
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
         // Check address to see if Nft is there
-        var tokens = await bscClient.BscNft.NftGetTokensByAddressErc721Async(address);
-        var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        var balance = await bscClient.BscNft.NftGetBalanceErc721Async(address, "0xc16ae5e8c985b906935a0cadf4e24f0400531883");
+        var isTokenOnTheAddress = balance.Data.Any(x => x == "1");
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         return transaction;
