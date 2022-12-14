@@ -34,7 +34,7 @@ public class EthereumController : ControllerBase
 |---|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |:moneybag:| [Generate Ethereum wallet](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateWalletExampleService.cs)                        |
 |:key:| [Generate Ethereum private key from mnemonic](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GeneratePrivateKeyExampleService.cs) |
-|:incoming_envelope:| [Generate Ethereum address from private key](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateAddressExampleService.cs) |
+|:mailbox_with_mail:| [Generate Ethereum address from private key](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateAddressExampleService.cs) |
 |:dollar:| [Get balance of Ethereum address](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetBalanceExampleService.cs)                |
 |:scroll:| [Get Ethereum transaction by hash](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetTransactionExampleService.cs)           |
 |:outbox_tray:| [Send Ethereum from account to account](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/BlockchainTransferExampleService.cs)  |
