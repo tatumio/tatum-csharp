@@ -85,6 +85,28 @@ public class MintNftNative
         var isTokenOnTheAddress = balance.Data.Any();
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
+        // Let's now burn the NFT
+        var burnRequest = new BurnNft
+        (
+            "1", // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE BSC ON THIS ADDRESS TO PAY FOR FEES
+        );
+
+        var burnTransactionHash = await bscClient.BscNft.NftBurnErc721Async(burnRequest);
+
+        // Wait for transaction to be processed on the blockchain
+        await bscClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
+
+        // Check address to see if Nft is no longer there
+        balance = await bscClient.BscNft.NftGetBalanceErc721Async
+        (
+            address, 
+            transaction.To // transaction.To contains the address of the NFT contract called
+        );
+        isTokenOnTheAddress = balance.Data.Any();
+        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
+        
         return transaction;
     }
     
