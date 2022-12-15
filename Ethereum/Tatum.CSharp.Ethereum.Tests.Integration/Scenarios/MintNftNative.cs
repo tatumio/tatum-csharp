@@ -39,18 +39,32 @@ public class MintNftNative
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.EthereumTestData.StoragePrivKey;
         // --- /IGNORE ---
 
+        var deployRequest = new DeployNft
+        (
+            "NAME",
+            "SYMBOL",
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ETH ON THIS ADDRESS TO PAY FOR FEES
+        );
+        
+        var deployTransactionHash = await ethereumClient.EthereumNft.NftDeployErc721Async(deployRequest);
+        
+        // Wait for transaction to be processed on the blockchain
+        await ethereumClient.Utils.WaitForTransactionAsync(deployTransactionHash.TxId);
+
+        var deployTransaction = await ethereumClient.EthereumBlockchain.EthGetTransactionAsync(deployTransactionHash.TxId);
+        
         var yourNftUrl = "https://nft.url.com/";
         
         // We will be minting using Tatum NFT minter contract - you will pay for fees using your private key
-        // (if testing on Test Net you can use https://faucet.Ethereum.technology/ faucet to get some ETH)
+        // (if testing on Test Net you can use https://fauceth.komputing.org/ faucet to get some ETH)
         var mintRequest = new MintNft
-            (
-                address, // Address to which NFT will be minted
-                "0x53e8577C4347C365E4e0DA5B57A589cB6f2AB848", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
-                "1", // Token ID
-                yourNftUrl, // NFT URL
-                privateKey // Private key of address on index 0 - YOU NEED TO HAVE ETH ON THIS ADDRESS TO PAY FOR FEES
-            );
+        (
+            address, // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            "1", // Token ID
+            yourNftUrl, // NFT URL
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ETH ON THIS ADDRESS TO PAY FOR FEES
+        );
 
         var transactionHash = await ethereumClient.EthereumNft.NftMintErc721Async(mintRequest);
 
@@ -65,6 +79,24 @@ public class MintNftNative
         // Check address to see if Nft is there
         var tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
         var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
+        
+        // Let's now burn the NFT
+        var burnRequest = new BurnNft
+        (
+            "1", // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ETH ON THIS ADDRESS TO PAY FOR FEES
+        );
+
+        var burnTransactionHash = await ethereumClient.EthereumNft.NftBurnErc721Async(burnRequest);
+
+        // Wait for transaction to be processed on the blockchain
+        await ethereumClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
+
+        // Check address to see if Nft is no longer there
+        tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
+        isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         return transaction;

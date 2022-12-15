@@ -20,7 +20,7 @@ public class MintNftNative
     /// This example shows how to mint NFT on Harmony (MATIC).
     /// You can find all the relevant documentation one https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
     /// </summary>
-    public async Task<EthTx> MintNftNative_Harmony_Example()
+    public async Task<OneTx> MintNftNative_Harmony_Example()
     {
         var harmonyClient = new HarmonyClient
             (
@@ -39,32 +39,72 @@ public class MintNftNative
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.HarmonyTestData.StoragePrivKey;
         // --- /IGNORE ---
 
+        var deployRequest = new DeployNft
+        (
+            "NAME",
+            "SYMBOL",
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ONE ON THIS ADDRESS TO PAY FOR FEES
+        );
+        
+        var deployTransactionHash = await harmonyClient.HarmonyNft.NftDeployErc721Async(deployRequest);
+        
+        // Wait for transaction to be processed on the blockchain
+        await harmonyClient.Utils.WaitForTransactionAsync(deployTransactionHash.TxId);
+
+        var deployTransaction = await harmonyClient.HarmonyBlockchain.OneGetTransactionAsync(deployTransactionHash.TxId);
+        
         var yourNftUrl = "https://nft.url.com/";
         
         // We will be minting using Tatum NFT minter contract - you will pay for fees using your private key
-        // (if testing on Test Net you can use https://faucet.Harmony.technology/ faucet to get some MATIC)
+        // (if testing on Test Net you can use https://faucet.pops.one/ faucet to get some ONE)
         var mintRequest = new MintNft
-            (
-                address, // Address to which NFT will be minted
-                "0x8906f62d40293ddca77fdf6714c3f63265deddf0", // Address of Tatum NFT minter contract from https://apidoc.tatum.io/tag/NFT-(ERC-721-or-compatible)#operation/NftMintErc721
-                "1", // Token ID
-                yourNftUrl, // NFT URL
-                privateKey // Private key of address on index 0 - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES
-            );
+        (
+            address, // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            "1", // Token ID
+            yourNftUrl, // NFT URL
+            privateKey  // Private key of address paying fees - YOU NEED TO HAVE ONE ON THIS ADDRESS TO PAY FOR FEES
+        );
 
         var transactionHash = await harmonyClient.HarmonyNft.NftMintErc721Async(mintRequest);
 
         // Wait for transaction to be processed on the blockchain
         await harmonyClient.Utils.WaitForTransactionAsync(transactionHash.TxId);
 
-        var transaction = await harmonyClient.HarmonyNft.NftGetTransactErc721Async(transactionHash.TxId);
+        var transaction = await harmonyClient.HarmonyBlockchain.OneGetTransactionAsync(transactionHash.TxId);
 
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
         // Check address to see if Nft is there
-        var tokens = await harmonyClient.HarmonyNft.NftGetTokensByAddressErc721Async(address);
-        var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        var balance = await harmonyClient.HarmonyNft.NftGetBalanceErc721Async
+        (
+            address, 
+            transaction.To // transaction.To contains the address of the NFT contract called
+        );
+        var isTokenOnTheAddress = balance.Data.Any();
+        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
+        
+        // Let's now burn the NFT
+        var burnRequest = new BurnNft
+        (
+            "1", // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ONE ON THIS ADDRESS TO PAY FOR FEES
+        );
+
+        var burnTransactionHash = await harmonyClient.HarmonyNft.NftBurnErc721Async(burnRequest);
+
+        // Wait for transaction to be processed on the blockchain
+        await harmonyClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
+
+        // Check address to see if Nft is no longer there
+        balance = await harmonyClient.HarmonyNft.NftGetBalanceErc721Async
+        (
+            address, 
+            transaction.To // transaction.To contains the address of the NFT contract called
+        );
+        isTokenOnTheAddress = balance.Data.Any();
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         return transaction;

@@ -28,41 +28,22 @@ public class EthereumController : ControllerBase
     }
 }
 ```
+## Examples:
 
-### How to generate Ethereum wallet
+|    | How to                                                                                                                                                                            |
+|---|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:moneybag:| [Generate Ethereum wallet](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateWalletExampleService.cs)                        |
+|:key:| [Generate Ethereum private key from mnemonic](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GeneratePrivateKeyExampleService.cs) |
+|:mailbox_with_mail:| [Generate Ethereum address from private key](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateAddressExampleService.cs) |
+|:dollar:| [Get balance of Ethereum address](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetBalanceExampleService.cs)                |
+|:scroll:| [Get Ethereum transaction by hash](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetTransactionExampleService.cs)           |
+|:outbox_tray:| [Send Ethereum from account to account](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/BlockchainTransferExampleService.cs)  |
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateWalletExampleService.cs)
-
-### How to generate Ethereum private key from mnemonic
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GeneratePrivateKeyExampleService.cs)
-
-### How to generate Ethereum address from private key
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GenerateAddressExampleService.cs)
-
-### How to get balance of Ethereum address
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetBalanceExampleService.cs)
-
-### How to get Ethereum transaction by hash
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/GetTransactionExampleService.cs)
-
-### How to send Ethereum from account to account
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Tatum.CSharp.Demo/ExampleServices/Ethereum/BlockchainTransferExampleService.cs)
 
 ## Scenarios:
 
-### How to **Mint NFT** with NFT Express
+### `NFT` > [**Mint** with NFT Express](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftBasic.cs)
 
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftBasic.cs)
+### `NFT` > [**Mint** natively on a blockchain](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftNative.cs)
 
-### How to **Mint NFT** natively on a blockchain
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintNftNative.cs)
-
-### How to **Mint & Transfer ERC20** tokens
-
-Check example [here](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
+### `ERC-20` > [**Mint & Transfer** tokens](https://github.com/tatumio/tatum-csharp/blob/master/Ethereum/Tatum.CSharp.Ethereum.Tests.Integration/Scenarios/MintErc20AndTransfer.cs)
