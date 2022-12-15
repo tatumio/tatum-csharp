@@ -76,7 +76,7 @@ public class MintErc20AndTransfer
         var approveErc20 = new ApproveErc20(
             contract, // Address of the deployed ERC20 contract
             address, // The blockchain address to be allowed to transfer or burn the fungible tokens
-            "1000", // Number of tokens to be approved
+            "2000", // Number of tokens to be approved
             privateKey // Private key of the contract owner address - it will be paying gas fee for the approval
             );
 
@@ -113,6 +113,18 @@ public class MintErc20AndTransfer
         var tokens = await bscClient.BscFungibleTokens.Erc20GetBalanceAsync(address2, contract);
         var isTokenOnTheAddress = decimal.Parse(tokens.Balance) > 0;
         Console.WriteLine(isTokenOnTheAddress ? "ERC20 token found on the address :)" : "no such ERC20 token on the address :(");
+        
+        // Now burns some tokens
+        var burnErc20 = new ChainBurnErc20(
+            "1000", // Number of tokens to burn
+            contract, // Address of the deployed ERC20 contract
+            privateKey // Private key of the address paying gas fee for the burn (needs to be approved)
+            );
+        
+        var burnTransactionHash = await bscClient.BscFungibleTokens.Erc20BurnAsync(burnErc20);
+        
+        // Wait for transaction to be processed on the blockchain
+        await bscClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
         
         return transaction;
     }
