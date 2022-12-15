@@ -143,6 +143,16 @@ namespace Tatum.CSharp.Nft.Core.Api
         /// <returns>NftRoyaltyErc721</returns>
         NftRoyaltyErc721 NftGetRoyaltyErc721(string contractAddress, string tokenId, string xTestnetType = default(string));
         /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;NftTokenByAddressErc721&gt;</returns>
+        List<NftTokenByAddressErc721> NftGetTokensByAddressErc721(string address);
+        /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
         /// <remarks>
@@ -398,6 +408,16 @@ namespace Tatum.CSharp.Nft.Core.Api
         /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to Sepolia. Valid only for ETH invocations for testnet API Key. For mainnet API Key, this value is ignored. (optional, default to ethereum-sepolia)</param>
         /// <returns>ApiResponse of NftRoyaltyErc721</returns>
         ApiResponse<NftRoyaltyErc721> NftGetRoyaltyErc721WithHttpInfo(string contractAddress, string tokenId, string xTestnetType = default(string));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByAddressErc721&gt;</returns>
+        ApiResponse<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721WithHttpInfo(string address);
         /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
@@ -664,6 +684,17 @@ namespace Tatum.CSharp.Nft.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of NftRoyaltyErc721</returns>
         System.Threading.Tasks.Task<NftRoyaltyErc721> NftGetRoyaltyErc721Async(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByAddressErc721&gt;</returns>
+        System.Threading.Tasks.Task<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721Async(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
@@ -942,6 +973,17 @@ namespace Tatum.CSharp.Nft.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (NftRoyaltyErc721)</returns>
         System.Threading.Tasks.Task<ApiResponse<NftRoyaltyErc721>> NftGetRoyaltyErc721WithHttpInfoAsync(string contractAddress, string tokenId, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds
+        /// </summary>
+        /// <remarks>
+        /// 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByAddressErc721&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<NftTokenByAddressErc721>>> NftGetTokensByAddressErc721WithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get an NFT transaction by its hash
         /// </summary>
@@ -2632,6 +2674,126 @@ namespace Tatum.CSharp.Nft.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.GetAsync<NftRoyaltyErc721>("/v3/nft/royalty/BSC/{contractAddress}/{tokenId}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>List&lt;NftTokenByAddressErc721&gt;</returns>
+        public List<NftTokenByAddressErc721> NftGetTokensByAddressErc721(string address)
+        {
+            var localVarResponse = NftGetTokensByAddressErc721WithHttpInfo(address);
+
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByAddressErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <returns>ApiResponse of List&lt;NftTokenByAddressErc721&gt;</returns>
+        public ApiResponse<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721WithHttpInfo(string address)
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTBscApi->NftGetTokensByAddressErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Get<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/BSC/{address}", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;NftTokenByAddressErc721&gt;</returns>
+        public async System.Threading.Tasks.Task<List<NftTokenByAddressErc721>> NftGetTokensByAddressErc721Async(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await NftGetTokensByAddressErc721WithHttpInfoAsync(address, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("NftGetTokensByAddressErc721", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get all NFTs that a blockchain address holds 1 credit per API call + 5 credits for each owned NFT Get all NFTs that a blockchain address holds. The NFTs are returned grouped by the smart contracts they were minted on. This API is supported for the following blockchains: Algorand BNB Smart Chain - mainnet only Celo Ethereum Polygon Solana On Solana and Algorand, if a blockchain address holds fewer than 50 NFTs, the API also returns each NFT&#39;s metadata. If the metadata is not returned, you can obtain it using the API for getting NFT metadata.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Nft.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="address">The blockchain address that you want to get the token balance of</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;NftTokenByAddressErc721&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<NftTokenByAddressErc721>>> NftGetTokensByAddressErc721WithHttpInfoAsync(string address, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'address' is set
+            if (address == null)
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTBscApi->NftGetTokensByAddressErc721");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("address", ClientUtils.ParameterToString(address)); // path parameter
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.GetAsync<List<NftTokenByAddressErc721>>("/v3/nft/address/balance/BSC/{address}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
