@@ -50,8 +50,12 @@ public class MintNftBasic
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
         // Check address to see if Nft is there
-        var balance = await bscClient.BscNft.NftGetBalanceErc721Async(address, "0x53e8577C4347C365E4e0DA5B57A589cB6f2AB848");
-        var isTokenOnTheAddress = balance.Data.Any(x => x == "1");
+        var balance = await bscClient.BscNft.NftGetBalanceErc721Async
+            (
+                address, 
+                transaction.To // transaction.To contains the address of the NFT contract called
+            );
+        var isTokenOnTheAddress = balance.Data.Any();
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         return transaction;

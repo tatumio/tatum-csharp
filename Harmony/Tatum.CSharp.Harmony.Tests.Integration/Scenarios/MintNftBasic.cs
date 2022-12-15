@@ -50,8 +50,12 @@ public class MintNftBasic
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
         // Check address to see if Nft is there
-        var tokens = await harmonyClient.HarmonyNft.NftGetTokensByAddressErc721Async(address);
-        var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        var balance = await harmonyClient.HarmonyNft.NftGetBalanceErc721Async
+        (
+            address, 
+            transaction.To // transaction.To contains the address of the NFT contract called
+        );
+        var isTokenOnTheAddress = balance.Data.Any();
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         return transaction;
