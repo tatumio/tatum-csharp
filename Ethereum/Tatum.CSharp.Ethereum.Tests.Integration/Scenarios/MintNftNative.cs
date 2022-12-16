@@ -37,6 +37,7 @@ public class MintNftNative
         // THIS IS NOT PART OF THE ACTUAL FLOW - for testing purposes we replace private key from generated wallet with our own private key containing some ETH
         // --- IGNORE ---
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.EthereumTestData.StoragePrivKey;
+        address = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.EthereumTestData.StorageAddress;
         // --- /IGNORE ---
 
         var deployRequest = new DeployNft
@@ -76,7 +77,7 @@ public class MintNftNative
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
-        // Check address to see if Nft is there
+        // Check address to see if Nft is there - the data might take a while to be indexed
         var tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
         var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
