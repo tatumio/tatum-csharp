@@ -79,7 +79,7 @@ public class MintNftNative
 
         // Check address to see if Nft is there - the data might take a while to be indexed
         var tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
-        var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        var isTokenOnTheAddress = tokens.Any(token => token?.Metadata.Any(x => x.Url == yourNftUrl) ?? false);
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         // Let's now burn the NFT

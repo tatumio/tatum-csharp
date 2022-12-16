@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.Solana.Clients;
+using Tatum.CSharp.Solana.Core.Client;
 using Tatum.CSharp.Solana.Core.Model;
 using Tatum.CSharp.Solana.Tests.Integration.TestDataModels;
 using VerifyXunit;
@@ -62,12 +63,34 @@ public class SolanaApiTests
 
         await Verifier.Verify(solanaTx);
     }
-    
+
     [Fact]
     public async Task SolanaGetBlock_ShouldReturnBlockData_WhenCalledWithCorrectBlockNumber()
     {
+
+        SolanaBlock solanaBlock = null;
+        var blockNotFound = true;
+        
+        var triesRemaining = 10;
+        
         var blockNumber = await _solanaApi.SolanaBlockchain.SolanaGetCurrentBlockAsync();
-        var solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(blockNumber-2000);
+
+        while (blockNotFound)
+        {
+            try
+            {
+                solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(blockNumber - 2000);
+                blockNotFound = false;
+            }
+            catch (ApiException e)
+            {
+                if (!e.Message.Contains("sol.block.not.found")) throw;
+                if(triesRemaining == 0) throw;
+                
+                triesRemaining--;
+                blockNumber--;
+            }
+        }
 
         solanaBlock.Blockhash.Should().NotBeNullOrWhiteSpace();
         solanaBlock.BlockHeight.Should().BeGreaterThan(0);
