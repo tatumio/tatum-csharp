@@ -66,9 +66,16 @@ public class SolanaApiTests
     [Fact]
     public async Task SolanaGetBlock_ShouldReturnBlockData_WhenCalledWithCorrectBlockNumber()
     {
-        var solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(181624700);
+        var blockNumber = await _solanaApi.SolanaBlockchain.SolanaGetCurrentBlockAsync();
+        var solanaBlock = await _solanaApi.SolanaBlockchain.SolanaGetBlockAsync(blockNumber-2000);
 
-        await Verifier.Verify(solanaBlock);
+        solanaBlock.Blockhash.Should().NotBeNullOrWhiteSpace();
+        solanaBlock.BlockHeight.Should().BeGreaterThan(0);
+        solanaBlock.BlockTime.Should().BeGreaterThan(0);
+        solanaBlock.ParentSlot.Should().BeGreaterThan(0);
+        solanaBlock.PreviousBlockhash.Should().NotBeNullOrWhiteSpace();
+        solanaBlock.Rewards.Should().NotBeEmpty();
+        solanaBlock.Transactions.Should().NotBeEmpty();
     }
     
     [Fact]

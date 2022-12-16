@@ -12,6 +12,7 @@ on:
 jobs:
   Test_Chains:
     strategy:
+      fail-fast: false
       matrix:
         chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony, Solana]
     name: Test Chain Packages
@@ -23,6 +24,7 @@ jobs:
     
   Test_Other:
     strategy:
+      fail-fast: false
       matrix:
         chain: [Nft, FungibleTokens]
     name: Test Other Packages
