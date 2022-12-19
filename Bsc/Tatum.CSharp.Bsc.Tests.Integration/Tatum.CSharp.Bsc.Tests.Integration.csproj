@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Tatum.CSharp.Bsc" Version="2.6.2-alpha3731693462" />
+        <PackageReference Include="Tatum.CSharp.Bsc" Version="2.7.0-alpha3732085292" />
         <PackageReference Include="FluentAssertions" Version="6.7.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="Verify.Xunit" Version="19.3.0" />

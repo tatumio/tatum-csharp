@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        chain: [Nft, FungibleTokens]
+        chain: [Nft, FungibleTokens, BlockchainFees]
     name: Test Other Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
