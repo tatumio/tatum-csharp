@@ -24,7 +24,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesBtcApiSync : IApiAccessor
+    public interface IBlockchainFeesApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -62,7 +62,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesBtcApiWithHttpInfoSync : IApiAccessor
+    public interface IBlockchainFeesApiWithHttpInfoSync : IApiAccessor
     {
         #region Synchronous Operations With Http Info
         /// <summary>
@@ -100,7 +100,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesBtcApiAsync : IApiAccessor
+    public interface IBlockchainFeesApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
@@ -141,7 +141,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesBtcApiWithHttpInfoAsync : IApiAccessor
+    public interface IBlockchainFeesApiWithHttpInfoAsync : IApiAccessor
     {
         #region Asynchronous Operations With Http Info
         /// <summary>
@@ -183,7 +183,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesBtcApi : IBlockchainFeesBtcApiSync, IBlockchainFeesBtcApiWithHttpInfoSync, IBlockchainFeesBtcApiAsync, IBlockchainFeesBtcApiWithHttpInfoAsync
+    public interface IBlockchainFeesApi : IBlockchainFeesApiSync, IBlockchainFeesApiWithHttpInfoSync, IBlockchainFeesApiAsync, IBlockchainFeesApiWithHttpInfoAsync
     {
 
     }
@@ -191,12 +191,12 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class BlockchainFeesBtcApi : IBlockchainFeesBtcApi
+    public partial class BlockchainFeesApi : IBlockchainFeesApi
     {
         private ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesBtcApi"/> class.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
@@ -206,12 +206,12 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesBtcApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
+        public BlockchainFeesApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesBtcApi"/> class.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="basePath">The target service's base path in URL format.</param>
@@ -223,7 +223,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesBtcApi(HttpClient client, string basePath, HttpClientHandler handler = null)
+        public BlockchainFeesApi(HttpClient client, string basePath, HttpClientHandler handler = null)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -238,7 +238,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesBtcApi"/> class using Configuration object.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class using Configuration object.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="configuration">An instance of Configuration.</param>
@@ -249,7 +249,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesBtcApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public BlockchainFeesApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -265,14 +265,14 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesBtcApi"/> class
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BlockchainFeesBtcApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        public BlockchainFeesApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
             AsynchronousClient = asyncClient ?? throw new ArgumentNullException(nameof(asyncClient));
@@ -352,7 +352,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         {
             // verify the required parameter 'estimateFeeFromAddress' is set
             if (estimateFeeFromAddress == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeFromAddress' when calling BlockchainFeesBtcApi->EstimateFeeBlockchain");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeFromAddress' when calling BlockchainFeesApi->EstimateFeeBlockchain");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -413,7 +413,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         {
             // verify the required parameter 'estimateFeeFromAddress' is set
             if (estimateFeeFromAddress == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeFromAddress' when calling BlockchainFeesBtcApi->EstimateFeeBlockchain");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeFromAddress' when calling BlockchainFeesApi->EstimateFeeBlockchain");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -474,7 +474,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         {
             // verify the required parameter 'estimateFeeFromUTXO' is set
             if (estimateFeeFromUTXO == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeFromUTXO' when calling BlockchainFeesBtcApi->EstimateFeeBlockchain_0");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeFromUTXO' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -535,7 +535,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         {
             // verify the required parameter 'estimateFeeFromUTXO' is set
             if (estimateFeeFromUTXO == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeFromUTXO' when calling BlockchainFeesBtcApi->EstimateFeeBlockchain_0");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeFromUTXO' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
 
             var localVarRequestOptions = new RequestOptions();
 

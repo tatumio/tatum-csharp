@@ -24,7 +24,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesOneApiSync : IApiAccessor
+    public interface IBlockchainFeesApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -73,7 +73,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesOneApiWithHttpInfoSync : IApiAccessor
+    public interface IBlockchainFeesApiWithHttpInfoSync : IApiAccessor
     {
         #region Synchronous Operations With Http Info
         /// <summary>
@@ -122,7 +122,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesOneApiAsync : IApiAccessor
+    public interface IBlockchainFeesApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
@@ -175,7 +175,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesOneApiWithHttpInfoAsync : IApiAccessor
+    public interface IBlockchainFeesApiWithHttpInfoAsync : IApiAccessor
     {
         #region Asynchronous Operations With Http Info
         /// <summary>
@@ -229,7 +229,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IBlockchainFeesOneApi : IBlockchainFeesOneApiSync, IBlockchainFeesOneApiWithHttpInfoSync, IBlockchainFeesOneApiAsync, IBlockchainFeesOneApiWithHttpInfoAsync
+    public interface IBlockchainFeesApi : IBlockchainFeesApiSync, IBlockchainFeesApiWithHttpInfoSync, IBlockchainFeesApiAsync, IBlockchainFeesApiWithHttpInfoAsync
     {
 
     }
@@ -237,12 +237,12 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class BlockchainFeesOneApi : IBlockchainFeesOneApi
+    public partial class BlockchainFeesApi : IBlockchainFeesApi
     {
         private ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesOneApi"/> class.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
@@ -252,12 +252,12 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesOneApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
+        public BlockchainFeesApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesOneApi"/> class.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="basePath">The target service's base path in URL format.</param>
@@ -269,7 +269,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesOneApi(HttpClient client, string basePath, HttpClientHandler handler = null)
+        public BlockchainFeesApi(HttpClient client, string basePath, HttpClientHandler handler = null)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -284,7 +284,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesOneApi"/> class using Configuration object.
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class using Configuration object.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="configuration">An instance of Configuration.</param>
@@ -295,7 +295,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesOneApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public BlockchainFeesApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -311,14 +311,14 @@ namespace Tatum.CSharp.Harmony.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlockchainFeesOneApi"/> class
+        /// Initializes a new instance of the <see cref="BlockchainFeesApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BlockchainFeesOneApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        public BlockchainFeesApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
             AsynchronousClient = asyncClient ?? throw new ArgumentNullException(nameof(asyncClient));
@@ -398,7 +398,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFee' is set
             if (estimateFee == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesOneApi->EstimateFeeBlockchain");
+                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesApi->EstimateFeeBlockchain");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -459,7 +459,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFee' is set
             if (estimateFee == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesOneApi->EstimateFeeBlockchain");
+                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesApi->EstimateFeeBlockchain");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -520,7 +520,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeBatchMintNft' is set
             if (estimateFeeBatchMintNft == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_0");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -581,7 +581,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeBatchMintNft' is set
             if (estimateFeeBatchMintNft == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_0");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -642,7 +642,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeDeployCustodialWallet' is set
             if (estimateFeeDeployCustodialWallet == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_1");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesApi->EstimateFeeBlockchain_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -703,7 +703,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeDeployCustodialWallet' is set
             if (estimateFeeDeployCustodialWallet == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_1");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesApi->EstimateFeeBlockchain_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -764,7 +764,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeTransferFromCustodial' is set
             if (estimateFeeTransferFromCustodial == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_2");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesApi->EstimateFeeBlockchain_2");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -825,7 +825,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'estimateFeeTransferFromCustodial' is set
             if (estimateFeeTransferFromCustodial == null)
-                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesOneApi->EstimateFeeBlockchain_2");
+                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesApi->EstimateFeeBlockchain_2");
 
             var localVarRequestOptions = new RequestOptions();
 

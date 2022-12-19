@@ -24,7 +24,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface INFTOneApiSync : IApiAccessor
+    public interface INFTApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -280,7 +280,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface INFTOneApiWithHttpInfoSync : IApiAccessor
+    public interface INFTApiWithHttpInfoSync : IApiAccessor
     {
         #region Synchronous Operations With Http Info
         /// <summary>
@@ -536,7 +536,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface INFTOneApiAsync : IApiAccessor
+    public interface INFTApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
@@ -814,7 +814,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface INFTOneApiWithHttpInfoAsync : IApiAccessor
+    public interface INFTApiWithHttpInfoAsync : IApiAccessor
     {
         #region Asynchronous Operations With Http Info
         /// <summary>
@@ -1093,7 +1093,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface INFTOneApi : INFTOneApiSync, INFTOneApiWithHttpInfoSync, INFTOneApiAsync, INFTOneApiWithHttpInfoAsync
+    public interface INFTApi : INFTApiSync, INFTApiWithHttpInfoSync, INFTApiAsync, INFTApiWithHttpInfoAsync
     {
 
     }
@@ -1101,12 +1101,12 @@ namespace Tatum.CSharp.Harmony.Core.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class NFTOneApi : INFTOneApi
+    public partial class NFTApi : INFTApi
     {
         private ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NFTOneApi"/> class.
+        /// Initializes a new instance of the <see cref="NFTApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
@@ -1116,12 +1116,12 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public NFTOneApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
+        public NFTApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NFTOneApi"/> class.
+        /// Initializes a new instance of the <see cref="NFTApi"/> class.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="basePath">The target service's base path in URL format.</param>
@@ -1133,7 +1133,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public NFTOneApi(HttpClient client, string basePath, HttpClientHandler handler = null)
+        public NFTApi(HttpClient client, string basePath, HttpClientHandler handler = null)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -1148,7 +1148,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NFTOneApi"/> class using Configuration object.
+        /// Initializes a new instance of the <see cref="NFTApi"/> class using Configuration object.
         /// </summary>
         /// <param name="client">An instance of HttpClient.</param>
         /// <param name="configuration">An instance of Configuration.</param>
@@ -1159,7 +1159,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public NFTOneApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public NFTApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -1175,14 +1175,14 @@ namespace Tatum.CSharp.Harmony.Core.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NFTOneApi"/> class
+        /// Initializes a new instance of the <see cref="NFTApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public NFTOneApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        public NFTApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
             AsynchronousClient = asyncClient ?? throw new ArgumentNullException(nameof(asyncClient));
@@ -1264,7 +1264,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'addNftMinter' is set
             if (addNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'addNftMinter' when calling NFTOneApi->NftAddMinter");
+                throw new ApiException(400, "Missing required parameter 'addNftMinter' when calling NFTApi->NftAddMinter");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1331,7 +1331,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'addNftMinter' is set
             if (addNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'addNftMinter' when calling NFTOneApi->NftAddMinter");
+                throw new ApiException(400, "Missing required parameter 'addNftMinter' when calling NFTApi->NftAddMinter");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1398,7 +1398,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'addNftMinterKMS' is set
             if (addNftMinterKMS == null)
-                throw new ApiException(400, "Missing required parameter 'addNftMinterKMS' when calling NFTOneApi->NftAddMinter_0");
+                throw new ApiException(400, "Missing required parameter 'addNftMinterKMS' when calling NFTApi->NftAddMinter_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1465,7 +1465,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'addNftMinterKMS' is set
             if (addNftMinterKMS == null)
-                throw new ApiException(400, "Missing required parameter 'addNftMinterKMS' when calling NFTOneApi->NftAddMinter_0");
+                throw new ApiException(400, "Missing required parameter 'addNftMinterKMS' when calling NFTApi->NftAddMinter_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1532,7 +1532,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'burnNft' is set
             if (burnNft == null)
-                throw new ApiException(400, "Missing required parameter 'burnNft' when calling NFTOneApi->NftBurnErc721");
+                throw new ApiException(400, "Missing required parameter 'burnNft' when calling NFTApi->NftBurnErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1599,7 +1599,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'burnNft' is set
             if (burnNft == null)
-                throw new ApiException(400, "Missing required parameter 'burnNft' when calling NFTOneApi->NftBurnErc721");
+                throw new ApiException(400, "Missing required parameter 'burnNft' when calling NFTApi->NftBurnErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1666,7 +1666,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'burnNftKMS' is set
             if (burnNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'burnNftKMS' when calling NFTOneApi->NftBurnErc721_0");
+                throw new ApiException(400, "Missing required parameter 'burnNftKMS' when calling NFTApi->NftBurnErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1733,7 +1733,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'burnNftKMS' is set
             if (burnNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'burnNftKMS' when calling NFTOneApi->NftBurnErc721_0");
+                throw new ApiException(400, "Missing required parameter 'burnNftKMS' when calling NFTApi->NftBurnErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1800,7 +1800,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'deployNft' is set
             if (deployNft == null)
-                throw new ApiException(400, "Missing required parameter 'deployNft' when calling NFTOneApi->NftDeployErc721");
+                throw new ApiException(400, "Missing required parameter 'deployNft' when calling NFTApi->NftDeployErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1867,7 +1867,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'deployNft' is set
             if (deployNft == null)
-                throw new ApiException(400, "Missing required parameter 'deployNft' when calling NFTOneApi->NftDeployErc721");
+                throw new ApiException(400, "Missing required parameter 'deployNft' when calling NFTApi->NftDeployErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -1934,7 +1934,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'deployNftKMS' is set
             if (deployNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'deployNftKMS' when calling NFTOneApi->NftDeployErc721_0");
+                throw new ApiException(400, "Missing required parameter 'deployNftKMS' when calling NFTApi->NftDeployErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2001,7 +2001,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'deployNftKMS' is set
             if (deployNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'deployNftKMS' when calling NFTOneApi->NftDeployErc721_0");
+                throw new ApiException(400, "Missing required parameter 'deployNftKMS' when calling NFTApi->NftDeployErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2070,11 +2070,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'address' is set
             if (address == null)
-                throw new ApiException(400, "Missing required parameter 'address' when calling NFTOneApi->NftGetBalanceErc721");
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTApi->NftGetBalanceErc721");
 
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetBalanceErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetBalanceErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2143,11 +2143,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'address' is set
             if (address == null)
-                throw new ApiException(400, "Missing required parameter 'address' when calling NFTOneApi->NftGetBalanceErc721");
+                throw new ApiException(400, "Missing required parameter 'address' when calling NFTApi->NftGetBalanceErc721");
 
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetBalanceErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetBalanceErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2218,11 +2218,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetMetadataErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetMetadataErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetMetadataErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetMetadataErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2297,11 +2297,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetMetadataErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetMetadataErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetMetadataErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetMetadataErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2374,11 +2374,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetProvenanceDataErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetProvenanceDataErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetProvenanceDataErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetProvenanceDataErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2447,11 +2447,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetProvenanceDataErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetProvenanceDataErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetProvenanceDataErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetProvenanceDataErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2520,11 +2520,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetRoyaltyErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetRoyaltyErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetRoyaltyErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetRoyaltyErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2593,11 +2593,11 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
-                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTOneApi->NftGetRoyaltyErc721");
+                throw new ApiException(400, "Missing required parameter 'contractAddress' when calling NFTApi->NftGetRoyaltyErc721");
 
             // verify the required parameter 'tokenId' is set
             if (tokenId == null)
-                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTOneApi->NftGetRoyaltyErc721");
+                throw new ApiException(400, "Missing required parameter 'tokenId' when calling NFTApi->NftGetRoyaltyErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2664,7 +2664,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'hash' is set
             if (hash == null)
-                throw new ApiException(400, "Missing required parameter 'hash' when calling NFTOneApi->NftGetTransactErc721");
+                throw new ApiException(400, "Missing required parameter 'hash' when calling NFTApi->NftGetTransactErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2730,7 +2730,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'hash' is set
             if (hash == null)
-                throw new ApiException(400, "Missing required parameter 'hash' when calling NFTOneApi->NftGetTransactErc721");
+                throw new ApiException(400, "Missing required parameter 'hash' when calling NFTApi->NftGetTransactErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2796,7 +2796,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftExpress' is set
             if (mintNftExpress == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftExpress' when calling NFTOneApi->NftMintErc721");
+                throw new ApiException(400, "Missing required parameter 'mintNftExpress' when calling NFTApi->NftMintErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2863,7 +2863,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftExpress' is set
             if (mintNftExpress == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftExpress' when calling NFTOneApi->NftMintErc721");
+                throw new ApiException(400, "Missing required parameter 'mintNftExpress' when calling NFTApi->NftMintErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2930,7 +2930,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftMinter' is set
             if (mintNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftMinter' when calling NFTOneApi->NftMintErc721_0");
+                throw new ApiException(400, "Missing required parameter 'mintNftMinter' when calling NFTApi->NftMintErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -2997,7 +2997,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftMinter' is set
             if (mintNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftMinter' when calling NFTOneApi->NftMintErc721_0");
+                throw new ApiException(400, "Missing required parameter 'mintNftMinter' when calling NFTApi->NftMintErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3064,7 +3064,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNft' is set
             if (mintNft == null)
-                throw new ApiException(400, "Missing required parameter 'mintNft' when calling NFTOneApi->NftMintErc721_1");
+                throw new ApiException(400, "Missing required parameter 'mintNft' when calling NFTApi->NftMintErc721_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3131,7 +3131,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNft' is set
             if (mintNft == null)
-                throw new ApiException(400, "Missing required parameter 'mintNft' when calling NFTOneApi->NftMintErc721_1");
+                throw new ApiException(400, "Missing required parameter 'mintNft' when calling NFTApi->NftMintErc721_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3198,7 +3198,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftKMS' is set
             if (mintNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftKMS' when calling NFTOneApi->NftMintErc721_2");
+                throw new ApiException(400, "Missing required parameter 'mintNftKMS' when calling NFTApi->NftMintErc721_2");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3265,7 +3265,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintNftKMS' is set
             if (mintNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'mintNftKMS' when calling NFTOneApi->NftMintErc721_2");
+                throw new ApiException(400, "Missing required parameter 'mintNftKMS' when calling NFTApi->NftMintErc721_2");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3332,7 +3332,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNftMinter' is set
             if (mintMultipleNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNftMinter' when calling NFTOneApi->NftMintMultipleErc721");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNftMinter' when calling NFTApi->NftMintMultipleErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3399,7 +3399,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNftMinter' is set
             if (mintMultipleNftMinter == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNftMinter' when calling NFTOneApi->NftMintMultipleErc721");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNftMinter' when calling NFTApi->NftMintMultipleErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3466,7 +3466,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNft' is set
             if (mintMultipleNft == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNft' when calling NFTOneApi->NftMintMultipleErc721_0");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNft' when calling NFTApi->NftMintMultipleErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3533,7 +3533,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNft' is set
             if (mintMultipleNft == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNft' when calling NFTOneApi->NftMintMultipleErc721_0");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNft' when calling NFTApi->NftMintMultipleErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3600,7 +3600,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNftKMS' is set
             if (mintMultipleNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNftKMS' when calling NFTOneApi->NftMintMultipleErc721_1");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNftKMS' when calling NFTApi->NftMintMultipleErc721_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3667,7 +3667,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'mintMultipleNftKMS' is set
             if (mintMultipleNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'mintMultipleNftKMS' when calling NFTOneApi->NftMintMultipleErc721_1");
+                throw new ApiException(400, "Missing required parameter 'mintMultipleNftKMS' when calling NFTApi->NftMintMultipleErc721_1");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3734,7 +3734,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'transferNft' is set
             if (transferNft == null)
-                throw new ApiException(400, "Missing required parameter 'transferNft' when calling NFTOneApi->NftTransferErc721");
+                throw new ApiException(400, "Missing required parameter 'transferNft' when calling NFTApi->NftTransferErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3801,7 +3801,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'transferNft' is set
             if (transferNft == null)
-                throw new ApiException(400, "Missing required parameter 'transferNft' when calling NFTOneApi->NftTransferErc721");
+                throw new ApiException(400, "Missing required parameter 'transferNft' when calling NFTApi->NftTransferErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3868,7 +3868,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'transferNftKMS' is set
             if (transferNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'transferNftKMS' when calling NFTOneApi->NftTransferErc721_0");
+                throw new ApiException(400, "Missing required parameter 'transferNftKMS' when calling NFTApi->NftTransferErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -3935,7 +3935,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'transferNftKMS' is set
             if (transferNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'transferNftKMS' when calling NFTOneApi->NftTransferErc721_0");
+                throw new ApiException(400, "Missing required parameter 'transferNftKMS' when calling NFTApi->NftTransferErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -4002,7 +4002,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'updateCashbackValueForAuthorNft' is set
             if (updateCashbackValueForAuthorNft == null)
-                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNft' when calling NFTOneApi->NftUpdateCashbackErc721");
+                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNft' when calling NFTApi->NftUpdateCashbackErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -4069,7 +4069,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'updateCashbackValueForAuthorNft' is set
             if (updateCashbackValueForAuthorNft == null)
-                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNft' when calling NFTOneApi->NftUpdateCashbackErc721");
+                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNft' when calling NFTApi->NftUpdateCashbackErc721");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -4136,7 +4136,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'updateCashbackValueForAuthorNftKMS' is set
             if (updateCashbackValueForAuthorNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNftKMS' when calling NFTOneApi->NftUpdateCashbackErc721_0");
+                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNftKMS' when calling NFTApi->NftUpdateCashbackErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -4203,7 +4203,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
         {
             // verify the required parameter 'updateCashbackValueForAuthorNftKMS' is set
             if (updateCashbackValueForAuthorNftKMS == null)
-                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNftKMS' when calling NFTOneApi->NftUpdateCashbackErc721_0");
+                throw new ApiException(400, "Missing required parameter 'updateCashbackValueForAuthorNftKMS' when calling NFTApi->NftUpdateCashbackErc721_0");
 
             var localVarRequestOptions = new RequestOptions();
 

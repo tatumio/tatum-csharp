@@ -37,6 +37,46 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="bscEstimateGas"></param>
         /// <returns>Object</returns>
         Object BscEstimateGas(BscEstimateGas bscEstimateGas);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <returns>FeeETH</returns>
+        FeeETH EstimateFeeBlockchain(EstimateFee estimateFee);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <returns>FeeETH</returns>
+        FeeETH EstimateFeeBlockchain(EstimateFeeBatchMintNft estimateFeeBatchMintNft);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <returns>FeeETH</returns>
+        FeeETH EstimateFeeBlockchain(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <returns>FeeETH</returns>
+        FeeETH EstimateFeeBlockchain(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial);
         #endregion Synchronous Operations
     }
 
@@ -56,6 +96,46 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="bscEstimateGas"></param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFee estimateFee);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeBatchMintNft estimateFeeBatchMintNft);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet);
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial);
         #endregion Synchronous Operations With Http Info
     }
 
@@ -76,6 +156,50 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -96,6 +220,50 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate the fee for a transaction
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -364,6 +532,494 @@ namespace Tatum.CSharp.Bsc.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/bsc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <returns>FeeETH</returns>
+        public FeeETH EstimateFeeBlockchain(EstimateFee estimateFee)
+        {
+            var localVarResponse = EstimateFeeBlockchainWithHttpInfo(estimateFee);
+
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        public ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFee estimateFee)
+        {
+            // verify the required parameter 'estimateFee' is set
+            if (estimateFee == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesApi->EstimateFeeBlockchain");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFee;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        public async System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EstimateFeeBlockchainWithHttpInfoAsync(estimateFee, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFee"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'estimateFee' is set
+            if (estimateFee == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFee' when calling BlockchainFeesApi->EstimateFeeBlockchain");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFee;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <returns>FeeETH</returns>
+        public FeeETH EstimateFeeBlockchain(EstimateFeeBatchMintNft estimateFeeBatchMintNft)
+        {
+            var localVarResponse = EstimateFeeBlockchainWithHttpInfo(estimateFeeBatchMintNft);
+
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_0", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        public ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeBatchMintNft estimateFeeBatchMintNft)
+        {
+            // verify the required parameter 'estimateFeeBatchMintNft' is set
+            if (estimateFeeBatchMintNft == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeBatchMintNft;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        public async System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EstimateFeeBlockchainWithHttpInfoAsync(estimateFeeBatchMintNft, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_0", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeBatchMintNft"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'estimateFeeBatchMintNft' is set
+            if (estimateFeeBatchMintNft == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeBatchMintNft' when calling BlockchainFeesApi->EstimateFeeBlockchain_0");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeBatchMintNft;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <returns>FeeETH</returns>
+        public FeeETH EstimateFeeBlockchain(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet)
+        {
+            var localVarResponse = EstimateFeeBlockchainWithHttpInfo(estimateFeeDeployCustodialWallet);
+
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_1", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        public ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet)
+        {
+            // verify the required parameter 'estimateFeeDeployCustodialWallet' is set
+            if (estimateFeeDeployCustodialWallet == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesApi->EstimateFeeBlockchain_1");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeDeployCustodialWallet;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        public async System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EstimateFeeBlockchainWithHttpInfoAsync(estimateFeeDeployCustodialWallet, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_1", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeDeployCustodialWallet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'estimateFeeDeployCustodialWallet' is set
+            if (estimateFeeDeployCustodialWallet == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeDeployCustodialWallet' when calling BlockchainFeesApi->EstimateFeeBlockchain_1");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeDeployCustodialWallet;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <returns>FeeETH</returns>
+        public FeeETH EstimateFeeBlockchain(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial)
+        {
+            var localVarResponse = EstimateFeeBlockchainWithHttpInfo(estimateFeeTransferFromCustodial);
+
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_2", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <returns>ApiResponse of FeeETH</returns>
+        public ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial)
+        {
+            // verify the required parameter 'estimateFeeTransferFromCustodial' is set
+            if (estimateFeeTransferFromCustodial == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesApi->EstimateFeeBlockchain_2");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeTransferFromCustodial;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of FeeETH</returns>
+        public async System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EstimateFeeBlockchainWithHttpInfoAsync(estimateFeeTransferFromCustodial, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EstimateFeeBlockchain_2", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bsc.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="estimateFeeTransferFromCustodial"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (FeeETH)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'estimateFeeTransferFromCustodial' is set
+            if (estimateFeeTransferFromCustodial == null)
+                throw new ApiException(400, "Missing required parameter 'estimateFeeTransferFromCustodial' when calling BlockchainFeesApi->EstimateFeeBlockchain_2");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = estimateFeeTransferFromCustodial;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
