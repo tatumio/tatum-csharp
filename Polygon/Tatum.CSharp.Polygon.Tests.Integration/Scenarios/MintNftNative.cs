@@ -36,6 +36,7 @@ public class MintNftNative
         // THIS IS NOT PART OF THE ACTUAL FLOW - for testing purposes we replace private key from generated wallet with our own private key containing some MATIC
         // --- IGNORE ---
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.PolygonTestData.StoragePrivKey;
+        address = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.PolygonTestData.StorageAddress;
         // --- /IGNORE ---
 
         var deployRequest = new DeployNft
@@ -65,19 +66,37 @@ public class MintNftNative
                 privateKey // Private key of address paying fees - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES
             );
 
-        var transactionHash = await polygonClient.PolygonNft.NftMintErc721Async(mintRequest);
+        var mintTransactionHash = await polygonClient.PolygonNft.NftMintErc721Async(mintRequest);
 
         // Wait for transaction to be processed on the blockchain
-        await polygonClient.Utils.WaitForTransactionAsync(transactionHash.TxId);
+        await polygonClient.Utils.WaitForTransactionAsync(mintTransactionHash.TxId);
 
-        var transaction = await polygonClient.PolygonNft.NftGetTransactErc721Async(transactionHash.TxId);
+        var transaction = await polygonClient.PolygonNft.NftGetTransactErc721Async(mintTransactionHash.TxId);
 
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
-        // Check address to see if Nft is there
+        // Check address to see if Nft is there - the data might take a while to be indexed
         var tokens = await polygonClient.PolygonNft.NftGetTokensByAddressErc721Async(address);
         var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
+
+        // Let's now burn the NFT
+        var burnRequest = new BurnNft
+        (
+            "1", // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES
+        );
+
+        var burnTransactionHash = await polygonClient.PolygonNft.NftBurnErc721Async(burnRequest);
+
+        // Wait for transaction to be processed on the blockchain
+        await polygonClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
+
+        // Check address to see if Nft is no longer there
+        tokens = await polygonClient.PolygonNft.NftGetTokensByAddressErc721Async(address);
+        isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         // Let's now burn the NFT

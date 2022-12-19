@@ -37,6 +37,7 @@ public class MintNftNative
         // THIS IS NOT PART OF THE ACTUAL FLOW - for testing purposes we replace private key from generated wallet with our own private key containing some MATIC
         // --- IGNORE ---
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.HarmonyTestData.StoragePrivKey;
+        address = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.HarmonyTestData.StorageAddress;
         // --- /IGNORE ---
 
         var deployRequest = new DeployNft
@@ -76,7 +77,7 @@ public class MintNftNative
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
-        // Check address to see if Nft is there
+        // Check address to see if Nft is there - the data might take a while to be indexed
         var balance = await harmonyClient.HarmonyNft.NftGetBalanceErc721Async
         (
             address, 

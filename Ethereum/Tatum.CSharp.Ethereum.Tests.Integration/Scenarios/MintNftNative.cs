@@ -37,6 +37,7 @@ public class MintNftNative
         // THIS IS NOT PART OF THE ACTUAL FLOW - for testing purposes we replace private key from generated wallet with our own private key containing some ETH
         // --- IGNORE ---
         privateKey = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.EthereumTestData.StoragePrivKey;
+        address = JsonSerializer.Deserialize<TestData>(Environment.GetEnvironmentVariable("TEST_DATA")!)?.EthereumTestData.StorageAddress;
         // --- /IGNORE ---
 
         var deployRequest = new DeployNft
@@ -76,9 +77,27 @@ public class MintNftNative
         // Status = true means that transaction was processed correctly.
         Console.WriteLine(transaction.Status ? "Transaction successful" : "Transaction failed");
 
-        // Check address to see if Nft is there
+        // Check address to see if Nft is there - the data might take a while to be indexed
         var tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
-        var isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
+        var isTokenOnTheAddress = tokens.Any(token => token?.Metadata.Any(x => x.Url == yourNftUrl) ?? false);
+        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
+        
+        // Let's now burn the NFT
+        var burnRequest = new BurnNft
+        (
+            "1", // Address to which NFT will be minted
+            deployTransaction.ContractAddress, // Address of the minter contract
+            privateKey // Private key of address paying fees - YOU NEED TO HAVE ETH ON THIS ADDRESS TO PAY FOR FEES
+        );
+
+        var burnTransactionHash = await ethereumClient.EthereumNft.NftBurnErc721Async(burnRequest);
+
+        // Wait for transaction to be processed on the blockchain
+        await ethereumClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
+
+        // Check address to see if Nft is no longer there
+        tokens = await ethereumClient.EthereumNft.NftGetTokensByAddressErc721Async(address);
+        isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
         // Let's now burn the NFT

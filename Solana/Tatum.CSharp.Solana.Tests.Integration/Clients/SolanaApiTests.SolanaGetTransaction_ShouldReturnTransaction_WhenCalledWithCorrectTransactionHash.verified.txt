@@ -17,7 +17,7 @@
       1.0
     ],
     status: {
-      Ok: null
+      Ok: []
     }
   },
   transaction: {
@@ -41,8 +41,7 @@
           data: 3Bxs4NRZ15a54oAf,
           programIdIndex: 2.0
         }
-      ],
-      indexToProgramIds: {}
+      ]
     },
     signatures: [
       5DQWDgw2HGfYqaNKAD8KkZu2QqMLM7YtsdhhxvwBgBZqg3xft6rmgMKE4vKetuz9TvFiu9jfbrVB2hR2S6ncmkEU
