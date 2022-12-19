@@ -99,24 +99,6 @@ public class MintNftNative
         isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
         Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
         
-        // Let's now burn the NFT
-        var burnRequest = new BurnNft
-        (
-            "1", // Address to which NFT will be minted
-            deployTransaction.ContractAddress, // Address of the minter contract
-            privateKey // Private key of address paying fees - YOU NEED TO HAVE MATIC ON THIS ADDRESS TO PAY FOR FEES
-        );
-
-        var burnTransactionHash = await polygonClient.PolygonNft.NftBurnErc721Async(burnRequest);
-
-        // Wait for transaction to be processed on the blockchain
-        await polygonClient.Utils.WaitForTransactionAsync(burnTransactionHash.TxId);
-
-        // Check address to see if Nft is no longer there
-        tokens = await polygonClient.PolygonNft.NftGetTokensByAddressErc721Async(address);
-        isTokenOnTheAddress = tokens.Any(token => token.Metadata.Any(x => x.Url == yourNftUrl));
-        Console.WriteLine(isTokenOnTheAddress ? "NFT found on the address :)" : "no such NFT on the address :(");
-        
         return transaction;
     }
     

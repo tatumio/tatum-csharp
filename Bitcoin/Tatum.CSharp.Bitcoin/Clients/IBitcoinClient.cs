@@ -16,6 +16,12 @@ namespace Tatum.CSharp.Bitcoin.Clients
         /// </summary>
         IBitcoinApiWithHttpInfoAsync BitcoinBlockchainWithHttpInfo { get; }
 
+        // Client wrapping all blockchain fee estimation operations.
+        IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        // Client wrapping all blockchain fee estimation operations with full <see cref="ApiResponse{T}"/> return types.
+        IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
+        
         // Service for local operations that can be used to keep all sensitive information local.
         IBitcoinLocalService Local { get; }
     }

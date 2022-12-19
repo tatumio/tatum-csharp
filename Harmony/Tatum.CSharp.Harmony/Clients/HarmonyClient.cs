@@ -18,16 +18,22 @@ namespace Tatum.CSharp.Harmony.Clients
         public IHarmonyApiWithHttpInfoAsync HarmonyBlockchainWithHttpInfo { get; }
 
         /// <inheritdoc />
-        public INFTOneApiAsync HarmonyNft { get; }
+        public INFTApiAsync HarmonyNft { get; }
         
         /// <inheritdoc />
-        public INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
+        public INFTApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensOneApiAsync HarmonyFungibleTokens { get; }
+        public IFungibleTokensApiAsync HarmonyFungibleTokens { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensOneApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+        public IFungibleTokensApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -80,20 +86,27 @@ namespace Tatum.CSharp.Harmony.Clients
             HarmonyBlockchain = harmonyApi;
             HarmonyBlockchainWithHttpInfo = harmonyApi;
             
-            var harmonyNftApi = new NFTOneApi(httpClient);
+            var harmonyNftApi = new NFTApi(httpClient);
             
             harmonyNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             HarmonyNft = harmonyNftApi;
             HarmonyNftWithHttpInfo = harmonyNftApi;
             
-            var harmonyFungibleTokensApi = new FungibleTokensOneApi(httpClient);
+            var harmonyFungibleTokensApi = new FungibleTokensApi(httpClient);
             
             harmonyFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             HarmonyFungibleTokens = harmonyFungibleTokensApi;
             HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
 
+            var feeApi = new BlockchainFeesApi(httpClient);
+            
+            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BlockchainFees = feeApi;
+            BlockchainFeesWithHttpInfo = feeApi;
+            
             Local = new EvmLocalService(isTestNet);
             
             Utils = new TatumUtils<OneTx>(new HarmonyTransactionWaiter(this));

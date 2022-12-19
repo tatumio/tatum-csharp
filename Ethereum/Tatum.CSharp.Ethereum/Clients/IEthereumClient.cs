@@ -19,22 +19,28 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// <summary>
         /// Client wrapping all operations related to the Ethereum NFTs.
         /// </summary>
-        INFTEthApiAsync EthereumNft { get; }
+        INFTApiAsync EthereumNft { get; }
         
         /// <summary>
         /// Client wrapping all operations related to the Ethereum NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        INFTEthApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
+        INFTApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
         
         /// <summary>
         /// Client wrapping all operations related to the Ethereum FungibleTokens.
         /// </summary>
-        IFungibleTokensEthApiAsync EthereumFungibleTokens { get; }
+        IFungibleTokensApiAsync EthereumFungibleTokens { get; }
         
         /// <summary>
         /// Client wrapping all operations related to the Ethereum FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        IFungibleTokensEthApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+        IFungibleTokensApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+                
+        // Client wrapping all blockchain fee estimation operations.
+        IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        // Client wrapping all blockchain fee estimation operations with full <see cref="ApiResponse{T}"/> return types.
+        IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }
