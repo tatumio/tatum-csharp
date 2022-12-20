@@ -66,7 +66,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Model
         /// <param name="type">Type of transaction (required).</param>
         /// <param name="fromAddress">Array of addresses. Tatum will automatically scan last 100 transactions for each address and will use all of the unspent values. We advise to use this option if you have 1 address per 1 transaction only. (required).</param>
         /// <param name="to">Array of addresses and values to send bitcoins to. Values must be set in BTC. Difference between from and to is transaction fee. (required).</param>
-        public EstimateFeeFromAddress(TypeEnum type = default(TypeEnum), List<string> fromAddress = default(List<string>), List<Object> to = default(List<Object>))
+        public EstimateFeeFromAddress(TypeEnum type = default(TypeEnum), List<string> fromAddress = default(List<string>), List<EstimateFeeFromAddressTo> to = default(List<EstimateFeeFromAddressTo>))
         {
             this.Type = type;
             // to ensure "fromAddress" is required (not null)
@@ -103,7 +103,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Model
         /// </summary>
         /// <value>Array of addresses and values to send bitcoins to. Values must be set in BTC. Difference between from and to is transaction fee.</value>
         [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = true)]
-        public List<Object> To { get; set; }
+        public List<EstimateFeeFromAddressTo> To { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
