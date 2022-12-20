@@ -12,6 +12,7 @@ on:
 env:
   DOWNSTREAM_DISPATCH_ADDRESS: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/postRelease.yml/dispatches
   DOWNSTREAM_DISPATCH_ADDRESS_UNITY: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/packUnity.yml/dispatches
+  DOWNSTREAM_DISPATCH_ADDRESS_SLACK: https://api.github.com/repos/tatumio/tatum-csharp/actions/workflows/slackNotification.yml/dispatches
 
 jobs:
   Release_L2_Packages:
@@ -37,17 +38,15 @@ jobs:
   
   Slack_Notification:
     name: Post to a Slack channel
-    if: ${{ !contains(inputs.version, 'rc') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Post to Slack
-        id: slack
-        uses: slackapi/slack-github-action@v1.23.0
-        with:
-          channel-id: C03VAV2D601
-          payload-file-path: "./payload-slack-content.json"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Trigger Slack Notification
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS_SLACK }}' \
+          -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
     needs: Release_L2_Packages
   
   Post_Release_Tests:
