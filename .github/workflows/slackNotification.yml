@@ -20,6 +20,9 @@ jobs:
       - name: Replace 'v$version' in payload-slack-content.json with ${{ inputs.version }}
         run: |
             sed -i "s/v\$version/${{ inputs.version }}/g" payload-slack-content.json
+      - name: Replace '$releaseNotes' in payload-slack-content.json with Ethereum.Core package .csproj
+        run: |
+            sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
       - name: Post to Slack
         id: slack
         uses: slackapi/slack-github-action@v1.23.0

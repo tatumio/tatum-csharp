@@ -30,7 +30,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Include Blockchain Fees operations in packages. Tatum.CSharp.BlockchainFees package released."
+                "text": "$releaseNotes"
             }
         },
         {
