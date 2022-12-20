@@ -28,6 +28,36 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object BscEstimateGas(BscEstimateGas bscEstimateGas);
+        /// <summary>
+        /// Estimate Celo Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object CeloEstimateGas(CeloEstimateGas celoEstimateGas);
+        /// <summary>
+        /// Estimate EGLD transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <returns>Object</returns>
+        Object EgldEstimateGas(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain);
+        /// <summary>
         /// Estimate the fee for a transaction
         /// </summary>
         /// <remarks>
@@ -48,6 +78,28 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <returns>FeeBtc</returns>
         FeeBtc EstimateFeeBlockchain(EstimateFeeFromUTXO estimateFeeFromUTXO);
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimation</returns>
+        EthGasEstimation EthEstimateGas(EthEstimateGas ethEstimateGas, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimationBatch</returns>
+        EthGasEstimationBatch EthEstimateGasBatch(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -56,6 +108,56 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>BlockchainFee</returns>
         BlockchainFee getBlockchainFee();
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object KcsEstimateGas(KcsEstimateGas kcsEstimateGas);
+        /// <summary>
+        /// Estimate Klaytn transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object KlaytnEstimateGas(KlaytnEstimateGas klaytnEstimateGas);
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object PolygonEstimateGas(PolygonEstimateGas polygonEstimateGas);
+        /// <summary>
+        /// Estimate VeChain Gas for transaction
+        /// </summary>
+        /// <remarks>
+        /// 5 credits per API call. Estimate gas required for transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <returns>decimal</returns>
+        decimal VetEstimateGas(VetEstimateGas vetEstimateGas);
+        /// <summary>
+        /// Estimate XinFin transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <returns>Object</returns>
+        Object XdcEstimateGas(XdcEstimateGas xdcEstimateGas);
         #endregion Synchronous Operations
     }
 
@@ -65,6 +167,36 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     public interface IBlockchainFeesApiWithHttpInfoSync : IApiAccessor
     {
         #region Synchronous Operations With Http Info
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas);
+        /// <summary>
+        /// Estimate Celo Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> CeloEstimateGasWithHttpInfo(CeloEstimateGas celoEstimateGas);
+        /// <summary>
+        /// Estimate EGLD transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> EgldEstimateGasWithHttpInfo(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain);
         /// <summary>
         /// Estimate the fee for a transaction
         /// </summary>
@@ -86,6 +218,28 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <returns>ApiResponse of FeeBtc</returns>
         ApiResponse<FeeBtc> EstimateFeeBlockchainWithHttpInfo(EstimateFeeFromUTXO estimateFeeFromUTXO);
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimation</returns>
+        ApiResponse<EthGasEstimation> EthEstimateGasWithHttpInfo(EthEstimateGas ethEstimateGas, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimationBatch</returns>
+        ApiResponse<EthGasEstimationBatch> EthEstimateGasBatchWithHttpInfo(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -94,6 +248,56 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of BlockchainFee</returns>
         ApiResponse<BlockchainFee> getBlockchainFeeWithHttpInfo();
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> KcsEstimateGasWithHttpInfo(KcsEstimateGas kcsEstimateGas);
+        /// <summary>
+        /// Estimate Klaytn transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> KlaytnEstimateGasWithHttpInfo(KlaytnEstimateGas klaytnEstimateGas);
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> PolygonEstimateGasWithHttpInfo(PolygonEstimateGas polygonEstimateGas);
+        /// <summary>
+        /// Estimate VeChain Gas for transaction
+        /// </summary>
+        /// <remarks>
+        /// 5 credits per API call. Estimate gas required for transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <returns>ApiResponse of decimal</returns>
+        ApiResponse<decimal> VetEstimateGasWithHttpInfo(VetEstimateGas vetEstimateGas);
+        /// <summary>
+        /// Estimate XinFin transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> XdcEstimateGasWithHttpInfo(XdcEstimateGas xdcEstimateGas);
         #endregion Synchronous Operations With Http Info
     }
 
@@ -103,6 +307,39 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     public interface IBlockchainFeesApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Celo Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> CeloEstimateGasAsync(CeloEstimateGas celoEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate EGLD transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> EgldEstimateGasAsync(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Estimate the fee for a transaction
         /// </summary>
@@ -126,6 +363,30 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <returns>Task of FeeBtc</returns>
         System.Threading.Tasks.Task<FeeBtc> EstimateFeeBlockchainAsync(EstimateFeeFromUTXO estimateFeeFromUTXO, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimation</returns>
+        System.Threading.Tasks.Task<EthGasEstimation> EthEstimateGasAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimationBatch</returns>
+        System.Threading.Tasks.Task<EthGasEstimationBatch> EthEstimateGasBatchAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -135,6 +396,61 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BlockchainFee</returns>
         System.Threading.Tasks.Task<BlockchainFee> getBlockchainFeeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> KcsEstimateGasAsync(KcsEstimateGas kcsEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Klaytn transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> KlaytnEstimateGasAsync(KlaytnEstimateGas klaytnEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> PolygonEstimateGasAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate VeChain Gas for transaction
+        /// </summary>
+        /// <remarks>
+        /// 5 credits per API call. Estimate gas required for transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of decimal</returns>
+        System.Threading.Tasks.Task<decimal> VetEstimateGasAsync(VetEstimateGas vetEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate XinFin transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> XdcEstimateGasAsync(XdcEstimateGas xdcEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -144,6 +460,39 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
     public interface IBlockchainFeesApiWithHttpInfoAsync : IApiAccessor
     {
         #region Asynchronous Operations With Http Info
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Celo Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> CeloEstimateGasWithHttpInfoAsync(CeloEstimateGas celoEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate EGLD transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> EgldEstimateGasWithHttpInfoAsync(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Estimate the fee for a transaction
         /// </summary>
@@ -167,6 +516,30 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <returns>Task of ApiResponse (FeeBtc)</returns>
         System.Threading.Tasks.Task<ApiResponse<FeeBtc>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeFromUTXO estimateFeeFromUTXO, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimation)</returns>
+        System.Threading.Tasks.Task<ApiResponse<EthGasEstimation>> EthEstimateGasWithHttpInfoAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimationBatch)</returns>
+        System.Threading.Tasks.Task<ApiResponse<EthGasEstimationBatch>> EthEstimateGasBatchWithHttpInfoAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -176,6 +549,61 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BlockchainFee)</returns>
         System.Threading.Tasks.Task<ApiResponse<BlockchainFee>> getBlockchainFeeWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> KcsEstimateGasWithHttpInfoAsync(KcsEstimateGas kcsEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Klaytn transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> KlaytnEstimateGasWithHttpInfoAsync(KlaytnEstimateGas klaytnEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Polygon transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> PolygonEstimateGasWithHttpInfoAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate VeChain Gas for transaction
+        /// </summary>
+        /// <remarks>
+        /// 5 credits per API call. Estimate gas required for transaction.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (decimal)</returns>
+        System.Threading.Tasks.Task<ApiResponse<decimal>> VetEstimateGasWithHttpInfoAsync(VetEstimateGas vetEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate XinFin transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> XdcEstimateGasWithHttpInfoAsync(XdcEstimateGas xdcEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -324,6 +752,372 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
                 return _exceptionFactory;
             }
             set => _exceptionFactory = value;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object BscEstimateGas(BscEstimateGas bscEstimateGas)
+        {
+            var localVarResponse = BscEstimateGasWithHttpInfo(bscEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("BscEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas)
+        {
+            // verify the required parameter 'bscEstimateGas' is set
+            if (bscEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'bscEstimateGas' when calling BlockchainFeesApi->BscEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = bscEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/bsc/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await BscEstimateGasWithHttpInfoAsync(bscEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("BscEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate BNB Smart Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the BSC transaction. Gas price is obtained from https://explorer.bitquery.io/bsc/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="bscEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'bscEstimateGas' is set
+            if (bscEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'bscEstimateGas' when calling BlockchainFeesApi->BscEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = bscEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/bsc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Celo Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object CeloEstimateGas(CeloEstimateGas celoEstimateGas)
+        {
+            var localVarResponse = CeloEstimateGasWithHttpInfo(celoEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("CeloEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Celo Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> CeloEstimateGasWithHttpInfo(CeloEstimateGas celoEstimateGas)
+        {
+            // verify the required parameter 'celoEstimateGas' is set
+            if (celoEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'celoEstimateGas' when calling BlockchainFeesApi->CeloEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = celoEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/celo/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Celo Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> CeloEstimateGasAsync(CeloEstimateGas celoEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await CeloEstimateGasWithHttpInfoAsync(celoEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("CeloEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Celo Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the CELO transaction. Gas price is obtained from https://explorer.bitquery.io/celo_rc1/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="celoEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> CeloEstimateGasWithHttpInfoAsync(CeloEstimateGas celoEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'celoEstimateGas' is set
+            if (celoEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'celoEstimateGas' when calling BlockchainFeesApi->CeloEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = celoEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/celo/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate EGLD transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <returns>Object</returns>
+        public Object EgldEstimateGas(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain)
+        {
+            var localVarResponse = EgldEstimateGasWithHttpInfo(transactionFeeEgldBlockchain);
+
+            var exception = ExceptionFactory?.Invoke("EgldEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate EGLD transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> EgldEstimateGasWithHttpInfo(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain)
+        {
+            // verify the required parameter 'transactionFeeEgldBlockchain' is set
+            if (transactionFeeEgldBlockchain == null)
+                throw new ApiException(400, "Missing required parameter 'transactionFeeEgldBlockchain' when calling BlockchainFeesApi->EgldEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = transactionFeeEgldBlockchain;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/egld/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate EGLD transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> EgldEstimateGasAsync(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EgldEstimateGasWithHttpInfoAsync(transactionFeeEgldBlockchain, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EgldEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate EGLD transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the EGLD transaction. Gas limit is obtained from https://gateway.elrond.com/transaction/cost. Gas price is obtained from https://gateway.elrond.com/network/config.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="transactionFeeEgldBlockchain"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> EgldEstimateGasWithHttpInfoAsync(TransactionFeeEgldBlockchain transactionFeeEgldBlockchain, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'transactionFeeEgldBlockchain' is set
+            if (transactionFeeEgldBlockchain == null)
+                throw new ApiException(400, "Missing required parameter 'transactionFeeEgldBlockchain' when calling BlockchainFeesApi->EgldEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = transactionFeeEgldBlockchain;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/egld/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
         }
 
         /// <summary>
@@ -571,6 +1365,274 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
         }
 
         /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimation</returns>
+        public EthGasEstimation EthEstimateGas(EthEstimateGas ethEstimateGas, string xTestnetType = default(string))
+        {
+            var localVarResponse = EthEstimateGasWithHttpInfo(ethEstimateGas, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("EthEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimation</returns>
+        public ApiResponse<EthGasEstimation> EthEstimateGasWithHttpInfo(EthEstimateGas ethEstimateGas, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'ethEstimateGas' is set
+            if (ethEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGas' when calling BlockchainFeesApi->EthEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<EthGasEstimation>("/v3/ethereum/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimation</returns>
+        public async System.Threading.Tasks.Task<EthGasEstimation> EthEstimateGasAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EthEstimateGasWithHttpInfoAsync(ethEstimateGas, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EthEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimation)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<EthGasEstimation>> EthEstimateGasWithHttpInfoAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'ethEstimateGas' is set
+            if (ethEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGas' when calling BlockchainFeesApi->EthEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<EthGasEstimation>("/v3/ethereum/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimationBatch</returns>
+        public EthGasEstimationBatch EthEstimateGasBatch(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string))
+        {
+            var localVarResponse = EthEstimateGasBatchWithHttpInfo(ethEstimateGasArray, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("EthEstimateGasBatch", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimationBatch</returns>
+        public ApiResponse<EthGasEstimationBatch> EthEstimateGasBatchWithHttpInfo(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'ethEstimateGasArray' is set
+            if (ethEstimateGasArray == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGasArray' when calling BlockchainFeesApi->EthEstimateGasBatch");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGasArray;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<EthGasEstimationBatch>("/v3/ethereum/gas/batch", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimationBatch</returns>
+        public async System.Threading.Tasks.Task<EthGasEstimationBatch> EthEstimateGasBatchAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EthEstimateGasBatchWithHttpInfoAsync(ethEstimateGasArray, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EthEstimateGasBatch", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimationBatch)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<EthGasEstimationBatch>> EthEstimateGasBatchWithHttpInfoAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'ethEstimateGasArray' is set
+            if (ethEstimateGasArray == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGasArray' when calling BlockchainFeesApi->EthEstimateGasBatch");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGasArray;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<EthGasEstimationBatch>("/v3/ethereum/gas/batch", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Get recommended blockchain fee / gas price 1 credit per API call Get recommended blockchain fee / gas price
         /// </summary>
         /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
@@ -672,6 +1734,616 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.GetAsync<BlockchainFee>("/v3/blockchain/fee/BTC", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object KcsEstimateGas(KcsEstimateGas kcsEstimateGas)
+        {
+            var localVarResponse = KcsEstimateGasWithHttpInfo(kcsEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("KcsEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> KcsEstimateGasWithHttpInfo(KcsEstimateGas kcsEstimateGas)
+        {
+            // verify the required parameter 'kcsEstimateGas' is set
+            if (kcsEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'kcsEstimateGas' when calling BlockchainFeesApi->KcsEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = kcsEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/kcs/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> KcsEstimateGasAsync(KcsEstimateGas kcsEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await KcsEstimateGasWithHttpInfoAsync(kcsEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("KcsEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate KuCoin Community Chain transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Kcs transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="kcsEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> KcsEstimateGasWithHttpInfoAsync(KcsEstimateGas kcsEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'kcsEstimateGas' is set
+            if (kcsEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'kcsEstimateGas' when calling BlockchainFeesApi->KcsEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = kcsEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/kcs/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Klaytn transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object KlaytnEstimateGas(KlaytnEstimateGas klaytnEstimateGas)
+        {
+            var localVarResponse = KlaytnEstimateGasWithHttpInfo(klaytnEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("KlaytnEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Klaytn transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> KlaytnEstimateGasWithHttpInfo(KlaytnEstimateGas klaytnEstimateGas)
+        {
+            // verify the required parameter 'klaytnEstimateGas' is set
+            if (klaytnEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'klaytnEstimateGas' when calling BlockchainFeesApi->KlaytnEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = klaytnEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/klaytn/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Klaytn transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> KlaytnEstimateGasAsync(KlaytnEstimateGas klaytnEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await KlaytnEstimateGasWithHttpInfoAsync(klaytnEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("KlaytnEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Klaytn transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Klaytn transaction. Gas price is obtained from https://explorer.bitquery.io/klaytn/gas.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="klaytnEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> KlaytnEstimateGasWithHttpInfoAsync(KlaytnEstimateGas klaytnEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'klaytnEstimateGas' is set
+            if (klaytnEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'klaytnEstimateGas' when calling BlockchainFeesApi->KlaytnEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = klaytnEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/klaytn/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object PolygonEstimateGas(PolygonEstimateGas polygonEstimateGas)
+        {
+            var localVarResponse = PolygonEstimateGasWithHttpInfo(polygonEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("PolygonEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> PolygonEstimateGasWithHttpInfo(PolygonEstimateGas polygonEstimateGas)
+        {
+            // verify the required parameter 'polygonEstimateGas' is set
+            if (polygonEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'polygonEstimateGas' when calling BlockchainFeesApi->PolygonEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = polygonEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/polygon/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> PolygonEstimateGasAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await PolygonEstimateGasWithHttpInfoAsync(polygonEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("PolygonEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Polygon transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the Polygon transaction. Gas price is obtained from https://gasstation-mainnet.matic.network/.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="polygonEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> PolygonEstimateGasWithHttpInfoAsync(PolygonEstimateGas polygonEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'polygonEstimateGas' is set
+            if (polygonEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'polygonEstimateGas' when calling BlockchainFeesApi->PolygonEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = polygonEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/polygon/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate VeChain Gas for transaction 5 credits per API call. Estimate gas required for transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <returns>decimal</returns>
+        public decimal VetEstimateGas(VetEstimateGas vetEstimateGas)
+        {
+            var localVarResponse = VetEstimateGasWithHttpInfo(vetEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("VetEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate VeChain Gas for transaction 5 credits per API call. Estimate gas required for transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <returns>ApiResponse of decimal</returns>
+        public ApiResponse<decimal> VetEstimateGasWithHttpInfo(VetEstimateGas vetEstimateGas)
+        {
+            // verify the required parameter 'vetEstimateGas' is set
+            if (vetEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'vetEstimateGas' when calling BlockchainFeesApi->VetEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = vetEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<decimal>("/v3/vet/transaction/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate VeChain Gas for transaction 5 credits per API call. Estimate gas required for transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of decimal</returns>
+        public async System.Threading.Tasks.Task<decimal> VetEstimateGasAsync(VetEstimateGas vetEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await VetEstimateGasWithHttpInfoAsync(vetEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("VetEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate VeChain Gas for transaction 5 credits per API call. Estimate gas required for transaction.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="vetEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (decimal)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<decimal>> VetEstimateGasWithHttpInfoAsync(VetEstimateGas vetEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'vetEstimateGas' is set
+            if (vetEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'vetEstimateGas' when calling BlockchainFeesApi->VetEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = vetEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<decimal>("/v3/vet/transaction/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate XinFin transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <returns>Object</returns>
+        public Object XdcEstimateGas(XdcEstimateGas xdcEstimateGas)
+        {
+            var localVarResponse = XdcEstimateGasWithHttpInfo(xdcEstimateGas);
+
+            var exception = ExceptionFactory?.Invoke("XdcEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate XinFin transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse<Object> XdcEstimateGasWithHttpInfo(XdcEstimateGas xdcEstimateGas)
+        {
+            // verify the required parameter 'xdcEstimateGas' is set
+            if (xdcEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'xdcEstimateGas' when calling BlockchainFeesApi->XdcEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = xdcEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<Object>("/v3/xdc/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate XinFin transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> XdcEstimateGasAsync(XdcEstimateGas xdcEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await XdcEstimateGasWithHttpInfoAsync(xdcEstimateGas, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("XdcEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate XinFin transaction fees 2 credits per API call. Estimate gasLimit and gasPrice of the XDC transaction. Gas price is obtained from https://rpc.xinfin.network/gasPrice.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.Bitcoin.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="xdcEstimateGas"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> XdcEstimateGasWithHttpInfoAsync(XdcEstimateGas xdcEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'xdcEstimateGas' is set
+            if (xdcEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'xdcEstimateGas' when calling BlockchainFeesApi->XdcEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = xdcEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/xdc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
