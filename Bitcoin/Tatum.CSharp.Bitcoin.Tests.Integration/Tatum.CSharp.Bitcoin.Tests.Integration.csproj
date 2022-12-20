@@ -11,7 +11,7 @@
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="6.7.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-        <PackageReference Include="Tatum.CSharp.Bitcoin" Version="2.7.0-alpha3732085292" />
+        <PackageReference Include="Tatum.CSharp.Bitcoin" Version="2.7.0-alpha3740999046" />
         <PackageReference Include="Verify.Xunit" Version="19.3.0" />
         <PackageReference Include="xunit" Version="2.4.2" />
         <PackageReference Include="xunit.assert" Version="2.4.2" />

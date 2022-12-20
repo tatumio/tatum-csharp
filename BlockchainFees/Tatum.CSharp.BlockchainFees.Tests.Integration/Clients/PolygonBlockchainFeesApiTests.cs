@@ -1,16 +1,10 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.BlockchainFees.Clients;
-using Tatum.CSharp.BlockchainFees.Core.Client;
 using Tatum.CSharp.BlockchainFees.Core.Model;
-using Tatum.CSharp.BlockchainFees.Tests.Integration.TestDataModels;
-using Tatum.CSharp.Polygon.Clients;
-using VerifyTests;
 using Xunit;
 
 namespace Tatum.CSharp.BlockchainFees.Tests.Integration.Clients;
@@ -18,184 +12,106 @@ namespace Tatum.CSharp.BlockchainFees.Tests.Integration.Clients;
 [Collection("Ethereum")]
 public class PolygonBlockchainFeesApiTests
 {
-    private readonly IBlockchainFeesClient _BlockchainFeesApi;
-    private readonly PolygonTestData _testData;
-    private readonly PolygonClient _polygonApi;
-
-    private const string TestSmartContractAddress = "0x87dcbd8e3eae528b50ddb1e94c85f16b30940a62";
+    private readonly IBlockchainFeesClient _blockchainFeesApi;
 
     public PolygonBlockchainFeesApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
 
-        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
+        _blockchainFeesApi = new BlockchainFeesClient(new HttpClient(), apiKey, true);
+    }
+    
+    [Theory]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.BURNNFT)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.MINTNFT)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.DEPLOYERC20)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.DEPLOYNFT)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.TRANSFERERC20)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.TRANSFERNFT)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.DEPLOYAUCTION)]
+    [InlineData(EstimateFee.ChainEnum.MATIC, EstimateFee.TypeEnum.DEPLOYMARKETPLACE)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.BURNNFT)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.MINTNFT)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.DEPLOYERC20)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.DEPLOYNFT)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.TRANSFERERC20)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.TRANSFERNFT)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.DEPLOYAUCTION)]
+    [InlineData(EstimateFee.ChainEnum.ONE, EstimateFee.TypeEnum.DEPLOYMARKETPLACE)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.BURNNFT)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.MINTNFT)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.DEPLOYERC20)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.DEPLOYNFT)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.TRANSFERERC20)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.TRANSFERNFT)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.DEPLOYAUCTION)]
+    [InlineData(EstimateFee.ChainEnum.BSC, EstimateFee.TypeEnum.DEPLOYMARKETPLACE)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.BURNNFT)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.MINTNFT)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.DEPLOYERC20)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.DEPLOYNFT)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.TRANSFERERC20)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.TRANSFERNFT)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.DEPLOYAUCTION)]
+    [InlineData(EstimateFee.ChainEnum.ETH, EstimateFee.TypeEnum.DEPLOYMARKETPLACE)]
+    
+    public async Task EstimateFeeBlockchain_ShouldReturnFee_WhenCalledForBurnNft(EstimateFee.ChainEnum chain, EstimateFee.TypeEnum type)
+    {
+        var result = await _blockchainFeesApi.PolygonBlockchainFees.EstimateFeeBlockchainAsync(new EstimateFee(chain, type));
 
-        _BlockchainFeesApi = new BlockchainFeesClient(new HttpClient(), apiKey, true);
-        _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
+        result.GasLimit.Should().BePositive();
+        result.GasPrice.Should().BePositive();
     }
     
     [Fact]
-    public async Task Erc20Deploy_ShouldReturnTxHash_WhenCalledValidData()
+    public async Task PolygonEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var name = Guid.NewGuid().ToString();
+        var result = await _blockchainFeesApi.PolygonBlockchainFees.PolygonEstimateGasAsync(new PolygonEstimateGas("0xda54cb99712957c10b9f73279c2e84af4ff45ff0", "0x409eb7cafdec6aa83a8221b3af227e67841c1c0d", "1"));
 
-        var deployErc20 = new ChainDeployErc20(
-            ChainDeployErc20.ChainEnum.MATIC,
-            name.Substring(0,10),
-            name.Replace("-", ""),
-            "1000000000",
-            "1000000",
-            18,
-            _testData.StorageAddress,
-            _testData.StoragePrivKey);
+        result.GasLimit.Should().NotBeNullOrWhiteSpace();
+        result.GasPrice.Should().NotBeNullOrWhiteSpace();
+    }
+    
+    [Fact]
+    public async Task EstimateFeeBlockchain_ShouldReturnFee_WhenCalled()
+    {
+        var result = await _blockchainFeesApi.BitcoinBlockchainFees.EstimateFeeBlockchainAsync(
+            new EstimateFeeFromAddress(
+                EstimateFeeFromAddress.ChainEnum.BTC, 
+                EstimateFeeFromAddress.TypeEnum.TRANSFER, 
+                new List<string>{"tb1qjzjyd3l3vh8an8w4mkr6dwur59lan60367kr04"},
+                new List<object>{new {address = "tb1q5gtkjxguam0mlvevwxf2q9ldnq8ladenlhn3mw", value = 1000000}}));
 
-        var deployTransactionHash = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20DeployAsync(deployErc20);
-        
-        deployTransactionHash.Should().NotBeNull();
-        deployTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+        result.Fast.Should().NotBeNullOrWhiteSpace();
+        result.Medium.Should().NotBeNullOrWhiteSpace();
+        result.Slow.Should().NotBeNullOrWhiteSpace();
+    }
+    
+    [Fact]
+    public async Task GetBlockchainFee_ShouldReturnFee_WhenCalled()
+    {
+        var result = await _blockchainFeesApi.BitcoinBlockchainFees.GetBlockchainFeeAsync();
 
-        await WaitForTransactionSuccess(deployTransactionHash.TxId);
+        result.Fast.Should().BePositive();
+        result.Medium.Should().BePositive();
+        result.Slow.Should().BePositive();
     }
     
     [Fact]
-    public async Task Erc20Mint_ShouldReturnTxHash_WhenCalledValidData()
+    public async Task EthEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var chainMintErc20 = new ChainMintErc20(
-            ChainMintErc20.ChainEnum.MATIC, 
-            "1", 
-            _testData.StorageAddress, 
-            TestSmartContractAddress, 
-            _testData.StoragePrivKey );
-        
-        var mintTransactionHash = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20MintAsync(chainMintErc20);
-        
-        mintTransactionHash.Should().NotBeNull();
-        mintTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(mintTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Burn_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var chainBurnErc20 = new ChainBurnErc20(
-            ChainBurnErc20.ChainEnum.MATIC,
-            "1",
-            TestSmartContractAddress,
-            _testData.StoragePrivKey);
-        
-        var burnTransactionHash = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20BurnAsync(chainBurnErc20);
-        
-        burnTransactionHash.Should().NotBeNull();
-        burnTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(burnTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Approve_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var approveErc20 = new ApproveErc20(
-            ApproveErc20.ChainEnum.MATIC,
-            TestSmartContractAddress,
-            _testData.TargetAddress,
-            "100",
-            _testData.StoragePrivKey);
-        
-        var approveTransactionHash = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20ApproveAsync(approveErc20);
-        
-        approveTransactionHash.Should().NotBeNull();
-        approveTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(approveTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Transfer_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var chainTransferEthErc20 = new ChainTransferEthErc20(
-            ChainTransferEthErc20.ChainEnum.MATIC,
-            _testData.TargetAddress,
-            TestSmartContractAddress,
-            "1",
-            9,
-            _testData.StoragePrivKey);
-        
-        var transferTransactionHash = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20TransferAsync(chainTransferEthErc20);
-        
-        transferTransactionHash.Should().NotBeNull();
-        transferTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(transferTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20GetBalanceAddress_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var balancesForAddress = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20GetBalanceAddressAsync(_testData.StorageAddress);
-        
-        balancesForAddress.Should().HaveCountGreaterOrEqualTo(0);
-        balancesForAddress.First().Amount.Should().NotBeNullOrWhiteSpace();
-        balancesForAddress.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
-    }
-    
-    [Fact]
-    public async Task Erc20GetBalance_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var balance = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20GetBalanceAsync(_testData.StorageAddress, TestSmartContractAddress);
-        
-        balance.Balance.Should().NotBeNullOrWhiteSpace();
-    }
-    
-    [Fact]
-    public async Task Erc20GetTransactionByAddress_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var transactions = await _BlockchainFeesApi.PolygonBlockchainFees.Erc20GetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 1);
+        var result = await _blockchainFeesApi.EthereumBlockchainFees.EthEstimateGasAsync(new EthEstimateGas("0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380", "0xd9cfbfe18fb9bf3871da5528061582ec08b97166", null, "1"));
 
-        transactions.Should().HaveCountGreaterThan(0);
-        transactions.First().Amount.Should().NotBeNullOrWhiteSpace();
-        transactions.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
-        transactions.First().From.Should().NotBeNullOrWhiteSpace();
-        transactions.First().To.Should().NotBeNullOrWhiteSpace();
-        transactions.First().TxId.Should().NotBeNullOrWhiteSpace();
-        transactions.First().BlockNumber.Should().BePositive();
+        result.GasLimit.Should().NotBeNullOrWhiteSpace();
+        result.GasPrice.Should().NotBeNullOrWhiteSpace();
     }
     
-    private async Task WaitForTransactionSuccess(string hash)
+    [Fact]
+    public async Task BscEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-        try
-        {
-            while (true)
-            {
-                if (cts.IsCancellationRequested)
-                {
-                    break;
-                }
-    
-                try
-                {
-                    var tx = await _polygonApi.PolygonBlockchain.PolygonGetTransactionAsync(hash,
-                        cancellationToken: cts.Token);
-                    if (tx.Status || tx.BlockNumber != null)
-                    {
-                        await Task.Delay(1000, cts.Token);
-                        break;
-                    }
-                }
-                catch (ApiException e)
-                {
-                    if (!e.Message.Contains(".tx.not.found"))
-                        throw;
-                }
-    
-                await Task.Delay(1000, cts.Token);
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            // we don't care
-        }
+        var result = await _blockchainFeesApi.BscBlockchainFees.BscEstimateGasAsync(new BscEstimateGas("0x3466bc2d2b5f425a8655611eb0e526eaeb103c16", "0xd3f039d5629df5753fcb36ee7db826bdd2d574e3", "1"));
+
+        result.GasLimit.Should().NotBeNullOrWhiteSpace();
+        result.GasPrice.Should().NotBeNullOrWhiteSpace();
     }
 }
