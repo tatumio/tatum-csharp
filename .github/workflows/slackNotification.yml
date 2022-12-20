@@ -23,6 +23,12 @@ jobs:
       - name: Replace '$releaseNotes' in payload-slack-content.json with Ethereum.Core package .csproj
         run: |
             sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
+      - name: Get all the PackageId from .csproj in the folder and sub folders then replace '$packageId' in payload-slack-content.json with it (don't include files ending in .Test or .Core)
+        run: |
+            sed -i "s/\$packageId/$(grep -oPm1 "(?<=<PackageId>)[^<]+" $(find . -type f -name "*.csproj" ! -name "*Test*" ! -name "*Core*"))/g" payload-slack-content.json
+      - name: In payload-slack-content.json file replace '$packages' tag with a list of packages taken from .csproj file names without ones including .Test or .Core spearated by '/n/n'
+        run: |
+            sed -i "s/\$packages/$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*.csproj)/g" payload-slack-content.json
       - name: Post to Slack
         id: slack
         uses: slackapi/slack-github-action@v1.23.0

@@ -2,10 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Demo", "Tatum.CSharp.Demo\Tatum.CSharp.Demo.csproj", "{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Evm.Local", "Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj", "{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Local", "Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj", "{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin", "Bitcoin\Tatum.CSharp.Bitcoin\Tatum.CSharp.Bitcoin.csproj", "{E03D53D7-2D1B-4C31-95FF-97BB9471F292}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Tests.Integration", "Bitcoin\Tatum.CSharp.Bitcoin.Tests.Integration\Tatum.CSharp.Bitcoin.Tests.Integration.csproj", "{68255842-04CD-4FCE-ABC0-AFCA8E47BAAC}"
@@ -44,8 +40,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bsc.Core", "Bs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ethereum.Core", "Ethereum\Tatum.CSharp.Ethereum.Core\Tatum.CSharp.Ethereum.Core.csproj", "{99E3647B-7167-4EE3-808E-284860A47BFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Bitcoin.Core", "Bitcoin\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj", "{1A9105AE-83BE-4D00-8104-FA53603E7077}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Harmony.Core", "Harmony\Tatum.CSharp.Harmony.Core\Tatum.CSharp.Harmony.Core.csproj", "{CF756ABF-54FF-41B9-966D-BE490B1DD278}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Solana", "Solana\Tatum.CSharp.Solana\Tatum.CSharp.Solana.csproj", "{5F9A1B18-2FAD-4071-9794-89D629BB9B6B}"
@@ -72,14 +66,6 @@ Global
 		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DC3D93E-D5EC-4113-823C-C32C4307EF6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25C3D8C1-02F7-4A9B-8CDE-6166001C523B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CAB1BFE-9CDA-4945-9A41-26BAC5C16A3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E03D53D7-2D1B-4C31-95FF-97BB9471F292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E03D53D7-2D1B-4C31-95FF-97BB9471F292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03D53D7-2D1B-4C31-95FF-97BB9471F292}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -156,10 +142,6 @@ Global
 		{99E3647B-7167-4EE3-808E-284860A47BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99E3647B-7167-4EE3-808E-284860A47BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99E3647B-7167-4EE3-808E-284860A47BFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A9105AE-83BE-4D00-8104-FA53603E7077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A9105AE-83BE-4D00-8104-FA53603E7077}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A9105AE-83BE-4D00-8104-FA53603E7077}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A9105AE-83BE-4D00-8104-FA53603E7077}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF756ABF-54FF-41B9-966D-BE490B1DD278}.Release|Any CPU.ActiveCfg = Release|Any CPU

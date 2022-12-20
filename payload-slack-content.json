@@ -23,7 +23,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": ":memo: | *Release Notes* | :memo:"
+                "text": ":memo: | *RELEASE NOTES* | :memo:"
             }
         },
         {
@@ -47,7 +47,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "\n\n *Tatum.CSharp.Ethereum* v$version\n\n *Tatum.CSharp.Bsc* v$version\n\n *Tatum.CSharp.Harmony* v$version\n\n *Tatum.CSharp.Polygon* v$version\n\n *Tatum.CSharp.Solana* v$version\n\n *Tatum.CSharp.Nft* v$version\n\n *Tatum.CSharp.FungibleTokens* v$version\n\n `new` *Tatum.CSharp.BlockchainFees* v$version"
+                "text": "$packages"
             }
         },
         {
