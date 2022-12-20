@@ -80,7 +80,8 @@ public class PolygonBlockchainFeesApiTests
                 EstimateFeeFromAddress.ChainEnum.BTC, 
                 EstimateFeeFromAddress.TypeEnum.TRANSFER, 
                 new List<string>{"tb1qjzjyd3l3vh8an8w4mkr6dwur59lan60367kr04"},
-                new List<object>{new {address = "tb1q5gtkjxguam0mlvevwxf2q9ldnq8ladenlhn3mw", value = 1000000}}));
+                new List<EstimateFeeFromAddressTo>{new EstimateFeeFromAddressTo("tb1q5gtkjxguam0mlvevwxf2q9ldnq8ladenlhn3mw" ,1000000)}
+                ));
 
         result.Fast.Should().NotBeNullOrWhiteSpace();
         result.Medium.Should().NotBeNullOrWhiteSpace();
