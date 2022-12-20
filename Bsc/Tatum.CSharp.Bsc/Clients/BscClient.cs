@@ -18,16 +18,22 @@ namespace Tatum.CSharp.Bsc.Clients
         public IBNBSmartChainApiWithHttpInfoAsync BscBlockchainWithHttpInfo { get; }
 
         /// <inheritdoc />
-        public INFTBscApiAsync BscNft { get; }
+        public INFTApiAsync BscNft { get; }
         
         /// <inheritdoc />
-        public INFTBscApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
+        public INFTApiWithHttpInfoAsync BscNftWithHttpInfo { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensBscApiAsync BscFungibleTokens { get; }
+        public IFungibleTokensApiAsync BscFungibleTokens { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensBscApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
+        public IFungibleTokensApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -80,20 +86,27 @@ namespace Tatum.CSharp.Bsc.Clients
             BscBlockchain = bscApi;
             BscBlockchainWithHttpInfo = bscApi;
             
-            var bscNftApi = new NFTBscApi(httpClient);
+            var bscNftApi = new NFTApi(httpClient);
             
             bscNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
             
-            var bscFungibleTokensApi = new FungibleTokensBscApi(httpClient);
+            var bscFungibleTokensApi = new FungibleTokensApi(httpClient);
             
             bscFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             BscFungibleTokens = bscFungibleTokensApi;
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
 
+            var feeApi = new BlockchainFeesApi(httpClient);
+            
+            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BlockchainFees = feeApi;
+            BlockchainFeesWithHttpInfo = feeApi;
+            
             Local = new EvmLocalService(isTestNet);
             
             Utils = new TatumUtils<BscTx>(new BscTransactionWaiter(this));

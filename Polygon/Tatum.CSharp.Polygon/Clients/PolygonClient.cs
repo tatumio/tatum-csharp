@@ -18,16 +18,22 @@ namespace Tatum.CSharp.Polygon.Clients
         public IPolygonApiWithHttpInfoAsync PolygonBlockchainWithHttpInfo { get; }
 
         /// <inheritdoc />
-        public INFTMaticApiAsync PolygonNft { get; }
+        public INFTApiAsync PolygonNft { get; }
         
         /// <inheritdoc />
-        public INFTMaticApiWithHttpInfoAsync PolygonNftWithHttpInfo { get; }
+        public INFTApiWithHttpInfoAsync PolygonNftWithHttpInfo { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensMaticApiAsync PolygonFungibleTokens { get; }
+        public IFungibleTokensApiAsync PolygonFungibleTokens { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensMaticApiWithHttpInfoAsync PolygonFungibleTokensWithHttpInfo { get; }
+        public IFungibleTokensApiWithHttpInfoAsync PolygonFungibleTokensWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -80,20 +86,27 @@ namespace Tatum.CSharp.Polygon.Clients
             PolygonBlockchain = polygonApi;
             PolygonBlockchainWithHttpInfo = polygonApi;
             
-            var polygonNftApi = new NFTMaticApi(httpClient);
+            var polygonNftApi = new NFTApi(httpClient);
             
             polygonNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             PolygonNft = polygonNftApi;
             PolygonNftWithHttpInfo = polygonNftApi;
             
-            var polygonFungibleTokensApi = new FungibleTokensMaticApi(httpClient);
+            var polygonFungibleTokensApi = new FungibleTokensApi(httpClient);
             
             polygonFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             PolygonFungibleTokens = polygonFungibleTokensApi;
             PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
 
+            var feeApi = new BlockchainFeesApi(httpClient);
+            
+            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BlockchainFees = feeApi;
+            BlockchainFeesWithHttpInfo = feeApi;
+            
             Local = new EvmLocalService(isTestNet);
             
             Utils = new TatumUtils<PolygonTx>(new PolygonTransactionWaiter(this));

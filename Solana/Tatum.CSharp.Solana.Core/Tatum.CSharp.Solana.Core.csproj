@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Remove GET api calls for NTF and FT functionalities in blockchain packages that aren&#39;t supported by particular chain.</PackageReleaseNotes>
+    <PackageReleaseNotes>Include Blockchain Fees operations in packages. Tatum.CSharp.BlockchainFees package released.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

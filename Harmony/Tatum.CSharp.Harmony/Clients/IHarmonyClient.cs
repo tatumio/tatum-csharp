@@ -20,22 +20,28 @@ namespace Tatum.CSharp.Harmony.Clients
         /// <summary>
         /// Client wrapping all operations related to the Harmony NFTs.
         /// </summary>
-        INFTOneApiAsync HarmonyNft { get; }
+        INFTApiAsync HarmonyNft { get; }
         
         /// <summary>
         /// Client wrapping all operations related to the Harmony NFTs with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        INFTOneApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
+        INFTApiWithHttpInfoAsync HarmonyNftWithHttpInfo { get; }
 
         /// <summary>
         /// Client wrapping all operations related to the Harmony FungibleTokens.
         /// </summary>
-        IFungibleTokensOneApiAsync HarmonyFungibleTokens { get; }
+        IFungibleTokensApiAsync HarmonyFungibleTokens { get; }
         
         /// <summary>
         /// Client wrapping all operations related to the Harmony FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        IFungibleTokensOneApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+        IFungibleTokensApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+                
+        // Client wrapping all blockchain fee estimation operations.
+        IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        // Client wrapping all blockchain fee estimation operations with full <see cref="ApiResponse{T}"/> return types.
+        IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }

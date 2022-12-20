@@ -13,7 +13,13 @@ namespace Tatum.CSharp.Bitcoin.Clients
         
         /// <inheritdoc />
         public IBitcoinApiWithHttpInfoAsync BitcoinBlockchainWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public IBlockchainFeesApiAsync BlockchainFees { get; }
         
+        /// <inheritdoc />
+        public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IBitcoinLocalService Local { get; }
         
@@ -55,12 +61,19 @@ namespace Tatum.CSharp.Bitcoin.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public BitcoinClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumApi = new BitcoinApi(httpClient);
+            var api = new BitcoinApi(httpClient);
             
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            api.Configuration.ApiKey.Add("x-api-key", apiKey);
             
-            BitcoinBlockchain = ethereumApi;
-            BitcoinBlockchainWithHttpInfo = ethereumApi;
+            BitcoinBlockchain = api;
+            BitcoinBlockchainWithHttpInfo = api;
+            
+            var feeApi = new BlockchainFeesApi(httpClient);
+            
+            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BlockchainFees = feeApi;
+            BlockchainFeesWithHttpInfo = feeApi;
 
             Local = new BitcoinLocalService(isTestNet);
         }

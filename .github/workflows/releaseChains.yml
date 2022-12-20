@@ -22,6 +22,7 @@ jobs:
           Polygon,
           Nft,
           FungibleTokens,
+          BlockchainFees,
           Bsc,
           Harmony,
           Bitcoin,
@@ -33,6 +34,18 @@ jobs:
       package: ${{ matrix.package }}
       version: ${{ inputs.version }}
     secrets: inherit
+  
+  Slack_Notification:
+    name: Post to a Slack channel
+    if: ${{ !contains(inputs.version, 'rc') }}
+    id: slack
+    uses: slackapi/slack-github-action@v1.23.0
+    with:
+      channel-id: C03VAV2D601
+      payload-file-path: "./payload-slack-content.json"
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    needs: Release_L2_Packages
   
   Post_Release_Tests:
     name: Dispatch Post Release Tests
@@ -46,7 +59,7 @@ jobs:
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
           -d '{"ref": "master", "inputs": {"version": "${{ inputs.version }}"}}'
     needs: Release_L2_Packages
-    
+  
   Prepare_Unity_Package:
     name: Dispatch Unity Package preparation
     runs-on: ubuntu-latest

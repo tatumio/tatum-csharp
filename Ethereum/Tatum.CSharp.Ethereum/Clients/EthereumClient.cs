@@ -18,16 +18,22 @@ namespace Tatum.CSharp.Ethereum.Clients
         public IEthereumApiWithHttpInfoAsync EthereumBlockchainWithHttpInfo { get; }
 
         /// <inheritdoc />
-        public INFTEthApiAsync EthereumNft { get; }
+        public INFTApiAsync EthereumNft { get; }
         
         /// <inheritdoc />
-        public INFTEthApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
+        public INFTApiWithHttpInfoAsync EthereumNftWithHttpInfo { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensEthApiAsync EthereumFungibleTokens { get; }
+        public IFungibleTokensApiAsync EthereumFungibleTokens { get; }
         
         /// <inheritdoc />
-        public IFungibleTokensEthApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+        public IFungibleTokensApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiAsync BlockchainFees { get; }
+        
+        /// <inheritdoc />
+        public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -80,20 +86,27 @@ namespace Tatum.CSharp.Ethereum.Clients
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
             
-            var ethereumNftApi = new NFTEthApi(httpClient);
+            var ethereumNftApi = new NFTApi(httpClient);
             
             ethereumNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             EthereumNft = ethereumNftApi;
             EthereumNftWithHttpInfo = ethereumNftApi;
             
-            var ethereumFungibleTokensApi = new FungibleTokensEthApi(httpClient);
+            var ethereumFungibleTokensApi = new FungibleTokensApi(httpClient);
             
             ethereumFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
             EthereumFungibleTokens = ethereumFungibleTokensApi;
             EthereumFungibleTokensWithHttpInfo = ethereumFungibleTokensApi;
 
+            var feeApi = new BlockchainFeesApi(httpClient);
+            
+            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BlockchainFees = feeApi;
+            BlockchainFeesWithHttpInfo = feeApi;
+            
             Local = new EvmLocalService(isTestNet);
             
             Utils = new TatumUtils<EthTx>(new EthereumTransactionWaiter(this));
