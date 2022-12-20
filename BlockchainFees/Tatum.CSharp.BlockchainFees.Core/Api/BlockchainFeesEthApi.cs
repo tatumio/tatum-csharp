@@ -75,7 +75,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>BlockchainFee</returns>
-        BlockchainFee getBlockchainFee();
+        BlockchainFee GetBlockchainFee();
         #endregion Synchronous Operations
     }
 
@@ -133,7 +133,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of BlockchainFee</returns>
-        ApiResponse<BlockchainFee> getBlockchainFeeWithHttpInfo();
+        ApiResponse<BlockchainFee> GetBlockchainFeeWithHttpInfo();
         #endregion Synchronous Operations With Http Info
     }
 
@@ -196,7 +196,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BlockchainFee</returns>
-        System.Threading.Tasks.Task<BlockchainFee> getBlockchainFeeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<BlockchainFee> GetBlockchainFeeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -259,7 +259,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BlockchainFee)</returns>
-        System.Threading.Tasks.Task<ApiResponse<BlockchainFee>> getBlockchainFeeWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<BlockchainFee>> GetBlockchainFeeWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -903,9 +903,9 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>BlockchainFee</returns>
-        public BlockchainFee getBlockchainFee()
+        public BlockchainFee GetBlockchainFee()
         {
-            var localVarResponse = getBlockchainFeeWithHttpInfo();
+            var localVarResponse = GetBlockchainFeeWithHttpInfo();
 
             var exception = ExceptionFactory?.Invoke("GetBlockchainFee", localVarResponse);
             if (exception != null) throw exception;
@@ -918,7 +918,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of BlockchainFee</returns>
-        public ApiResponse<BlockchainFee> getBlockchainFeeWithHttpInfo()
+        public ApiResponse<BlockchainFee> GetBlockchainFeeWithHttpInfo()
         {
             var localVarRequestOptions = new RequestOptions();
 
@@ -955,9 +955,9 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of BlockchainFee</returns>
-        public async System.Threading.Tasks.Task<BlockchainFee> getBlockchainFeeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<BlockchainFee> GetBlockchainFeeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await getBlockchainFeeWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await GetBlockchainFeeWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
             
             var exception = ExceptionFactory?.Invoke("GetBlockchainFee", localVarResponse);
             if (exception != null) throw exception;
@@ -971,7 +971,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BlockchainFee)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<BlockchainFee>> getBlockchainFeeWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<BlockchainFee>> GetBlockchainFeeWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var localVarRequestOptions = new RequestOptions();
 
