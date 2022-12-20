@@ -38,11 +38,10 @@ jobs:
   Slack_Notification:
     name: Post to a Slack channel
     if: ${{ !contains(inputs.version, 'rc') }}
-    id: slack
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
       - name: Post to Slack
+        id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
           channel-id: C03VAV2D601
