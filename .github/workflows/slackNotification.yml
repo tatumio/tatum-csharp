@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - name: Replace 'v$version' in payload-slack-content.json with ${{ inputs.version }}
+        run: |
+            sed -i "s/v\$version/${{ inputs.version }}/g" payload-slack-content.json
       - name: Post to Slack
         id: slack
         uses: slackapi/slack-github-action@v1.23.0

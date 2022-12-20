@@ -4,7 +4,7 @@
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": ":newspaper:  C# SDK v${{ inputs.version }} has been released!  :newspaper:"
+                "text": ":newspaper:  C# SDK v$version has been released!  :newspaper:"
             }
         },
         {
@@ -47,7 +47,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "\n\n *Tatum.CSharp.Ethereum* v${{ inputs.version }}\n\n *Tatum.CSharp.Bsc* v${{ inputs.version }}\n\n *Tatum.CSharp.Harmony* v${{ inputs.version }}\n\n *Tatum.CSharp.Polygon* v${{ inputs.version }}\n\n *Tatum.CSharp.Solana* v${{ inputs.version }}\n\n *Tatum.CSharp.Nft* v${{ inputs.version }}\n\n *Tatum.CSharp.FungibleTokens* v${{ inputs.version }}\n\n `new` *Tatum.CSharp.BlockchainFees* v${{ inputs.version }}"
+                "text": "\n\n *Tatum.CSharp.Ethereum* v$version\n\n *Tatum.CSharp.Bsc* v$version\n\n *Tatum.CSharp.Harmony* v$version\n\n *Tatum.CSharp.Polygon* v$version\n\n *Tatum.CSharp.Solana* v$version\n\n *Tatum.CSharp.Nft* v$version\n\n *Tatum.CSharp.FungibleTokens* v$version\n\n `new` *Tatum.CSharp.BlockchainFees* v$version"
             }
         },
         {
