@@ -68,6 +68,28 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>FeeETH</returns>
         FeeETH EstimateFeeBlockchain(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial);
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimation</returns>
+        EthGasEstimation EthEstimateGas(EthEstimateGas ethEstimateGas, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimationBatch</returns>
+        EthGasEstimationBatch EthEstimateGasBatch(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -125,6 +147,28 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <param name="estimateFeeTransferFromCustodial"></param>
         /// <returns>ApiResponse of FeeETH</returns>
         ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial);
+        /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimation</returns>
+        ApiResponse<EthGasEstimation> EthEstimateGasWithHttpInfo(EthEstimateGas ethEstimateGas, string xTestnetType = default(string));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimationBatch</returns>
+        ApiResponse<EthGasEstimationBatch> EthEstimateGasBatchWithHttpInfo(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string));
         /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
@@ -188,6 +232,30 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of FeeETH</returns>
         System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimation</returns>
+        System.Threading.Tasks.Task<EthGasEstimation> EthEstimateGasAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimationBatch</returns>
+        System.Threading.Tasks.Task<EthGasEstimationBatch> EthEstimateGasBatchAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
         /// <remarks>
@@ -250,6 +318,30 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (FeeETH)</returns>
         System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeTransferFromCustodial estimateFeeTransferFromCustodial, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimation)</returns>
+        System.Threading.Tasks.Task<ApiResponse<EthGasEstimation>> EthEstimateGasWithHttpInfoAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees
+        /// </summary>
+        /// <remarks>
+        /// 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </remarks>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimationBatch)</returns>
+        System.Threading.Tasks.Task<ApiResponse<EthGasEstimationBatch>> EthEstimateGasBatchWithHttpInfoAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get recommended blockchain fee / gas price
         /// </summary>
@@ -894,6 +986,274 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
             // make the HTTP request
 
             var localVarResponse = await AsynchronousClient.PostAsync<FeeETH>("/v3/blockchain/estimate", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimation</returns>
+        public EthGasEstimation EthEstimateGas(EthEstimateGas ethEstimateGas, string xTestnetType = default(string))
+        {
+            var localVarResponse = EthEstimateGasWithHttpInfo(ethEstimateGas, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("EthEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimation</returns>
+        public ApiResponse<EthGasEstimation> EthEstimateGasWithHttpInfo(EthEstimateGas ethEstimateGas, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'ethEstimateGas' is set
+            if (ethEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGas' when calling BlockchainFeesEthApi->EthEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<EthGasEstimation>("/v3/ethereum/gas", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimation</returns>
+        public async System.Threading.Tasks.Task<EthGasEstimation> EthEstimateGasAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EthEstimateGasWithHttpInfoAsync(ethEstimateGas, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EthEstimateGas", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate Ethereum transaction fees 10 credits per API call. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGas"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimation)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<EthGasEstimation>> EthEstimateGasWithHttpInfoAsync(EthEstimateGas ethEstimateGas, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'ethEstimateGas' is set
+            if (ethEstimateGas == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGas' when calling BlockchainFeesEthApi->EthEstimateGas");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGas;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<EthGasEstimation>("/v3/ethereum/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>EthGasEstimationBatch</returns>
+        public EthGasEstimationBatch EthEstimateGasBatch(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string))
+        {
+            var localVarResponse = EthEstimateGasBatchWithHttpInfo(ethEstimateGasArray, xTestnetType);
+
+            var exception = ExceptionFactory?.Invoke("EthEstimateGasBatch", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <returns>ApiResponse of EthGasEstimationBatch</returns>
+        public ApiResponse<EthGasEstimationBatch> EthEstimateGasBatchWithHttpInfo(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string))
+        {
+            // verify the required parameter 'ethEstimateGasArray' is set
+            if (ethEstimateGasArray == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGasArray' when calling BlockchainFeesEthApi->EthEstimateGasBatch");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGasArray;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+            var localVarResponse = Client.Post<EthGasEstimationBatch>("/v3/ethereum/gas/batch", localVarRequestOptions, Configuration);
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of EthGasEstimationBatch</returns>
+        public async System.Threading.Tasks.Task<EthGasEstimationBatch> EthEstimateGasBatchAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var localVarResponse = await EthEstimateGasBatchWithHttpInfoAsync(ethEstimateGasArray, xTestnetType, cancellationToken).ConfigureAwait(false);
+            
+            var exception = ExceptionFactory?.Invoke("EthEstimateGasBatch", localVarResponse);
+            if (exception != null) throw exception;
+
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Estimate multiple Ethereum transaction fees 10 credits per API call + 10 credits per each gas estimation. Estimate gasLimit and gasPrice of the Ethereum transaction. Gas price is obtained from multiple sources + calculated based on the latest N blocks and the current mempool state. The fast one is used by default. Result is calculated in the order of the request array items.
+        /// </summary>
+        /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ethEstimateGasArray"></param>
+        /// <param name="xTestnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (EthGasEstimationBatch)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<EthGasEstimationBatch>> EthEstimateGasBatchWithHttpInfoAsync(EthEstimateGasArray ethEstimateGasArray, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'ethEstimateGasArray' is set
+            if (ethEstimateGasArray == null)
+                throw new ApiException(400, "Missing required parameter 'ethEstimateGasArray' when calling BlockchainFeesEthApi->EthEstimateGasBatch");
+
+            var localVarRequestOptions = new RequestOptions();
+
+            var contentTypes = new string[]{
+                "application/json"
+            };
+
+            // to determine the Accept header
+            var accepts = new string[]{
+                "application/json"
+            };
+
+
+            var localVarContentType = ClientUtils.SelectHeaderContentType(contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xTestnetType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-testnet-type", ClientUtils.ParameterToString(xTestnetType)); // header parameter
+            }
+            localVarRequestOptions.Data = ethEstimateGasArray;
+
+            // authentication (X-API-Key) required
+            if (!string.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-api-key")))
+            {
+                localVarRequestOptions.HeaderParameters.Add("x-api-key", Configuration.GetApiKeyWithPrefix("x-api-key"));
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await AsynchronousClient.PostAsync<EthGasEstimationBatch>("/v3/ethereum/gas/batch", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
