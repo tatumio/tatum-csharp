@@ -25,4 +25,3 @@ jobs:
           payload-file-path: "./payload-slack-content.json"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-    needs: Release_L2_Packages
