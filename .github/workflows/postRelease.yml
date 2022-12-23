@@ -23,6 +23,7 @@ jobs:
     secrets: inherit
     
   Test_Other:
+    if: ${{ always() }}
     strategy:
       fail-fast: false
       matrix:
