@@ -31,7 +31,14 @@ jobs:
     - name: ${{ inputs.name }} Integration Test - Build
       run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
     - name: ${{ inputs.name }} Integration Test - Run Test
-      run: dotnet test ${{ env.PROJECT_PATH }} --no-build --verbosity normal --configuration Release
+      run: dotnet test ${{ env.PROJECT_PATH }} --no-build --verbosity normal --configuration Release --logger "trx;LogFileName=test-results.trx"
       env:
         TEST_DATA: ${{ secrets.TEST_DATA }}
         INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: ${{ inputs.name }} Tests
+        path: TestResults/test-results.trx
+        reporter: dotnet-trx
