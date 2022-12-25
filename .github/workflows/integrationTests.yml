@@ -40,5 +40,5 @@ jobs:
       if: success() || failure()
       with:
         name: ${{ inputs.name }} Tests
-        path: TestResults/test-results.trx
+        path: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx
         reporter: dotnet-trx
