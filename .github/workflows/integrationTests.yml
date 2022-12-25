@@ -39,6 +39,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: success() || failure()
       with:
-        name: ${{ inputs.name }} Tests
+        name: ${{ inputs.name }} Test Report
         path: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx
         reporter: dotnet-trx
