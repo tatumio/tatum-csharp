@@ -102,12 +102,12 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
                 gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
             })
             const gistContent = JSON.parse(gist.data.files['csharp-sdk-test-summary.json'].content)
             gistContent['message'] = `✓ ${{ steps.get-passed-tests.outputs.passed }} | ✗ ${{ steps.get-failed-tests.outputs.failed }} | → ${{ steps.get-skipped-tests.outputs.skipped }}`
-            await github.gists.update({
+            await github.rest.gists.update({
                 gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
                 files: {
                 'csharp-sdk-test-summary.json': {

@@ -35,12 +35,12 @@ runs:
         uses: actions/github-script@v5
         with:
           script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
             gistContent['${{ inputs.counterName }}'] += ${{ inputs.value }}
-            await github.gists.update({
+            await github.rest.gists.update({
               gist_id: '${{ inputs.gistId }}',
               files: {
                 '${{ inputs.gistFileName }}': {
@@ -54,12 +54,12 @@ runs:
         uses: actions/github-script@v5
         with:
           script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
             gistContent['${{ inputs.counterName }}'] = 0
-            await github.gists.update({
+            await github.rest.gists.update({
               gist_id: '${{ inputs.gistId }}',
               files: {
                 '${{ inputs.gistFileName }}': {
@@ -73,14 +73,14 @@ runs:
         uses: actions/github-script@v5
         with:
           script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
             for (const key in gistContent) {
               gistContent[key] = 0
             }
-            await github.gists.update({
+            await github.rest.gists.update({
               gist_id: '${{ inputs.gistId }}',
               files: {
                 '${{ inputs.gistFileName }}': {
@@ -94,7 +94,7 @@ runs:
         uses: actions/github-script@v5
         with:
           script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
@@ -105,7 +105,7 @@ runs:
         uses: actions/github-script@v5
         with:
           script: |
-            const gist = await github.gists.get({
+            const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
