@@ -37,12 +37,12 @@ jobs:
       env:
         TEST_DATA: ${{ secrets.TEST_DATA }}
         INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
-    - name: Bash script that from test-results.trx gets sum of all UnitTestResult nodes with Passed, Failed and Skipped outcome and output them as variables
+    - name: Bash script that from test-results.trx gets sum of all UnitTestResult nodes with Passed, Failed and Skipped outcome property and output them as variables
       id: get-test-results
       run: |
-          echo "##[set-output name=passed;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Passed)"
-          echo "##[set-output name=failed;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Failed)"
-          echo "##[set-output name=skipped;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Skipped)"
+          echo "##[set-output name=passed;]$(grep -oPm1 "(?<=<UnitTestResult)[^<]*outcome=[^<]*(?=>)" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Passed)"
+          echo "##[set-output name=failed;]$(grep -oPm1 "(?<=<UnitTestResult)[^<]*outcome=[^<]*(?=>)" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Failed)"
+          echo "##[set-output name=skipped;]$(grep -oPm1 "(?<=<UnitTestResult)[^<]*outcome=[^<]*(?=>)" ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | grep -c Skipped)"
     - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.passed }}
       uses: ./.github/actions/counters
       with:
