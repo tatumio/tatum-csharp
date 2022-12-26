@@ -17,6 +17,8 @@ jobs:
     name: Reset Test Counters
     runs-on: ubuntu-latest
     steps:
+    - name: Check out code
+      uses: actions/checkout@v3
     - name: Reset Test Counters
       uses: ./.github/actions/counters
       with:
@@ -67,6 +69,8 @@ jobs:
     name: Update Test Summary
     runs-on: ubuntu-latest
     steps:
+    - name: Check out code
+      uses: actions/checkout@v3
     - name: Get Passed counter total  
       uses: ./.github/actions/counters
       id: get-passed-tests
