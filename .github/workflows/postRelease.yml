@@ -83,7 +83,7 @@ jobs:
         action: getTotal
     - name: Get Skipped counter total
       uses: ./.github/actions/counters
-      id: get-failed-tests
+      id: get-skipped-tests
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters-skipped.json
