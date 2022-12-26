@@ -9,7 +9,33 @@ on:
         required: true
         type: string
 
+env:
+  GITHUB_GIST_ID: 7c96c30e8017c8dfb57b88e323f8114b
+
 jobs:
+  Reset_Test_Counters:
+    name: Reset Test Counters
+    runs-on: ubuntu-latest
+    steps:
+    - name: Reset Test Counters
+      uses: ./.github/actions/counters
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters.json
+        action: resetAll
+    - name: Reset Test Counters - Failed
+      uses: ./.github/actions/counters
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-failed.json
+        action: resetAll
+    - name: Reset Test Counters - Skipped
+      uses: ./.github/actions/counters
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-skipped.json
+        action: resetAll
+  
   Test_Chains:
     strategy:
       fail-fast: false
@@ -21,6 +47,7 @@ jobs:
       name: ${{ matrix.chain }}
       version: ${{ inputs.version }}
     secrets: inherit
+    needs: Reset_Test_Counters
     
   Test_Other:
     if: ${{ always() }}
@@ -35,3 +62,49 @@ jobs:
       version: ${{ inputs.version }}
     secrets: inherit
     needs: Test_Chains
+
+  Update_Test_Summary:
+    name: Update Test Summary
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Passed counter total  
+      uses: ./.github/actions/counters
+      id: get-passed-tests
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters.json
+        action: getTotal
+    - name: Get Failed counter total
+      uses: ./.github/actions/counters
+      id: get-failed-tests
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-failed.json
+        action: getTotal
+    - name: Get Skipped counter total
+      uses: ./.github/actions/counters
+      id: get-failed-tests
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-skipped.json
+        action: getTotal
+    - name: Update Test Summary in gist file csharp-sdk-test-summary.json "message" with template "✓ $passed | ✗ $failed | → $skipped"
+      uses: actions/github-script@v5
+      with:
+        script: |
+            const gist = await github.gists.get({
+                gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
+            })
+            const gistContent = JSON.parse(gist.data.files['csharp-sdk-test-summary.json'].content)
+            gistContent['message'] = `✓ ${{ steps.get-passed-tests.outputs.passed }} | ✗ ${{ steps.get-failed-tests.outputs.failed }} | → ${{ steps.get-skipped-tests.outputs.skipped }}`
+            await github.gists.update({
+                gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
+                files: {
+                'csharp-sdk-test-summary.json': {
+                    content: JSON.stringify(gistContent)
+                }
+                }
+            })
+        secret: GIST_SECRET
+      needs: Test_Other
+

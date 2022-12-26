@@ -12,6 +12,7 @@ on:
 
 env:
   PROJECT_PATH: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/Tatum.CSharp.${{ inputs.name }}.Tests.Integration.csproj
+  GITHUB_GIST_ID: 7c96c30e8017c8dfb57b88e323f8114b
 
 jobs:
   integration_tests:
@@ -35,10 +36,33 @@ jobs:
       env:
         TEST_DATA: ${{ secrets.TEST_DATA }}
         INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
-    - name: Test Report
-      uses: dorny/test-reporter@v1
-      if: success() || failure()
+    - name: Bash script that from test-results.trx gets sum of all UnitTestResult nodes with Passed, Failed and Skipped outcome and output them as variables
+      id: get-test-results
+      run: |
+          echo "##[set-output name=passed;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" test-results.trx | grep -c Passed)"
+          echo "##[set-output name=failed;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" test-results.trx | grep -c Failed)"
+          echo "##[set-output name=skipped;]$(grep -oPm1 "(?<=<UnitTestResult outcome=\")[^\"]+" test-results.trx | grep -c Skipped)"
+    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.passed }}
+      uses: ./.github/actions/counters
       with:
-        name: ${{ inputs.name }} Test Report
-        path: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx
-        reporter: dotnet-trx
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters.json
+        action: addValue
+        counterName: ${{ inputs.name }}
+        counterValue: ${{ steps.get-test-results.outputs.passed }}
+    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.failed }}
+      uses: ./.github/actions/counters
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-failed.json
+        action: addValue
+        counterName: ${{ inputs.name }}
+        counterValue: ${{ steps.get-test-results.outputs.failed }}
+    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.skipped }}
+      uses: ./.github/actions/counters
+      with:
+        gistId: ${{ env.GITHUB_GIST_ID }}
+        gistFileName: csharp-sdk-test-counters-skipped.json
+        action: addValue
+        counterName: ${{ inputs.name }}
+        counterValue: ${{ steps.get-test-results.outputs.skipped }}

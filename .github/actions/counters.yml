@@ -1,0 +1,116 @@
+﻿name: Counters
+inputs:
+  inputs:
+    gistId:
+      required: true
+      type: string
+    gistFileName:
+      required: true
+      type: string
+    action:
+      required: true
+      type: string
+      default: 'getValue'
+      value: [ 'addValue', 'resetValue', 'resetAll', 'getValue', 'getTotal' ]
+    value:
+      required: false
+      type: number
+    counterName:
+      required: false
+      type: string
+  outputs:
+    value:
+      description: 'The value of the counter'
+      type: number
+    total:
+      description: 'The total value of all counters'
+      type: number
+runs:
+  using: "composite"
+  steps:
+      - name: Add Value - load json file from gist, add value to the counter and update the gist file using GIST_SECRET secret
+        if: ${{ inputs.action == 'addValue' }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const gist = await github.gists.get({
+              gist_id: '${{ inputs.gistId }}'
+            })
+            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+            gistContent['${{ inputs.counterName }}'] += ${{ inputs.value }}
+            await github.gists.update({
+              gist_id: '${{ inputs.gistId }}',
+              files: {
+                '${{ inputs.gistFileName }}': {
+                  content: JSON.stringify(gistContent)
+                }
+              }
+            })
+          secret: ${{ secrets.GIST_SECRET }}
+      - name: Reset Value - load json file from gist, reset value of the counter and update the gist file using GIST_SECRET secret
+        if: ${{ inputs.action == 'resetValue' }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const gist = await github.gists.get({
+              gist_id: '${{ inputs.gistId }}'
+            })
+            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+            gistContent['${{ inputs.counterName }}'] = 0
+            await github.gists.update({
+              gist_id: '${{ inputs.gistId }}',
+              files: {
+                '${{ inputs.gistFileName }}': {
+                  content: JSON.stringify(gistContent)
+                }
+              }
+            })
+          secret: ${{ secrets.GIST_SECRET }}
+      - name: Reset All - load json file from gist, reset all counters and update the gist file using GIST_SECRET secret
+        if: ${{ inputs.action == 'resetAll' }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const gist = await github.gists.get({
+              gist_id: '${{ inputs.gistId }}'
+            })
+            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+            for (const key in gistContent) {
+              gistContent[key] = 0
+            }
+            await github.gists.update({
+              gist_id: '${{ inputs.gistId }}',
+              files: {
+                '${{ inputs.gistFileName }}': {
+                  content: JSON.stringify(gistContent)
+                }
+              }
+            })
+          secret: ${{ secrets.GIST_SECRET }}
+      - name: Get Value - load json file from gist, get value of the counter and output it
+        if: ${{ inputs.action == 'getValue' }} 
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const gist = await github.gists.get({
+              gist_id: '${{ inputs.gistId }}'
+            })
+            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+            core.setOutput('value', gistContent['${{ inputs.counterName }}'])
+          secret: ${{ secrets.GIST_SECRET }}
+      - name: Get Total - load json file from gist, get total of all counters and output it
+        if: ${{ inputs.action == 'getTotal' }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const gist = await github.gists.get({
+              gist_id: '${{ inputs.gistId }}'
+            })
+            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+            let total = 0
+            for (const key in gistContent) {
+              total += gistContent[key]
+            }
+            core.setOutput('total', total)
+          secret: ${{ secrets.GIST_SECRET }}
+    
