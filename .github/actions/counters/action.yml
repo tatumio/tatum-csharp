@@ -10,7 +10,7 @@ inputs:
     required: true
     default: 'getValue'
     description: 'Action to perform on the Gist'
-  value:
+  counterValue:
     description: 'Value to add to the counter'
     required: false
   counterName:
@@ -42,7 +42,7 @@ runs:
                 if (gistContent['${{ inputs.counterName }}'] === undefined) {
                 gistContent['${{ inputs.counterName }}'] = 0
                 }
-                gistContent['${{ inputs.counterName }}'] += parseInt('${{ inputs.value }}')
+                gistContent['${{ inputs.counterName }}'] += parseInt('${{ inputs.counterValue }}')
                 await github.rest.gists.update({
                 gist_id: '${{ inputs.gistId }}',
                 files: {
