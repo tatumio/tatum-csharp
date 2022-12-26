@@ -106,5 +106,5 @@ jobs:
                 }
             })
         secret: GIST_SECRET
-      needs: Test_Other
+    needs: Test_Other
 
