@@ -50,6 +50,7 @@ jobs:
         action: addValue
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.passed }}
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.failed }}
       uses: ./.github/actions/counters
       with:
@@ -58,6 +59,7 @@ jobs:
         action: addValue
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.failed }}
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.skipped }}
       uses: ./.github/actions/counters
       with:
@@ -66,3 +68,4 @@ jobs:
         action: addValue
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.skipped }}
+        gistSecret: ${{ secrets.GIST_SECRET }}

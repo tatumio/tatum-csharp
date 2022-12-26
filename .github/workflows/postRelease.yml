@@ -25,18 +25,21 @@ jobs:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters.json
         action: resetAll
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Reset Test Counters - Failed
       uses: ./.github/actions/counters
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters-failed.json
         action: resetAll
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Reset Test Counters - Skipped
       uses: ./.github/actions/counters
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters-skipped.json
         action: resetAll
+        gistSecret: ${{ secrets.GIST_SECRET }}
   
   Test_Chains:
     strategy:
@@ -78,6 +81,7 @@ jobs:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters.json
         action: getTotal
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Get Failed counter total
       uses: ./.github/actions/counters
       id: get-failed-tests
@@ -85,6 +89,7 @@ jobs:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters-failed.json
         action: getTotal
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Get Skipped counter total
       uses: ./.github/actions/counters
       id: get-skipped-tests
@@ -92,6 +97,7 @@ jobs:
         gistId: ${{ env.GITHUB_GIST_ID }}
         gistFileName: csharp-sdk-test-counters-skipped.json
         action: getTotal
+        gistSecret: ${{ secrets.GIST_SECRET }}
     - name: Update Test Summary in gist file csharp-sdk-test-summary.json "message" with template "✓ $passed | ✗ $failed | → $skipped"
       uses: actions/github-script@v5
       with:
@@ -109,6 +115,6 @@ jobs:
                 }
                 }
             })
-        secret: GIST_SECRET
+        secret: ${{ secrets.GIST_SECRET }}
     needs: Test_Other
 
