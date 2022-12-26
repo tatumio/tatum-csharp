@@ -40,9 +40,9 @@ jobs:
     - name: Bash script that from test-results.trx gets sum of all UnitTestResult nodes with Passed, Failed and Skipped outcome property and output them as variables
       id: get-test-results
       run: |
-          echo "##[set-output name=passed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' test-results.trx | wc -l)"
-          echo "##[set-output name=failed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Failed"[^<]*(?=>)' test-results.trx | wc -l)"
-          echo "##[set-output name=skipped;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Skipped"[^<]*(?=>)' test-results.trx | wc -l)"
+          echo "##[set-output name=passed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
+          echo "##[set-output name=failed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Failed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
+          echo "##[set-output name=skipped;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Skipped"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
     - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.passed }}
       uses: ./.github/actions/counters
       with:
