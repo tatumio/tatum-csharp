@@ -48,7 +48,7 @@ runs:
                 }
               }
             })
-          secret: ${{ inputs.gistSecret }}
+          github-token: ${{ inputs.gistSecret }}
       - name: Reset Value - load json file from gist, reset value of the counter and update the gist file using GIST_SECRET secret
         if: ${{ inputs.action == 'resetValue' }}
         uses: actions/github-script@v5
@@ -67,7 +67,7 @@ runs:
                 }
               }
             })
-          secret: ${{ inputs.gistSecret }}
+          github-token: ${{ inputs.gistSecret }}
       - name: Reset All - load json file from gist, reset all counters and update the gist file using GIST_SECRET secret
         if: ${{ inputs.action == 'resetAll' }}
         uses: actions/github-script@v5
@@ -88,7 +88,7 @@ runs:
                 }
               }
             })
-          secret: ${{ inputs.gistSecret }}
+          github-token: ${{ inputs.gistSecret }}
       - name: Get Value - load json file from gist, get value of the counter and output it
         if: ${{ inputs.action == 'getValue' }} 
         uses: actions/github-script@v5
@@ -99,7 +99,7 @@ runs:
             })
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
             core.setOutput('value', gistContent['${{ inputs.counterName }}'])
-          secret: ${{ inputs.gistSecret }}
+          github-token: ${{ inputs.gistSecret }}
       - name: Get Total - load json file from gist, get total of all counters and output it
         if: ${{ inputs.action == 'getTotal' }}
         uses: actions/github-script@v5
@@ -114,5 +114,5 @@ runs:
               total += gistContent[key]
             }
             core.setOutput('total', total)
-          secret: ${{ inputs.gistSecret }}
+          github-token: ${{ inputs.gistSecret }}
     

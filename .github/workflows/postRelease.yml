@@ -115,6 +115,6 @@ jobs:
                 }
                 }
             })
-        secret: ${{ secrets.GIST_SECRET }}
+        github-token: ${{ secrets.GIST_SECRET }}
     needs: Test_Other
 
