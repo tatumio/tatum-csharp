@@ -30,24 +30,27 @@ description: 'A GitHub Action to manage counters in a GitHub Gist'
 runs:
   using: "composite"
   steps:
-      - name: Add Value - load json file from gist, add value to the counter and update the gist file using GIST_SECRET secret
+      - name: Add Value - load json file from gist, add value to the counter or initialize it and update the gist file using GIST_SECRET secret
         if: ${{ inputs.action == 'addValue' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v5          
         with:
           script: |
-            const gist = await github.rest.gists.get({
-              gist_id: '${{ inputs.gistId }}'
-            })
-            const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
-            gistContent['${{ inputs.counterName }}'] += ${{ inputs.value }}
-            await github.rest.gists.update({
-              gist_id: '${{ inputs.gistId }}',
-              files: {
-                '${{ inputs.gistFileName }}': {
-                  content: JSON.stringify(gistContent)
+                const gist = await github.rest.gists.get({
+                gist_id: '${{ inputs.gistId }}'
+                })
+                const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
+                if (gistContent['${{ inputs.counterName }}'] === undefined) {
+                gistContent['${{ inputs.counterName }}'] = 0
                 }
-              }
-            })
+                gistContent['${{ inputs.counterName }}'] += parseInt('${{ inputs.value }}')
+                await github.rest.gists.update({
+                gist_id: '${{ inputs.gistId }}',
+                files: {
+                    '${{ inputs.gistFileName }}': {
+                    content: JSON.stringify(gistContent)
+                    }
+                }
+                })
           github-token: ${{ inputs.gistSecret }}
       - name: Reset Value - load json file from gist, reset value of the counter and update the gist file using GIST_SECRET secret
         if: ${{ inputs.action == 'resetValue' }}
