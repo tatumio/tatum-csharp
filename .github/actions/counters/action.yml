@@ -21,10 +21,10 @@ inputs:
     required: false
 outputs:
   value:
-    value: ${{ steps.counters.outputs.value }}
+    value: ${{ steps.getValue.outputs.value }}
     description: 'The value of the counter'
   total:
-    value: ${{ steps.counters.outputs.total }}
+    value: ${{ steps.getTotal.outputs.total }}
     description: 'The total value of all counters'
 description: 'A GitHub Action to manage counters in a GitHub Gist'
 runs:
@@ -96,6 +96,7 @@ runs:
             })
           github-token: ${{ inputs.gistSecret }}
       - name: Get Value - load json file from gist, get value of the counter and output it
+        id: getValue
         if: ${{ inputs.action == 'getValue' }} 
         uses: actions/github-script@v5
         with:
@@ -108,6 +109,7 @@ runs:
             core.setOutput('value', gistContent['${{ inputs.counterName }}'])
           github-token: ${{ inputs.gistSecret }}
       - name: Get Total - load json file from gist, get total of all counters and output it
+        id: getTotal
         if: ${{ inputs.action == 'getTotal' }}
         uses: actions/github-script@v5
         with:
