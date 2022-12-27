@@ -45,8 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony, Solana]
-        chain: [Solana]
+        chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony, Solana]
     name: Test Chain Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
@@ -60,8 +59,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        chain: [Nft, FungibleTokens, BlockchainFees]
-        chain: [BlockchainFees]
+        chain: [Nft, FungibleTokens, BlockchainFees]
     name: Test Other Packages
     uses: ./.github/workflows/integrationTests.yml
     with:
