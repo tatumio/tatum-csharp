@@ -69,6 +69,7 @@ jobs:
     needs: Test_Chains
 
   Update_Test_Summary:
+    if: ${{ always() }}
     name: Update Test Summary
     runs-on: ubuntu-latest
     steps:
