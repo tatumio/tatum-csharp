@@ -99,7 +99,7 @@ jobs:
         gistFileName: csharp-sdk-test-counters-skipped.json
         action: getTotal
         gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Update Test Summary in gist file csharp-sdk-test-summary.json "message" with template "✓ ${{ steps.get-passed-tests.outputs.total }} | ✗ ${{ steps.get-failed-tests.outputs.total }} | → ${{ steps.get-skipped-tests.outputs.total }}"
+    - name: Update Test Summary Badge content
       uses: actions/github-script@v5
       with:
         script: |

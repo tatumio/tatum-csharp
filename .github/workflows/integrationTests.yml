@@ -37,13 +37,13 @@ jobs:
       env:
         TEST_DATA: ${{ secrets.TEST_DATA }}
         INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
-    - name: Bash script that from test-results.trx gets sum of all UnitTestResult nodes with Passed, Failed and Skipped outcome property and output them as variables
+    - name: Gather test results
       id: get-test-results
       run: |
-          echo "##[set-output name=passed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
-          echo "##[set-output name=failed;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Failed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
-          echo "##[set-output name=skipped;]$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Skipped"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)"
-    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.passed }}
+          echo "passed=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)" >> $GITHUB_OUTPUT
+          echo "failed=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Failed"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)" >> $GITHUB_OUTPUT
+          echo "skipped=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Skipped"[^<]*(?=>)' ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx | wc -l)" >> $GITHUB_OUTPUT
+    - name: Update passed counter value
       uses: ./.github/actions/counters
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
@@ -52,7 +52,7 @@ jobs:
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.passed }}
         gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.failed }}
+    - name: Update failed counter value
       uses: ./.github/actions/counters
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
@@ -61,7 +61,7 @@ jobs:
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.failed }}
         gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Update counter with name ${{ inputs.name }} and value ${{ steps.get-test-results.outputs.skipped }}
+    - name: Update skipped counter value
       uses: ./.github/actions/counters
       with:
         gistId: ${{ env.GITHUB_GIST_ID }}
@@ -70,3 +70,10 @@ jobs:
         counterName: ${{ inputs.name }}
         counterValue: ${{ steps.get-test-results.outputs.skipped }}
         gistSecret: ${{ secrets.GIST_SECRET }}
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Test Report
+        path: ./${{ inputs.name }}/Tatum.CSharp.${{ inputs.name }}.Tests.Integration/TestResults/test-results.trx
+        reporter: dotnet-trx

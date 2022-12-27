@@ -30,9 +30,9 @@ description: 'A GitHub Action to manage counters in a GitHub Gist'
 runs:
   using: "composite"
   steps:
-      - name: Add Value - load json file from gist, add value to the counter or initialize it and update the gist file using GIST_SECRET secret
+      - name: Add Value
         if: ${{ inputs.action == 'addValue' }}
-        uses: actions/github-script@v5          
+        uses: actions/github-script@v6          
         with:
           retries: 3
           script: |
@@ -53,9 +53,9 @@ runs:
                 }
                 })
           github-token: ${{ inputs.gistSecret }}
-      - name: Reset Value - load json file from gist, reset value of the counter and update the gist file using GIST_SECRET secret
+      - name: Reset Value
         if: ${{ inputs.action == 'resetValue' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           retries: 3
           script: |
@@ -73,9 +73,9 @@ runs:
               }
             })
           github-token: ${{ inputs.gistSecret }}
-      - name: Reset All - load json file from gist, reset all counters and update the gist file using GIST_SECRET secret
+      - name: Reset All
         if: ${{ inputs.action == 'resetAll' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           retries: 3
           script: |
@@ -95,10 +95,10 @@ runs:
               }
             })
           github-token: ${{ inputs.gistSecret }}
-      - name: Get Value - load json file from gist, get value of the counter and output it
+      - name: Get Value
         id: getValue
         if: ${{ inputs.action == 'getValue' }} 
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           retries: 3
           script: |
@@ -108,10 +108,10 @@ runs:
             const gistContent = JSON.parse(gist.data.files['${{ inputs.gistFileName }}'].content)
             core.setOutput('value', gistContent['${{ inputs.counterName }}'])
           github-token: ${{ inputs.gistSecret }}
-      - name: Get Total - load json file from gist, get total of all counters and output it
+      - name: Get Total
         id: getTotal
         if: ${{ inputs.action == 'getTotal' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           retries: 3
           script: |
