@@ -26,12 +26,6 @@ jobs:
         env:
           TEST_DATA: ${{ secrets.TEST_DATA }}
           INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        with:
-          name: ${{ inputs.name }} Test Report
-          path: ./TestResults/test-results*.trx
-          reporter: dotnet-trx
       - name: Gather test results
         id: get-test-results
         run: |
@@ -56,4 +50,10 @@ jobs:
                   }
               })
           github-token: ${{ secrets.GIST_SECRET }}
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: ${{ inputs.name }} Test Report
+          path: ./TestResults/test-results*.trx
+          reporter: dotnet-trx
 
