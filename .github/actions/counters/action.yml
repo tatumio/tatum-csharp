@@ -34,6 +34,7 @@ runs:
         if: ${{ inputs.action == 'addValue' }}
         uses: actions/github-script@v5          
         with:
+          retries: 3
           script: |
                 const gist = await github.rest.gists.get({
                 gist_id: '${{ inputs.gistId }}'
@@ -56,6 +57,7 @@ runs:
         if: ${{ inputs.action == 'resetValue' }}
         uses: actions/github-script@v5
         with:
+          retries: 3
           script: |
             const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
@@ -75,6 +77,7 @@ runs:
         if: ${{ inputs.action == 'resetAll' }}
         uses: actions/github-script@v5
         with:
+          retries: 3
           script: |
             const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
@@ -96,6 +99,7 @@ runs:
         if: ${{ inputs.action == 'getValue' }} 
         uses: actions/github-script@v5
         with:
+          retries: 3
           script: |
             const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
@@ -107,6 +111,7 @@ runs:
         if: ${{ inputs.action == 'getTotal' }}
         uses: actions/github-script@v5
         with:
+          retries: 3
           script: |
             const gist = await github.rest.gists.get({
               gist_id: '${{ inputs.gistId }}'
