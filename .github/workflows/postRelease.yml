@@ -9,113 +9,51 @@ on:
         required: true
         type: string
 
-env:
-  GITHUB_GIST_ID: 7c96c30e8017c8dfb57b88e323f8114b
-
 jobs:
-  Reset_Test_Counters:
-    name: Reset Test Counters
+  Run_Tests:
+    name: Integration Tests
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-    - name: Reset Test Counters
-      uses: ./.github/actions/counters
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters.json
-        action: resetAll
-        gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Reset Test Counters - Failed
-      uses: ./.github/actions/counters
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters-failed.json
-        action: resetAll
-        gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Reset Test Counters - Skipped
-      uses: ./.github/actions/counters
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters-skipped.json
-        action: resetAll
-        gistSecret: ${{ secrets.GIST_SECRET }}
-  
-  Test_Chains:
-    strategy:
-      fail-fast: false
-      matrix:
-        chain: [Ethereum, Bitcoin, Polygon, Bsc, Harmony, Solana]
-    name: Test Chain Packages
-    uses: ./.github/workflows/integrationTests.yml
-    with:
-      name: ${{ matrix.chain }}
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: Reset_Test_Counters
-    
-  Test_Other:
-    if: ${{ always() }}
-    strategy:
-      fail-fast: false
-      matrix:
-        chain: [Nft, FungibleTokens, BlockchainFees]
-    name: Test Other Packages
-    uses: ./.github/workflows/integrationTests.yml
-    with:
-      name: ${{ matrix.chain }}
-      version: ${{ inputs.version }}
-    secrets: inherit
-    needs: Test_Chains
-
-  Update_Test_Summary:
-    if: ${{ always() }}
-    name: Update Test Summary
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-    - name: Get Passed counter total  
-      uses: ./.github/actions/counters
-      id: get-passed-tests
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters.json
-        action: getTotal
-        gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Get Failed counter total
-      uses: ./.github/actions/counters
-      id: get-failed-tests
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters-failed.json
-        action: getTotal
-        gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Get Skipped counter total
-      uses: ./.github/actions/counters
-      id: get-skipped-tests
-      with:
-        gistId: ${{ env.GITHUB_GIST_ID }}
-        gistFileName: csharp-sdk-test-counters-skipped.json
-        action: getTotal
-        gistSecret: ${{ secrets.GIST_SECRET }}
-    - name: Update Test Summary Badge content
-      uses: actions/github-script@v5
-      with:
-        script: |
-            const gist = await github.rest.gists.get({
-                gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
-            })
-            const gistContent = JSON.parse(gist.data.files['csharp-sdk-test-summary.json'].content)
-            gistContent['message'] = `✓ ${{ steps.get-passed-tests.outputs.total }} | ✗ ${{ steps.get-failed-tests.outputs.total }} | → ${{ steps.get-skipped-tests.outputs.total }}`
-            await github.rest.gists.update({
-                gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
-                files: {
-                'csharp-sdk-test-summary.json': {
-                    content: JSON.stringify(gistContent)
-                }
-                }
-            })
-        github-token: ${{ secrets.GIST_SECRET }}
-    needs: Test_Other
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Run Tests
+        run: dotnet test --configuration Release --logger "trx;LogFilePrefix=test-results"
+        continue-on-error: true
+        env:
+          TEST_DATA: ${{ secrets.TEST_DATA }}
+          INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: ${{ inputs.name }} Test Report
+          path: ./TestResults/test-results*.trx
+          reporter: dotnet-trx
+      - name: Get total number of Passed, Failed and Skipped tests from ./TestResults/test-results*.trx files using grep and output it
+        id: get-test-results
+        run: |
+          echo "passed=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' ./TestResults/test-results*.trx | wc -l)" >> $GITHUB_OUTPUT
+          echo "failed=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Failed"[^<]*(?=>)' ./TestResults/test-results*.trx | wc -l)" >> $GITHUB_OUTPUT
+          echo "skipped=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Skipped"[^<]*(?=>)' ./TestResults/test-results*.trx | wc -l)" >> $GITHUB_OUTPUT
+      - name: Update Test Summary Badge content
+        uses: actions/github-script@v6
+        with:
+          script: |
+              const gist = await github.rest.gists.get({
+                  gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
+              })
+              const gistContent = JSON.parse(gist.data.files['csharp-sdk-test-summary.json'].content)
+              gistContent['message'] = `✓ ${{ steps.get-test-results.outputs.total }} | ✗ ${{ steps.get-test-results.outputs.total }} | → ${{ steps.get-test-results.outputs.total }}`
+              await github.rest.gists.update({
+                  gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
+                  files: {
+                  'csharp-sdk-test-summary.json': {
+                      content: JSON.stringify(gistContent)
+                  }
+                  }
+              })
+          github-token: ${{ secrets.GIST_SECRET }}
 
