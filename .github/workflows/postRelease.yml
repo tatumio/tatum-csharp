@@ -21,7 +21,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Run Tests
-        run: dotnet test --configuration Release --logger "trx;LogFilePrefix=test-results"
+        run: dotnet test --configuration Release --logger "trx;LogFilePrefix=test-results" --results-directory "./TestResults"
         continue-on-error: true
         env:
           TEST_DATA: ${{ secrets.TEST_DATA }}
@@ -32,7 +32,7 @@ jobs:
           name: ${{ inputs.name }} Test Report
           path: ./TestResults/test-results*.trx
           reporter: dotnet-trx
-      - name: Get total number of Passed, Failed and Skipped tests from ./TestResults/test-results*.trx files using grep and output it
+      - name: Gather test results
         id: get-test-results
         run: |
           echo "passed=$(grep -oP '(?<=<UnitTestResult)[^<]*outcome="Passed"[^<]*(?=>)' ./TestResults/test-results*.trx | wc -l)" >> $GITHUB_OUTPUT
