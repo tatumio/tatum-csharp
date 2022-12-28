@@ -1,4 +1,4 @@
-namespace Tatum.CSharp.Evm.Local.Models
+﻿namespace Tatum.CSharp.Evm.Local.Models
 {
     /// <summary>
     /// Wallet

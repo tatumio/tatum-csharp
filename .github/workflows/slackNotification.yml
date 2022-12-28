@@ -1,0 +1,39 @@
+name: SlackNotification
+run-name: ${{ inputs.version }} - slack notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package Version'
+        required: true
+        type: string
+
+jobs:
+  Slack_Notification:
+    name: Post to a Slack channel
+    if: ${{ !contains(inputs.version, 'rc') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Replace 'v$version' in payload-slack-content.json with ${{ inputs.version }}
+        run: |
+            sed -i "s/v\$version/${{ inputs.version }}/g" payload-slack-content.json
+      - name: Replace '$releaseNotes' in payload-slack-content.json with Ethereum.Core package .csproj
+        run: |
+            sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
+      - name: Get all the PackageId from .csproj in the folder and sub folders then replace '$packages' in payload-slack-content.json with it (don't include files ending in .Test or .Core)
+        run: |
+            sed -i "s;\$packages;$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v .Test | grep -v .Core | cut -d: -f2 | sed ':a;N;$!ba;s/\n/\\\\n\\\\n/g' );g" payload-slack-content.json
+      - name: In payload-slack-content.json file replace '$packages' tag with a list of packages taken from .csproj file names without ones including .Test or .Core spearated by '/n/n'
+        run: |
+            sed -i "s/\$packages/$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*.csproj)/g" payload-slack-content.json
+      - name: Post to Slack
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: C03VAV2D601
+          payload-file-path: "./payload-slack-content.json"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

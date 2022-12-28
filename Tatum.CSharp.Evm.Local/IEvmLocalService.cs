@@ -1,4 +1,4 @@
-using Tatum.CSharp.Evm.Local.Models;
+﻿using Tatum.CSharp.Evm.Local.Models;
 
 namespace Tatum.CSharp.Evm.Local
 {

@@ -1,4 +1,4 @@
-using NBitcoin;
+﻿using NBitcoin;
 using Tatum.CSharp.Bitcoin.Local.Models;
 
 namespace Tatum.CSharp.Bitcoin.Local

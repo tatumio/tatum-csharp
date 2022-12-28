@@ -1,4 +1,4 @@
-using NBitcoin;
+﻿using NBitcoin;
 using Nethereum.HdWallet;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Tatum.CSharp.Evm.Local.Models;
