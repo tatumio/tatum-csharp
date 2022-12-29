@@ -62,6 +62,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.BlockchainFees
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.BlockchainFees.Tests.Integration", "BlockchainFees\Tatum.CSharp.BlockchainFees.Tests.Integration\Tatum.CSharp.BlockchainFees.Tests.Integration.csproj", "{DFE97D4A-7202-48CF-8D9D-46DCAF6D7AF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.MultiTokens.Core", "MultiTokens\Tatum.CSharp.MultiTokens.Core\Tatum.CSharp.MultiTokens.Core.csproj", "{B55AADEC-CF34-4FAE-AB0D-2ED95E5DBAF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.MultiTokens", "MultiTokens\Tatum.CSharp.MultiTokens\Tatum.CSharp.MultiTokens.csproj", "{B8FFE3A4-558A-41FC-8D1F-8798F2ED4C53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.MultiTokens.Tests.Integration", "MultiTokens\Tatum.CSharp.MultiTokens.Tests.Integration\Tatum.CSharp.MultiTokens.Tests.Integration.csproj", "{CE326BD5-298E-401F-8C38-B190FF9F9C0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,5 +198,17 @@ Global
 		{DFE97D4A-7202-48CF-8D9D-46DCAF6D7AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFE97D4A-7202-48CF-8D9D-46DCAF6D7AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFE97D4A-7202-48CF-8D9D-46DCAF6D7AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B55AADEC-CF34-4FAE-AB0D-2ED95E5DBAF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55AADEC-CF34-4FAE-AB0D-2ED95E5DBAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55AADEC-CF34-4FAE-AB0D-2ED95E5DBAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55AADEC-CF34-4FAE-AB0D-2ED95E5DBAF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FFE3A4-558A-41FC-8D1F-8798F2ED4C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FFE3A4-558A-41FC-8D1F-8798F2ED4C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FFE3A4-558A-41FC-8D1F-8798F2ED4C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FFE3A4-558A-41FC-8D1F-8798F2ED4C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE326BD5-298E-401F-8C38-B190FF9F9C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE326BD5-298E-401F-8C38-B190FF9F9C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE326BD5-298E-401F-8C38-B190FF9F9C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE326BD5-298E-401F-8C38-B190FF9F9C0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
