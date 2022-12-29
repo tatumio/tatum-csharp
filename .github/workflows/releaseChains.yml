@@ -23,6 +23,7 @@ jobs:
           Polygon,
           Nft,
           FungibleTokens,
+          MultiTokens,
           BlockchainFees,
           Bsc,
           Harmony,
