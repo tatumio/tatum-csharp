@@ -26,7 +26,7 @@ jobs:
       - name: From all .csproj files get PackageId and output it as json array string (don't include files ending in .Test or .Core)
         id: getCurrentPackageIdList
         run: |
-            echo "::set-output name=packageIdList::$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s .)"
+            echo "::set-output name=currentPackageIdList::$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s .)"
       - name: Get PackageId list from the github gist and output it
         id: getPreviousPackageIdList
         uses: actions/github-script@v6
