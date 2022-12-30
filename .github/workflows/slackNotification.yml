@@ -41,18 +41,28 @@ jobs:
             const currentPackageIdList = JSON.parse('${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }}')
             const previousPackageIdList = gistContent
             const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
-            const newPackageIdListWithNew = newPackageIdList.map(x => '`new`' + x + '`new`')
+            const newPackageIdListWithNew = newPackageIdList.map(x => '`new` ' + x + ' `new`')
 
             console.log(newPackageIdListWithNew)
 
             const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\n')
             console.log(packageIdList)
-            console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
-            console.log('::set-output name=packages::' + packageIdList)
+
+            const gist = await github.rest.gists.update({
+                            gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
+                            files: {
+                                'csharp-sdk-package-list.json': {
+                                    content: '[' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(',') + ']'
+                                }
+                            }
+                        })
+
+            return packageIdList
+          result-encoding: string
           github-token: ${{ secrets.GIST_SECRET }}
       - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
-          sed -i 's/\$packages/${{ steps.comparePackages.outputs.packages }}/g' payload-slack-content.json
+          sed -i 's/\$packages/${{ steps.comparePackages.outputs.result }}/g' payload-slack-content.json
       - name: Update gist with new getCurrentPackageIdList as json array
         uses: actions/github-script@v6
         with:
