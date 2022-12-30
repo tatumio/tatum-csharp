@@ -37,7 +37,7 @@ jobs:
               })
               console.log(gist.data.files['csharp-sdk-package-list.json'].content)
               const gistContent = JSON.parse(gist.data.files['csharp-sdk-package-list.json'].content)
-              const packageIdList = gistContent['packageIdList']
+              const packageIdList = gistContent
               console.log(packageIdList)
               console.log('::set-output name=previousPackageIdList::' + packageIdList)
           github-token: ${{ secrets.GIST_SECRET }}
