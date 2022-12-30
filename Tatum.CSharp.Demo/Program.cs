@@ -8,6 +8,7 @@ using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
 using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Polygon.Clients;
+using Tatum.CSharp.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,8 @@ builder.Services.AddSwaggerGen();
 var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
 builder.Services
-    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey));
+    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
+    .AddHttpMessageHandler<DebugModeHandler>();
 
 builder.Services
     .AddHttpClient<IBitcoinClient, BitcoinClient>(httpClient => new BitcoinClient(httpClient, apiKey));

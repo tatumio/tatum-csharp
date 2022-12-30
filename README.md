@@ -54,6 +54,28 @@ public EthereumController(IEthereumClient ethereumClient)
 
 5. You are ready to use Tatum API!
 
+## Debug Mode
+
+If there ever is a need to see what is going on under the hood you can use the Debug Mode to output `request curl` and `response content` to the `Debug` console.
+
+**When contacting Tatum support this providing those logs can help us to identify the issue faster.**
+
+To use debug mode simply add this handler when registering Tatum Client:
+```cs
+// In Program.cs or Startup.cs
+builder.Services
+    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
+    .AddHttpMessageHandler<DebugModeHandler>();
+```
+
+or if using HttpClient directly:
+```cs
+var httpClient = new DebugModeHandler();
+httpClient.InnerHandler = new HttpClientHandler();
+        
+_client = new EthereumClient(new HttpClient(httpClient), apiKey, true);
+```
+
 ## Further Examples
 
 - [Examples - ETH](Examples/Ethereum/ETH_Examples.md)
