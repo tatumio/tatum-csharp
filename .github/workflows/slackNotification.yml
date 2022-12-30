@@ -66,6 +66,9 @@ jobs:
                   }
               })
           github-token: ${{ secrets.GIST_SECRET }}
+      - name: echo payload-slack-content.json
+        run: |
+            cat payload-slack-content.json
       - name: Read payload-slack-content.json contents and update gist with it
         uses: actions/github-script@v6
         with:
