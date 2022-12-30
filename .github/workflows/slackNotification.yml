@@ -41,7 +41,9 @@ jobs:
               const currentPackageIdList = JSON.parse('${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }}')
               const previousPackageIdList = gistContent
               const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
-              const newPackageIdListWithNew = newPackageIdList.map(x => "'new'" + x)
+              const newPackageIdListWithNew = newPackageIdList.map(x => "\'new\' " + x)
+            
+              console.log(newPackageIdListWithNew)
 
               const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew)
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
