@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Include Blockchain Fees operations in packages. Tatum.CSharp.BlockchainFees package released.</PackageReleaseNotes>
+    <PackageReleaseNotes>Include Multi Token operations in packages. Tatum.CSharp.MultiTokens package released. Debug Mode introduction.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
