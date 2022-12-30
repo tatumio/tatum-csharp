@@ -26,7 +26,7 @@ jobs:
       - name: From all .csproj files get PackageId and output it as json array string in a single line (don't include files ending in .Test or .Core)
         id: getCurrentPackageIdList
         run: |
-          echo "::set-output name=currentPackageIdList::$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s . | tr -d '\n')"
+          echo "currentPackageIdList=$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s . | tr -d '\n')" >> $GITHUB_OUTPUT
       - name: Get PackageId list from the github gist and output it
         id: comparePackages
         uses: actions/github-script@v6
@@ -41,11 +41,12 @@ jobs:
               const currentPackageIdList = JSON.parse('${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }}')
               const previousPackageIdList = gistContent
               const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
-              const newPackageIdListWithNew = newPackageIdList.map(x => "`new`" + x)
+              const newPackageIdListWithNew = newPackageIdList.map(x => '`new`' + x + '`new`')
             
               console.log(newPackageIdListWithNew)
 
               const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\\\\\n')
+              console.log(packageIdList)
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
               console.log('::set-output name=packages::' + packageIdList)
           github-token: ${{ secrets.GIST_SECRET }}
