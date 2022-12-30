@@ -47,7 +47,7 @@ jobs:
 
               const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew)
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
-              console.log('::set-output name=packages::' + packageIdList.join('\\n'))
+              console.log('::set-output name=packages::' + packageIdList.join('\\\\n\\\\n'))
           github-token: ${{ secrets.GIST_SECRET }}
       - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
