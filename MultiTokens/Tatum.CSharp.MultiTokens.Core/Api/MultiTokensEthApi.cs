@@ -194,8 +194,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="tokenId">Comma-separated IDs of the Multi Tokens to get the amounts for</param>
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
-        /// <returns>List&lt;string&gt;</returns>
-        List<string> MultiTokenGetBalanceBatch(string contractAddress, string tokenId, string address, string xTestnetType = default(string));
+        /// <returns>MultiTokenBalanceBatch</returns>
+        MultiTokenBalanceBatch MultiTokenGetBalanceBatch(string contractAddress, string tokenId, string address, string xTestnetType = default(string));
         /// <summary>
         /// Get Multi Token metadata
         /// </summary>
@@ -454,8 +454,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="tokenId">Comma-separated IDs of the Multi Tokens to get the amounts for</param>
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        ApiResponse<List<string>> MultiTokenGetBalanceBatchWithHttpInfo(string contractAddress, string tokenId, string address, string xTestnetType = default(string));
+        /// <returns>ApiResponse of MultiTokenBalanceBatch</returns>
+        ApiResponse<MultiTokenBalanceBatch> MultiTokenGetBalanceBatchWithHttpInfo(string contractAddress, string tokenId, string address, string xTestnetType = default(string));
         /// <summary>
         /// Get Multi Token metadata
         /// </summary>
@@ -729,8 +729,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        System.Threading.Tasks.Task<List<string>> MultiTokenGetBalanceBatchAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of MultiTokenBalanceBatch</returns>
+        System.Threading.Tasks.Task<MultiTokenBalanceBatch> MultiTokenGetBalanceBatchAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get Multi Token metadata
         /// </summary>
@@ -1011,8 +1011,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<string>>> MultiTokenGetBalanceBatchWithHttpInfoAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (MultiTokenBalanceBatch)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MultiTokenBalanceBatch>> MultiTokenGetBalanceBatchWithHttpInfoAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get Multi Token metadata
         /// </summary>
@@ -3160,8 +3160,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="tokenId">Comma-separated IDs of the Multi Tokens to get the amounts for</param>
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
-        /// <returns>List&lt;string&gt;</returns>
-        public List<string> MultiTokenGetBalanceBatch(string contractAddress, string tokenId, string address, string xTestnetType = default(string))
+        /// <returns>MultiTokenBalanceBatch</returns>
+        public MultiTokenBalanceBatch MultiTokenGetBalanceBatch(string contractAddress, string tokenId, string address, string xTestnetType = default(string))
         {
             var localVarResponse = MultiTokenGetBalanceBatchWithHttpInfo(contractAddress, tokenId, address, xTestnetType);
 
@@ -3179,8 +3179,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="tokenId">Comma-separated IDs of the Multi Tokens to get the amounts for</param>
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        public ApiResponse<List<string>> MultiTokenGetBalanceBatchWithHttpInfo(string contractAddress, string tokenId, string address, string xTestnetType = default(string))
+        /// <returns>ApiResponse of MultiTokenBalanceBatch</returns>
+        public ApiResponse<MultiTokenBalanceBatch> MultiTokenGetBalanceBatchWithHttpInfo(string contractAddress, string tokenId, string address, string xTestnetType = default(string))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
@@ -3225,7 +3225,7 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<List<string>>("/v3/multitoken/balance/batch/ETH/{contractAddress}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<MultiTokenBalanceBatch>("/v3/multitoken/balance/batch/ETH/{contractAddress}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -3239,8 +3239,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        public async System.Threading.Tasks.Task<List<string>> MultiTokenGetBalanceBatchAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of MultiTokenBalanceBatch</returns>
+        public async System.Threading.Tasks.Task<MultiTokenBalanceBatch> MultiTokenGetBalanceBatchAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var localVarResponse = await MultiTokenGetBalanceBatchWithHttpInfoAsync(contractAddress, tokenId, address, xTestnetType, cancellationToken).ConfigureAwait(false);
             
@@ -3259,8 +3259,8 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
         /// <param name="address">Comma-separated blockchain addresses to get the token balance for</param>
         /// <param name="xTestnetType">Type of testnet. Defaults to Sepolia. Valid only for ETH invocations. (optional, default to ethereum-sepolia)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<string>>> MultiTokenGetBalanceBatchWithHttpInfoAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (MultiTokenBalanceBatch)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<MultiTokenBalanceBatch>> MultiTokenGetBalanceBatchWithHttpInfoAsync(string contractAddress, string tokenId, string address, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'contractAddress' is set
             if (contractAddress == null)
@@ -3307,7 +3307,7 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<List<string>>("/v3/multitoken/balance/batch/ETH/{contractAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<MultiTokenBalanceBatch>("/v3/multitoken/balance/batch/ETH/{contractAddress}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
