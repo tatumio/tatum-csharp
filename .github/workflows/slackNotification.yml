@@ -51,7 +51,7 @@ jobs:
           github-token: ${{ secrets.GIST_SECRET }}
       - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
-              sed -i "s/\$packages/${{ steps.comparePackages.outputs.packages }}/g" payload-slack-content.txt
+              sed -i "s/\$packages/${{ steps.comparePackages.outputs.packages }}/g" payload-slack-content.json
       - name: Update gist with new getCurrentPackageIdList as json array
         uses: actions/github-script@v6
         with:
