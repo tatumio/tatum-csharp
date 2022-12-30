@@ -23,10 +23,10 @@ jobs:
       - name: Replace '$releaseNotes' in payload-slack-content.json with Ethereum.Core package .csproj
         run: |
             sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
-      - name: From all .csproj files get PackageId and output it as json array (don't include files ending in .Test or .Core)
+      - name: From all .csproj files get PackageId and output it as json array string (don't include files ending in .Test or .Core)
         id: getCurrentPackageIdList
         run: |
-            echo "currentPackageIdList=[ $(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v "Test" | grep -v "Core" | cut -d: -f2 | sed 's/^/"/' | sed 's/$/",/') ]" >> $GITHUB_OUTPUT
+            echo "::set-output name=packageIdList::$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s .)"
       - name: Get PackageId list from the github gist and output it
         id: getPreviousPackageIdList
         uses: actions/github-script@v6
