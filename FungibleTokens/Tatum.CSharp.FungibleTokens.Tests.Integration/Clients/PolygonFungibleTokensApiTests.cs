@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Tatum.CSharp.FungibleTokens.Tests.Integration.Clients;
 
-[Collection("Ethereum")]
+[Collection("Polygon")]
 public class PolygonFungibleTokensApiTests
 {
     private readonly IFungibleTokensClient _fungibleTokensApi;

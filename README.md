@@ -14,14 +14,14 @@ You can find API documentation at [API doc](https://tatum.io/apidoc).
 
 ## Included Chains
 
-| Chain                               | Nuget_Package                                                                                                                                  | Local Processing with                               |
-|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
-| [`Bitcoin`](Tatum.CSharp.Bitcoin)   | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>   | [NBitcoin](https://github.com/MetacoSA/NBitcoin)    |
-| [`Ethereum`](Tatum.CSharp.Ethereum) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> | [NEthereum](https://github.com/Nethereum/Nethereum) |
-| [`Polygon`](Tatum.CSharp.Ethereum)  | <a href="https://www.nuget.org/packages/Tatum.CSharp.Polygon"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Polygon"></a>   | [NEthereum](https://github.com/Nethereum/Nethereum) |
-| [`BSC`](Tatum.CSharp.Ethereum)      | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bsc"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bsc"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
-| [`Harmony`](Tatum.CSharp.Harmony)   | <a href="https://www.nuget.org/packages/Tatum.CSharp.Harmony"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Harmony"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
-| [`Solana`](Tatum.CSharp.Solana)    | <a href="https://www.nuget.org/packages/Tatum.CSharp.Solana"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Solana"></a>           | N/A currently                                       |
+| Chain                             | Nuget_Package                                                                                                                                  | Local Processing with                               |
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| [`Bitcoin`](Bitcoin)              | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>   | [NBitcoin](https://github.com/MetacoSA/NBitcoin)    |
+| [`Ethereum`](Ethereum)            | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`Polygon`](Polygon)              | <a href="https://www.nuget.org/packages/Tatum.CSharp.Polygon"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Polygon"></a>   | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`BSC`](Bsc)                      | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bsc"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bsc"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`Harmony`](Harmony) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Harmony"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Harmony"></a>           | [NEthereum](https://github.com/Nethereum/Nethereum) |
+| [`Solana`](Solana)   | <a href="https://www.nuget.org/packages/Tatum.CSharp.Solana"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Solana"></a>           | N/A currently                                       |
 
 ## Quick Start
 
@@ -53,6 +53,28 @@ public EthereumController(IEthereumClient ethereumClient)
 ```
 
 5. You are ready to use Tatum API!
+
+## Debug Mode
+
+If there ever is a need to see what is going on under the hood you can use the Debug Mode to output `request curl` and `response content` to the `Debug` console.
+
+**When contacting Tatum support this providing those logs can help us to identify the issue faster.**
+
+To use debug mode simply add this handler when registering Tatum Client:
+```cs
+// In Program.cs or Startup.cs
+builder.Services
+    .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
+    .AddHttpMessageHandler<DebugModeHandler>();
+```
+
+or if using HttpClient directly:
+```cs
+var httpClient = new DebugModeHandler();
+httpClient.InnerHandler = new HttpClientHandler();
+        
+_client = new EthereumClient(new HttpClient(httpClient), apiKey, true);
+```
 
 ## Further Examples
 

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Tatum.CSharp.MultiTokens</RootNamespace>
+        <Nullable>disable</Nullable>
+        <LangVersion>8.0</LangVersion>
+        <AssemblyName>Tatum.CSharp.MultiTokens</AssemblyName>
+        <PackageId>Tatum.CSharp.MultiTokens</PackageId>
+        <OutputType>Library</OutputType>
+        <Authors>Tatum</Authors>
+        <Company>Tatum</Company>
+        <AssemblyTitle>MultiTokens SDK</AssemblyTitle>
+        <Description>MultiTokens SDK v2</Description>
+        <Copyright>Tatum</Copyright>
+        <VersionPrefix>2.0.0</VersionPrefix>
+        <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Tatum; MultiTokens; ERC1155; MT</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReleaseNotes>Minor changes.</PackageReleaseNotes>
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+      <PackageReference Include="System.Text.Json" Version="7.0.0" />
+        <PackageReference Include="Nethereum.HdWallet" Version="4.11.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" PrivateAssets="all" />
+      <ProjectReference Include="..\Tatum.CSharp.MultiTokens.Core\Tatum.CSharp.MultiTokens.Core.csproj" PrivateAssets="all" />
+        <ProjectReference Include="..\..\Tatum.CSharp.Utils\Tatum.CSharp.Utils.csproj" PrivateAssets="all" />
+    </ItemGroup>
+
+    <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+        <ItemGroup>
+            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+        </ItemGroup>
+    </Target>
+
+</Project>

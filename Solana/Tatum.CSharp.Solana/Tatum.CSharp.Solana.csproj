@@ -29,6 +29,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Tatum.CSharp.Solana.Core\Tatum.CSharp.Solana.Core.csproj" PrivateAssets="all" />
+        <ProjectReference Include="..\..\Tatum.CSharp.Utils\Tatum.CSharp.Utils.csproj" PrivateAssets="all" />
     </ItemGroup>
 
     <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">

@@ -36,6 +36,16 @@ namespace Tatum.CSharp.Harmony.Clients
         /// Client wrapping all operations related to the Harmony FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         IFungibleTokensApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Harmony MultiTokens.
+        /// </summary>
+        IMultiTokensApiAsync HarmonyMultiTokens { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Harmony MultiTokens with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        IMultiTokensApiWithHttpInfoAsync HarmonyMultiTokensWithHttpInfo { get; }
                 
         // Client wrapping all blockchain fee estimation operations.
         IBlockchainFeesApiAsync BlockchainFees { get; }

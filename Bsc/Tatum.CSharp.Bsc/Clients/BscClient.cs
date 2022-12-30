@@ -28,7 +28,13 @@ namespace Tatum.CSharp.Bsc.Clients
         
         /// <inheritdoc />
         public IFungibleTokensApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public IMultiTokensApiAsync BscMultiTokens { get; }
         
+        /// <inheritdoc />
+        public IMultiTokensApiWithHttpInfoAsync BscMultiTokensWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IBlockchainFeesApiAsync BlockchainFees { get; }
         
@@ -99,6 +105,13 @@ namespace Tatum.CSharp.Bsc.Clients
             
             BscFungibleTokens = bscFungibleTokensApi;
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
+            
+            var bscMultiTokensApi = new MultiTokensApi(httpClient);
+            
+            bscMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BscMultiTokens = bscMultiTokensApi;
+            BscMultiTokensWithHttpInfo = bscMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient);
             

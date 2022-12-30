@@ -31,6 +31,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" PrivateAssets="all" />
       <ProjectReference Include="..\Tatum.CSharp.BlockchainFees.Core\Tatum.CSharp.BlockchainFees.Core.csproj" PrivateAssets="all" />
+        <ProjectReference Include="..\..\Tatum.CSharp.Utils\Tatum.CSharp.Utils.csproj" PrivateAssets="all" />
     </ItemGroup>
 
     <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">

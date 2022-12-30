@@ -35,6 +35,16 @@ namespace Tatum.CSharp.Polygon.Clients
         /// Client wrapping all operations related to the Polygon FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         IFungibleTokensApiWithHttpInfoAsync PolygonFungibleTokensWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Polygon MultiTokens.
+        /// </summary>
+        IMultiTokensApiAsync PolygonMultiTokens { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Polygon MultiTokens with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        IMultiTokensApiWithHttpInfoAsync PolygonMultiTokensWithHttpInfo { get; }
                 
         // Client wrapping all blockchain fee estimation operations.
         IBlockchainFeesApiAsync BlockchainFees { get; }

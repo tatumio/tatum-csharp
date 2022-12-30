@@ -28,7 +28,13 @@ namespace Tatum.CSharp.Ethereum.Clients
         
         /// <inheritdoc />
         public IFungibleTokensApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public IMultiTokensApiAsync EthereumMultiTokens { get; }
         
+        /// <inheritdoc />
+        public IMultiTokensApiWithHttpInfoAsync EthereumMultiTokensWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IBlockchainFeesApiAsync BlockchainFees { get; }
         
@@ -99,6 +105,13 @@ namespace Tatum.CSharp.Ethereum.Clients
             
             EthereumFungibleTokens = ethereumFungibleTokensApi;
             EthereumFungibleTokensWithHttpInfo = ethereumFungibleTokensApi;
+            
+            var ethereumMultiTokensApi = new MultiTokensApi(httpClient);
+            
+            ethereumMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            EthereumMultiTokens = ethereumMultiTokensApi;
+            EthereumMultiTokensWithHttpInfo = ethereumMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient);
             

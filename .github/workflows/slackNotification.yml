@@ -23,12 +23,49 @@ jobs:
       - name: Replace '$releaseNotes' in payload-slack-content.json with Ethereum.Core package .csproj
         run: |
             sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
-      - name: Get all the PackageId from .csproj in the folder and sub folders then replace '$packages' in payload-slack-content.json with it (don't include files ending in .Test or .Core)
+      - name: From all .csproj files get PackageId and output it as json array string in a single line (don't include files ending in .Test or .Core)
+        id: getCurrentPackageIdList
         run: |
-            sed -i "s;\$packages;$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v .Test | grep -v .Core | cut -d: -f2 | sed ':a;N;$!ba;s/\n/\\\\n\\\\n/g' );g" payload-slack-content.json
-      - name: In payload-slack-content.json file replace '$packages' tag with a list of packages taken from .csproj file names without ones including .Test or .Core spearated by '/n/n'
+          echo "currentPackageIdList=$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v -E 'Test|Core' | cut -d: -f2 | jq -R . | jq -s . | tr -d '\n')" >> $GITHUB_OUTPUT
+      - name: Get PackageId list from the github gist and output it
+        id: comparePackages
+        uses: actions/github-script@v6
+        with:
+          script: |
+              const gist = await github.rest.gists.get({
+                  gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
+              })
+              console.log(gist.data.files['csharp-sdk-package-list.json'].content)
+              const gistContent = JSON.parse(gist.data.files['csharp-sdk-package-list.json'].content)
+
+              const currentPackageIdList = JSON.parse('${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }}')
+              const previousPackageIdList = gistContent
+              const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
+              const newPackageIdListWithNew = newPackageIdList.map(x => '`new`' + x + '`new`')
+            
+              console.log(newPackageIdListWithNew)
+
+              const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\\\\\n')
+              console.log(packageIdList)
+              console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
+              console.log('::set-output name=packages::' + packageIdList)
+          github-token: ${{ secrets.GIST_SECRET }}
+      - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
-            sed -i "s/\$packages/$(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*.csproj)/g" payload-slack-content.json
+              sed -i 's/\$packages/${{ steps.comparePackages.outputs.packages }}/g' payload-slack-content.json
+      - name: Update gist with new getCurrentPackageIdList as json array
+        uses: actions/github-script@v6
+        with:
+          script: |
+              const gist = await github.rest.gists.update({
+                  gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
+                  files: {
+                      'csharp-sdk-package-list.json': {
+                          content: '[${{ steps.comparePackages.outputs.currentPackages }}]'
+                      }
+                  }
+              })
+          github-token: ${{ secrets.GIST_SECRET }}
       - name: Post to Slack
         id: slack
         uses: slackapi/slack-github-action@v1.23.0

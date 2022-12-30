@@ -37,6 +37,16 @@ namespace Tatum.CSharp.Bsc.Clients
         /// </summary>
         IFungibleTokensApiWithHttpInfoAsync BscFungibleTokensWithHttpInfo { get; }
         
+        /// <summary>
+        /// Client wrapping all operations related to the Bsc MultiTokens.
+        /// </summary>
+        IMultiTokensApiAsync BscMultiTokens { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Bsc MultiTokens with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        IMultiTokensApiWithHttpInfoAsync BscMultiTokensWithHttpInfo { get; }
+        
         // Client wrapping all blockchain fee estimation operations.
         IBlockchainFeesApiAsync BlockchainFees { get; }
         
