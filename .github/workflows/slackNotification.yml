@@ -73,8 +73,8 @@ jobs:
               const gist = await github.rest.gists.update({
                   gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
                   files: {
-                      'csharp-sdk-release-notes.json': {
-                          content: fs.readFileSync('./payload-slack-content.txt', 'utf8')
+                      'csharp-sdk-release-notes.txt': {
+                          content: fs.readFileSync('./payload-slack-content.json', 'utf8')
                       }
                   }
               })
