@@ -63,14 +63,14 @@ jobs:
       - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
           sed -i 's/\$packages/${{ steps.comparePackages.outputs.result }}/g' payload-slack-content.json
-#      - name: Post to Slack
-#        id: slack
-#        uses: slackapi/slack-github-action@v1.23.0
-#        with:
-#          channel-id: C03VAV2D601
-#          payload-file-path: "./payload-slack-content.json"
-#        env:
-#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to Slack
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: C03VAV2D601
+          payload-file-path: "./payload-slack-content.json"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Read payload-slack-content.json contents and update gist with it
         uses: actions/github-script@v6
         with:
