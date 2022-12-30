@@ -35,6 +35,16 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// Client wrapping all operations related to the Ethereum FungibleTokens with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
         IFungibleTokensApiWithHttpInfoAsync EthereumFungibleTokensWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Ethereum MultiTokens.
+        /// </summary>
+        IMultiTokensApiAsync EthereumMultiTokens { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Ethereum MultiTokens with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        IMultiTokensApiWithHttpInfoAsync EthereumMultiTokensWithHttpInfo { get; }
                 
         // Client wrapping all blockchain fee estimation operations.
         IBlockchainFeesApiAsync BlockchainFees { get; }

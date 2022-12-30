@@ -28,7 +28,13 @@ namespace Tatum.CSharp.Polygon.Clients
         
         /// <inheritdoc />
         public IFungibleTokensApiWithHttpInfoAsync PolygonFungibleTokensWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public IMultiTokensApiAsync PolygonMultiTokens { get; }
         
+        /// <inheritdoc />
+        public IMultiTokensApiWithHttpInfoAsync PolygonMultiTokensWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IBlockchainFeesApiAsync BlockchainFees { get; }
         
@@ -99,6 +105,13 @@ namespace Tatum.CSharp.Polygon.Clients
             
             PolygonFungibleTokens = polygonFungibleTokensApi;
             PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
+            
+            var polygonMultiTokensApi = new MultiTokensApi(httpClient);
+            
+            polygonMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            PolygonMultiTokens = polygonMultiTokensApi;
+            PolygonMultiTokensWithHttpInfo = polygonMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient);
             

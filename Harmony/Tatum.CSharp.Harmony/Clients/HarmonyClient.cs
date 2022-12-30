@@ -28,7 +28,13 @@ namespace Tatum.CSharp.Harmony.Clients
         
         /// <inheritdoc />
         public IFungibleTokensApiWithHttpInfoAsync HarmonyFungibleTokensWithHttpInfo { get; }
+
+        /// <inheritdoc />
+        public IMultiTokensApiAsync HarmonyMultiTokens { get; }
         
+        /// <inheritdoc />
+        public IMultiTokensApiWithHttpInfoAsync HarmonyMultiTokensWithHttpInfo { get; }
+
         /// <inheritdoc />
         public IBlockchainFeesApiAsync BlockchainFees { get; }
         
@@ -99,6 +105,13 @@ namespace Tatum.CSharp.Harmony.Clients
             
             HarmonyFungibleTokens = harmonyFungibleTokensApi;
             HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
+            
+            var harmonyMultiTokensApi = new MultiTokensApi(httpClient);
+            
+            harmonyMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            HarmonyMultiTokens = harmonyMultiTokensApi;
+            HarmonyMultiTokensWithHttpInfo = harmonyMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient);
             
