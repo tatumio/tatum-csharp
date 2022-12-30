@@ -66,29 +66,11 @@ jobs:
                   }
               })
           github-token: ${{ secrets.GIST_SECRET }}
-      - name: echo payload-slack-content.json
-        run: |
-            cat payload-slack-content.json
-      - name: Read payload-slack-content.json contents and update gist with it
-        uses: actions/github-script@v6
+      - name: Post to Slack
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
         with:
-          script: |
-              const fs = require('fs');
-              const gist = await github.rest.gists.update({
-                  gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
-                  files: {
-                      'csharp-sdk-release-notes.txt': {
-                          content: fs.readFileSync('./payload-slack-content.json', 'utf8')
-                      }
-                  }
-              })
-          github-token: ${{ secrets.GIST_SECRET }}
-
-#      - name: Post to Slack
-#        id: slack
-#        uses: slackapi/slack-github-action@v1.23.0
-#        with:
-#          channel-id: C03VAV2D601
-#          payload-file-path: "./payload-slack-content.json"
-#        env:
-#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: C03VAV2D601
+          payload-file-path: "./payload-slack-content.json"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
