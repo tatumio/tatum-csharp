@@ -24,10 +24,11 @@ jobs:
         run: |
             sed -i "s/\$releaseNotes/$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./Ethereum/Tatum.CSharp.Ethereum.Core/Tatum.CSharp.Ethereum.Core.csproj)/g" payload-slack-content.json
       - name: From all .csproj files get PackageId and output it as json array (don't include files ending in .Test or .Core)
+        id: getCurrentPackageIdList
         run: |
-            echo "currentPackageIdList=[ $(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*.csproj | grep -v "Test" | grep -v "Core" | sed 's/^/"/' | sed 's/$/",/') ]" >> $GITHUB_OUTPUT
+            echo "currentPackageIdList=[ $(grep -oPm1 "(?<=<PackageId>)[^<]+" ./*/*/*.csproj | grep -v "Test" | grep -v "Core" | sed 's/^/"/' | sed 's/$/",/') ]" >> $GITHUB_OUTPUT
       - name: Get PackageId list from the github gist and output it
-        id: getPackageIdList
+        id: getPreviousPackageIdList
         uses: actions/github-script@v6
         with:
           script: |
@@ -38,24 +39,20 @@ jobs:
               const gistContent = JSON.parse(gist.data.files['csharp-sdk-package-list.json'].content)
               const packageIdList = gistContent['packageIdList']
               console.log(packageIdList)
-              console.log('::set-output name=packageIdList::' + packageIdList)
+              console.log('::set-output name=previousPackageIdList::' + packageIdList)
           github-token: ${{ secrets.GIST_SECRET }}
-      - name: Replace '$packages' in payload-slack-content.json with packageIds, add 'new' tag if there is any new package compared to the list from gist
+      - name: Replace '$packages' in payload-slack-content.json with currentPackageIdList with 'new' tag in front of the items not existing in the previousPackageIdList
         run: |
-            sed -i "s/\$packages/$(echo ${{ steps.getPackageIdList.outputs.packageIdList }} | sed -e 's/ /, /g')/g" payload-slack-content.json
-            if [[ ${{ steps.getPackageIdList.outputs.packageIdList }} != *${{ steps.getPackageId.outputs.packageId }}* ]]; then
-                sed -i "s/\$packages/$(echo ${{ steps.getPackageIdList.outputs.packageIdList }} | sed -e 's/ /, /g'), ${{ steps.getPackageId.outputs.packageId }} (new)/g" payload-slack-content.json
-            fi
-      - name: Update gist with new packageIdList as json array
+            sed -i "s/\$packages/$(echo ${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }} | sed 's/ /, /g' | sed 's/,/","/g' | sed 's/","/","new /g' | sed "s/\"${{ steps.getPreviousPackageIdList.outputs.previousPackageIdList }}\"//g")/g" payload-slack-content.json
+      - name: Update gist with new getCurrentPackageIdList as json array
         uses: actions/github-script@v6
         with:
           script: |
-              const packageId = '${{ steps.getPackageId.outputs.packageId }}'
               const gist = await github.rest.gists.update({
                   gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
                   files: {
                       'csharp-sdk-package-list.json': {
-                          content: JSON.stringify({ packageIdList: packageId })
+                          content: JSON.stringify({ ${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }} })
                       }
                   }
               })
