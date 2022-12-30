@@ -2,27 +2,27 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.MultiTokens.Clients;
-using Tatum.CSharp.MultiTokens.Core.Client;
+using Tatum.CSharp.Utils;
 using Tatum.CSharp.MultiTokens.Core.Model;
 using Tatum.CSharp.MultiTokens.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Polygon.Clients;
-using VerifyTests;
+using VerifyXunit;
 using Xunit;
 
 namespace Tatum.CSharp.MultiTokens.Tests.Integration.Clients;
 
-[Collection("Ethereum")]
+[Collection("Polygon")]
+[UsesVerify]
 public class PolygonMultiTokensApiTests
 {
-    private readonly IMultiTokensClient _MultiTokensApi;
+    private readonly IMultiTokensClient _multiTokensApi;
     private readonly PolygonTestData _testData;
     private readonly PolygonClient _polygonApi;
 
-    private const string TestSmartContractAddress = "0x87dcbd8e3eae528b50ddb1e94c85f16b30940a62";
+    private const string TestSmartContractAddress = "0x4eA4187B91175343E71b2dd79EA5A4Ab2384612e";
 
     public PolygonMultiTokensApiTests()
     {
@@ -31,171 +31,142 @@ public class PolygonMultiTokensApiTests
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
 
-        _MultiTokensApi = new MultiTokensClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _multiTokensApi = new MultiTokensClient(new HttpClient(httpClient), apiKey, true);
         _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
     }
     
-    [Fact]
-    public async Task Erc20Deploy_ShouldReturnTxHash_WhenCalledValidData()
+    [Fact(Skip = "Requires manual setup")]
+    public async Task DeployMultiToken_ShouldReturnTxHash_WhenCalledValidData()
     {
-        var name = Guid.NewGuid().ToString();
-
-        var deployErc20 = new ChainDeployErc20(
-            ChainDeployErc20.ChainEnum.MATIC,
-            name.Substring(0,10),
-            name.Replace("-", ""),
-            "1000000000",
-            "1000000",
-            18,
-            _testData.StorageAddress,
+        var deployMultiToken = new DeployMultiToken(
+            DeployMultiToken.ChainEnum.MATIC, 
+            "https://www.multitoken.com", 
             _testData.StoragePrivKey);
-
-        var deployTransactionHash = await _MultiTokensApi.PolygonMultiTokens.Erc20DeployAsync(deployErc20);
+        
+        var deployTransactionHash = await _multiTokensApi.PolygonMultiTokens.DeployMultiTokenAsync(deployMultiToken);
         
         deployTransactionHash.Should().NotBeNull();
         deployTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
 
-        await WaitForTransactionSuccess(deployTransactionHash.TxId);
+        await _polygonApi.Utils.WaitForTransactionAsync(deployTransactionHash.TxId);
     }
     
     [Fact]
-    public async Task Erc20Mint_ShouldReturnTxHash_WhenCalledValidData()
+    public async Task MintMultiToken_ShouldReturnTxHash_WhenCalledValidData()
     {
-        var chainMintErc20 = new ChainMintErc20(
-            ChainMintErc20.ChainEnum.MATIC, 
-            "1", 
-            _testData.StorageAddress, 
-            TestSmartContractAddress, 
-            _testData.StoragePrivKey );
-        
-        var mintTransactionHash = await _MultiTokensApi.PolygonMultiTokens.Erc20MintAsync(chainMintErc20);
-        
-        mintTransactionHash.Should().NotBeNull();
-        mintTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(mintTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Burn_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var chainBurnErc20 = new ChainBurnErc20(
-            ChainBurnErc20.ChainEnum.MATIC,
-            "1",
+        var mintMultiToken = new MintMultiToken(MintMultiToken.ChainEnum.MATIC,
+            "10",
+            _testData.StorageAddress,
             TestSmartContractAddress,
+            "10",
+            null,
             _testData.StoragePrivKey);
         
-        var burnTransactionHash = await _MultiTokensApi.PolygonMultiTokens.Erc20BurnAsync(chainBurnErc20);
+        var mintMultiTokenTransactionHash = await _multiTokensApi.PolygonMultiTokens.MintMultiTokenAsync(mintMultiToken);
         
-        burnTransactionHash.Should().NotBeNull();
-        burnTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(burnTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Approve_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var approveErc20 = new ApproveErc20(
-            ApproveErc20.ChainEnum.MATIC,
-            TestSmartContractAddress,
-            _testData.TargetAddress,
-            "100",
-            _testData.StoragePrivKey);
-        
-        var approveTransactionHash = await _MultiTokensApi.PolygonMultiTokens.Erc20ApproveAsync(approveErc20);
-        
-        approveTransactionHash.Should().NotBeNull();
-        approveTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(approveTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20Transfer_ShouldReturnTxHash_WhenCalledValidData()
-    {
-        var chainTransferEthErc20 = new ChainTransferEthErc20(
-            ChainTransferEthErc20.ChainEnum.MATIC,
-            _testData.TargetAddress,
-            TestSmartContractAddress,
-            "1",
-            9,
-            _testData.StoragePrivKey);
-        
-        var transferTransactionHash = await _MultiTokensApi.PolygonMultiTokens.Erc20TransferAsync(chainTransferEthErc20);
-        
-        transferTransactionHash.Should().NotBeNull();
-        transferTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
-        
-        await WaitForTransactionSuccess(transferTransactionHash.TxId);
-    }
-    
-    [Fact]
-    public async Task Erc20GetBalanceAddress_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var balancesForAddress = await _MultiTokensApi.PolygonMultiTokens.Erc20GetBalanceAddressAsync(_testData.StorageAddress);
-        
-        balancesForAddress.Should().HaveCountGreaterOrEqualTo(0);
-        balancesForAddress.First().Amount.Should().NotBeNullOrWhiteSpace();
-        balancesForAddress.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
-    }
-    
-    [Fact]
-    public async Task Erc20GetBalance_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var balance = await _MultiTokensApi.PolygonMultiTokens.Erc20GetBalanceAsync(_testData.StorageAddress, TestSmartContractAddress);
-        
-        balance.Balance.Should().NotBeNullOrWhiteSpace();
-    }
-    
-    [Fact]
-    public async Task Erc20GetTransactionByAddress_ShouldReturnBalances_WhenCalledValidData()
-    {
-        var transactions = await _MultiTokensApi.PolygonMultiTokens.Erc20GetTransactionByAddressAsync(_testData.StorageAddress, TestSmartContractAddress, 1);
+        mintMultiTokenTransactionHash.Should().NotBeNull();
+        mintMultiTokenTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
 
-        transactions.Should().HaveCountGreaterThan(0);
-        transactions.First().Amount.Should().NotBeNullOrWhiteSpace();
-        transactions.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
-        transactions.First().From.Should().NotBeNullOrWhiteSpace();
-        transactions.First().To.Should().NotBeNullOrWhiteSpace();
-        transactions.First().TxId.Should().NotBeNullOrWhiteSpace();
-        transactions.First().BlockNumber.Should().BePositive();
+        await _polygonApi.Utils.WaitForTransactionAsync(mintMultiTokenTransactionHash.TxId);
     }
     
-    private async Task WaitForTransactionSuccess(string hash)
+    [Fact]
+    public async Task BurnMultiToken_ShouldReturnTxHash_WhenCalledValidData()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-        try
-        {
-            while (true)
-            {
-                if (cts.IsCancellationRequested)
-                {
-                    break;
-                }
-    
-                try
-                {
-                    var tx = await _polygonApi.PolygonBlockchain.PolygonGetTransactionAsync(hash,
-                        cancellationToken: cts.Token);
-                    if (tx.Status || tx.BlockNumber != null)
-                    {
-                        await Task.Delay(1000, cts.Token);
-                        break;
-                    }
-                }
-                catch (ApiException e)
-                {
-                    if (!e.Message.Contains(".tx.not.found"))
-                        throw;
-                }
-    
-                await Task.Delay(1000, cts.Token);
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            // we don't care
-        }
+        var burnMultiToken = new BurnMultiToken(BurnMultiToken.ChainEnum.MATIC,
+            _testData.StorageAddress,
+            "10",
+            TestSmartContractAddress,
+            _testData.StoragePrivKey,
+            null,
+            "1");
+        
+        var burnMultiTokenTransactionHash = await _multiTokensApi.PolygonMultiTokens.BurnMultiTokenAsync(burnMultiToken);
+        
+        burnMultiTokenTransactionHash.Should().NotBeNull();
+        burnMultiTokenTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+
+        await _polygonApi.Utils.WaitForTransactionAsync(burnMultiTokenTransactionHash.TxId);
     }
+    
+    [Fact]
+    public async Task TransferMultiToken_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var transferMultiToken = new TransferMultiToken(TransferMultiToken.ChainEnum.MATIC,
+            _testData.TargetAddress,
+            "10",
+            "1",
+            null,
+            TestSmartContractAddress,
+            _testData.StoragePrivKey);
+        
+        var transferMultiTokenTransactionHash = await _multiTokensApi.PolygonMultiTokens.TransferMultiTokenAsync(transferMultiToken);
+        
+        transferMultiTokenTransactionHash.Should().NotBeNull();
+        transferMultiTokenTransactionHash.TxId.Should().NotBeNullOrWhiteSpace();
+
+        await _polygonApi.Utils.WaitForTransactionAsync(transferMultiTokenTransactionHash.TxId);
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetTransactionByAddress_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var transactionByAddress = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetTransactionByAddressAsync(_testData.TargetAddress, TestSmartContractAddress, 10);
+
+        transactionByAddress.Should().NotBeNull();
+        transactionByAddress.Should().NotBeEmpty();
+        transactionByAddress.Should().AllBeOfType<MultiTx>();
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetTransaction_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var transactionByAddress = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetTransactionAsync("0xa1433783a321232cea9ad30e1180eeee00490ce68e96568e954dde5d3d44007e");
+
+        await Verifier.Verify(transactionByAddress);
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetAddressBalance_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var tokenBalances = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetAddressBalanceAsync(_testData.StorageAddress);
+
+        tokenBalances.Should().NotBeNull();
+        tokenBalances.Should().NotBeEmpty();
+        tokenBalances.First().Balances.Should().NotBeEmpty();
+        tokenBalances.First().Balances.First().Should().BeOfType<MultiTokenBalance>();
+        tokenBalances.First().Balances.First().Amount.Should().NotBeNullOrWhiteSpace();
+        tokenBalances.First().Balances.First().TokenId.Should().NotBeNullOrWhiteSpace();
+        tokenBalances.First().ContractAddress.Should().NotBeNullOrWhiteSpace();
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetBalance_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var tokenBalance = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetBalanceAsync(_testData.TargetAddress, TestSmartContractAddress, "10");
+
+        tokenBalance.Should().NotBeNull();
+        tokenBalance.Data.Should().MatchRegex("^[0-9]*$");
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetBalanceBatch_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var tokenBalance = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetBalanceBatchAsync(TestSmartContractAddress, "10,10", string.Join(",", _testData.StorageAddress, _testData.TargetAddress));
+
+        tokenBalance.Should().NotBeNull();
+        tokenBalance.Data.Should().HaveCount(2);
+    }
+    
+    [Fact]
+    public async Task MultiTokenGetMetadata_ShouldReturnTxHash_WhenCalledValidData()
+    {
+        var tokenMetadata = await _multiTokensApi.PolygonMultiTokens.MultiTokenGetMetadataAsync("10", TestSmartContractAddress);
+
+        tokenMetadata.Data.Should().Be("example.com");
+    }
+    
 }
