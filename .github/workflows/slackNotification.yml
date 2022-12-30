@@ -26,7 +26,7 @@ jobs:
       - name: Get all the PackageId from .csproj in the folder and sub folders then output it (don't include files ending in .Test or .Core)
         id: getPackageId
         run: |
-            echo "::set-output name=packageId::$(grep -oPm1 "(?<=<PackageId>)[^<]+" $(find . -type f -name "*.csproj" -not -name "*Test*" -not -name "*Core*"))"
+            echo "packageId=$(grep -oPm1 "(?<=<PackageId>)[^<]+" $(find . -type f -name "*.csproj" -not -name "*Test*" -not -name "*Core*"))" >> $GITHUB_OUTPUT
       - name: Get PackageId list from the github gist and output it
         id: getPackageIdList
         uses: actions/github-script@v6
@@ -35,6 +35,7 @@ jobs:
               const gist = await github.rest.gists.get({
                   gist_id: '7c96c30e8017c8dfb57b88e323f8114b'
               })
+              console.log(gist.data.files['csharp-sdk-package-list.json'].content)
               const gistContent = JSON.parse(gist.data.files['csharp-sdk-package-list.json'].content)
               const packageIdList = gistContent['packageIdList']
               console.log(packageIdList)
