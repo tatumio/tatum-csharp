@@ -41,13 +41,13 @@ jobs:
               const currentPackageIdList = JSON.parse('${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }}')
               const previousPackageIdList = gistContent
               const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
-              const newPackageIdListWithNew = newPackageIdList.map(x => "\`new\` " + x)
+              const newPackageIdListWithNew = newPackageIdList.map(x => "\\\\`new\\\\` " + x)
             
               console.log(newPackageIdListWithNew)
 
-              const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew)
+              const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\\\\\n')
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
-              console.log('::set-output name=packages::' + packageIdList.join('\\\\\\\\n'))
+              console.log('::set-output name=packages::' + packageIdList)
           github-token: ${{ secrets.GIST_SECRET }}
       - name: Replace '$packages' in payload-slack-content.json with PackageId list
         run: |
