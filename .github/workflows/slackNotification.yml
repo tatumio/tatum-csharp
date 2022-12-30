@@ -69,11 +69,12 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+              const fs = require('fs');
               const gist = await github.rest.gists.update({
                   gist_id: '7c96c30e8017c8dfb57b88e323f8114b',
                   files: {
                       'csharp-sdk-release-notes.json': {
-                          content: fs.readFileSync('payload-slack-content.json', 'utf8')
+                          content: fs.readFileSync('./payload-slack-content.json', 'utf8')
                       }
                   }
               })
