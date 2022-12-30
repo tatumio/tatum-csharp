@@ -45,7 +45,7 @@ jobs:
             
               console.log(newPackageIdListWithNew)
 
-              const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\\\\\n')
+              const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew).join('\\\\n')
               console.log(packageIdList)
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList).map(x => '"' + x + '"').join(','))
               console.log('::set-output name=packages::' + packageIdList)
