@@ -37,11 +37,11 @@ jobs:
               })
               console.log(gist.data.files['csharp-sdk-package-list.json'].content)
               const gistContent = JSON.parse(gist.data.files['csharp-sdk-package-list.json'].content)
-              console.log('::set-output name=previousPackageIdList::' + packageIdList)
+
               const currentPackageIdList = JSON.parse(${{ steps.getCurrentPackageIdList.outputs.currentPackageIdList }})
               const previousPackageIdList = gistContent
               const newPackageIdList = currentPackageIdList.filter(x => !previousPackageIdList.includes(x))
-              const newPackageIdListWithNew = newPackageIdList.map(x =>'''new''' + x)
+              const newPackageIdListWithNew = newPackageIdList.map(x => "'new'" + x)
 
               const packageIdList = previousPackageIdList.concat(newPackageIdListWithNew)
               console.log('::set-output name=currentPackages::' + previousPackageIdList.concat(newPackageIdList))
