@@ -58,7 +58,7 @@ public EthereumController(IEthereumClient ethereumClient)
 
 If there ever is a need to see what is going on under the hood you can use the Debug Mode to output `request curl` and `response content` to the `Debug` console.
 
-**When contacting Tatum support this providing those logs can help us to identify the issue faster.**
+**When contacting Tatum support providing those logs can help us identifying the issue faster.**
 
 To use debug mode simply add this handler when registering Tatum Client:
 ```cs
