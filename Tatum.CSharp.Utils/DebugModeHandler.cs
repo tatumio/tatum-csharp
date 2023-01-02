@@ -1,3 +1,5 @@
+#define DEBUG
+
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -9,6 +11,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Tatum.CSharp.Utils
 {
+    /// <summary>
+    /// Debug Mode handler outputting request and response raw data to a Debug Output console - NOT FOR PRODUCTION USE
+    /// </summary>
     public class DebugModeHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
