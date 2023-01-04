@@ -8,10 +8,10 @@ namespace Tatum.CSharp.NodeRpc.Clients
     public class NodeRpcClient : INodeRpcClient
     {
         /// <inheritdoc />
-        public INodeRpcApiAsync NodeRpc { get; }
+        public INodeRPCApiAsync NodeRpc { get; }
         
         /// <inheritdoc />
-        public INodeRpcApiWithHttpInfoAsync NodeRpcWithHttpInfo { get; }
+        public INodeRPCApiWithHttpInfoAsync NodeRpcWithHttpInfo { get; }
 
         /// <summary>
         /// Creates an instance of <see cref="NodeRpcClient"/>.
@@ -51,7 +51,7 @@ namespace Tatum.CSharp.NodeRpc.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public NodeRpcClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var nodeRpcApi = new NodeRpcApi(httpClient);
+            var nodeRpcApi = new NodeRPCApi(httpClient);
             
             nodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             

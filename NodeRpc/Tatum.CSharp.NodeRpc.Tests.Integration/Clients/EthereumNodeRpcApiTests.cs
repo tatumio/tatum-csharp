@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Tatum.CSharp.BlockchainFees.Clients;
-using Tatum.CSharp.BlockchainFees.Core.Model;
+using Tatum.CSharp.NodeRpc.Clients;
+using Tatum.CSharp.NodeRpc.Core.Model;
 using Xunit;
 
-namespace Tatum.CSharp.BlockchainFees.Tests.Integration.Clients;
+namespace Tatum.CSharp.NodeRpc.Tests.Integration.Clients;
 
 [Collection("Ethereum")]
-public class PolygonBlockchainFeesApiTests
+public class PolygonNodeRpcApiTests
 {
-    private readonly IBlockchainFeesClient _blockchainFeesApi;
+    private readonly INodeRpcClient _NodeRpcApi;
 
-    public PolygonBlockchainFeesApiTests()
+    public PolygonNodeRpcApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
-        _blockchainFeesApi = new BlockchainFeesClient(new HttpClient(), apiKey, true);
+        _NodeRpcApi = new NodeRpcClient(new HttpClient(), apiKey, true);
     }
     
     [Theory]
@@ -57,7 +57,7 @@ public class PolygonBlockchainFeesApiTests
     
     public async Task EstimateFeeBlockchain_ShouldReturnFee_WhenCalledForBurnNft(EstimateFee.ChainEnum chain, EstimateFee.TypeEnum type)
     {
-        var result = await _blockchainFeesApi.PolygonBlockchainFees.EstimateFeeBlockchainAsync(new EstimateFee(chain, type));
+        var result = await _NodeRpcApi.PolygonNodeRpc.EstimateFeeBlockchainAsync(new EstimateFee(chain, type));
 
         result.GasLimit.Should().BePositive();
         result.GasPrice.Should().BePositive();
@@ -66,7 +66,7 @@ public class PolygonBlockchainFeesApiTests
     [Fact]
     public async Task PolygonEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var result = await _blockchainFeesApi.PolygonBlockchainFees.PolygonEstimateGasAsync(new PolygonEstimateGas("0xda54cb99712957c10b9f73279c2e84af4ff45ff0", "0x409eb7cafdec6aa83a8221b3af227e67841c1c0d", "1"));
+        var result = await _NodeRpcApi.PolygonNodeRpc.PolygonEstimateGasAsync(new PolygonEstimateGas("0xda54cb99712957c10b9f73279c2e84af4ff45ff0", "0x409eb7cafdec6aa83a8221b3af227e67841c1c0d", "1"));
 
         result.GasLimit.Should().NotBeNullOrWhiteSpace();
         result.GasPrice.Should().NotBeNullOrWhiteSpace();
@@ -75,7 +75,7 @@ public class PolygonBlockchainFeesApiTests
     [Fact]
     public async Task EstimateFeeBlockchain_ShouldReturnFee_WhenCalled()
     {
-        var result = await _blockchainFeesApi.BitcoinBlockchainFees.EstimateFeeBlockchainAsync(
+        var result = await _NodeRpcApi.BitcoinNodeRpc.EstimateFeeBlockchainAsync(
             new EstimateFeeFromAddress(
                 EstimateFeeFromAddress.ChainEnum.BTC, 
                 EstimateFeeFromAddress.TypeEnum.TRANSFER, 
@@ -91,7 +91,7 @@ public class PolygonBlockchainFeesApiTests
     [Fact]
     public async Task GetBlockchainFee_ShouldReturnFee_WhenCalled()
     {
-        var result = await _blockchainFeesApi.BitcoinBlockchainFees.GetBlockchainFeeAsync();
+        var result = await _NodeRpcApi.BitcoinNodeRpc.GetBlockchainFeeAsync();
 
         result.Fast.Should().BePositive();
         result.Medium.Should().BePositive();
@@ -101,7 +101,7 @@ public class PolygonBlockchainFeesApiTests
     [Fact]
     public async Task EthEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var result = await _blockchainFeesApi.EthereumBlockchainFees.EthEstimateGasAsync(new EthEstimateGas("0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380", "0xd9cfbfe18fb9bf3871da5528061582ec08b97166", null, "1"));
+        var result = await _NodeRpcApi.EthereumNodeRpc.EthEstimateGasAsync(new EthEstimateGas("0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380", "0xd9cfbfe18fb9bf3871da5528061582ec08b97166", null, "1"));
 
         result.GasLimit.Should().NotBeNullOrWhiteSpace();
         result.GasPrice.Should().NotBeNullOrWhiteSpace();
@@ -110,7 +110,7 @@ public class PolygonBlockchainFeesApiTests
     [Fact]
     public async Task BscEstimateGas_ShouldReturnFee_WhenCalled()
     {
-        var result = await _blockchainFeesApi.BscBlockchainFees.BscEstimateGasAsync(new BscEstimateGas("0x3466bc2d2b5f425a8655611eb0e526eaeb103c16", "0xd3f039d5629df5753fcb36ee7db826bdd2d574e3", "1"));
+        var result = await _NodeRpcApi.BscNodeRpc.BscEstimateGasAsync(new BscEstimateGas("0x3466bc2d2b5f425a8655611eb0e526eaeb103c16", "0xd3f039d5629df5753fcb36ee7db826bdd2d574e3", "1"));
 
         result.GasLimit.Should().NotBeNullOrWhiteSpace();
         result.GasPrice.Should().NotBeNullOrWhiteSpace();

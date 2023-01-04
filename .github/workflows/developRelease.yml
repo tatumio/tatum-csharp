@@ -33,6 +33,7 @@ jobs:
           FungibleTokens,
           BlockchainFees,
           MultiTokens,
+          NodeRpc,
           Bsc,
           Harmony,
           Bitcoin,
