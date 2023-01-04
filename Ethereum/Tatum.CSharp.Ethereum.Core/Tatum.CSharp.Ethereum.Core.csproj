@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fix Debug Mode issues in release build.</PackageReleaseNotes>
+    <PackageReleaseNotes>Include NodeRpc operations in packages. Tatum.CSharp.NodeRpc package released.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
