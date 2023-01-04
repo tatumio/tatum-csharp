@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
     /// <summary>
     /// A URI builder

@@ -28,7 +28,7 @@ using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
     /// <summary>
     /// To Serialize/Deserialize JSON using our custom logic, but only when ContentType is JSON.
@@ -68,10 +68,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Client
         /// <returns>A JSON string.</returns>
         public string Serialize(object obj)
         {
-            if (obj != null && obj is Tatum.CSharp.BlockchainFees.Core.Model.AbstractOpenAPISchema)
+            if (obj != null && obj is Tatum.CSharp.NodeRpc.Core.Model.AbstractOpenAPISchema)
             {
                 // the object to be serialized is an oneOf/anyOf schema
-                return ((Tatum.CSharp.BlockchainFees.Core.Model.AbstractOpenAPISchema)obj).ToJson();
+                return ((Tatum.CSharp.NodeRpc.Core.Model.AbstractOpenAPISchema)obj).ToJson();
             }
             else
             {
@@ -202,7 +202,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Client
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
         public ApiClient(HttpClient client, HttpClientHandler handler = null) :
-                 this(client, Tatum.CSharp.BlockchainFees.Core.Client.GlobalConfiguration.Instance.BasePath, handler)
+                 this(client, Tatum.CSharp.NodeRpc.Core.Client.GlobalConfiguration.Instance.BasePath, handler)
         {
         }
 
@@ -462,7 +462,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Client
                 object responseData = await deserializer.Deserialize<T>(response).ConfigureAwait(false);
 
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(Tatum.CSharp.BlockchainFees.Core.Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
+                if (typeof(Tatum.CSharp.NodeRpc.Core.Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
                 {
                     responseData = (T) typeof(T).GetMethod("FromJson").Invoke(null, new object[] { response.Content });
                 }

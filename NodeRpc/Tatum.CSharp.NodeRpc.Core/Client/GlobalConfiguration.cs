@@ -10,7 +10,7 @@
 
 using System.Collections.Generic;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
     /// <summary>
     /// <see cref="GlobalConfiguration"/> provides a compile-time extension point for globally configuring

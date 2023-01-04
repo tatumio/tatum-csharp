@@ -10,7 +10,7 @@
 
 using System;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
     /// <summary>
     /// Represents configuration aspects required to interact with the API endpoints.

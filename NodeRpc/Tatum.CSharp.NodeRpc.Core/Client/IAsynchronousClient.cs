@@ -11,7 +11,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
     /// <summary>
     /// Contract for Asynchronous RESTful API interactions.

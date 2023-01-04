@@ -10,7 +10,7 @@
 
 using System.IO;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Client
+namespace Tatum.CSharp.NodeRpc.Core.Client
 {
 
     /// <summary>

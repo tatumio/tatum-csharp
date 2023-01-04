@@ -12,7 +12,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Tatum.CSharp.BlockchainFees.Core.Model
+namespace Tatum.CSharp.NodeRpc.Core.Model
 {
     /// <summary>
     ///  Abstract base class for oneOf, anyOf schemas in the OpenAPI specification
