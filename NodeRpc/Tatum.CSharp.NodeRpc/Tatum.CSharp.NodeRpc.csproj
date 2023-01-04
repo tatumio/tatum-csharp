@@ -29,7 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Tatum.CSharp.Evm.Local\Tatum.CSharp.Evm.Local.csproj" PrivateAssets="all" />
       <ProjectReference Include="..\Tatum.CSharp.NodeRpc.Core\Tatum.CSharp.NodeRpc.Core.csproj" PrivateAssets="all" />
         <ProjectReference Include="..\..\Tatum.CSharp.Utils\Tatum.CSharp.Utils.csproj" PrivateAssets="all" />
     </ItemGroup>
