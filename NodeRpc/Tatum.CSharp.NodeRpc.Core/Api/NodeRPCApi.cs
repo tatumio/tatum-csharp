@@ -33,12 +33,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>Object</returns>
-        Object NodeJsonRpcGetDriver(string xApiKey, string chain, string rpcPath, string nodeType = default(string));
+        Object NodeJsonRpcGetDriver(string chain, string rpcPath, string nodeType = default(string));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -46,7 +45,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -54,7 +52,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>Object</returns>
-        Object NodeJsonRpcPostDriver(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
+        Object NodeJsonRpcPostDriver(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -62,13 +60,12 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>Object</returns>
-        Object NodeJsonRpcPutDriver(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string));
+        Object NodeJsonRpcPutDriver(string chain, string rpcPath, Object body, string nodeType = default(string));
         #endregion Synchronous Operations
     }
 
@@ -85,12 +82,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> NodeJsonRpcGetDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, string nodeType = default(string));
+        ApiResponse<Object> NodeJsonRpcGetDriverWithHttpInfo(string chain, string rpcPath, string nodeType = default(string));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -98,7 +94,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -106,7 +101,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
+        ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -114,13 +109,12 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> NodeJsonRpcPutDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string));
+        ApiResponse<Object> NodeJsonRpcPutDriverWithHttpInfo(string chain, string rpcPath, Object body, string nodeType = default(string));
         #endregion Synchronous Operations With Http Info
     }
 
@@ -137,13 +131,12 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> NodeJsonRpcGetDriverAsync(string xApiKey, string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Object> NodeJsonRpcGetDriverAsync(string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -151,7 +144,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -160,7 +152,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -168,14 +160,13 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> NodeJsonRpcPutDriverAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Object> NodeJsonRpcPutDriverAsync(string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -192,13 +183,12 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcGetDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcGetDriverWithHttpInfoAsync(string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -206,7 +196,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -215,7 +204,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Connect to the blockchain node through an RPC driver
         /// </summary>
@@ -223,14 +212,13 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </remarks>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPutDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPutDriverWithHttpInfoAsync(string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -385,14 +373,13 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>Object</returns>
-        public Object NodeJsonRpcGetDriver(string xApiKey, string chain, string rpcPath, string nodeType = default(string))
+        public Object NodeJsonRpcGetDriver(string chain, string rpcPath, string nodeType = default(string))
         {
-            var localVarResponse = NodeJsonRpcGetDriverWithHttpInfo(xApiKey, chain, rpcPath, nodeType);
+            var localVarResponse = NodeJsonRpcGetDriverWithHttpInfo(chain, rpcPath, nodeType);
 
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcGetDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -404,17 +391,12 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> NodeJsonRpcGetDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, string nodeType = default(string))
+        public ApiResponse<Object> NodeJsonRpcGetDriverWithHttpInfo(string chain, string rpcPath, string nodeType = default(string))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcGetDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcGetDriver");
@@ -439,7 +421,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -454,7 +435,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Get<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Get<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -463,15 +444,14 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> NodeJsonRpcGetDriverAsync(string xApiKey, string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Object> NodeJsonRpcGetDriverAsync(string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await NodeJsonRpcGetDriverWithHttpInfoAsync(xApiKey, chain, rpcPath, nodeType, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await NodeJsonRpcGetDriverWithHttpInfoAsync(chain, rpcPath, nodeType, cancellationToken).ConfigureAwait(false);
             
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcGetDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -483,18 +463,13 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The GET method is used. The API endpoint URL acts as an HTTP-based RPC driver. This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Flow Lisk Stellar Tezos TRON
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcGetDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcGetDriverWithHttpInfoAsync(string chain, string rpcPath, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcGetDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcGetDriver");
@@ -520,7 +495,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -536,7 +510,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.GetAsync<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.GetAsync<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -545,7 +519,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -553,9 +526,9 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>Object</returns>
-        public Object NodeJsonRpcPostDriver(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
+        public Object NodeJsonRpcPostDriver(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
         {
-            var localVarResponse = NodeJsonRpcPostDriverWithHttpInfo(xApiKey, chain, rpcPath, body, nodeType, testnetType, chainType);
+            var localVarResponse = NodeJsonRpcPostDriverWithHttpInfo(chain, rpcPath, body, nodeType, testnetType, chainType);
 
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcPostDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -567,7 +540,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -575,12 +547,8 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
+        public ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcPostDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcPostDriver");
@@ -610,7 +578,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -634,7 +601,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Post<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Post<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -643,7 +610,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -652,9 +618,9 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await NodeJsonRpcPostDriverWithHttpInfoAsync(xApiKey, chain, rpcPath, body, nodeType, testnetType, chainType, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await NodeJsonRpcPostDriverWithHttpInfoAsync(chain, rpcPath, body, nodeType, testnetType, chainType, cancellationToken).ConfigureAwait(false);
             
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcPostDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -666,7 +632,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver The number of credits consumed depends on the number of methods submitted in an API call: * 50 credits per debug*_/trace* method (for EVM-based blockchains) * 50 credits per EOS Trace API methods * 5 credits per eth_call method (for EVM-based blockchains) * 2 credits per any other RPC method Connect directly to the blockchain node provided by Tatum. The POST method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand Arbitrum Aurora Avalanche C-Chain Avalanche P-Chain Avalanche X-Chain Bitcoin Bitcoin Cash BNB Beacon Chain BNB Smart Chain Cardano Celo Cronos Dogecoin Elrond EOSIO Ethereum Fantom Flow Gnosis Harmony Klaytn KuCoin Community Chain Kusama Lisk Litecoin NEAR Neo Oasis Network Optimism Palm Polkadot Polygon RSK Solana Stellar Tezos TRON VeChain XinFin XRP ZCash Zilliqa
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
@@ -675,12 +640,8 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(string chain, string rpcPath, Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcPostDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcPostDriver");
@@ -711,7 +672,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -736,7 +696,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.PostAsync<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
@@ -745,15 +705,14 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>Object</returns>
-        public Object NodeJsonRpcPutDriver(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string))
+        public Object NodeJsonRpcPutDriver(string chain, string rpcPath, Object body, string nodeType = default(string))
         {
-            var localVarResponse = NodeJsonRpcPutDriverWithHttpInfo(xApiKey, chain, rpcPath, body, nodeType);
+            var localVarResponse = NodeJsonRpcPutDriverWithHttpInfo(chain, rpcPath, body, nodeType);
 
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcPutDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -765,18 +724,13 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> NodeJsonRpcPutDriverWithHttpInfo(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string))
+        public ApiResponse<Object> NodeJsonRpcPutDriverWithHttpInfo(string chain, string rpcPath, Object body, string nodeType = default(string))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcPutDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcPutDriver");
@@ -806,7 +760,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -822,7 +775,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Put<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Put<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
@@ -831,16 +784,15 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> NodeJsonRpcPutDriverAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Object> NodeJsonRpcPutDriverAsync(string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await NodeJsonRpcPutDriverWithHttpInfoAsync(xApiKey, chain, rpcPath, body, nodeType, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await NodeJsonRpcPutDriverWithHttpInfoAsync(chain, rpcPath, body, nodeType, cancellationToken).ConfigureAwait(false);
             
             var exception = ExceptionFactory?.Invoke("NodeJsonRpcPutDriver", localVarResponse);
             if (exception != null) throw exception;
@@ -852,19 +804,14 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// Connect to the blockchain node through an RPC driver 2 credits per RPC method in an API call Connect directly to the blockchain node provided by Tatum. The PUT method is used. The API endpoint URL acts as an HTTP-based RPC driver. In the request body, provide valid Web3 RPC method content, for example:  {   \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,   \&quot;id\&quot;: 1,   \&quot;method\&quot;: \&quot;method_name\&quot;,   \&quot;params\&quot;: [] } For the blockchains using the JSON-RPC 2.0 specification, you can submit multiple RPC methods in one API call:  [   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 1,     \&quot;method\&quot;: \&quot;method_1_name\&quot;,     \&quot;params\&quot;: []   },   {     \&quot;jsonrpc\&quot;: \&quot;2.0\&quot;,     \&quot;id\&quot;: 2,     \&quot;method\&quot;: \&quot;method_2_name\&quot;,     \&quot;params\&quot;: []   },   ... ] This API is supported for the following blockchains: Algorand BNB Beacon Chain Elrond Stellar
         /// </summary>
         /// <exception cref="Tatum.CSharp.NodeRpc.Core.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="xApiKey">Tatum X-API-Key used for authorization. You can omit this path parameter and either use the X-Api-Key header, or the API key tied to your IP address without any header.</param>
         /// <param name="chain">Blockchain to communicate with.</param>
         /// <param name="rpcPath">Optional path of rpc call for non EVM nodes, e.g. Algorand or Stellar.</param>
         /// <param name="body"></param>
         /// <param name="nodeType">Type of the node to access for Algorand. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPutDriverWithHttpInfoAsync(string xApiKey, string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPutDriverWithHttpInfoAsync(string chain, string rpcPath, Object body, string nodeType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            // verify the required parameter 'xApiKey' is set
-            if (xApiKey == null)
-                throw new ApiException(400, "Missing required parameter 'xApiKey' when calling NodeRPCApi->NodeJsonRpcPutDriver");
-
             // verify the required parameter 'chain' is set
             if (chain == null)
                 throw new ApiException(400, "Missing required parameter 'chain' when calling NodeRPCApi->NodeJsonRpcPutDriver");
@@ -895,7 +842,6 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
             var localVarAccept = ClientUtils.SelectHeaderAccept(accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-            localVarRequestOptions.PathParameters.Add("xApiKey", ClientUtils.ParameterToString(xApiKey)); // path parameter
             localVarRequestOptions.PathParameters.Add("chain", ClientUtils.ParameterToString(chain)); // path parameter
             localVarRequestOptions.PathParameters.Add("rpcPath", ClientUtils.ParameterToString(rpcPath)); // path parameter
             if (nodeType != null)
@@ -912,7 +858,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.PutAsync<Object>("/v3/blockchain/node/{chain}/{xApiKey}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.PutAsync<Object>("/v3/blockchain/node/{chain}/{rpcPath}", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
