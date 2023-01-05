@@ -51,6 +51,16 @@ namespace Tatum.CSharp.Ethereum.Clients
         
         // Client wrapping all blockchain fee estimation operations with full <see cref="ApiResponse{T}"/> return types.
         IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Ethereum NodeRpc.
+        /// </summary>
+        INodeRPCApiAsync EthereumNodeRpc { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Ethereum NodeRpc with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        INodeRPCApiWithHttpInfoAsync EthereumNodeRpcWithHttpInfo { get; }
 
         // Service for local operations that can be used to keep all sensitive information local.
         IEvmLocalService Local { get; }

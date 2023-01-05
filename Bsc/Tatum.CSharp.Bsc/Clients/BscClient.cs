@@ -42,6 +42,12 @@ namespace Tatum.CSharp.Bsc.Clients
         public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public INodeRPCApiAsync BscNodeRpc { get; }
+        
+        /// <inheritdoc />
+        public INodeRPCApiWithHttpInfoAsync BscNodeRpcWithHttpInfo { get; }
+
+        /// <inheritdoc />
         public IEvmLocalService Local { get; }
 
         /// <inheritdoc />
@@ -119,6 +125,13 @@ namespace Tatum.CSharp.Bsc.Clients
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
+            
+            var bscNodeRpcApi = new NodeRPCApi(httpClient);
+            
+            bscNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BscNodeRpc = bscNodeRpcApi;
+            BscNodeRpcWithHttpInfo = bscNodeRpcApi;
             
             Local = new EvmLocalService(isTestNet);
             

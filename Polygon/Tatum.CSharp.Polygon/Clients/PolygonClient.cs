@@ -42,6 +42,12 @@ namespace Tatum.CSharp.Polygon.Clients
         public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public INodeRPCApiAsync PolygonNodeRpc { get; }
+        
+        /// <inheritdoc />
+        public INodeRPCApiWithHttpInfoAsync PolygonNodeRpcWithHttpInfo { get; }
+
+        /// <inheritdoc />
         public IEvmLocalService Local { get; }
 
         /// <inheritdoc />
@@ -119,6 +125,13 @@ namespace Tatum.CSharp.Polygon.Clients
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
+            
+            var polygonNodeRpcApi = new NodeRPCApi(httpClient);
+            
+            polygonNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            PolygonNodeRpc = polygonNodeRpcApi;
+            PolygonNodeRpcWithHttpInfo = polygonNodeRpcApi;
             
             Local = new EvmLocalService(isTestNet);
             
