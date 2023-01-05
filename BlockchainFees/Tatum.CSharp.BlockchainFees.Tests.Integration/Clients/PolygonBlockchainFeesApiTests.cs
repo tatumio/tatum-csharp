@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Tatum.CSharp.BlockchainFees.Tests.Integration.Clients;
 
-[Collection("Ethereum")]
+[Collection("Polygon")]
 public class PolygonBlockchainFeesApiTests
 {
     private readonly IBlockchainFeesClient _blockchainFeesApi;

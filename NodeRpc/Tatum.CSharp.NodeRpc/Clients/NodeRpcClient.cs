@@ -8,10 +8,25 @@ namespace Tatum.CSharp.NodeRpc.Clients
     public class NodeRpcClient : INodeRpcClient
     {
         /// <inheritdoc />
-        public INodeRPCApiAsync NodeRpc { get; }
-        
+        public INodeRPCBtcApiAsync BitcoinNodeRpc { get; }
         /// <inheritdoc />
-        public INodeRPCApiWithHttpInfoAsync NodeRpcWithHttpInfo { get; }
+        public INodeRPCBtcApiWithHttpInfoAsync BitcoinNodeRpcWithHttpInfo { get; }
+        /// <inheritdoc />
+        public INodeRPCEthApiAsync EthereumNodeRpc { get; }
+        /// <inheritdoc />
+        public INodeRPCEthApiWithHttpInfoAsync EthereumNodeRpcWithHttpInfo { get; }
+        /// <inheritdoc />
+        public INodeRPCMaticApiAsync PolygonNodeRpc { get; }
+        /// <inheritdoc />
+        public INodeRPCMaticApiWithHttpInfoAsync PolygonNodeRpcWithHttpInfo { get; }
+        /// <inheritdoc />
+        public INodeRPCBscApiAsync BscNodeRpc { get; }
+        /// <inheritdoc />
+        public INodeRPCBscApiWithHttpInfoAsync BscNodeRpcWithHttpInfo { get; }
+        /// <inheritdoc />
+        public INodeRPCOneApiAsync HarmonyNodeRpc { get; }
+        /// <inheritdoc />
+        public INodeRPCOneApiWithHttpInfoAsync HarmonyNodeRpcWithHttpInfo { get; }
 
         /// <summary>
         /// Creates an instance of <see cref="NodeRpcClient"/>.
@@ -51,12 +66,40 @@ namespace Tatum.CSharp.NodeRpc.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public NodeRpcClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var nodeRpcApi = new NodeRPCApi(httpClient);
+            var ethereumNodeRpcApi = new NodeRPCEthApi(httpClient);
             
-            nodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            ethereumNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             
-            NodeRpc = nodeRpcApi;
-            NodeRpcWithHttpInfo = nodeRpcApi;
+            EthereumNodeRpc = ethereumNodeRpcApi;
+            EthereumNodeRpcWithHttpInfo = ethereumNodeRpcApi;
+            
+            var polygonNodeRpcApi = new NodeRPCMaticApi(httpClient);
+            
+            polygonNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            PolygonNodeRpc = polygonNodeRpcApi;
+            PolygonNodeRpcWithHttpInfo = polygonNodeRpcApi;
+            
+            var bscNodeRpcApi = new NodeRPCBscApi(httpClient);
+            
+            bscNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BscNodeRpc = bscNodeRpcApi;
+            BscNodeRpcWithHttpInfo = bscNodeRpcApi;
+            
+            var oneNodeRpcApi = new NodeRPCOneApi(httpClient);
+            
+            oneNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            HarmonyNodeRpc = oneNodeRpcApi;
+            HarmonyNodeRpcWithHttpInfo = oneNodeRpcApi;
+            
+            var btcNodeRpcApi = new NodeRPCBtcApi(httpClient);
+            
+            btcNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BitcoinNodeRpc = btcNodeRpcApi;
+            BitcoinNodeRpcWithHttpInfo = btcNodeRpcApi;
         }
     }
 }
