@@ -8,7 +8,7 @@ using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
 using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Polygon.Clients;
-using Tatum.CSharp.Utils;
+using Tatum.CSharp.Utils.DebugMode;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using Tatum.CSharp.NodeRpc.Clients;
-using Tatum.CSharp.Utils;
+using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
 namespace Tatum.CSharp.NodeRpc.Tests.Integration.Clients;
