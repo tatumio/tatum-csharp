@@ -1,4 +1,5 @@
 ﻿using Tatum.CSharp.NodeRpc.Core.Api;
+using Tatum.CSharp.NodeRpc.Core.Client;
 
 namespace Tatum.CSharp.NodeRpc.Clients
 {

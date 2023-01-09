@@ -35,7 +35,7 @@ public class PolygonMultiTokensApiTests
         httpClient.InnerHandler = new HttpClientHandler();
         
         _multiTokensApi = new MultiTokensClient(new HttpClient(httpClient), apiKey, true);
-        _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
+        _polygonApi = new PolygonClient(new HttpClient(httpClient), apiKey, true);
     }
     
     [Fact(Skip = "Requires manual setup")]
