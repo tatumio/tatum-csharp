@@ -7,6 +7,7 @@ using Tatum.CSharp.Solana.Clients;
 using Tatum.CSharp.Solana.Core.Client;
 using Tatum.CSharp.Solana.Core.Model;
 using Tatum.CSharp.Solana.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyXunit;
 using Xunit;
 
@@ -27,7 +28,10 @@ public class SolanaApiTests
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.SolanaTestData;
 
-        _solanaApi = new SolanaClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _solanaApi = new SolanaClient(new HttpClient(httpClient), apiKey, true);
     }
 
     [Fact]

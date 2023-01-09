@@ -10,6 +10,7 @@ using Tatum.CSharp.Nft.Clients;
 using Tatum.CSharp.Nft.Core.Client;
 using Tatum.CSharp.Nft.Core.Model;
 using Tatum.CSharp.Nft.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -33,7 +34,10 @@ public class EthereumNftApiTests
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
 
-        _nftApi = new NftClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _nftApi = new NftClient(new HttpClient(httpClient), apiKey, true);
     }
 
     [Fact]

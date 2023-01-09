@@ -15,6 +15,7 @@ using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Harmony.Core.Client;
 using Tatum.CSharp.Harmony.Core.Model;
 using Tatum.CSharp.Harmony.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -37,7 +38,10 @@ public class HarmonyApiTests : IAsyncDisposable
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.HarmonyTestData;
 
-        _harmonyApi = new HarmonyClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _harmonyApi = new HarmonyClient(new HttpClient(httpClient), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressOne>>(x => x.Headers);
     }
 

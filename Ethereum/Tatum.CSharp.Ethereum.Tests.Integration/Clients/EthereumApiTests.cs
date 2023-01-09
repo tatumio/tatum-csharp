@@ -15,6 +15,7 @@ using Tatum.CSharp.Ethereum.Core.Client;
 using Tatum.CSharp.Ethereum.Core.Model;
 using Tatum.CSharp.Ethereum.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Evm.Local.Models;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -38,7 +39,10 @@ public class EthereumApiTests : IAsyncDisposable
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.EthereumTestData;
 
-        _ethereumApi = new EthereumClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _ethereumApi = new EthereumClient(new HttpClient(httpClient), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressEth>>(x => x.Headers);
     }
 

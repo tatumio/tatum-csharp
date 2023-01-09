@@ -10,6 +10,7 @@ using Tatum.CSharp.FungibleTokens.Core.Client;
 using Tatum.CSharp.FungibleTokens.Core.Model;
 using Tatum.CSharp.FungibleTokens.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Polygon.Clients;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using Xunit;
 
@@ -31,8 +32,11 @@ public class PolygonFungibleTokensApiTests
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
 
-        _fungibleTokensApi = new FungibleTokensClient(new HttpClient(), apiKey, true);
-        _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _fungibleTokensApi = new FungibleTokensClient(new HttpClient(httpClient), apiKey, true);
+        _polygonApi = new PolygonClient(new HttpClient(httpClient), apiKey, true);
     }
     
     [Fact]
