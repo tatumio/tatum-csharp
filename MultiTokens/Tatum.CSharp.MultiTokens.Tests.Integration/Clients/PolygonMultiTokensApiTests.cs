@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.MultiTokens.Clients;
-using Tatum.CSharp.Utils;
+using Tatum.CSharp.Utils.DebugMode;
 using Tatum.CSharp.MultiTokens.Core.Model;
 using Tatum.CSharp.MultiTokens.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Polygon.Clients;
