@@ -42,6 +42,12 @@ namespace Tatum.CSharp.Harmony.Clients
         public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public INodeRPCApiAsync HarmonyNodeRpc { get; }
+        
+        /// <inheritdoc />
+        public INodeRPCApiWithHttpInfoAsync HarmonyNodeRpcWithHttpInfo { get; }
+
+        /// <inheritdoc />
         public IEvmLocalService Local { get; }
 
         /// <inheritdoc />
@@ -119,6 +125,13 @@ namespace Tatum.CSharp.Harmony.Clients
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
+            
+            var oneNodeRpcApi = new NodeRPCApi(httpClient);
+            
+            oneNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            HarmonyNodeRpc = oneNodeRpcApi;
+            HarmonyNodeRpcWithHttpInfo = oneNodeRpcApi;
             
             Local = new EvmLocalService(isTestNet);
             

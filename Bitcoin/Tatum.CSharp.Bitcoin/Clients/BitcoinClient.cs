@@ -21,6 +21,12 @@ namespace Tatum.CSharp.Bitcoin.Clients
         public IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public INodeRPCApiAsync BitcoinNodeRpc { get; }
+        
+        /// <inheritdoc />
+        public INodeRPCApiWithHttpInfoAsync BitcoinNodeRpcWithHttpInfo { get; }
+
+        /// <inheritdoc />
         public IBitcoinLocalService Local { get; }
         
         /// <summary>
@@ -75,6 +81,13 @@ namespace Tatum.CSharp.Bitcoin.Clients
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
 
+            var btcNodeRpcApi = new NodeRPCApi(httpClient);
+            
+            btcNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            BitcoinNodeRpc = btcNodeRpcApi;
+            BitcoinNodeRpcWithHttpInfo = btcNodeRpcApi;
+            
             Local = new BitcoinLocalService(isTestNet);
         }
     }

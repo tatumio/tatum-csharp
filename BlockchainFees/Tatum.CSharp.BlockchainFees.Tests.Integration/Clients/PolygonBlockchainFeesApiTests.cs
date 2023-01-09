@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.BlockchainFees.Clients;
 using Tatum.CSharp.BlockchainFees.Core.Model;
+using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
 namespace Tatum.CSharp.BlockchainFees.Tests.Integration.Clients;
 
-[Collection("Ethereum")]
+[Collection("Polygon")]
 public class PolygonBlockchainFeesApiTests
 {
     private readonly IBlockchainFeesClient _blockchainFeesApi;
@@ -18,7 +19,10 @@ public class PolygonBlockchainFeesApiTests
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
-        _blockchainFeesApi = new BlockchainFeesClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _blockchainFeesApi = new BlockchainFeesClient(new HttpClient(httpClient), apiKey, true);
     }
     
     [Theory]

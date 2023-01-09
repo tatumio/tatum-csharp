@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Tatum.CSharp.Bitcoin.Local\Tatum.CSharp.Bitcoin.Local.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="..\..\Tatum.CSharp.Utils\Tatum.CSharp.Utils.csproj" PrivateAssets="all" />
       <ProjectReference Include="..\Tatum.CSharp.Bitcoin.Core\Tatum.CSharp.Bitcoin.Core.csproj" PrivateAssets="all"/>
     </ItemGroup>
 

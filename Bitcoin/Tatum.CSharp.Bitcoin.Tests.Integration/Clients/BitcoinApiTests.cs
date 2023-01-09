@@ -12,6 +12,7 @@ using Tatum.CSharp.Bitcoin.Clients;
 using Tatum.CSharp.Bitcoin.Core.Client;
 using Tatum.CSharp.Bitcoin.Core.Model;
 using Tatum.CSharp.Bitcoin.Local.Models;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -33,7 +34,10 @@ public class BitcoinApiTests : IAsyncDisposable
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets)?.BitcoinTestData;
 
-        _bitcoinApi = new BitcoinClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _bitcoinApi = new BitcoinClient(new HttpClient(httpClient), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressBtc>>(x => x.Headers);
     }
 

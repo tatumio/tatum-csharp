@@ -14,6 +14,7 @@ using Tatum.CSharp.Bsc.Core.Client;
 using Tatum.CSharp.Bsc.Core.Model;
 using Tatum.CSharp.Bsc.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Evm.Local.Models;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -36,7 +37,10 @@ public class BscApiTests : IAsyncDisposable
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.BscTestData;
 
-        _bscApi = new BscClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _bscApi = new BscClient(new HttpClient(httpClient), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressBsc>>(x => x.Headers);
     }
 

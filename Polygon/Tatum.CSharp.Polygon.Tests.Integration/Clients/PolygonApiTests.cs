@@ -14,6 +14,7 @@ using Tatum.CSharp.Polygon.Clients;
 using Tatum.CSharp.Polygon.Core.Client;
 using Tatum.CSharp.Polygon.Core.Model;
 using Tatum.CSharp.Polygon.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Utils.DebugMode;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -37,7 +38,10 @@ public class PolygonApiTests : IAsyncDisposable
 
         _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
 
-        _polygonApi = new PolygonClient(new HttpClient(), apiKey, true);
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
+        _polygonApi = new PolygonClient(new HttpClient(httpClient), apiKey, true);
         VerifierSettings.IgnoreMember<ApiResponse<GeneratedAddressMatic>>(x => x.Headers);
     }
     

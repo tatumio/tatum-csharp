@@ -22,6 +22,16 @@ namespace Tatum.CSharp.Bitcoin.Clients
         // Client wrapping all blockchain fee estimation operations with full <see cref="ApiResponse{T}"/> return types.
         IBlockchainFeesApiWithHttpInfoAsync BlockchainFeesWithHttpInfo { get; }
         
+        /// <summary>
+        /// Client wrapping all operations related to the Bitcoin NodeRpc.
+        /// </summary>
+        INodeRPCApiAsync BitcoinNodeRpc { get; }
+        
+        /// <summary>
+        /// Client wrapping all operations related to the Bitcoin NodeRpc with full <see cref="ApiResponse{T}"/> return types.
+        /// </summary>
+        INodeRPCApiWithHttpInfoAsync BitcoinNodeRpcWithHttpInfo { get; }
+        
         // Service for local operations that can be used to keep all sensitive information local.
         IBitcoinLocalService Local { get; }
     }

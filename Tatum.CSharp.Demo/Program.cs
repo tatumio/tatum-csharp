@@ -8,7 +8,7 @@ using Tatum.CSharp.Demo.ExampleServices.Bitcoin;
 using Tatum.CSharp.Ethereum.Clients;
 using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Polygon.Clients;
-using Tatum.CSharp.Utils;
+using Tatum.CSharp.Utils.DebugMode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen();
 
 // Use your ApiKey from Tatum Dashboard (main/test)
 var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+
+builder.Services.AddSingleton(x => new DebugModeHandler());
 
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
