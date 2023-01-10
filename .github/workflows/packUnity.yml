@@ -1,9 +1,10 @@
 name: Pack Unity DLLs
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       version:
+        description: 'Package Version'
         required: true
         type: string
 
@@ -11,22 +12,15 @@ jobs:
   Pack_Unity:
     strategy:
       matrix:
-        arrays: [
-          { chain: "Ethereum", dependsOn: "Evm.Local" },
-          { chain: "Bitcoin", dependsOn: "Bitcoin.Local" },
-          { chain: "Nft", dependsOn: "Evm.Local" },
-          { chain: "FungibleTokens", dependsOn: "Evm.Local" },
-          { chain: "MultiTokens", dependsOn: "Evm.Local" },
-          { chain: "Polygon", dependsOn: "Evm.Local" },
-          { chain: "Bsc", dependsOn: "Evm.Local" },
-          { chain: "Harmony", dependsOn: "Evm.Local" }
+        package: [
+          Ethereum
         ]
-    name: ${{ matrix.arrays.chain }} - Unity Package Artifact
+    name: ${{ matrix.package }} - Unity Package Artifact
     runs-on: ubuntu-latest
     env:
-      PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.chain }}
-      DEPENDENCY_NAME: Tatum.CSharp.${{ matrix.arrays.dependsOn }}
-      ARTEFACT_NAME: Unity-${{ matrix.arrays.chain }}
+      PACKAGE_NAME: Tatum.CSharp.${{ matrix.package }}
+      ARTEFACT_NAME: Unity-${{ matrix.package }}
+      PROJECT_PATH: ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.csproj
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -34,18 +28,27 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - name: Add version number to 'Tatum_SDK_Unity' string in Configuration.cs
+      - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/${{ inputs.version }},g" ./Tatum.CSharp.Core/Client/Configuration.cs
-          grep -i "Tatum_SDK_CSharp" ./Tatum.CSharp.Core/Client/Configuration.cs    
-      - name: Ethereum - Get Dependencies
-        run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ matrix.package }}/${{ inputs.version }},g" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Client/Configuration.cs   
+      - name: Propagate PackageReleaseNotes from the Core package .csproj
+        run: |
+          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Tatum.CSharp.${{ matrix.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
+      - name: ${{ matrix.package }} - Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: ${{ matrix.package }} - Build
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: Gather DLLs
         run: |
+          cd ${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}
+          ls
           fromPath=./packages
           for dir in "$fromPath"/*/; do
             dest="$fromPath"/${{ env.PACKAGE_NAME }}
             mkdir -p "$dest"
+          
+            echo "Created $dest"
           
             patternArray=(
               "$dir"lib/netstandard2.0/*.dll
@@ -71,17 +74,19 @@ jobs:
                 cp -v "$match" "$dest"
                 break
               fi
-            done          
+            done   
+          
+          ls -l "$dest"
           done
       - name: Create Unity Package Artefact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTEFACT_NAME }}
           path: |
-            ./Tatum.CSharp.Core
-            ./${{ env.DEPENDENCY_NAME }}
+            ./${{ matrix.package }}
             ./${{ env.PACKAGE_NAME }}
             ./packages
+            !**/bin
+            !**/obj
             !./packages/Tatum.CSharp.Core.dll
-            !./packages/${{ env.DEPENDENCY_NAME }}.dll
             !./packages/${{ env.PACKAGE_NAME }}.dll
