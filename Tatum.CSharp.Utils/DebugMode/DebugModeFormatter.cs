@@ -197,27 +197,11 @@ namespace Tatum.CSharp.Utils.DebugMode
                 }
             }
 
-            var mediaType = response.Content.Headers.ContentType.MediaType;
-
             var content = await response.Content.ReadAsStringAsync();
             
-            switch (mediaType)
+            if(hideSecrets)
             {
-                case "application/octet-stream":
-                    content = "( binary data )";
-                    break;
-                case "multipart/form-data":
-                    if(content.Contains("application/octet-stream"))
-                    {
-                        content = "( binary data )";
-                    }
-                    break;
-                case "application/json":
-                    if(hideSecrets)
-                    {
-                        content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
-                    }
-                    break;
+                content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
             }
 
             var prettyJson = FormatJson(content);
