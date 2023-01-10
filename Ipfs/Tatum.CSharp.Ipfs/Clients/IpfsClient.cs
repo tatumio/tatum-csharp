@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using Tatum.CSharp.Evm.Local;
 using Tatum.CSharp.Ipfs.Configuration;
 using Tatum.CSharp.Ipfs.Core.Api;
 
@@ -9,10 +8,10 @@ namespace Tatum.CSharp.Ipfs.Clients
     public class IpfsClient : IIpfsClient
     {
         /// <inheritdoc />
-        public IIpfsApiAsync Ipfs { get; }
+        public IIPFSApiAsync Ipfs { get; }
         
         /// <inheritdoc />
-        public IIpfsApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
+        public IIPFSApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
         
         /// <summary>
         /// Creates an instance of <see cref="IpfsClient"/>.
@@ -52,7 +51,7 @@ namespace Tatum.CSharp.Ipfs.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public IpfsClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ipfsApi = new IpfsApi(httpClient);
+            var ipfsApi = new IPFSApi(httpClient);
             
             ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
             

@@ -5,13 +5,13 @@ namespace Tatum.CSharp.Ipfs.Clients
     public interface IIpfsClient
     {
         /// <summary>
-        /// Client wrapping all operations related to the Ipfs.
+        /// Client wrapping all operations related to the IPFS.
         /// </summary>
-        IIpfsApiAsync Ipfs { get; }
+        IIPFSApiAsync Ipfs { get; }
         
         /// <summary>
-        /// Client wrapping all operations related to the Ipfs with full <see cref="ApiResponse{T}"/> return types.
+        /// Client wrapping all operations related to the IPFS with full <see cref="ApiResponse{T}"/> return types.
         /// </summary>
-        IIpfsApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
+        IIPFSApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
     }
 }
