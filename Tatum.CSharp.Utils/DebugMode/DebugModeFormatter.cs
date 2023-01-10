@@ -13,6 +13,8 @@ namespace Tatum.CSharp.Utils.DebugMode
     {
                 
         private const string Redacted = "******";
+        
+        private const int MaxLength = 2000;
 
         private static readonly string[] SensitiveFieldList = new[]
         {
@@ -56,14 +58,24 @@ namespace Tatum.CSharp.Utils.DebugMode
             if (request.Content != null)
             {
                 var content = await request.Content.ReadAsStringAsync();
-                
-                if(hideSecrets)
+
+                var mediaType = request.Content.Headers.ContentType.MediaType;
+
+                switch (mediaType)
                 {
-                    content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                    case "application/octet-stream":
+                        content = "( binary data )";
+                        break;
+                    case "application/json":
+                        if(hideSecrets)
+                        {
+                            content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                        } 
+                        break;
                 }
-                
-                sb.AppendLine($"-H 'Content-Type: application/json' \\");
-                sb.AppendLine($"-d '{content}'");
+
+                sb.AppendLine($"-H 'Content-Type: {mediaType}' \\");
+                sb.AppendLine($"-d '{content.Substring(0, MaxLength)}'");
             }
 
             sb.AppendLine($">>>>>>>>>>>>>>> /Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
@@ -179,16 +191,26 @@ namespace Tatum.CSharp.Utils.DebugMode
                 }
             }
 
-            var content = await response.Content.ReadAsStringAsync();
+            var mediaType = response.Content.Headers.ContentType.MediaType;
 
-            if(hideSecrets)
-            {
-                content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
-            }
+            var content = await response.Content.ReadAsStringAsync();
             
+            switch (mediaType)
+            {
+                case "application/octet-stream":
+                    content = "( binary data )";
+                    break;
+                case "application/json":
+                    if(hideSecrets)
+                    {
+                        content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                    }
+                    break;
+            }
+
             var prettyJson = FormatJson(content);
 
-            sb.AppendLine($"Body: {prettyJson}");
+            sb.AppendLine($"Body: {prettyJson.Substring(0, MaxLength)}");
 
             sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 

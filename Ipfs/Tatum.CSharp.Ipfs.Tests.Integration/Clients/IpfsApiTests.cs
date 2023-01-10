@@ -1,9 +1,12 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Tatum.CSharp.Ipfs.Clients;
+using Tatum.CSharp.Ipfs.Core.Client;
 using Tatum.CSharp.Utils.DebugMode;
 using Tatum.CSharp.MultiTokens.Tests.Integration.TestDataModels;
 using Tatum.CSharp.Polygon.Clients;
@@ -16,21 +19,31 @@ namespace Tatum.CSharp.Ipfs.Tests.Integration.Clients;
 [UsesVerify]
 public class IpfsApiTests
 {
-    private readonly IIPFSClient _IpfsApi;
-    private readonly PolygonTestData _testData;
+    private readonly IIpfsClient _ipfsApi;
 
-    private const string TestSmartContractAddress = "0x4eA4187B91175343E71b2dd79EA5A4Ab2384612e";
-
-    public PolygonIpfsApiTests()
+    public IpfsApiTests()
     {
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        var secrets = Environment.GetEnvironmentVariable("TEST_DATA");
-
-        _testData = JsonSerializer.Deserialize<TestData>(secrets!)?.PolygonTestData;
 
         var httpClient = new DebugModeHandler();
         httpClient.InnerHandler = new HttpClientHandler();
         
-        _IpfsApi = new IpfsClient(new HttpClient(httpClient), apiKey, true);
+        _ipfsApi = new IpfsClient(new HttpClient(httpClient), apiKey, true);
+    }
+    
+    [Fact]
+    public async Task IPFS_ShouldWriteAndRead_WhenCalledWithoutFile()
+    {
+        await File.WriteAllTextAsync("test.txt", "test");
+        
+        var fileStream = File.OpenRead("test.txt");
+        
+        var ipfsResponse = await _ipfsApi.Ipfs.StoreIPFSAsync(new FileParameter(fileStream));
+
+        var ipfsFile = await _ipfsApi.Ipfs.GetIPFSDataAsync(ipfsResponse.IpfsHash);
+        
+        var content = await new StreamReader(ipfsFile.Content).ReadToEndAsync();
+        
+        content.Should().Be("test");
     }
 }
