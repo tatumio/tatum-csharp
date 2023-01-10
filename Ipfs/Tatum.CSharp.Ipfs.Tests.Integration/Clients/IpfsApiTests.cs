@@ -32,7 +32,7 @@ public class IpfsApiTests
     }
     
     [Fact]
-    public async Task IPFS_ShouldWriteAndRead_WhenCalledWithoutFile()
+    public async Task IPFS_ShouldWriteAndRead_WhenCalledWithFile()
     {
         await File.WriteAllTextAsync("test.txt", "test");
         
