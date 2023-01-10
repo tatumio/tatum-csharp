@@ -74,6 +74,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.NodeRpc", "Nod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.NodeRpc.Tests.Integration", "NodeRpc\Tatum.CSharp.NodeRpc.Tests.Integration\Tatum.CSharp.NodeRpc.Tests.Integration.csproj", "{B9F8A4EC-D3CA-4174-A3A2-5ABAA070A4CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ipfs.Core", "Ipfs\Tatum.CSharp.Ipfs.Core\Tatum.CSharp.Ipfs.Core.csproj", "{612D3974-EAF1-4A51-AE4C-125CA91E745B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ipfs", "Ipfs\Tatum.CSharp.Ipfs\Tatum.CSharp.Ipfs.csproj", "{B00C7624-63AE-460B-8426-38ABE37B58BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Ipfs.Tests.Integration", "Ipfs\Tatum.CSharp.Ipfs.Tests.Integration\Tatum.CSharp.Ipfs.Tests.Integration.csproj", "{8115AD19-9609-49B6-A416-66B9BAC49E5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,5 +234,17 @@ Global
 		{B9F8A4EC-D3CA-4174-A3A2-5ABAA070A4CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F8A4EC-D3CA-4174-A3A2-5ABAA070A4CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F8A4EC-D3CA-4174-A3A2-5ABAA070A4CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{612D3974-EAF1-4A51-AE4C-125CA91E745B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{612D3974-EAF1-4A51-AE4C-125CA91E745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{612D3974-EAF1-4A51-AE4C-125CA91E745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{612D3974-EAF1-4A51-AE4C-125CA91E745B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00C7624-63AE-460B-8426-38ABE37B58BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00C7624-63AE-460B-8426-38ABE37B58BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00C7624-63AE-460B-8426-38ABE37B58BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00C7624-63AE-460B-8426-38ABE37B58BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8115AD19-9609-49B6-A416-66B9BAC49E5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8115AD19-9609-49B6-A416-66B9BAC49E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8115AD19-9609-49B6-A416-66B9BAC49E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8115AD19-9609-49B6-A416-66B9BAC49E5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

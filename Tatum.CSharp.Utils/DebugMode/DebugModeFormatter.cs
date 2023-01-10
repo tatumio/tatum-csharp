@@ -13,6 +13,8 @@ namespace Tatum.CSharp.Utils.DebugMode
     {
                 
         private const string Redacted = "******";
+        
+        private const int MaxLength = 2000;
 
         private static readonly string[] SensitiveFieldList = new[]
         {
@@ -21,9 +23,7 @@ namespace Tatum.CSharp.Utils.DebugMode
             "privateKey",
             "key",
             "secret",
-            "mnemonic",
-            "fromPrivateKey",
-            "fromPrivateKey",
+            "mnemonic"
         };
         
         internal static async Task<StringBuilder> PrepareRequestLog(HttpRequestMessage request, bool hideSecrets)
@@ -58,14 +58,30 @@ namespace Tatum.CSharp.Utils.DebugMode
             if (request.Content != null)
             {
                 var content = await request.Content.ReadAsStringAsync();
-                
-                if(hideSecrets)
+
+                var mediaType = request.Content.Headers.ContentType.MediaType;
+
+                switch (mediaType)
                 {
-                    content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                    case "application/octet-stream":
+                        content = "( binary data )";
+                        break;
+                    case "multipart/form-data":
+                        if(content.Contains("application/octet-stream"))
+                        {
+                            content = "( binary data )";
+                        }
+                        break;
+                    case "application/json":
+                        if(hideSecrets)
+                        {
+                            content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                        } 
+                        break;
                 }
-                
-                sb.AppendLine($"-H 'Content-Type: application/json' \\");
-                sb.AppendLine($"-d '{content}'");
+
+                sb.AppendLine($"-H 'Content-Type: {mediaType}' \\");
+                sb.AppendLine($"-d '{Truncate(content)}'");
             }
 
             sb.AppendLine($">>>>>>>>>>>>>>> /Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
@@ -181,16 +197,32 @@ namespace Tatum.CSharp.Utils.DebugMode
                 }
             }
 
+            var mediaType = response.Content.Headers?.ContentType?.MediaType;
+
             var content = await response.Content.ReadAsStringAsync();
-
-            if(hideSecrets)
-            {
-                content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
-            }
             
-            var prettyJson = FormatJson(content);
+            switch (mediaType)
+            {
+                case "application/octet-stream":
+                case null :
+                    content = "( binary data )";
+                    break;
+                case "multipart/form-data":
+                    if(content.Contains("application/octet-stream"))
+                    {
+                        content = "( binary data )";
+                    }
+                    break;
+                case "application/json":
+                    if(hideSecrets)
+                    {
+                        content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
+                    }
+                    content = FormatJson(content);
+                    break;
+            }
 
-            sb.AppendLine($"Body: {prettyJson}");
+            sb.AppendLine($"Body: {Truncate(content)}");
 
             sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 
@@ -227,6 +259,16 @@ namespace Tatum.CSharp.Utils.DebugMode
                     return;
                 }
             }
+        }
+
+        private static string Truncate(string value)
+        {
+            if (value == null)
+            {
+                return value;
+            }
+            
+            return value.Length <= MaxLength ? value : value.Substring(0, MaxLength);
         }
         
         private static string FormatJson(string uglyJson)

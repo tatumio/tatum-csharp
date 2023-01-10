@@ -64,6 +64,9 @@ To use debug mode simply add this handler when registering Tatum Client:
 ```cs
 // In Program.cs or Startup.cs
 builder.Services
+    .AddSingleton<DebugModeHandler>();
+
+builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
     .AddHttpMessageHandler<DebugModeHandler>();
 ```

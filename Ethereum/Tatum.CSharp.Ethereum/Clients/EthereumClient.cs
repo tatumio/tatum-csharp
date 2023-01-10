@@ -48,6 +48,12 @@ namespace Tatum.CSharp.Ethereum.Clients
         public INodeRPCApiWithHttpInfoAsync EthereumNodeRpcWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public IIPFSApiAsync Ipfs { get; }
+        
+        /// <inheritdoc />
+        public IIPFSApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
+        
+        /// <inheritdoc />
         public IEvmLocalService Local { get; }
         
         /// <inheritdoc />
@@ -132,6 +138,13 @@ namespace Tatum.CSharp.Ethereum.Clients
             
             EthereumNodeRpc = ethereumNodeRpcApi;
             EthereumNodeRpcWithHttpInfo = ethereumNodeRpcApi;
+            
+            var ipfsApi = new IPFSApi(httpClient);
+            
+            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            Ipfs = ipfsApi;
+            IpfsWithHttpInfo = ipfsApi;
             
             Local = new EvmLocalService(isTestNet);
             

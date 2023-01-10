@@ -46,6 +46,12 @@ namespace Tatum.CSharp.Polygon.Clients
         
         /// <inheritdoc />
         public INodeRPCApiWithHttpInfoAsync PolygonNodeRpcWithHttpInfo { get; }
+        
+        /// <inheritdoc />
+        public IIPFSApiAsync Ipfs { get; }
+        
+        /// <inheritdoc />
+        public IIPFSApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
 
         /// <inheritdoc />
         public IEvmLocalService Local { get; }
@@ -132,6 +138,13 @@ namespace Tatum.CSharp.Polygon.Clients
             
             PolygonNodeRpc = polygonNodeRpcApi;
             PolygonNodeRpcWithHttpInfo = polygonNodeRpcApi;
+            
+            var ipfsApi = new IPFSApi(httpClient);
+            
+            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            Ipfs = ipfsApi;
+            IpfsWithHttpInfo = ipfsApi;
             
             Local = new EvmLocalService(isTestNet);
             
