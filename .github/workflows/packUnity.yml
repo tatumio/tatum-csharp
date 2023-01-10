@@ -41,7 +41,7 @@ jobs:
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: Gather DLLs
         run: |
-          cd ${{ matrix.package }}
+          cd ${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}
           ls
           fromPath=./packages
           for dir in "$fromPath"/*/; do
