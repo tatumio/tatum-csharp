@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen();
 // Use your ApiKey from Tatum Dashboard (main/test)
 var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
 
-builder.Services.AddSingleton(x => new DebugModeHandler());
+builder.Services.AddSingleton<DebugModeHandler>();
 
 builder.Services
     .AddHttpClient<IEthereumClient, EthereumClient>(httpClient => new EthereumClient(httpClient, apiKey))
