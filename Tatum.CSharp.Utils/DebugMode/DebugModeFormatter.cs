@@ -66,6 +66,12 @@ namespace Tatum.CSharp.Utils.DebugMode
                     case "application/octet-stream":
                         content = "( binary data )";
                         break;
+                    case "multipart/form-data":
+                        if(content.Contains("application/octet-stream"))
+                        {
+                            content = "( binary data )";
+                        }
+                        break;
                     case "application/json":
                         if(hideSecrets)
                         {
@@ -199,6 +205,12 @@ namespace Tatum.CSharp.Utils.DebugMode
             {
                 case "application/octet-stream":
                     content = "( binary data )";
+                    break;
+                case "multipart/form-data":
+                    if(content.Contains("application/octet-stream"))
+                    {
+                        content = "( binary data )";
+                    }
                     break;
                 case "application/json":
                     if(hideSecrets)
