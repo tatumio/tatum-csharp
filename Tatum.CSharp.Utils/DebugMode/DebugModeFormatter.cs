@@ -75,7 +75,7 @@ namespace Tatum.CSharp.Utils.DebugMode
                 }
 
                 sb.AppendLine($"-H 'Content-Type: {mediaType}' \\");
-                sb.AppendLine($"-d '{content.Substring(0, MaxLength)}'");
+                sb.AppendLine($"-d '{Truncate(content)}'");
             }
 
             sb.AppendLine($">>>>>>>>>>>>>>> /Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
@@ -210,7 +210,7 @@ namespace Tatum.CSharp.Utils.DebugMode
 
             var prettyJson = FormatJson(content);
 
-            sb.AppendLine($"Body: {prettyJson.Substring(0, MaxLength)}");
+            sb.AppendLine($"Body: {Truncate(prettyJson)}");
 
             sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 
@@ -247,6 +247,16 @@ namespace Tatum.CSharp.Utils.DebugMode
                     return;
                 }
             }
+        }
+
+        private static string Truncate(string value)
+        {
+            if (value == null)
+            {
+                return value;
+            }
+            
+            return value.Length <= MaxLength ? value : value.Substring(0, MaxLength);
         }
         
         private static string FormatJson(string uglyJson)
