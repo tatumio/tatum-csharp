@@ -218,12 +218,11 @@ namespace Tatum.CSharp.Utils.DebugMode
                     {
                         content = GetObfuscatedContent(JToken.Parse(content), SensitiveFieldList).ToString(Formatting.Indented);
                     }
+                    content = FormatJson(content);
                     break;
             }
 
-            var prettyJson = FormatJson(content);
-
-            sb.AppendLine($"Body: {Truncate(prettyJson)}");
+            sb.AppendLine($"Body: {Truncate(content)}");
 
             sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 
