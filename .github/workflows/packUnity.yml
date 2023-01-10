@@ -42,6 +42,8 @@ jobs:
       - name: Gather DLLs
         run: |
           ls
+          cd ./${{ matrix.package }}
+          ls
           fromPath=./packages
           for dir in "$fromPath"/*/; do
             dest="$fromPath"/${{ env.PACKAGE_NAME }}
