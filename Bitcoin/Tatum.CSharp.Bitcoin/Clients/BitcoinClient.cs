@@ -27,6 +27,12 @@ namespace Tatum.CSharp.Bitcoin.Clients
         public INodeRPCApiWithHttpInfoAsync BitcoinNodeRpcWithHttpInfo { get; }
 
         /// <inheritdoc />
+        public IIPFSApiAsync Ipfs { get; }
+        
+        /// <inheritdoc />
+        public IIPFSApiWithHttpInfoAsync IpfsWithHttpInfo { get; }
+
+        /// <inheritdoc />
         public IBitcoinLocalService Local { get; }
         
         /// <summary>
@@ -87,6 +93,13 @@ namespace Tatum.CSharp.Bitcoin.Clients
             
             BitcoinNodeRpc = btcNodeRpcApi;
             BitcoinNodeRpcWithHttpInfo = btcNodeRpcApi;
+            
+            var ipfsApi = new IPFSApi(httpClient);
+            
+            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            Ipfs = ipfsApi;
+            IpfsWithHttpInfo = ipfsApi;
             
             Local = new BitcoinLocalService(isTestNet);
         }
