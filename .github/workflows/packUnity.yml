@@ -46,6 +46,8 @@ jobs:
             dest="$fromPath"/${{ env.PACKAGE_NAME }}
             mkdir -p "$dest"
           
+            echo "Created $dest"
+          
             patternArray=(
               "$dir"lib/netstandard2.0/*.dll
               "$dir"ref/netstandard2.0/*.dll
@@ -70,7 +72,9 @@ jobs:
                 cp -v "$match" "$dest"
                 break
               fi
-            done          
+            done   
+          
+          ls -l "$dest"
           done
       - name: Create Unity Package Artefact
         uses: actions/upload-artifact@v3
@@ -80,5 +84,7 @@ jobs:
             ./${{ matrix.package }}
             ./${{ env.PACKAGE_NAME }}
             ./packages
+            !**/bin
+            !**/obj
             !./packages/Tatum.CSharp.Core.dll
             !./packages/${{ env.PACKAGE_NAME }}.dll
