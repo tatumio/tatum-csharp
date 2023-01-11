@@ -12,15 +12,15 @@ jobs:
   Pack_Unity:
     strategy:
       matrix:
-        package: [
-          Ethereum
+        arrays: [
+          { package: Ethereum, dependency: Evm.Local }
         ]
-    name: ${{ matrix.package }} - Unity Package Artifact
+    name: ${{ matrix.arrays.package }} - Unity Package Artifact
     runs-on: ubuntu-latest
     env:
-      PACKAGE_NAME: Tatum.CSharp.${{ matrix.package }}
-      ARTEFACT_NAME: Unity-${{ matrix.package }}
-      PROJECT_PATH: ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.csproj
+      PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.package }}
+      ARTEFACT_NAME: Unity-${{ matrix.arrays.package }}
+      PROJECT_PATH: ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.csproj
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -30,16 +30,16 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ matrix.package }}/${{ inputs.version }},g" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Client/Configuration.cs
-          grep -i "Tatum_SDK_CSharp" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Client/Configuration.cs   
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ matrix.arrays.package }}/${{ inputs.version }},g" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs
+          grep -i "Tatum_SDK_CSharp" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs   
       - name: Propagate PackageReleaseNotes from the Core package .csproj
         run: |
-          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}.Core/Tatum.CSharp.${{ matrix.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
-      - name: ${{ matrix.package }} - Restore dependencies
+          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Tatum.CSharp.${{ matrix.arrays.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
+      - name: ${{ matrix.arrays.package }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: ${{ matrix.package }} - Build
+      - name: ${{ matrix.arrays.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
-      - name: ${{ matrix.package }} - Get Dependencies
+      - name: ${{ matrix.arrays.package }} - Get Dependencies
         run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
       - name: Gather DLLs
         run: |
@@ -83,9 +83,10 @@ jobs:
         with:
           name: ${{ env.ARTEFACT_NAME }}
           path: |
-            ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}
-            ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}.Core
+            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
+            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
             ./Tatum.CSharp.Utils
+            ./Tatum.CSharp.${{ matrix.arrays.dependency }}
             ./packages
             !**/bin
             !**/obj
