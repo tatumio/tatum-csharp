@@ -39,10 +39,10 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: ${{ matrix.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: ${{ matrix.package }} - Get Dependencies
+        run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
       - name: Gather DLLs
         run: |
-          cd ${{ matrix.package }}/Tatum.CSharp.${{ matrix.package }}
-          ls
           fromPath=./packages
           for dir in "$fromPath"/*/; do
             dest="$fromPath"/${{ env.PACKAGE_NAME }}
