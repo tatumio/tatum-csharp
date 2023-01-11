@@ -85,6 +85,7 @@ jobs:
           path: |
             ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}
             ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}.Core
+            ./Tatum.CSharp.Utils
             ./packages
             !**/bin
             !**/obj
