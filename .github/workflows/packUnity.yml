@@ -83,10 +83,9 @@ jobs:
         with:
           name: ${{ env.ARTEFACT_NAME }}
           path: |
-            ./${{ matrix.package }}
-            ./${{ env.PACKAGE_NAME }}
+            ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}
+            ./${{ matrix.package }}/${{ env.PACKAGE_NAME }}.Core
             ./packages
             !**/bin
             !**/obj
-            !./packages/Tatum.CSharp.Core.dll
-            !./packages/${{ env.PACKAGE_NAME }}.dll
+            !./packages/Tatum.*
