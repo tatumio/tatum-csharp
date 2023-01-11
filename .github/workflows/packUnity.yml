@@ -87,7 +87,7 @@ jobs:
             ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
             ./Tatum.CSharp.Utils
             ./Tatum.CSharp.${{ matrix.arrays.dependency }}
-            ./packages/${{ env.PACKAGE_NAME }}
+            ./packages/${{ env.PACKAGE_NAME }}/*.dll
             !**/bin
             !**/obj
             !./packages/Tatum.*
