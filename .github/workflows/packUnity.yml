@@ -90,3 +90,4 @@ jobs:
             ./packages/${{ env.PACKAGE_NAME }}/*.dll
             !**/bin
             !**/obj
+            !./packages/${{ env.PACKAGE_NAME }}/Tatum.*
