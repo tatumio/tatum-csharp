@@ -19,10 +19,17 @@ public class MintNftBasic
     /// </summary>
     public async Task<EthTx> MintNft_Bsc_Example()
     {
+        var apiKey = "75ea3138-d0a1-47df-932e-acb3ee807dab"; // Use your API key from https://dashboard.tatum.io, this one is our public API Key for testing.
+        
+        // THIS IS NOT PART OF THE ACTUAL FLOW - for continous testing purposes we replace api key with one having higher credit limit
+        // --- IGNORE ---
+        apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+        // --- /IGNORE ---
+
         var bscClient = new BscClient
             (
                 new HttpClient(), 
-                "75ea3138-d0a1-47df-932e-acb3ee807dab", // Use your API key from https://dashboard.tatum.io, this one is our public API Key for testing.
+                apiKey,
                 isTestNet: true // If you use TestNet API key then argument isTestNet should be set to true
             );
 
