@@ -23,7 +23,8 @@ namespace Tatum.CSharp.Utils.DebugMode
             "privateKey",
             "key",
             "secret",
-            "mnemonic"
+            "mnemonic",
+            "priv"
         };
         
         internal static async Task<StringBuilder> PrepareRequestLog(HttpRequestMessage request, bool hideSecrets)

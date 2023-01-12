@@ -40,12 +40,14 @@ jobs:
       - name: ${{ matrix.arrays.package }} - Build
         run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
       - name: ${{ matrix.arrays.package }} - Get Dependencies
-        run: nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
+        run: |
+          nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
+          nuget install System.ComponentModel.Annotations -OutputDirectory ./packages
       - name: Gather DLLs
         run: |
           fromPath=./packages
           for dir in "$fromPath"/*/; do
-            dest="$fromPath"/${{ env.PACKAGE_NAME }}
+            dest="$fromPath"
             mkdir -p "$dest"
           
             echo "Created $dest"
@@ -87,7 +89,7 @@ jobs:
             ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
             ./Tatum.CSharp.Utils
             ./Tatum.CSharp.${{ matrix.arrays.dependency }}
-            ./packages/${{ env.PACKAGE_NAME }}/*.dll
+            ./packages/*.dll
             !**/bin
             !**/obj
-            !./packages/${{ env.PACKAGE_NAME }}/Tatum.*
+            !./packages/Tatum.*
