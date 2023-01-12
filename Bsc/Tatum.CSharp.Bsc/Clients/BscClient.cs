@@ -97,51 +97,54 @@ namespace Tatum.CSharp.Bsc.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public BscClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var bscApi = new BNBSmartChainApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            var bscApi = new BNBSmartChainApi(httpClient, configuration);
 
-            bscApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
 
             BscBlockchain = bscApi;
             BscBlockchainWithHttpInfo = bscApi;
             
-            var bscNftApi = new NFTApi(httpClient);
+            var bscNftApi = new NFTApi(httpClient, configuration);
             
-            bscNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
             
-            var bscFungibleTokensApi = new FungibleTokensApi(httpClient);
+            var bscFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
             
-            bscFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscFungibleTokens = bscFungibleTokensApi;
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
             
-            var bscMultiTokensApi = new MultiTokensApi(httpClient);
+            var bscMultiTokensApi = new MultiTokensApi(httpClient, configuration);
             
-            bscMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscMultiTokens = bscMultiTokensApi;
             BscMultiTokensWithHttpInfo = bscMultiTokensApi;
 
-            var feeApi = new BlockchainFeesApi(httpClient);
+            var feeApi = new BlockchainFeesApi(httpClient, configuration);
             
-            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
-            var bscNodeRpcApi = new NodeRPCApi(httpClient);
+            var bscNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
-            bscNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscNodeRpc = bscNodeRpcApi;
             BscNodeRpcWithHttpInfo = bscNodeRpcApi;
             
-            var ipfsApi = new IPFSApi(httpClient);
+            var ipfsApi = new IPFSApi(httpClient, configuration);
             
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

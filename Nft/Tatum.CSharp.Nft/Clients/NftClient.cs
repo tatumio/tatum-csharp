@@ -73,30 +73,33 @@ namespace Tatum.CSharp.Nft.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public NftClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumNftApi = new NFTEthApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ethereumNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ethereumNftApi = new NFTEthApi(httpClient, configuration);
+            
+
             
             EthereumNft = ethereumNftApi;
             EthereumNftWithHttpInfo = ethereumNftApi;
             
-            var polygonNftApi = new NFTMaticApi(httpClient);
+            var polygonNftApi = new NFTMaticApi(httpClient, configuration);
             
-            polygonNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonNft = polygonNftApi;
             PolygonNftWithHttpInfo = polygonNftApi;
             
-            var bscNftApi = new NFTBscApi(httpClient);
+            var bscNftApi = new NFTBscApi(httpClient, configuration);
             
-            bscNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
             
-            var oneNftApi = new NFTOneApi(httpClient);
+            var oneNftApi = new NFTOneApi(httpClient, configuration);
             
-            oneNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyNft = oneNftApi;
             HarmonyNftWithHttpInfo = oneNftApi;

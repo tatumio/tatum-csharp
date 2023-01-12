@@ -73,30 +73,33 @@ namespace Tatum.CSharp.FungibleTokens.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public FungibleTokensClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumFungibleTokensApi = new FungibleTokensEthApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ethereumFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ethereumFungibleTokensApi = new FungibleTokensEthApi(httpClient, configuration);
+            
+
             
             EthereumFungibleTokens = ethereumFungibleTokensApi;
             EthereumFungibleTokensWithHttpInfo = ethereumFungibleTokensApi;
             
-            var polygonFungibleTokensApi = new FungibleTokensMaticApi(httpClient);
+            var polygonFungibleTokensApi = new FungibleTokensMaticApi(httpClient, configuration);
             
-            polygonFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonFungibleTokens = polygonFungibleTokensApi;
             PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
             
-            var bscFungibleTokensApi = new FungibleTokensBscApi(httpClient);
+            var bscFungibleTokensApi = new FungibleTokensBscApi(httpClient, configuration);
             
-            bscFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscFungibleTokens = bscFungibleTokensApi;
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
             
-            var oneFungibleTokensApi = new FungibleTokensOneApi(httpClient);
+            var oneFungibleTokensApi = new FungibleTokensOneApi(httpClient, configuration);
             
-            oneFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyFungibleTokens = oneFungibleTokensApi;
             HarmonyFungibleTokensWithHttpInfo = oneFungibleTokensApi;

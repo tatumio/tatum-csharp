@@ -73,30 +73,25 @@ namespace Tatum.CSharp.Bitcoin.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public BitcoinClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var api = new BitcoinApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            api.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var api = new BitcoinApi(httpClient, configuration);
             
             BitcoinBlockchain = api;
             BitcoinBlockchainWithHttpInfo = api;
             
-            var feeApi = new BlockchainFeesApi(httpClient);
-            
-            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var feeApi = new BlockchainFeesApi(httpClient, configuration);
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
 
-            var btcNodeRpcApi = new NodeRPCApi(httpClient);
-            
-            btcNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var btcNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
             BitcoinNodeRpc = btcNodeRpcApi;
             BitcoinNodeRpcWithHttpInfo = btcNodeRpcApi;
             
-            var ipfsApi = new IPFSApi(httpClient);
-            
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ipfsApi = new IPFSApi(httpClient, configuration);
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

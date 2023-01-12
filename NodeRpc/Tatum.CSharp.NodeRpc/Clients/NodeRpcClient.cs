@@ -66,37 +66,30 @@ namespace Tatum.CSharp.NodeRpc.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public NodeRpcClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumNodeRpcApi = new NodeRPCEthApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ethereumNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ethereumNodeRpcApi = new NodeRPCEthApi(httpClient, configuration);
             
             EthereumNodeRpc = ethereumNodeRpcApi;
             EthereumNodeRpcWithHttpInfo = ethereumNodeRpcApi;
             
-            var polygonNodeRpcApi = new NodeRPCMaticApi(httpClient);
-            
-            polygonNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var polygonNodeRpcApi = new NodeRPCMaticApi(httpClient, configuration);
             
             PolygonNodeRpc = polygonNodeRpcApi;
             PolygonNodeRpcWithHttpInfo = polygonNodeRpcApi;
             
-            var bscNodeRpcApi = new NodeRPCBscApi(httpClient);
-            
-            bscNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var bscNodeRpcApi = new NodeRPCBscApi(httpClient, configuration);
             
             BscNodeRpc = bscNodeRpcApi;
             BscNodeRpcWithHttpInfo = bscNodeRpcApi;
             
-            var oneNodeRpcApi = new NodeRPCOneApi(httpClient);
-            
-            oneNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var oneNodeRpcApi = new NodeRPCOneApi(httpClient, configuration);
             
             HarmonyNodeRpc = oneNodeRpcApi;
             HarmonyNodeRpcWithHttpInfo = oneNodeRpcApi;
             
-            var btcNodeRpcApi = new NodeRPCBtcApi(httpClient);
-            
-            btcNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var btcNodeRpcApi = new NodeRPCBtcApi(httpClient, configuration);
             
             BitcoinNodeRpc = btcNodeRpcApi;
             BitcoinNodeRpcWithHttpInfo = btcNodeRpcApi;

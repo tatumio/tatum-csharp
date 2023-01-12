@@ -73,30 +73,33 @@ namespace Tatum.CSharp.MultiTokens.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public MultiTokensClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumMultiTokensApi = new MultiTokensEthApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ethereumMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ethereumMultiTokensApi = new MultiTokensEthApi(httpClient, configuration);
+            
+
             
             EthereumMultiTokens = ethereumMultiTokensApi;
             EthereumMultiTokensWithHttpInfo = ethereumMultiTokensApi;
             
-            var polygonMultiTokensApi = new MultiTokensMaticApi(httpClient);
+            var polygonMultiTokensApi = new MultiTokensMaticApi(httpClient, configuration);
             
-            polygonMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonMultiTokens = polygonMultiTokensApi;
             PolygonMultiTokensWithHttpInfo = polygonMultiTokensApi;
             
-            var bscMultiTokensApi = new MultiTokensBscApi(httpClient);
+            var bscMultiTokensApi = new MultiTokensBscApi(httpClient, configuration);
             
-            bscMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BscMultiTokens = bscMultiTokensApi;
             BscMultiTokensWithHttpInfo = bscMultiTokensApi;
             
-            var oneMultiTokensApi = new MultiTokensOneApi(httpClient);
+            var oneMultiTokensApi = new MultiTokensOneApi(httpClient, configuration);
             
-            oneMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyMultiTokens = oneMultiTokensApi;
             HarmonyMultiTokensWithHttpInfo = oneMultiTokensApi;
