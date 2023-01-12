@@ -150,6 +150,7 @@ namespace Tatum.CSharp.Utils.DebugMode
             {
                 foreach (var item in jArray)
                 {
+                    if (item is JValue) continue;
                     RedactJTokenField(item, field);
                 }
             }
