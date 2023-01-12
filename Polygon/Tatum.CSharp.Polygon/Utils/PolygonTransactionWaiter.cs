@@ -12,7 +12,7 @@ namespace Tatum.CSharp.Polygon.Utils
         
         public PolygonTransactionWaiter(IPolygonClient polygonClient) 
             : base(
-                polygonClient.PolygonBlockchain.PolygonGetTransactionAsync, 
+                async (s, token) => await polygonClient.PolygonBlockchain.PolygonGetTransactionAsync(s, token), 
                 tx => tx.Status || tx.BlockNumber != null)
         {
             ExceptionHandler = exception =>
