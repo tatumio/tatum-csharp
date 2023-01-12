@@ -12,7 +12,7 @@ namespace Tatum.CSharp.Bsc.Utils
         
         public BscTransactionWaiter(IBscClient bscClient) 
             : base(
-                (txId, token) => bscClient.BscBlockchain.BscGetTransactionAsync(txId, cancellationToken: token), 
+                async (txId, token) => await bscClient.BscBlockchain.BscGetTransactionAsync(txId, cancellationToken: token), 
                 tx => tx.Status || tx.BlockNumber != null)
         {
             ExceptionHandler = exception =>

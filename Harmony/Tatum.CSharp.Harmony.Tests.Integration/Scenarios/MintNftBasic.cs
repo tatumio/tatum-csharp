@@ -6,6 +6,7 @@ using FluentAssertions;
 using Tatum.CSharp.Harmony.Clients;
 using Tatum.CSharp.Harmony.Core.Model;
 using Tatum.CSharp.Harmony.Utils;
+using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
 namespace Tatum.CSharp.Harmony.Tests.Integration.Scenarios;
@@ -26,9 +27,12 @@ public class MintNftBasic
         apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         // --- /IGNORE ---
         
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
         var harmonyClient = new HarmonyClient
             (
-                new HttpClient(), 
+                new HttpClient(httpClient), 
                 apiKey,
                 isTestNet: true // If you use TestNet API key then argument isTestNet should be set to true
             );

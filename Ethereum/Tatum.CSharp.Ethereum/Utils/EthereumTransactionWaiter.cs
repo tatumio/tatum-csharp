@@ -11,7 +11,7 @@ namespace Tatum.CSharp.Ethereum.Utils
         
         public EthereumTransactionWaiter(IEthereumClient ethereumClient) 
             : base(
-                (txId, token) => ethereumClient.EthereumBlockchain.EthGetTransactionAsync(txId, cancellationToken: token), 
+                async (txId, token) => await ethereumClient.EthereumBlockchain.EthGetTransactionAsync(txId, cancellationToken: token), 
                 tx => tx.Status || tx.BlockNumber != null)
         {
             ExceptionHandler = exception =>

@@ -12,7 +12,7 @@ namespace Tatum.CSharp.Harmony.Utils
         
         public HarmonyTransactionWaiter(IHarmonyClient harmonyClient) 
             : base(
-                (txId, token) => harmonyClient.HarmonyBlockchain.OneGetTransactionAsync(txId, cancellationToken: token), 
+                async (txId, token) => await harmonyClient.HarmonyBlockchain.OneGetTransactionAsync(txId, cancellationToken: token), 
                 tx => tx.Status || tx.BlockNumber != null)
         {
             ExceptionHandler = exception =>

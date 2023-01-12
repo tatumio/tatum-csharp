@@ -54,12 +54,10 @@ namespace Tatum.CSharp.Solana.Clients
             var configuration = new Core.Client.Configuration();
             configuration.ApiKey.Add("x-api-key", apiKey);
             
-            var SolanaApi = new SolanaApi(httpClient, configuration);
+            var solanaApi = new SolanaApi(httpClient, configuration);
 
-            SolanaApi
-
-            SolanaBlockchain = SolanaApi;
-            SolanaBlockchainWithHttpInfo = SolanaApi;
+            SolanaBlockchain = solanaApi;
+            SolanaBlockchainWithHttpInfo = solanaApi;
         }
     }
 }

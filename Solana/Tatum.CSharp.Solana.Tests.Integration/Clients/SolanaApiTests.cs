@@ -35,7 +35,7 @@ public class SolanaApiTests
     }
 
     [Fact]
-    public async Task SolanaGenerateWalletWallet_ShouldReturnWalletData_WhenCalledWithoutData()
+    public async Task SolanaGenerateWallet_ShouldReturnWalletData_WhenCalledWithoutData()
     {
         var wallet = await _solanaApi.SolanaBlockchain.SolanaGenerateWalletAsync();
 
