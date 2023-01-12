@@ -97,51 +97,54 @@ namespace Tatum.CSharp.Harmony.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public HarmonyClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var harmonyApi = new HarmonyApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            var harmonyApi = new HarmonyApi(httpClient, configuration);
 
-            harmonyApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
 
             HarmonyBlockchain = harmonyApi;
             HarmonyBlockchainWithHttpInfo = harmonyApi;
             
-            var harmonyNftApi = new NFTApi(httpClient);
+            var harmonyNftApi = new NFTApi(httpClient, configuration);
             
-            harmonyNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyNft = harmonyNftApi;
             HarmonyNftWithHttpInfo = harmonyNftApi;
             
-            var harmonyFungibleTokensApi = new FungibleTokensApi(httpClient);
+            var harmonyFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
             
-            harmonyFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyFungibleTokens = harmonyFungibleTokensApi;
             HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
             
-            var harmonyMultiTokensApi = new MultiTokensApi(httpClient);
+            var harmonyMultiTokensApi = new MultiTokensApi(httpClient, configuration);
             
-            harmonyMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyMultiTokens = harmonyMultiTokensApi;
             HarmonyMultiTokensWithHttpInfo = harmonyMultiTokensApi;
 
-            var feeApi = new BlockchainFeesApi(httpClient);
+            var feeApi = new BlockchainFeesApi(httpClient, configuration);
             
-            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
-            var oneNodeRpcApi = new NodeRPCApi(httpClient);
+            var oneNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
-            oneNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             HarmonyNodeRpc = oneNodeRpcApi;
             HarmonyNodeRpcWithHttpInfo = oneNodeRpcApi;
             
-            var ipfsApi = new IPFSApi(httpClient);
+            var ipfsApi = new IPFSApi(httpClient, configuration);
             
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

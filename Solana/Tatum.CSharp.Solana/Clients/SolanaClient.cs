@@ -51,9 +51,12 @@ namespace Tatum.CSharp.Solana.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public SolanaClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var SolanaApi = new SolanaApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            var SolanaApi = new SolanaApi(httpClient, configuration);
 
-            SolanaApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            SolanaApi
 
             SolanaBlockchain = SolanaApi;
             SolanaBlockchainWithHttpInfo = SolanaApi;

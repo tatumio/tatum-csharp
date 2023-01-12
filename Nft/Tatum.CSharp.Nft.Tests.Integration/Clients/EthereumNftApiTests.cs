@@ -157,9 +157,13 @@ public class EthereumNftApiTests
             offset += 50;
             mintedSoFar = await _nftApi.EthereumNft.NftGetTokensByCollectionErc721Async(50, TestSmartContractAddress, offset);
         }
-        
 
-        var nextTokenId = mintedSoFar.Select(x => int.Parse(x.TokenId)).Max() + 1;
+
+        var existingTokenIds = mintedSoFar.Select(x => int.Parse(x.TokenId)).ToArray();
+        
+        var maxTokenId = existingTokenIds.Any() ? existingTokenIds.Max() : 0;
+        
+        var nextTokenId = maxTokenId + 1;
         return nextTokenId;
     }
 

@@ -79,37 +79,30 @@ namespace Tatum.CSharp.BlockchainFees.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public BlockchainFeesClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumBlockchainFeesApi = new BlockchainFeesEthApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ethereumBlockchainFeesApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ethereumBlockchainFeesApi = new BlockchainFeesEthApi(httpClient, configuration);
             
             EthereumBlockchainFees = ethereumBlockchainFeesApi;
             EthereumBlockchainFeesWithHttpInfo = ethereumBlockchainFeesApi;
             
-            var polygonBlockchainFeesApi = new BlockchainFeesMaticApi(httpClient);
-            
-            polygonBlockchainFeesApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var polygonBlockchainFeesApi = new BlockchainFeesMaticApi(httpClient, configuration);
             
             PolygonBlockchainFees = polygonBlockchainFeesApi;
             PolygonBlockchainFeesWithHttpInfo = polygonBlockchainFeesApi;
             
-            var bscBlockchainFeesApi = new BlockchainFeesBscApi(httpClient);
-            
-            bscBlockchainFeesApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var bscBlockchainFeesApi = new BlockchainFeesBscApi(httpClient, configuration);
             
             BscBlockchainFees = bscBlockchainFeesApi;
             BscBlockchainFeesWithHttpInfo = bscBlockchainFeesApi;
             
-            var oneBlockchainFeesApi = new BlockchainFeesOneApi(httpClient);
-            
-            oneBlockchainFeesApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var oneBlockchainFeesApi = new BlockchainFeesOneApi(httpClient, configuration);
             
             HarmonyBlockchainFees = oneBlockchainFeesApi;
             HarmonyBlockchainFeesWithHttpInfo = oneBlockchainFeesApi;
             
-            var btcBlockchainFeesApi = new BlockchainFeesBtcApi(httpClient);
-            
-            btcBlockchainFeesApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var btcBlockchainFeesApi = new BlockchainFeesBtcApi(httpClient, configuration);
             
             BitcoinBlockchainFees = btcBlockchainFeesApi;
             BitcoinBlockchainFeesWithHttpInfo = btcBlockchainFeesApi;

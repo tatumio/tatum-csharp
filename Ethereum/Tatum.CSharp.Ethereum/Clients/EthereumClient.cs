@@ -97,52 +97,41 @@ namespace Tatum.CSharp.Ethereum.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public EthereumClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ethereumApi = new EthereumApi(httpClient);
-
-            ethereumApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            var ethereumApi = new EthereumApi(httpClient, configuration);
 
             EthereumBlockchain = ethereumApi;
             EthereumBlockchainWithHttpInfo = ethereumApi;
             
-            var ethereumNftApi = new NFTApi(httpClient);
-            
-            ethereumNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var ethereumNftApi = new NFTApi(httpClient, configuration);
+
             EthereumNft = ethereumNftApi;
             EthereumNftWithHttpInfo = ethereumNftApi;
             
-            var ethereumFungibleTokensApi = new FungibleTokensApi(httpClient);
-            
-            ethereumFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var ethereumFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
+
             EthereumFungibleTokens = ethereumFungibleTokensApi;
             EthereumFungibleTokensWithHttpInfo = ethereumFungibleTokensApi;
             
-            var ethereumMultiTokensApi = new MultiTokensApi(httpClient);
-            
-            ethereumMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var ethereumMultiTokensApi = new MultiTokensApi(httpClient, configuration);
+
             EthereumMultiTokens = ethereumMultiTokensApi;
             EthereumMultiTokensWithHttpInfo = ethereumMultiTokensApi;
 
-            var feeApi = new BlockchainFeesApi(httpClient);
-            
-            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var feeApi = new BlockchainFeesApi(httpClient, configuration);
+
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
-            var ethereumNodeRpcApi = new NodeRPCApi(httpClient);
-            
-            ethereumNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var ethereumNodeRpcApi = new NodeRPCApi(httpClient, configuration);
+
             EthereumNodeRpc = ethereumNodeRpcApi;
             EthereumNodeRpcWithHttpInfo = ethereumNodeRpcApi;
             
-            var ipfsApi = new IPFSApi(httpClient);
-            
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
-            
+            var ipfsApi = new IPFSApi(httpClient, configuration);
+
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;
             

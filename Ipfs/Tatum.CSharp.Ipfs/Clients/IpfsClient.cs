@@ -51,9 +51,11 @@ namespace Tatum.CSharp.Ipfs.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public IpfsClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var ipfsApi = new IPFSApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
             
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+            var ipfsApi = new IPFSApi(httpClient, configuration);
+            
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

@@ -97,51 +97,54 @@ namespace Tatum.CSharp.Polygon.Clients
         /// <param name="isTestNet">Value indicating weather Local services should generate values for Testnet.</param>
         public PolygonClient(HttpClient httpClient, string apiKey, bool isTestNet)
         {
-            var polygonApi = new PolygonApi(httpClient);
+            var configuration = new Core.Client.Configuration();
+            configuration.ApiKey.Add("x-api-key", apiKey);
+            
+            var polygonApi = new PolygonApi(httpClient, configuration);
 
-            polygonApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
 
             PolygonBlockchain = polygonApi;
             PolygonBlockchainWithHttpInfo = polygonApi;
             
-            var polygonNftApi = new NFTApi(httpClient);
+            var polygonNftApi = new NFTApi(httpClient, configuration);
             
-            polygonNftApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonNft = polygonNftApi;
             PolygonNftWithHttpInfo = polygonNftApi;
             
-            var polygonFungibleTokensApi = new FungibleTokensApi(httpClient);
+            var polygonFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
             
-            polygonFungibleTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonFungibleTokens = polygonFungibleTokensApi;
             PolygonFungibleTokensWithHttpInfo = polygonFungibleTokensApi;
             
-            var polygonMultiTokensApi = new MultiTokensApi(httpClient);
+            var polygonMultiTokensApi = new MultiTokensApi(httpClient, configuration);
             
-            polygonMultiTokensApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonMultiTokens = polygonMultiTokensApi;
             PolygonMultiTokensWithHttpInfo = polygonMultiTokensApi;
 
-            var feeApi = new BlockchainFeesApi(httpClient);
+            var feeApi = new BlockchainFeesApi(httpClient, configuration);
             
-            feeApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
-            var polygonNodeRpcApi = new NodeRPCApi(httpClient);
+            var polygonNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
-            polygonNodeRpcApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             PolygonNodeRpc = polygonNodeRpcApi;
             PolygonNodeRpcWithHttpInfo = polygonNodeRpcApi;
             
-            var ipfsApi = new IPFSApi(httpClient);
+            var ipfsApi = new IPFSApi(httpClient, configuration);
             
-            ipfsApi.Configuration.ApiKey.Add("x-api-key", apiKey);
+
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

@@ -23,7 +23,8 @@ namespace Tatum.CSharp.Utils.DebugMode
             "privateKey",
             "key",
             "secret",
-            "mnemonic"
+            "mnemonic",
+            "priv"
         };
         
         internal static async Task<StringBuilder> PrepareRequestLog(HttpRequestMessage request, bool hideSecrets)
@@ -149,6 +150,7 @@ namespace Tatum.CSharp.Utils.DebugMode
             {
                 foreach (var item in jArray)
                 {
+                    if (item is JValue) continue;
                     RedactJTokenField(item, field);
                 }
             }
@@ -156,7 +158,7 @@ namespace Tatum.CSharp.Utils.DebugMode
 
         private static void RedactJTokenField(JToken jObject, string field)
         {
-            if (jObject[field] != null)
+            if (jObject?[field] != null)
             {
                 jObject[field] = Redacted;
             }
