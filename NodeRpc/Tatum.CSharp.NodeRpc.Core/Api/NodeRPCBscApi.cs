@@ -38,7 +38,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>Object</returns>
-        Object NodeJsonRpcPostDriver(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
+        Object NodeJsonPostRpcDriver(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
         #endregion Synchronous Operations
     }
 
@@ -60,7 +60,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
+        ApiResponse<Object> NodeJsonPostRpcDriverWithHttpInfo(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string));
         #endregion Synchronous Operations With Http Info
     }
 
@@ -83,7 +83,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Object> NodeJsonPostRpcDriverAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -106,7 +106,7 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonPostRpcDriverWithHttpInfoAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations With Http Info
     }
 
@@ -266,11 +266,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>Object</returns>
-        public Object NodeJsonRpcPostDriver(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
+        public Object NodeJsonPostRpcDriver(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
         {
-            var localVarResponse = NodeJsonRpcPostDriverWithHttpInfo(body, nodeType, testnetType, chainType);
+            var localVarResponse = NodeJsonPostRpcDriverWithHttpInfo(body, nodeType, testnetType, chainType);
 
-            var exception = ExceptionFactory?.Invoke("NodeJsonRpcPostDriver", localVarResponse);
+            var exception = ExceptionFactory?.Invoke("NodeJsonPostRpcDriver", localVarResponse);
             if (exception != null) throw exception;
 
             return localVarResponse.Data;
@@ -285,11 +285,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="testnetType">Type of Ethereum testnet. Defaults to ethereum-sepolia. (optional, default to ethereum-sepolia)</param>
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> NodeJsonRpcPostDriverWithHttpInfo(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
+        public ApiResponse<Object> NodeJsonPostRpcDriverWithHttpInfo(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string))
         {
             // verify the required parameter 'body' is set
             if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling NodeRPCBscApi->NodeJsonRpcPostDriver");
+                throw new ApiException(400, "Missing required parameter 'body' when calling NodeRPCBscApi->NodeJsonPostRpcDriver");
 
             var localVarRequestOptions = new RequestOptions();
 
@@ -344,11 +344,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> NodeJsonRpcPostDriverAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Object> NodeJsonPostRpcDriverAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var localVarResponse = await NodeJsonRpcPostDriverWithHttpInfoAsync(body, nodeType, testnetType, chainType, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await NodeJsonPostRpcDriverWithHttpInfoAsync(body, nodeType, testnetType, chainType, cancellationToken).ConfigureAwait(false);
             
-            var exception = ExceptionFactory?.Invoke("NodeJsonRpcPostDriver", localVarResponse);
+            var exception = ExceptionFactory?.Invoke("NodeJsonPostRpcDriver", localVarResponse);
             if (exception != null) throw exception;
 
             return localVarResponse.Data;
@@ -364,11 +364,11 @@ namespace Tatum.CSharp.NodeRpc.Core.Api
         /// <param name="chainType">Type of Avalanche network. Defaults to Avalanche C-Chain. (optional, default to avax-c)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonRpcPostDriverWithHttpInfoAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> NodeJsonPostRpcDriverWithHttpInfoAsync(Object body, string nodeType = default(string), string testnetType = default(string), string chainType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'body' is set
             if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling NodeRPCBscApi->NodeJsonRpcPostDriver");
+                throw new ApiException(400, "Missing required parameter 'body' when calling NodeRPCBscApi->NodeJsonPostRpcDriver");
 
             var localVarRequestOptions = new RequestOptions();
 
