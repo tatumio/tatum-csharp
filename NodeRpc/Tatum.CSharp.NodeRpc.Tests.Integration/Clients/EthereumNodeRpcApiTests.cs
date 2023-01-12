@@ -36,7 +36,7 @@ public class PolygonNodeRpcApiTests
             Params = new List<string>()
         };
         
-        var result = await _nodeRpcApi.EthereumNodeRpc.NodeJsonRpcPostDriverAsync(rpcPostDriverRequest);
+        var result = await _nodeRpcApi.EthereumNodeRpc.NodeJsonPostRpcDriverAsync(rpcPostDriverRequest);
 
         var jResult = (JObject)result;
 
