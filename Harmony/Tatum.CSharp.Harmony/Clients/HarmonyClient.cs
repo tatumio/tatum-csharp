@@ -102,49 +102,35 @@ namespace Tatum.CSharp.Harmony.Clients
             
             var harmonyApi = new HarmonyApi(httpClient, configuration);
 
-
-
             HarmonyBlockchain = harmonyApi;
             HarmonyBlockchainWithHttpInfo = harmonyApi;
             
             var harmonyNftApi = new NFTApi(httpClient, configuration);
-            
-
             
             HarmonyNft = harmonyNftApi;
             HarmonyNftWithHttpInfo = harmonyNftApi;
             
             var harmonyFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
             
-
-            
             HarmonyFungibleTokens = harmonyFungibleTokensApi;
             HarmonyFungibleTokensWithHttpInfo = harmonyFungibleTokensApi;
             
             var harmonyMultiTokensApi = new MultiTokensApi(httpClient, configuration);
-            
-
             
             HarmonyMultiTokens = harmonyMultiTokensApi;
             HarmonyMultiTokensWithHttpInfo = harmonyMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient, configuration);
             
-
-            
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
             var oneNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
-
-            
             HarmonyNodeRpc = oneNodeRpcApi;
             HarmonyNodeRpcWithHttpInfo = oneNodeRpcApi;
             
             var ipfsApi = new IPFSApi(httpClient, configuration);
-            
-
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

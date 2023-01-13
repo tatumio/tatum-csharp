@@ -103,8 +103,13 @@ namespace Tatum.CSharp.Utils.DebugMode
                     var headerReminder = headerParts.Length > 1 ? headerParts.Last() : string.Empty;
                     
                     //get first 3 chars from headerFirstPart
-                    var safeApiKey = headerFirstPart.Substring(0, 3) + "---" + headerFirstPart.Substring(headerFirstPart.Length - 3) + "_" + headerReminder;
+                    var safeApiKey = headerFirstPart.Substring(0, 3) + Redacted + headerFirstPart.Substring(headerFirstPart.Length - 3);
 
+                    if (!string.IsNullOrWhiteSpace(headerReminder))
+                    {
+                        safeApiKey = safeApiKey + "_" + headerReminder;
+                    }
+                    
                     headerValues.Add(safeApiKey);
                 }
                 
