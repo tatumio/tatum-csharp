@@ -715,7 +715,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BNBSmartChainApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public BNBSmartChainApi(HttpClient client, Tatum.CSharp.Bsc.Core.Client.Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));

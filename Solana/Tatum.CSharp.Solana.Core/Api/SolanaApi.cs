@@ -459,7 +459,7 @@ namespace Tatum.CSharp.Solana.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public SolanaApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public SolanaApi(HttpClient client, Tatum.CSharp.Solana.Core.Client.Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));
