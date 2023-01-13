@@ -229,7 +229,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Api
 
             Configuration = Tatum.CSharp.Bitcoin.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Bitcoin.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

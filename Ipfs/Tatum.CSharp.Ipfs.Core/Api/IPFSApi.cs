@@ -191,7 +191,7 @@ namespace Tatum.CSharp.Ipfs.Core.Api
 
             Configuration = Tatum.CSharp.Ipfs.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Ipfs.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

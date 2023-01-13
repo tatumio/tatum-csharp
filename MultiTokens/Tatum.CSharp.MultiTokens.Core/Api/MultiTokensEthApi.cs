@@ -1155,7 +1155,7 @@ namespace Tatum.CSharp.MultiTokens.Core.Api
 
             Configuration = Tatum.CSharp.MultiTokens.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.MultiTokens.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

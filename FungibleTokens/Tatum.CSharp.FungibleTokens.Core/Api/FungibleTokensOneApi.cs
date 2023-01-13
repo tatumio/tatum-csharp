@@ -617,7 +617,7 @@ namespace Tatum.CSharp.FungibleTokens.Core.Api
 
             Configuration = Tatum.CSharp.FungibleTokens.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.FungibleTokens.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

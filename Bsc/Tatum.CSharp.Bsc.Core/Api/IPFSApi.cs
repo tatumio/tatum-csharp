@@ -191,7 +191,7 @@ namespace Tatum.CSharp.Bsc.Core.Api
 
             Configuration = Tatum.CSharp.Bsc.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Bsc.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

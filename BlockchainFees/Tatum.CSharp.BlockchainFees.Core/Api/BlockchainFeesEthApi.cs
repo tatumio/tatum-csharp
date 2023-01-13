@@ -405,7 +405,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
 
             Configuration = Tatum.CSharp.BlockchainFees.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.BlockchainFees.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

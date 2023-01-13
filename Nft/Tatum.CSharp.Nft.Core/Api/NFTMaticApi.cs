@@ -1355,7 +1355,7 @@ namespace Tatum.CSharp.Nft.Core.Api
 
             Configuration = Tatum.CSharp.Nft.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Nft.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

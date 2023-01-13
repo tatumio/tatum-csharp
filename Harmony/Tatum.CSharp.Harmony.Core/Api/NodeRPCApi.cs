@@ -160,7 +160,7 @@ namespace Tatum.CSharp.Harmony.Core.Api
 
             Configuration = Tatum.CSharp.Harmony.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Harmony.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;

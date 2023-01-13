@@ -191,7 +191,7 @@ namespace Tatum.CSharp.Polygon.Core.Api
 
             Configuration = Tatum.CSharp.Polygon.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Polygon.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;
