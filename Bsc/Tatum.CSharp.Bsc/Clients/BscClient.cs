@@ -102,49 +102,35 @@ namespace Tatum.CSharp.Bsc.Clients
             
             var bscApi = new BNBSmartChainApi(httpClient, configuration);
 
-
-
             BscBlockchain = bscApi;
             BscBlockchainWithHttpInfo = bscApi;
             
             var bscNftApi = new NFTApi(httpClient, configuration);
-            
 
-            
             BscNft = bscNftApi;
             BscNftWithHttpInfo = bscNftApi;
             
             var bscFungibleTokensApi = new FungibleTokensApi(httpClient, configuration);
-            
-
             
             BscFungibleTokens = bscFungibleTokensApi;
             BscFungibleTokensWithHttpInfo = bscFungibleTokensApi;
             
             var bscMultiTokensApi = new MultiTokensApi(httpClient, configuration);
             
-
-            
             BscMultiTokens = bscMultiTokensApi;
             BscMultiTokensWithHttpInfo = bscMultiTokensApi;
 
             var feeApi = new BlockchainFeesApi(httpClient, configuration);
-            
-
             
             BlockchainFees = feeApi;
             BlockchainFeesWithHttpInfo = feeApi;
             
             var bscNodeRpcApi = new NodeRPCApi(httpClient, configuration);
             
-
-            
             BscNodeRpc = bscNodeRpcApi;
             BscNodeRpcWithHttpInfo = bscNodeRpcApi;
             
             var ipfsApi = new IPFSApi(httpClient, configuration);
-            
-
             
             Ipfs = ipfsApi;
             IpfsWithHttpInfo = ipfsApi;

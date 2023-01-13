@@ -7,8 +7,8 @@ using FluentAssertions;
 using Tatum.CSharp.Evm.Local.Models;
 using Tatum.CSharp.Bsc.Clients;
 using Tatum.CSharp.Bsc.Core.Model;
-using Tatum.CSharp.Bsc.Utils;
 using Tatum.CSharp.Bsc.Tests.Integration.TestDataModels;
+using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
 namespace Tatum.CSharp.Bsc.Tests.Integration.Scenarios;
@@ -22,9 +22,12 @@ public class MintNftNative
     /// </summary>
     public async Task<BscTx> MintNftNative_Bsc_Example()
     {
+        var httpClient = new DebugModeHandler();
+        httpClient.InnerHandler = new HttpClientHandler();
+        
         var bscClient = new BscClient
             (
-                new HttpClient(), 
+                new HttpClient(httpClient), 
                 "75ea3138-d0a1-47df-932e-acb3ee807dab", // Use your API key from https://dashboard.tatum.io, this one is our public API Key for testing.
                 isTestNet: true // If you use TestNet API key then argument isTestNet should be set to true
             );
