@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Tatum API version update. Debug Mode fix for ALGO secrets obfuscation.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed issue with Configuration namespace resolution on some runtimes (Unity).</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -725,7 +725,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
 
             Configuration = Tatum.CSharp.Ethereum.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Ethereum.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;
@@ -745,7 +745,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public FungibleTokensApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public FungibleTokensApi(HttpClient client, Tatum.CSharp.Ethereum.Core.Client.Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));

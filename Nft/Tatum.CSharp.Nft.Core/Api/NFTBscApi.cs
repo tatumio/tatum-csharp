@@ -1181,7 +1181,7 @@ namespace Tatum.CSharp.Nft.Core.Api
 
             Configuration = Tatum.CSharp.Nft.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.Nft.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;
@@ -1201,7 +1201,7 @@ namespace Tatum.CSharp.Nft.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public NFTBscApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public NFTBscApi(HttpClient client, Tatum.CSharp.Nft.Core.Client.Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));

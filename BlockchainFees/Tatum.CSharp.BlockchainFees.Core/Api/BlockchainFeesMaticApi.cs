@@ -317,7 +317,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
 
             Configuration = Tatum.CSharp.BlockchainFees.Core.Client.Configuration.MergeConfigurations(
                 GlobalConfiguration.Instance,
-                new Configuration { BasePath = basePath }
+                new Tatum.CSharp.BlockchainFees.Core.Client.Configuration { BasePath = basePath }
             );
             ApiClient = new ApiClient(client, Configuration.BasePath, handler);
             Client =  ApiClient;
@@ -337,7 +337,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// Some configuration settings will not be applied without passing an HttpClientHandler.
         /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
         /// </remarks>
-        public BlockchainFeesMaticApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
+        public BlockchainFeesMaticApi(HttpClient client, Tatum.CSharp.BlockchainFees.Core.Client.Configuration configuration, HttpClientHandler handler = null)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             if (client == null) throw new ArgumentNullException(nameof(client));
