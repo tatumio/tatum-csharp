@@ -54,6 +54,10 @@ public EthereumController(IEthereumClient ethereumClient)
 
 5. You are ready to use Tatum API!
 
+## Tatum C# SDK with **Unity**
+
+[How to use Tatum C# SDK with Unity.](Unity/README.md)
+
 ## Debug Mode
 
 If there ever is a need to see what is going on under the hood you can use the Debug Mode to output `request curl` and `response content` to the `Debug` console.
