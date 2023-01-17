@@ -99,18 +99,18 @@ jobs:
             !**/obj
             !./packages/Tatum.*
             
-    Prepare_Unity_Package_Links:
-      name: Dispatch Unity Package links preparation
-      runs-on: ubuntu-latest
-      steps:
-        - name: Trigger Unity Package links preparation
-          run: |
-            curl -X POST \
-            -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            '${{ env.DOWNSTREAM_DISPATCH }}' \
-            -d '{"ref": "master", "inputs": {"runId": "${{ github.run_id }}", "checkSuiteId": " github.event.check_suite.id "}}'
-      needs: Pack_Unity
+  Prepare_Unity_Package_Links:
+    name: Dispatch Unity Package links preparation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Unity Package links preparation
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          '${{ env.DOWNSTREAM_DISPATCH }}' \
+          -d '{"ref": "master", "inputs": {"runId": "${{ github.run_id }}", "checkSuiteId": " github.event.check_suite.id "}}'
+    needs: Pack_Unity
         
         
         
