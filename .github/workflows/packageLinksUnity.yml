@@ -13,8 +13,8 @@ on:
         type: string
 
 jobs:
-  Pack_Unity:
-    name: ${{ matrix.arrays.package }} - Unity Package Artifact
+  Update_Download_Links:
+    name: Update Unity Package download links
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
