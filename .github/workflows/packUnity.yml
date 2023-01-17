@@ -109,7 +109,7 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
           -H "Accept: application/vnd.github.v3+json" \
           '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-          -d '{"ref": "develop", "inputs": {"runId": "${{ github.run_id }}", "checkSuiteId": "${{ github.event.check_suite.id }}"}}'
+          -d '{"ref": "master", "inputs": {"runId": "${{ github.run_id }}", "checkSuiteId": "${{ github.event.check_suite.id }}"}}'
     needs: Pack_Unity
         
         
