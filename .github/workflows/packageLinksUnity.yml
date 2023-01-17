@@ -46,6 +46,7 @@ jobs:
             artefactId=$(echo $artefactNameIdPair | cut -d'=' -f2)
             sed -i "s#\[`${artefactName}`\]\(${artefactName}\) *| *<a href=\".*\">Download</a> *|#[`${artefactName}`](${artefactName}) | <a href=\"https://github.com/${{ github.repository }}/suites/${{ inputs.checkSuiteId }}/artifacts/${artifact_id}\">Download</a> |#g" ./Unity/README.md
           done
+          cat ./Unity/README.md
         
         
         
