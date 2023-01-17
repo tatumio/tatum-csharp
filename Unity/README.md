@@ -4,14 +4,14 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. You can find AP
 
 ## Package download
 
-| Chain                             | Unity_Package                                                                                                                                  |
-|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`Bitcoin`](Bitcoin)              | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bitcoin"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bitcoin"></a>   |
-| [`Ethereum`](Ethereum)            | <a href="https://www.nuget.org/packages/Tatum.CSharp.Ethereum"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Ethereum"></a> |
-| [`Polygon`](Polygon)              | <a href="https://www.nuget.org/packages/Tatum.CSharp.Polygon"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Polygon"></a>   |
-| [`BSC`](Bsc)                      | <a href="https://www.nuget.org/packages/Tatum.CSharp.Bsc"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Bsc"></a>           |
-| [`Harmony`](Harmony) | <a href="https://www.nuget.org/packages/Tatum.CSharp.Harmony"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Harmony"></a>   |
-| [`Solana`](Solana)   | <a href="https://www.nuget.org/packages/Tatum.CSharp.Solana"><img alt="Nuget" src="https://buildstats.info/nuget/Tatum.CSharp.Solana"></a>     |
+| Chain                     | Unity_Package                                                                                                                                  |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+|[`Ethereum`](Ethereum)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
+|[`Ethereum`](Ethereum)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
+|[`Polygon`](Polygon)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
+|[`BSC`](Bsc)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
+|[`Harmony`](Harmony)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
+|[`Solana`](Solana)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
 
 ## Unity Quick Start
 1. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)

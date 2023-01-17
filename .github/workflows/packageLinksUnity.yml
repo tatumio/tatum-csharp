@@ -1,0 +1,54 @@
+name: Prepare Unity Package Links
+
+on:
+  workflow_dispatch:
+    inputs:
+      runId:
+        description: 'Run Id'
+        required: true
+        type: string
+      checkSuiteId:
+        description: 'Check Suite Id'
+        required: true
+        type: string
+
+jobs:
+  Pack_Unity:
+    name: ${{ matrix.arrays.package }} - Unity Package Artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Retrieve workflow run artifacts data by calling artifacts endpoint
+        id: get-artifacts
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ inputs.runId }}
+            })
+            return artifacts.data.artifacts
+      - name: For each artefact from previous step create a name and id pair
+        id: create-artefact-name-id-pairs
+        run: |
+          echo "::set-output name=artefactNameIdPairs::$(echo '${{ steps.get-artifacts.outputs.result }}' | jq -r '.[] | "\(.name)=\(.id)"')"
+      - name: Edit ./Unity/README.md and for each artefactNameIdPair replace artefactName and artefactId
+        run: |
+          for artefactNameIdPair in ${{ steps.create-artefact-name-id-pairs.outputs.artefactNameIdPairs }}; do
+            artefactName=$(echo $artefactNameIdPair | cut -d'=' -f1)
+            artefactId=$(echo $artefactNameIdPair | cut -d'=' -f2)
+            sed -i "s#\[`${artefactName}`\]\(${artefactName}\) *| *<a href=\".*\">Download</a> *|#[`${artefactName}`](${artefactName}) | <a href=\"https://github.com/${{ github.repository }}/suites/${{ inputs.checkSuiteId }}/artifacts/${artifact_id}\">Download</a> |#g" ./Unity/README.md
+          done
+        
+        
+        
+        
+        
+        
