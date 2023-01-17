@@ -7,11 +7,6 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. You can find AP
 | Chain                     | Unity_Package                                                                                                                                  |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 |[`Ethereum`](Ethereum)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
-|[`Ethereum`](Ethereum)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
-|[`Polygon`](Polygon)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
-|[`BSC`](Bsc)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
-|[`Harmony`](Harmony)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
-|[`Solana`](Solana)|<a href="https://github.com/tatumio/tatum-csharp/suites/10352541366/artifacts/510148406">Download</a>|
 
 ## Unity Quick Start
 1. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
@@ -38,6 +33,21 @@ var balance = await ethereumClient
 .EthereumBlockchain
 .EthGetBalanceAsync("0x8d12A197cB00D4747a1fe03395095ce2A5CC6819");
 ```
+
+## Troubleshooting
+
+If you encounter error similar to this:
+```
+XXX references strong named Newtonsoft.Json Assembly references: 11.0.0.0 Found in project: 13.0.0.0
+```
+
+You should disable Reference Validation on imported .dll files. 
+
+To do so:
+1. Right click on the .dll file in the Project window
+2. Select "Properties"
+3. In the Inspector window, uncheck "Validate References"
+4. Click "Apply"
 
 ## Debug Mode
 
