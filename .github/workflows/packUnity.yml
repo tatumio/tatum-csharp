@@ -118,7 +118,7 @@ jobs:
       - uses: kuler90/setup-unity@v1.1.0
         with:
           unity-version: 2020.3.43f1
-          install-path: /opt/Unity
+          install-path: /home/runner/work/Unity
       - name: Generate .meta files
         run: ${{ env.UNITY_PATH }} -batchmode -quit -projectpath /home/runner/work/tatum-csharp/tatum-csharp/Unity/${{ env.PACKAGE_NAME }} || exit 0
       - name: Display contents of the package
