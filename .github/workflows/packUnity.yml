@@ -111,7 +111,7 @@ jobs:
           mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
           mv -v ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
-          mv -v ./Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt ./Unity/${{ env.UNITY_NAME}}
+          mv -v './Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt' ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
           find ./Unity -name 'bin' -or -name 'obj' -type d -exec rm -r 
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
