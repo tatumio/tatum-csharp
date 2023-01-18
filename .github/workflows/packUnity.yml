@@ -101,6 +101,11 @@ jobs:
       - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
         run: |
           mkdir -p ./Unity/${{ env.UNITY_NAME}}
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}/packages
           mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
           mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
           mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
