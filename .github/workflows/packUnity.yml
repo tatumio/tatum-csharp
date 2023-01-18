@@ -113,7 +113,7 @@ jobs:
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
           mv -v './Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt' ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
-          find ./Unity -name 'bin' -or -name 'obj' -type d -exec rm -r 
+          find ./Unity -name 'bin' -or -name 'obj' -type d -exec rm -r {} +
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - uses: pCYSl5EDgo/setup-unity@master
         with:
