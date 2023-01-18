@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.package }}
-      ARTEFACT_NAME: Unity-${{ matrix.arrays.package }}
+      UNITY_NAME: com.tatum.${{ matrix.arrays.package }}
       PROJECT_PATH: ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.csproj
     steps:
       - name: Check out code
@@ -98,20 +98,18 @@ jobs:
 #            !**/bin
 #            !**/obj
 #            !./packages/Tatum.*
-      - name: Move all files included in the package to ./Unity/${{ env.PACKAGE_NAME}}
+      - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
         run: |
-          mkdir -p ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}/* ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core/* ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./packages/*.dll ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt ./Unity/${{ env.PACKAGE_NAME }}
-          mv -v ./Unity/README.md ./Unity/${{ env.PACKAGE_NAME }}
-          rm -rf ./${{ matrix.arrays.package }}
-          rm -rf ./Tatum.CSharp.Utils
-          rm -rf ./Tatum.CSharp.${{ matrix.arrays.dependency }}
-          rm -rf ./packages
+          mkdir -p ./Unity/${{ env.UNITY_NAME}}
+          mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
+          mv -v ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
+          mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
+          mv -v ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
+          mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
+          mv -v ./Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt ./Unity/${{ env.UNITY_NAME}}
+          mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
+          find ./Unity -name 'bin' -or -name 'obj' -type d -exec rm -r 
+          rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - uses: pCYSl5EDgo/setup-unity@master
         with:
           unity-version: 2020.3.43f1
