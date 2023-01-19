@@ -139,7 +139,7 @@ jobs:
              sed -i "s/\${GUID}/$FOLDER_NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
           
              # Iterate through all .cs files in current folder
-             for file in $(find "$dir" -type f -name "*.cs"); do
+             for file in $(find "$dir" -type f -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
@@ -153,7 +153,7 @@ jobs:
                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
              done
              # Iterate through all non-.cs files in current folder
-             for file in $(find "$dir" -type f ! -name "*.cs"); do
+             for file in $(find "$dir" -type f ! -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
