@@ -33,7 +33,7 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ matrix.arrays.package }}/${{ inputs.version }},g" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity_${{ matrix.arrays.package }}/${{ inputs.version }},g" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs
           grep -i "Tatum_SDK_CSharp" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs   
       - name: Propagate PackageReleaseNotes from the Core package .csproj
         run: |
