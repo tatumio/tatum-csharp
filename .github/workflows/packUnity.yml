@@ -128,43 +128,51 @@ jobs:
           for dir in $(find ./Unity/$UNITY_NAME -type d -mindepth 1); do
              # Get folder name
              FOLDER_NAME=$(basename "$dir")
+             if [ ! -f "$dir/$FOLDER_NAME.meta" ]; then
           
-             # Generate new GUID for folder
-             FOLDER_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
+              # Generate new GUID for folder
+              FOLDER_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
-             # Move template meta file to current folder and rename to folder name
-             cp "$FOLDER_TEMPLATE_META" "$dir/$FOLDER_NAME.meta"
+              # Move template meta file to current folder and rename to folder name
+              cp "$FOLDER_TEMPLATE_META" "$dir/$FOLDER_NAME.meta"
           
-             # Replace ${GUID} tag in meta file with new GUID
-             sed -i "s/\${GUID}/$FOLDER_NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
+              # Replace ${GUID} tag in meta file with new GUID
+              sed -i "s/\${GUID}/$FOLDER_NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
+             fi
           
              # Iterate through all .cs files in current folder
              for file in $(find "$dir" -type f -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
-                 # Generate new GUID for file
-                 MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
+                 if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
-                 # Move template meta file to current file and rename to file name with extension
-                 cp "$MONO_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  # Generate new GUID for file
+                  MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
-                 # Replace ${GUID} tag in meta file with new GUID
-                 sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  # Move template meta file to current file and rename to file name with extension
+                  cp "$MONO_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+          
+                  # Replace ${GUID} tag in meta file with new GUID
+                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                fi
              done
              # Iterate through all non-.cs files in current folder
              for file in $(find "$dir" -type f ! -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
-                 # Generate new GUID for file
-                 DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
+                 if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
-                 # Move template meta file to current file and rename to file name with extension
-                 cp "$DEFAULT_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  # Generate new GUID for file
+                  DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
-                 # Replace ${GUID} tag in meta file with new GUID
-                 sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  # Move template meta file to current file and rename to file name with extension
+                  cp "$DEFAULT_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+          
+                  # Replace ${GUID} tag in meta file with new GUID
+                  sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                 fi  
              done
           done
       - name: Display contents of the package
