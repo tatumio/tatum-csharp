@@ -115,11 +115,6 @@ jobs:
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
           find ./Unity -name 'bin' -or -name 'obj' -type d -exec rm -r {} +
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
-      - name: Install libfuse2
-        run: |
-          sudo add-apt-repository universe
-          sudo apt install libfuse2
-          sudo apt install at-spi2-core
       - name: Generate .meta files
         run: |
           UNITY_NAME=${{ env.UNITY_NAME}}
@@ -140,7 +135,7 @@ jobs:
               sed -i "s/\${GUID}/$NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
           done
       - name: Display contents of the package
-        run: ls -l ./Unity/${{ env.PACKAGE_NAME }}
+        run: ls -l ./Unity/${{ env.UNITY_NAME}}
 #  Prepare_Unity_Package_Links:
 #    name: Dispatch Unity Package links preparation
 #    runs-on: ubuntu-latest
