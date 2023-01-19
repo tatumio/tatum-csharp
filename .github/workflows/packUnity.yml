@@ -120,12 +120,25 @@ jobs:
           sudo add-apt-repository universe
           sudo apt install libfuse2
           sudo apt install at-spi2-core
-      - uses: kuler90/setup-unity@v1.1.0
-        with:
-          unity-version: 2020.3.43f1
-          install-path: /home/runner/work/Unity
       - name: Generate .meta files
-        run: ${{ env.UNITY_PATH }} -batchmode -quit -projectpath /home/runner/work/tatum-csharp/tatum-csharp/Unity/${{ env.PACKAGE_NAME }} || exit 0
+        run: |
+          UNITY_NAME=${{ env.UNITY_NAME}}
+
+          TEMPLATE_META="./Unity/folderTemplate.meta"
+
+          for dir in $(find ./Unity/$UNITY_NAME -type d -mindepth 1); do
+              # Get folder name
+              FOLDER_NAME=$(basename "$dir")
+
+              # Generate new GUID
+              NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
+
+              # Move template meta file to current folder and rename to folder name
+              cp "$TEMPLATE_META" "$dir/$FOLDER_NAME.meta"
+
+              # Replace ${GUID} tag in meta file with new GUID
+              sed -i "s/\${GUID}/$NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
+          done
       - name: Display contents of the package
         run: ls -l ./Unity/${{ env.PACKAGE_NAME }}
 #  Prepare_Unity_Package_Links:
