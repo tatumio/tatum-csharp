@@ -175,8 +175,10 @@ jobs:
                  fi  
              done
           done
-      - name: Display contents of the package
-        run: ls -l ./Unity/${{ env.UNITY_NAME}}
+      - name: Display contents of the package recursively
+        run: |
+          ls -R ./Unity/${{ env.UNITY_NAME}}
+
 #  Prepare_Unity_Package_Links:
 #    name: Dispatch Unity Package links preparation
 #    runs-on: ubuntu-latest
