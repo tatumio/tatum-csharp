@@ -32,7 +32,7 @@ jobs:
           dotnet-version: 6.0.x
       - name: downcase package name
         run: |
-          name = com.tatum.${{ matrix.arrays.package }}
+          name = "com.tatum.${{ matrix.arrays.package }}"
           echo "UNITY_NAME=${name,,}" >> ${GITHUB_ENV}
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
