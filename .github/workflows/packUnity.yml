@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.package }}
-      UNITY_NAME: com.tatum.${{ matrix.arrays.package }}
       PROJECT_PATH: ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.csproj
     steps:
       - name: Check out code
@@ -31,6 +30,9 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
+      - name: downcase package name
+        run: |
+          echo "UNITY_NAME=${com.tatum.${{ matrix.arrays.package }},,}" >> ${GITHUB_ENV}
       - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
         run: |
           sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity_${{ matrix.arrays.package }}/${{ inputs.version }},g" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs
@@ -98,8 +100,14 @@ jobs:
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
           mv -v ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
+          mv -v ./Unity/package.json ./Unity/${{ env.UNITY_NAME}}
           find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
+      - name: In ./Unity/${{ env.UNITY_NAME}}/package.json replace ${package} tag with ${{ env.UNITY_NAME}} and ${version} tag with ${{ inputs.version }}
+        run: |
+          sed -i "s/\${packageLowercase}/\${{ env.UNITY_NAME}}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
+          sed -i "s/\${package}/\${{ matrix.arrays.package }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
+          sed -i "s/\${version}/\${{ inputs.version }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
       - name: Generate .meta files
         run: |
           UNITY_NAME=${{ env.UNITY_NAME}}
