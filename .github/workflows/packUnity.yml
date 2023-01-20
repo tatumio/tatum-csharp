@@ -134,10 +134,10 @@ jobs:
               FOLDER_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
               # Move template meta file to current folder and rename to folder name
-              cp "$FOLDER_TEMPLATE_META" "$dir/$FOLDER_NAME.meta"
+              cp "$FOLDER_TEMPLATE_META" "$dir/../$FOLDER_NAME.meta"
           
               # Replace ${GUID} tag in meta file with new GUID
-              sed -i "s/\${GUID}/$FOLDER_NEW_GUID/g" "$dir/$FOLDER_NAME.meta"
+              sed -i "s/\${GUID}/$FOLDER_NEW_GUID/g" "$dir/../$FOLDER_NAME.meta"
              fi
           
              # Iterate through all .cs files in current folder
@@ -174,6 +174,20 @@ jobs:
                   sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
                  fi  
              done
+          done
+      - name: Clenup orphant meta files
+        run: |
+          # Set Unity folder name
+          UNITY_NAME=${{ env.UNITY_NAME}}
+
+          # Iterate through all files in Unity directory (recursive)
+          for file in $(find ./Unity/$UNITY_NAME -type f -name "*.meta"); do
+              # Get file name without extension
+              FILE_NAME_WITHOUT_EXTENSION="${file%.*}"
+              if [ ! -e "$FILE_NAME_WITHOUT_EXTENSION" ]; then
+                  # Delete meta file if corresponding file or folder does not exist
+                  rm "$file"
+              fi
           done
       - name: Display contents of the package recursively
         run: |
