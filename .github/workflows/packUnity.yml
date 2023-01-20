@@ -147,16 +147,16 @@ jobs:
           
                  echo $file.$FILE_NAME_WITH_EXTENSION.meta
           
-                 if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
+                 if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
                   # Generate new GUID for file
                   MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
                   # Move template meta file to current file and rename to file name with extension
-                  cp "$MONO_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  cp "$MONO_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
           
                   # Replace ${GUID} tag in meta file with new GUID
-                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
                 fi
              done
              # Iterate through all non-.cs files in current folder
@@ -165,23 +165,23 @@ jobs:
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
                 
                  echo $file.$FILE_NAME_WITH_EXTENSION.meta
-                 if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
+                 if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
                   # Generate new GUID for file
                   DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
                   # Move template meta file to current file and rename to file name with extension
-                  cp "$DEFAULT_TEMPLATE_META" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  cp "$DEFAULT_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
           
                   # Replace ${GUID} tag in meta file with new GUID
-                  sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$file.$FILE_NAME_WITH_EXTENSION.meta"
+                  sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
                  fi  
              done
           done
       - name: Display contents of the package recursively
         run: |
           ls -R ./Unity/${{ env.UNITY_NAME}}
-      - name: Clenup orphant meta files
+      - name: Clenup orphan meta files
         run: |
           # Set Unity folder name
           UNITY_NAME=${{ env.UNITY_NAME}}
@@ -190,9 +190,9 @@ jobs:
           for file in $(find ./Unity/$UNITY_NAME -type f -name "*.meta"); do
               # Get file name without extension
               FILE_NAME_WITHOUT_EXTENSION="${file%.*}"
-              echo $FILE_NAME_WITHOUT_EXTENSION
               if [ ! -e "$FILE_NAME_WITHOUT_EXTENSION" ]; then
                   # Delete meta file if corresponding file or folder does not exist
+                  echo "Deleting orphan meta file: $file"
                   rm "$file"
               fi
           done
