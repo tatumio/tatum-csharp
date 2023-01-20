@@ -178,6 +178,9 @@ jobs:
                  fi  
              done
           done
+      - name: Display contents of the package recursively
+        run: |
+          ls -R ./Unity/${{ env.UNITY_NAME}}
       - name: Clenup orphant meta files
         run: |
           # Set Unity folder name
