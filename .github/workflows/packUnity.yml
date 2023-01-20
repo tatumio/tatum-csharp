@@ -83,21 +83,6 @@ jobs:
           
           ls -l "$dest"
           done
-#      - name: Create Unity Package Artefact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: ${{ env.ARTEFACT_NAME }}
-#          path: |
-#            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
-#            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
-#            ./Tatum.CSharp.Utils
-#            ./Tatum.CSharp.${{ matrix.arrays.dependency }}
-#            ./packages/*.dll
-#            ./Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt
-#            ./Unity/README.md
-#            !**/bin
-#            !**/obj
-#            !./packages/Tatum.*
       - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
         run: |
           mkdir -p ./Unity/${{ env.UNITY_NAME}}
@@ -111,7 +96,7 @@ jobs:
           mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
           mv -v ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
-          mv -v './Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt' ./Unity/${{ env.UNITY_NAME}}
+          mv -v ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
           find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
@@ -201,19 +186,3 @@ jobs:
       - name: Display contents of the package recursively
         run: |
           ls -R ./Unity/${{ env.UNITY_NAME}}
-
-#  Prepare_Unity_Package_Links:
-#    name: Dispatch Unity Package links preparation
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Trigger Unity Package links preparation
-#        run: |
-#          curl -X POST \
-#          -H "Authorization: Bearer ${{secrets.DISPATCH_TOKEN}}" \
-#          -H "Accept: application/vnd.github.v3+json" \
-#          '${{ env.DOWNSTREAM_DISPATCH_ADDRESS }}' \
-#          -d '{"ref": "master", "inputs": {"runId": "${{ github.run_id }}", "checkSuiteId": "${{ github.event.check_suite.id }}"}}'
-#    needs: Pack_Unity
-        
-        
-        
