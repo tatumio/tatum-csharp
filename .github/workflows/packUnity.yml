@@ -106,9 +106,9 @@ jobs:
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - name: In ./Unity/${{ env.UNITY_NAME}}/package.json replace ${package} tag with ${{ env.UNITY_NAME}} and ${version} tag with ${{ inputs.version }}
         run: |
-          sed -i "s/${packageLowercase}/${{ env.UNITY_NAME}}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
-          sed -i "s/${package}/${{ matrix.arrays.package }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
-          sed -i "s/${version}/${{ inputs.version }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
+          sed -i "s/\$\{packageLowercase\}/${{ env.UNITY_NAME}}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
+          sed -i "s/\$\{package\}/${{ matrix.arrays.package }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
+          sed -i "s/\$\{version\}/${{ inputs.version }}/g" ./Unity/${{ env.UNITY_NAME}}/package.json
       - name: Generate .meta files
         run: |
           UNITY_NAME=${{ env.UNITY_NAME}}
