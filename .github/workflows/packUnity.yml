@@ -143,22 +143,20 @@ jobs:
              # Iterate through all .cs files in current folder
              for file in $(find "$dir" -type f -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
-                 FILE_NAME_WITH_EXTENSION=$(basename "$file")
+                 echo $file.meta
           
-                 echo $FILE_NAME_WITH_EXTENSION.meta
-          
-                 if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
+                 if [ ! -f "$file.meta" ]; then
           
                   # Generate new GUID for file
                   MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
                   # Move template meta file to current file and rename to file name with extension
-                  cp "$MONO_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
+                  cp "$MONO_TEMPLATE_META" "$file.meta"
           
-                  echo generated $FILE_NAME_WITH_EXTENSION.meta
+                  echo generated $file.meta
           
                   # Replace ${GUID} tag in meta file with new GUID
-                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
+                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.meta"
                 fi
              done
              # Iterate through all non-.cs files in current folder
@@ -166,19 +164,19 @@ jobs:
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
                 
-                 echo $FILE_NAME_WITH_EXTENSION.meta
-                 if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
+                 echo $file.meta
+                 if [ ! -f "$file.meta" ]; then
           
                   # Generate new GUID for file
                   DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid)
           
                   # Move template meta file to current file and rename to file name with extension
-                  cp "$DEFAULT_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
+                  cp "$DEFAULT_TEMPLATE_META" "$file.meta"
           
-                  echo generated $FILE_NAME_WITH_EXTENSION.meta
+                  echo generated $file.meta
           
                   # Replace ${GUID} tag in meta file with new GUID
-                  sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
+                  sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$file.meta"
                  fi  
              done
           done
