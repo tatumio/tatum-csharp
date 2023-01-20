@@ -145,6 +145,8 @@ jobs:
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
+                 echo $file.$FILE_NAME_WITH_EXTENSION.meta
+          
                  if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
                   # Generate new GUID for file
@@ -161,7 +163,8 @@ jobs:
              for file in $(find "$dir" -type f ! -name "*.cs" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
-          
+                
+                 echo $file.$FILE_NAME_WITH_EXTENSION.meta
                  if [ ! -f "$file.$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
                   # Generate new GUID for file
