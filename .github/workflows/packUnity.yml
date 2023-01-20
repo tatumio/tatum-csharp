@@ -145,7 +145,7 @@ jobs:
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
           
-                 echo $file.$FILE_NAME_WITH_EXTENSION.meta
+                 echo $FILE_NAME_WITH_EXTENSION.meta
           
                  if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
@@ -154,6 +154,8 @@ jobs:
           
                   # Move template meta file to current file and rename to file name with extension
                   cp "$MONO_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
+          
+                  echo generated $FILE_NAME_WITH_EXTENSION.meta
           
                   # Replace ${GUID} tag in meta file with new GUID
                   sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
@@ -164,7 +166,7 @@ jobs:
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
                 
-                 echo $file.$FILE_NAME_WITH_EXTENSION.meta
+                 echo $FILE_NAME_WITH_EXTENSION.meta
                  if [ ! -f "$FILE_NAME_WITH_EXTENSION.meta" ]; then
           
                   # Generate new GUID for file
@@ -172,6 +174,8 @@ jobs:
           
                   # Move template meta file to current file and rename to file name with extension
                   cp "$DEFAULT_TEMPLATE_META" "$FILE_NAME_WITH_EXTENSION.meta"
+          
+                  echo generated $FILE_NAME_WITH_EXTENSION.meta
           
                   # Replace ${GUID} tag in meta file with new GUID
                   sed -i "s/\${GUID}/$DEFAULT_NEW_GUID/g" "$FILE_NAME_WITH_EXTENSION.meta"
