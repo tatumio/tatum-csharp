@@ -113,7 +113,7 @@ jobs:
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
           mv -v './Unity/licence_notice (${{ env.PACKAGE_NAME }}).txt' ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
-          find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -delete
+          find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - name: Generate .meta files
         run: |
