@@ -1,5 +1,5 @@
 {
-	"name": "com.tatum.${packageLowercase}",
+	"name": "${packageLowercase}",
 	"displayName": "Tatum ${package} SDK v2",
 	"version": "${version}",
 	"author": "Tatum.io",
@@ -9,5 +9,8 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tatumio/tatum-csharp"
-	}
+	},
+	"documentationUrl":"https://github.com/tatumio/tatum-csharp/blob/master/README.md",
+	"licensesUrl":"https://github.com/tatumio/tatum-csharp/blob/master/LICENSE.md",
+	"changelogUrl":"https://www.nuget.org/packages/Tatum.CSharp.${package}#release-body-tab"
 }
