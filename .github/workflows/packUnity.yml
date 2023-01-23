@@ -86,8 +86,11 @@ jobs:
           
           ls -l "$dest"
           done
-      - name: Clear the package folder
-        run: find ./Unity/${{ env.UNITY_NAME}} -type f ! -name "*.meta" -delete
+      - name: Clear the package folder files if it exists, not including .meta files
+        run: |
+          if [ -d "./Unity/${{ env.UNITY_NAME}}" ]; then
+            find ./Unity/${{ env.UNITY_NAME}} -type f ! -name "*.meta" -delete
+          fi
       - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
         run: |
           mkdir -p ./Unity/${{ env.UNITY_NAME}}
