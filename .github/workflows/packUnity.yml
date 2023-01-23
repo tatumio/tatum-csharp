@@ -201,8 +201,9 @@ jobs:
           done
       - name: Push to new Unity packages to the SDK repo
         run: |
+          git add ./Unity/$UNITY_NAME
           git status
-          git add ./Unity
+          
           if [[ `git status --porcelain` ]]; then
             echo "Changes detected, committing"
           
