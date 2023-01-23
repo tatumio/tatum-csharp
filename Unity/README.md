@@ -32,22 +32,6 @@ var balance = await ethereumClient
 .EthereumBlockchain
 .EthGetBalanceAsync("0x8d12A197cB00D4747a1fe03395095ce2A5CC6819");
 ```
-
-## Troubleshooting
-
-If you encounter error similar to this:
-```
-XXX references strong named Newtonsoft.Json Assembly references: 11.0.0.0 Found in project: 13.0.0.0
-```
-
-You should disable Reference Validation on imported .dll files. 
-
-To do so:
-1. Right click on the .dll file in the Project window
-2. Select "Properties"
-3. In the Inspector window, uncheck "Validate References"
-4. Click "Apply"
-
 ## Debug Mode
 
 If there ever is a need to see what is going on under the hood you can use the Debug Mode to output `request curl` and `response content` to the `Debug` console.

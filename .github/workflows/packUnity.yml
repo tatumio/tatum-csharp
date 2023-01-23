@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - name: downcase package name
+      - name: Lowercase package name
         run: |
           name="com.tatum.${{ matrix.arrays.package }}"
           echo "UNITY_NAME=${name,,}" >> ${GITHUB_ENV}
@@ -110,12 +110,12 @@ jobs:
           cp ./Unity/assemblyTemplate.asmdef ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
           find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
-      - name: In ./Unity/${{ env.UNITY_NAME}}/package.json replace ${package} tag with ${{ env.UNITY_NAME}} and ${version} tag with ${{ inputs.version }}
+      - name: In replace tags in package.json
         run: |
           sed -i 's/${packageLowercase}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
           sed -i 's/${package}/${{ matrix.arrays.package }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
           sed -i 's/${version}/${{ inputs.version }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
-      - name: In ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef replace ${assemblyName} tag with ${{ env.UNITY_NAME}}
+      - name: Replace tags in .asmdef file
         run: |
           sed -i 's/${assemblyName}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
       - name: Generate .meta files
