@@ -1,5 +1,5 @@
 {
-    "name": "${assemblyName}",
+    "name": "com.tatum.ethereum",
     "references": [],
     "optionalUnityReferences": [],
     "includePlatforms": [],
