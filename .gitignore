@@ -369,5 +369,5 @@ FodyWeavers.xsd
 .DS_Store
 
 # Unity
-!Unity/*.meta
-!Unity/*.dll
+!Unity/**/*.meta
+!Unity/**/*.dll
