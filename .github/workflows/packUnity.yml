@@ -201,9 +201,7 @@ jobs:
           done
       - name: Push to new Unity packages to the SDK repo
         run: |
-          ls
-          cd tatum-csharp
-          ls
+          git status
           git add ./Unity
           if [[ `git status --porcelain` ]]; then
             echo "Changes detected, committing"
