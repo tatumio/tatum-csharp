@@ -203,6 +203,7 @@ jobs:
         run: |
           ls
           cd tatum-csharp
+          ls
           git add ./Unity
           if [[ `git status --porcelain` ]]; then
             echo "Changes detected, committing"
