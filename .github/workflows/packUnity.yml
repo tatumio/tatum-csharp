@@ -99,10 +99,10 @@ jobs:
           mv -v ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
           mv -v ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
           mv -v ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
-          mv -v ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
-          mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
-          mv -v ./Unity/package.json ./Unity/${{ env.UNITY_NAME}}
-          mv -v ./Unity/assemblyTemplate.asmdef ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
+          cp ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
+          cp ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
+          cp ./Unity/package.json ./Unity/${{ env.UNITY_NAME}}
+          cp ./Unity/assemblyTemplate.asmdef ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
           find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - name: In ./Unity/${{ env.UNITY_NAME}}/package.json replace ${package} tag with ${{ env.UNITY_NAME}} and ${version} tag with ${{ inputs.version }}
@@ -193,7 +193,7 @@ jobs:
                   rm "$file"
               fi
           done
-      - name: Add and push all the changes to ./Unity using secret.SDK_GIT
+      - name: Add and push all the changes to ./Unity
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
