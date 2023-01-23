@@ -30,6 +30,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
+      - name: Prepare version control
+        run: |
+          git config --unset-all http.https://github.com/.extraheader
+          git clone https://user:${{ secrets.DISPATCH_TOKEN }}@github.com/tatumio/tatum-csharp.git
+          cd tatum-csharp
+          git checkout develop
       - name: downcase package name
         run: |
           name="com.tatum.${{ matrix.arrays.package }}"
@@ -193,6 +199,16 @@ jobs:
                   rm "$file"
               fi
           done
-      - name: Display contents of the package recursively
+      - name: Push to new Unity packages to the SDK repo
         run: |
-          ls -R ./Unity/${{ env.UNITY_NAME}}
+          cd tatum-csharp
+          git add ./Unity
+          if [[ `git status --porcelain` ]]; then
+            echo "Changes detected, committing"
+          
+            git config user.name "unity-workflow"
+            git config user.email "unity-generator@tatum.io"
+          
+            git commit -m 'New Unity packages generated'
+            git push
+          fi
