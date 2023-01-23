@@ -134,7 +134,7 @@ jobs:
              if [ ! -f "$dir/$FOLDER_NAME.meta" ]; then
           
               # Generate new GUID for folder
-              FOLDER_NEW_GUID=$(cat /proc/sys/kernel/random/uuid) | sed 's/-//g'
+              FOLDER_NEW_GUID=$(cat /proc/sys/kernel/random/uuid | sed 's/-//g')
           
               # Move template meta file to current folder and rename to folder name
               cp "$FOLDER_TEMPLATE_META" "$dir/../$FOLDER_NAME.meta"
@@ -151,7 +151,7 @@ jobs:
                  if [ ! -f "$file.meta" ]; then
           
                   # Generate new GUID for file
-                  MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid) | sed 's/-//g'
+                  MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid | sed 's/-//g')
           
                   # Move template meta file to current file and rename to file name with extension
                   cp "$MONO_TEMPLATE_META" "$file.meta"
@@ -171,7 +171,7 @@ jobs:
                  if [ ! -f "$file.meta" ]; then
           
                   # Generate new GUID for file
-                  DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid) | sed 's/-//g'
+                  DEFAULT_NEW_GUID=$(cat /proc/sys/kernel/random/uuid | sed 's/-//g')
           
                   # Move template meta file to current file and rename to file name with extension
                   cp "$DEFAULT_TEMPLATE_META" "$file.meta"
