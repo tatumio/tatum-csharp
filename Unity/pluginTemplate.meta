@@ -11,6 +11,17 @@ PluginImporter:
   isExplicitlyReferenced: 0
   validateReferences: 0
   platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 1
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
   userData: 
   assetBundleName: 
   assetBundleVariant: 
