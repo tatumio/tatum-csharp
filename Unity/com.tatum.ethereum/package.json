@@ -12,5 +12,5 @@
 	},
 	"documentationUrl":"https://github.com/tatumio/tatum-csharp/blob/master/README.md",
 	"licensesUrl":"https://github.com/tatumio/tatum-csharp/blob/master/LICENSE.md",
-	"changelogUrl":"https://www.nuget.org/packages/Tatum.CSharp.Ethereum#release-body-tab"
+	"changelogUrl":"https://www.nuget.org/packages/Tatum.CSharp.Ethereum/2.10.2#release-body-tab"
 }
