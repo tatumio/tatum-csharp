@@ -33,7 +33,7 @@ jobs:
       - name: Prepare version control
         run: |
           git config --unset-all http.https://github.com/.extraheader
-          git clone https://user:${{ secrets.DISPATCH_TOKEN }}@github.com/tatumio/tatum-csharp.git
+          git clone https://user:${{ secrets.SDK_GIT }}@github.com/tatumio/tatum-csharp.git
           cd tatum-csharp
           git checkout develop
       - name: downcase package name
