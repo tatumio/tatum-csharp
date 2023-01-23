@@ -102,6 +102,7 @@ jobs:
           mv -v ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
           mv -v ./Unity/package.json ./Unity/${{ env.UNITY_NAME}}
+          mv -v ./Unity/assemblyTemplate.asmdef ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
           find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
           rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
       - name: In ./Unity/${{ env.UNITY_NAME}}/package.json replace ${package} tag with ${{ env.UNITY_NAME}} and ${version} tag with ${{ inputs.version }}
@@ -109,6 +110,9 @@ jobs:
           sed -i 's/${packageLowercase}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
           sed -i 's/${package}/${{ matrix.arrays.package }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
           sed -i 's/${version}/${{ inputs.version }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
+      - name: In ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef replace ${assemblyName} tag with ${{ env.UNITY_NAME}}
+        run: |
+          sed -i 's/${assemblyName}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
       - name: Generate .meta files
         run: |
           UNITY_NAME=${{ env.UNITY_NAME}}
@@ -174,9 +178,6 @@ jobs:
                  fi  
              done
           done
-      - name: Display contents of the package recursively
-        run: |
-          ls -R ./Unity/${{ env.UNITY_NAME}}
       - name: Clenup orphan meta files
         run: |
           # Set Unity folder name
