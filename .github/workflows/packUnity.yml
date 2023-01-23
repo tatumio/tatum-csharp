@@ -86,6 +86,8 @@ jobs:
           
           ls -l "$dest"
           done
+      - name: Clear the package folder
+        run: find ./Unity/${{ env.UNITY_NAME}} -type f ! -name "*.meta" -delete
       - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
         run: |
           mkdir -p ./Unity/${{ env.UNITY_NAME}}
@@ -94,11 +96,11 @@ jobs:
           mkdir -p ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
           mkdir -p ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
           mkdir -p ./Unity/${{ env.UNITY_NAME}}/packages
-          mv -v -f ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
-          mv -v -f ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
-          mv -v -f ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
-          mv -v -f ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
-          mv -v -f ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
+          rsync -avz ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
+          rsync -avz ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core/* ./Unity/${{ env.UNITY_NAME}}/${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
+          rsync -avz ./Tatum.CSharp.Utils/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.Utils
+          rsync -avz ./Tatum.CSharp.${{ matrix.arrays.dependency }}/* ./Unity/${{ env.UNITY_NAME}}/Tatum.CSharp.${{ matrix.arrays.dependency }}
+          rsync -avz ./packages/*.dll ./Unity/${{ env.UNITY_NAME}}/packages
           cp ./Unity/licence_notice_${{ env.PACKAGE_NAME }}.txt ./Unity/${{ env.UNITY_NAME}}
           cp ./Unity/README.md ./Unity/${{ env.UNITY_NAME}}
           cp ./Unity/package.json ./Unity/${{ env.UNITY_NAME}}
@@ -178,7 +180,9 @@ jobs:
                  fi  
              done
           done
-      - name: Clen-up orphan meta files
+      - name: Cleanup empty folders
+        run: find ./Unity/${{ env.UNITY_NAME }} -type d -empty -not -name ".meta" -delete
+      - name: Cleanup orphan meta files
         run: |
           # Set Unity folder name
           UNITY_NAME=${{ env.UNITY_NAME}}
