@@ -125,6 +125,7 @@ jobs:
           # Set template meta files paths
           FOLDER_TEMPLATE_META="./Unity/folderTemplate.meta"
           MONO_TEMPLATE_META="./Unity/monoTemplate.meta"
+          PLUGIN_TEMPLATE_META="./Unity/pluginTemplate.meta"
           DEFAULT_TEMPLATE_META="./Unity/defaultTemplate.meta"
           
           # Iterate through all folders in Unity directory (recursive)
@@ -162,8 +163,29 @@ jobs:
                   sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.meta"
                 fi
              done
-             # Iterate through all non-.cs files in current folder
-             for file in $(find "$dir" -type f ! -name "*.cs" ! -name "*.meta"); do
+          
+             # Iterate through all .dll files in current folder
+             for file in $(find "$dir" -type f -name "*.dll" ! -name "*.meta"); do
+                 # Get file name with extension
+                 echo $file.meta
+          
+                 if [ ! -f "$file.meta" ]; then
+          
+                  # Generate new GUID for file
+                  MONO_NEW_GUID=$(cat /proc/sys/kernel/random/uuid | sed 's/-//g')
+          
+                  # Move template meta file to current file and rename to file name with extension
+                  cp "$PLUGIN_TEMPLATE_META" "$file.meta"
+          
+                  echo generated $file.meta
+          
+                  # Replace ${GUID} tag in meta file with new GUID
+                  sed -i "s/\${GUID}/$MONO_NEW_GUID/g" "$file.meta"
+                fi
+             done
+          
+             # Iterate through all non-.cs/.dll files in current folder
+             for file in $(find "$dir" -type f ! -name "*.cs" ! -name "*.dll" ! -name "*.meta"); do
                  # Get file name with extension
                  FILE_NAME_WITH_EXTENSION=$(basename "$file")
                 
