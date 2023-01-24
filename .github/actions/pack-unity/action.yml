@@ -1,4 +1,5 @@
 name: Create or Update Unity Package
+
 inputs:
   package:
     description: 'package name'
@@ -9,33 +10,44 @@ inputs:
   varsion:
     description: 'package version'
     required: true
+    
+description: 'Creates or Updates Unity Package'
+
 runs:
   using: "composite"
   steps:
     - name: Setup Env Variables
+      shell: bash
       run: |
         echo "PACKAGE_NAME=Tatum.CSharp.${{ inputs.package }}" >> $GITHUB_ENV
         echo "PROJECT_PATH=./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.csproj" >> $GITHUB_ENV
     - name: Lowercase package name
+      shell: bash
       run: |
         name="com.tatum.${{ inputs.package }}"
         echo "UNITY_NAME=${name,,}" >> ${GITHUB_ENV}
     - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
+      shell: bash
       run: |
         sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity_${{ inputs.package }}/${{ inputs.version }},g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
         grep -i "Tatum_SDK_Unity" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs   
     - name: Propagate PackageReleaseNotes from the Core package .csproj
+      shell: bash
       run: |
         sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Tatum.CSharp.${{ inputs.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
     - name: ${{ inputs.package }} - Restore dependencies
+      shell: bash
       run: dotnet restore ${{ env.PROJECT_PATH }}
     - name: ${{ inputs.package }} - Build
+      shell: bash
       run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
     - name: ${{ inputs.package }} - Get Dependencies
+      shell: bash
       run: |
         nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
         nuget install System.ComponentModel.Annotations -OutputDirectory ./packages
     - name: Gather DLLs
+      shell: bash
       run: |
         fromPath=./packages
         for dir in "$fromPath"/*/; do
@@ -73,11 +85,13 @@ runs:
         ls -l "$dest"
         done
     - name: Clear the package folder files if it exists, not including .meta files
+      shell: bash
       run: |
         if [ -d "./Unity/${{ env.UNITY_NAME}}" ]; then
           find ./Unity/${{ env.UNITY_NAME}} -type f ! -name "*.meta" -delete
         fi
     - name: Move all files included in the package to ./Unity/${{ env.UNITY_NAME}} without excluded ones
+      shell: bash
       run: |
         mkdir -p ./Unity/${{ env.UNITY_NAME}}
         mkdir -p ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}
@@ -97,14 +111,17 @@ runs:
         find ./Unity/${{ env.UNITY_NAME}} -name 'obj' -o -name 'bin' -type d -print0 | xargs -0 rm -rf
         rm -rf ./Unity/${{ env.UNITY_NAME}}/packages/Tatum.*
     - name: In replace tags in package.json
+      shell: bash
       run: |
         sed -i 's/${packageLowercase}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
         sed -i 's/${package}/${{ inputs.package }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
         sed -i 's/${version}/${{ inputs.version }}/g' ./Unity/${{ env.UNITY_NAME}}/package.json
     - name: Replace tags in .asmdef file
+      shell: bash
       run: |
         sed -i 's/${assemblyName}/${{ env.UNITY_NAME}}/g' ./Unity/${{ env.UNITY_NAME}}/${{ env.UNITY_NAME}}.asmdef
     - name: Generate .meta files
+      shell: bash
       run: |
         UNITY_NAME=${{ env.UNITY_NAME}}
 
@@ -192,8 +209,10 @@ runs:
            done
         done
     - name: Cleanup empty folders
+      shell: bash
       run: find ./Unity/${{ env.UNITY_NAME }} -type d -empty -not -name ".meta" -delete
     - name: Cleanup orphan meta files
+      shell: bash
       run: |
         # Set Unity folder name
         UNITY_NAME=${{ env.UNITY_NAME}}
