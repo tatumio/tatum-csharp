@@ -31,29 +31,6 @@ jobs:
           package: Ethereum
           dependency: Evm.Local
           version: ${{ inputs.version }}
-      - name: Generate Polygon package
-        uses: ./.github/actions/pack-unity
-        with:
-          package: Polygon
-          dependency: Evm.Local
-          version: ${{ inputs.version }}
-      - name: Generate BSC package
-        uses: ./.github/actions/pack-unity
-        with:
-          package: BSC
-          dependency: Evm.Local
-          version: ${{ inputs.version }}
-      - name: Generate Harmony package
-        uses: ./.github/actions/pack-unity
-        with:
-          package: Harmony
-          dependency: Evm.Local
-          version: ${{ inputs.version }}
-      - name: Generate Harmony package
-        uses: ./.github/actions/pack-unity
-        with:
-          package: Solana
-          version: ${{ inputs.version }}
       - name: Add and push all the changes to ./Unity
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

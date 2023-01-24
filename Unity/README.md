@@ -4,9 +4,10 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. You can find AP
 
 ## Package download
 
-| Chain                     | Unity GIT URL                                                                                         |
-|---------------------------|-------------------------------------------------------------------------------------------------------|
-|[`Ethereum`](Ethereum)| https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum |
+| Chain                  | Unity GIT URL                                                              |
+|------------------------|----------------------------------------------------------------------------|
+| [`Ethereum`](Ethereum) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum |
+| [`Bitcoin`](Bitcoin)  | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bitcoin  |
 
 ## Unity Quick Start
 1. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
