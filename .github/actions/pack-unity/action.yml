@@ -11,10 +11,11 @@ inputs:
     required: true
 runs:
   using: "composite"
-  env:
-    PACKAGE_NAME: Tatum.CSharp.${{ inputs.package }}
-    PROJECT_PATH: ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.csproj
   steps:
+    - name: Setup Env Variables
+      run: |
+        echo "PACKAGE_NAME=Tatum.CSharp.${{ inputs.package }}" >> $GITHUB_ENV
+        echo "PROJECT_PATH=./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.csproj" >> $GITHUB_ENV
     - name: Lowercase package name
       run: |
         name="com.tatum.${{ inputs.package }}"
