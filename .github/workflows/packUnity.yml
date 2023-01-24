@@ -19,11 +19,40 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
+      - name: Generate Bitcoin package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Bitcoin
+          dependency: Bitcoin.Local
+          version: ${{ inputs.version }}
       - name: Generate Ethereum package
         uses: ./.github/actions/pack-unity
         with:
           package: Ethereum
           dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Polygon package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Polygon
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate BSC package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: BSC
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Harmony package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Harmony
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Harmony package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Solana
           version: ${{ inputs.version }}
       - name: Add and push all the changes to ./Unity
         run: |
