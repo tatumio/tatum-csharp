@@ -27,9 +27,9 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add package source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
-      - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs 
+      - name: Add version number to 'Tatum_SDK_CSharp' string in Configuration.cs 
         run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ inputs.package }}/${{ inputs.version }},g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
+          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp/${{ inputs.version }} (${{ inputs.package }}),g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
           grep -i "Tatum_SDK_CSharp" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs     
       - name: ${{ inputs.package }} - Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
