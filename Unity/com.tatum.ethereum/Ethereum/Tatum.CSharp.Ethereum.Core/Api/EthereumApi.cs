@@ -61,10 +61,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>SignatureId</returns>
         SignatureId EthBlockchainSmartContractInvocation(CallSmartContractMethodKMS callSmartContractMethodKMS, string xTestnetType = default(string));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -72,10 +72,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>TransactionHash</returns>
         TransactionHash EthBlockchainTransfer(TransferEthBlockchain transferEthBlockchain, string xTestnetType = default(string));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -176,7 +176,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// Get Ethereum Transaction
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -253,10 +253,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>ApiResponse of SignatureId</returns>
         ApiResponse<SignatureId> EthBlockchainSmartContractInvocationWithHttpInfo(CallSmartContractMethodKMS callSmartContractMethodKMS, string xTestnetType = default(string));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -264,10 +264,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>ApiResponse of TransactionHash</returns>
         ApiResponse<TransactionHash> EthBlockchainTransferWithHttpInfo(TransferEthBlockchain transferEthBlockchain, string xTestnetType = default(string));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -368,7 +368,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// Get Ethereum Transaction
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -448,10 +448,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>Task of SignatureId</returns>
         System.Threading.Tasks.Task<SignatureId> EthBlockchainSmartContractInvocationAsync(CallSmartContractMethodKMS callSmartContractMethodKMS, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -460,10 +460,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>Task of TransactionHash</returns>
         System.Threading.Tasks.Task<TransactionHash> EthBlockchainTransferAsync(TransferEthBlockchain transferEthBlockchain, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -573,7 +573,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// Get Ethereum Transaction
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -656,10 +656,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>Task of ApiResponse (SignatureId)</returns>
         System.Threading.Tasks.Task<ApiResponse<SignatureId>> EthBlockchainSmartContractInvocationWithHttpInfoAsync(CallSmartContractMethodKMS callSmartContractMethodKMS, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -668,10 +668,10 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// <returns>Task of ApiResponse (TransactionHash)</returns>
         System.Threading.Tasks.Task<ApiResponse<TransactionHash>> EthBlockchainTransferWithHttpInfoAsync(TransferEthBlockchain transferEthBlockchain, string xTestnetType = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account
+        /// Send ETH or fungible tokens (ERC-20) from account to account
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -781,7 +781,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         /// Get Ethereum Transaction
         /// </summary>
         /// <remarks>
-        /// 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -1371,7 +1371,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -1388,7 +1388,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -1436,7 +1436,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -1454,7 +1454,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchain"></param>
@@ -1505,7 +1505,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -1522,7 +1522,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -1570,7 +1570,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -1588,7 +1588,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Send Ethereum / ERC20 from account to account 2 credits per API call Send Ethereum or Tatum supported ERC20 token from account to account. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
+        /// Send ETH or fungible tokens (ERC-20) from account to account 2 credits per API call Send ETH or Tatum-supported fungible tokens (ERC-20) from account to account. NOTE: Sending the fungible tokens is supported only on the mainnet. Signing a transaction When sending ETH, you are charged a fee for the transaction, and you must sign the transaction with the private key of the blockchain address from which the fee will be deducted. Providing the private key in the API is not a secure way of signing transactions, because the private key can be stolen or exposed. Your private keys should never leave your security perimeter. You should use the private keys only for testing a solution you are building on the testnet of a blockchain. For signing transactions on the mainnet, we strongly recommend that you use the Tatum Key Management System (KMS) and provide the signature ID instead of the private key in the API. Alternatively, you can use the Tatum JavaScript client.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="transferEthBlockchainKMS"></param>
@@ -2707,7 +2707,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Get Ethereum Transaction 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// Get Ethereum Transaction 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -2724,7 +2724,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Get Ethereum Transaction 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// Get Ethereum Transaction 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -2771,7 +2771,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Get Ethereum Transaction 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// Get Ethereum Transaction 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>
@@ -2789,7 +2789,7 @@ namespace Tatum.CSharp.Ethereum.Core.Api
         }
 
         /// <summary>
-        /// Get Ethereum Transaction 1 credit per API call. Get Ethereum transaction by transaction hash.
+        /// Get Ethereum Transaction 1 credit per API call Get Ethereum transaction by transaction hash.
         /// </summary>
         /// <exception cref="Tatum.CSharp.Ethereum.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="hash">Transaction hash</param>

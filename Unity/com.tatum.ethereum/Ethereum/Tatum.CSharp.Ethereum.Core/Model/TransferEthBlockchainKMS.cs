@@ -32,136 +32,12 @@ namespace Tatum.CSharp.Ethereum.Core.Model
     [DataContract(Name = "TransferEthBlockchainKMS")]
     public partial class TransferEthBlockchainKMS : IEquatable<TransferEthBlockchainKMS>, IValidatableObject
     {
-        /// <summary>
-        /// Currency to transfer from Ethereum Blockchain Account.
-        /// </summary>
-        /// <value>Currency to transfer from Ethereum Blockchain Account.</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum CurrencyEnum
-        {
-            /// <summary>
-            /// Enum USDT for value: USDT
-            /// </summary>
-            [EnumMember(Value = "USDT")]
-            USDT = 1,
-
-            /// <summary>
-            /// Enum LEO for value: LEO
-            /// </summary>
-            [EnumMember(Value = "LEO")]
-            LEO = 2,
-
-            /// <summary>
-            /// Enum LINK for value: LINK
-            /// </summary>
-            [EnumMember(Value = "LINK")]
-            LINK = 3,
-
-            /// <summary>
-            /// Enum UNI for value: UNI
-            /// </summary>
-            [EnumMember(Value = "UNI")]
-            UNI = 4,
-
-            /// <summary>
-            /// Enum FREE for value: FREE
-            /// </summary>
-            [EnumMember(Value = "FREE")]
-            FREE = 5,
-
-            /// <summary>
-            /// Enum GMC for value: GMC
-            /// </summary>
-            [EnumMember(Value = "GMC")]
-            GMC = 6,
-
-            /// <summary>
-            /// Enum GMCBSC for value: GMC_BSC
-            /// </summary>
-            [EnumMember(Value = "GMC_BSC")]
-            GMCBSC = 7,
-
-            /// <summary>
-            /// Enum RMD for value: RMD
-            /// </summary>
-            [EnumMember(Value = "RMD")]
-            RMD = 8,
-
-            /// <summary>
-            /// Enum MKR for value: MKR
-            /// </summary>
-            [EnumMember(Value = "MKR")]
-            MKR = 9,
-
-            /// <summary>
-            /// Enum USDC for value: USDC
-            /// </summary>
-            [EnumMember(Value = "USDC")]
-            USDC = 10,
-
-            /// <summary>
-            /// Enum BAT for value: BAT
-            /// </summary>
-            [EnumMember(Value = "BAT")]
-            BAT = 11,
-
-            /// <summary>
-            /// Enum TUSD for value: TUSD
-            /// </summary>
-            [EnumMember(Value = "TUSD")]
-            TUSD = 12,
-
-            /// <summary>
-            /// Enum BUSD for value: BUSD
-            /// </summary>
-            [EnumMember(Value = "BUSD")]
-            BUSD = 13,
-
-            /// <summary>
-            /// Enum PAX for value: PAX
-            /// </summary>
-            [EnumMember(Value = "PAX")]
-            PAX = 14,
-
-            /// <summary>
-            /// Enum PAXG for value: PAXG
-            /// </summary>
-            [EnumMember(Value = "PAXG")]
-            PAXG = 15,
-
-            /// <summary>
-            /// Enum MMY for value: MMY
-            /// </summary>
-            [EnumMember(Value = "MMY")]
-            MMY = 16,
-
-            /// <summary>
-            /// Enum WBTC for value: WBTC
-            /// </summary>
-            [EnumMember(Value = "WBTC")]
-            WBTC = 17,
-
-            /// <summary>
-            /// Enum XCON for value: XCON
-            /// </summary>
-            [EnumMember(Value = "XCON")]
-            XCON = 18,
-
-            /// <summary>
-            /// Enum ETH for value: ETH
-            /// </summary>
-            [EnumMember(Value = "ETH")]
-            ETH = 19
-
-        }
-
 
         /// <summary>
-        /// Currency to transfer from Ethereum Blockchain Account.
+        /// Gets or Sets Currency
         /// </summary>
-        /// <value>Currency to transfer from Ethereum Blockchain Account.</value>
         [DataMember(Name = "currency", IsRequired = true, EmitDefaultValue = true)]
-        public CurrencyEnum Currency { get; set; }
+        public Erc20Currency Currency { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferEthBlockchainKMS" /> class.
@@ -171,15 +47,15 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TransferEthBlockchainKMS" /> class.
         /// </summary>
+        /// <param name="to">The blockchain address of the recipient (required).</param>
+        /// <param name="amount">The amount to be sent (required).</param>
+        /// <param name="currency">currency (required).</param>
+        /// <param name="signatureId">The KMS identifier of the private key of the sender&#39;s blockchain address; the fee will be deducted from this address (required).</param>
+        /// <param name="index">(Only if the signature ID is mnemonic-based) The index of the address from which the fee will be deducted that was generated from the mnemonic.</param>
+        /// <param name="fee">fee.</param>
         /// <param name="data">Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format.</param>
         /// <param name="nonce">The nonce to be set to the transaction; if not present, the last known nonce will be used.</param>
-        /// <param name="to">Blockchain address to send assets (required).</param>
-        /// <param name="currency">Currency to transfer from Ethereum Blockchain Account. (required).</param>
-        /// <param name="fee">fee.</param>
-        /// <param name="amount">Amount to be sent in Ether. (required).</param>
-        /// <param name="signatureId">Identifier of the private key associated in signing application. Private key, or signature Id must be present. (required).</param>
-        /// <param name="index">If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic..</param>
-        public TransferEthBlockchainKMS(string data = default(string), decimal nonce = default(decimal), string to = default(string), CurrencyEnum currency = default(CurrencyEnum), CustomFee fee = default(CustomFee), string amount = default(string), Guid signatureId = default(Guid), decimal index = default(decimal))
+        public TransferEthBlockchainKMS(string to = default(string), string amount = default(string), Erc20Currency currency = default(Erc20Currency), Guid signatureId = default(Guid), decimal index = default(decimal), CustomFee fee = default(CustomFee), string data = default(string), decimal nonce = default(decimal))
         {
             // to ensure "to" is required (not null)
             if (to == null)
@@ -187,20 +63,54 @@ namespace Tatum.CSharp.Ethereum.Core.Model
                 throw new ArgumentNullException("to is a required property for TransferEthBlockchainKMS and cannot be null");
             }
             this.To = to;
-            this.Currency = currency;
             // to ensure "amount" is required (not null)
             if (amount == null)
             {
                 throw new ArgumentNullException("amount is a required property for TransferEthBlockchainKMS and cannot be null");
             }
             this.Amount = amount;
+            this.Currency = currency;
             this.SignatureId = signatureId;
+            this.Index = index;
+            this.Fee = fee;
             this.Data = data;
             this.Nonce = nonce;
-            this.Fee = fee;
-            this.Index = index;
         }
 
+
+        /// <summary>
+        /// The blockchain address of the recipient
+        /// </summary>
+        /// <value>The blockchain address of the recipient</value>
+        [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = true)]
+        public string To { get; set; }
+
+        /// <summary>
+        /// The amount to be sent
+        /// </summary>
+        /// <value>The amount to be sent</value>
+        [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
+        public string Amount { get; set; }
+
+        /// <summary>
+        /// The KMS identifier of the private key of the sender&#39;s blockchain address; the fee will be deducted from this address
+        /// </summary>
+        /// <value>The KMS identifier of the private key of the sender&#39;s blockchain address; the fee will be deducted from this address</value>
+        [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
+        public Guid SignatureId { get; set; }
+
+        /// <summary>
+        /// (Only if the signature ID is mnemonic-based) The index of the address from which the fee will be deducted that was generated from the mnemonic
+        /// </summary>
+        /// <value>(Only if the signature ID is mnemonic-based) The index of the address from which the fee will be deducted that was generated from the mnemonic</value>
+        [DataMember(Name = "index", EmitDefaultValue = false)]
+        public decimal Index { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Fee
+        /// </summary>
+        [DataMember(Name = "fee", EmitDefaultValue = false)]
+        public CustomFee Fee { get; set; }
 
         /// <summary>
         /// Additional data that can be passed to a blockchain transaction as a data property; must be in the hexadecimal format
@@ -217,40 +127,6 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         public decimal Nonce { get; set; }
 
         /// <summary>
-        /// Blockchain address to send assets
-        /// </summary>
-        /// <value>Blockchain address to send assets</value>
-        [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = true)]
-        public string To { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Fee
-        /// </summary>
-        [DataMember(Name = "fee", EmitDefaultValue = false)]
-        public CustomFee Fee { get; set; }
-
-        /// <summary>
-        /// Amount to be sent in Ether.
-        /// </summary>
-        /// <value>Amount to be sent in Ether.</value>
-        [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
-        public string Amount { get; set; }
-
-        /// <summary>
-        /// Identifier of the private key associated in signing application. Private key, or signature Id must be present.
-        /// </summary>
-        /// <value>Identifier of the private key associated in signing application. Private key, or signature Id must be present.</value>
-        [DataMember(Name = "signatureId", IsRequired = true, EmitDefaultValue = true)]
-        public Guid SignatureId { get; set; }
-
-        /// <summary>
-        /// If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.
-        /// </summary>
-        /// <value>If signatureId is mnemonic-based, this is the index to the specific address from that mnemonic.</value>
-        [DataMember(Name = "index", EmitDefaultValue = false)]
-        public decimal Index { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -258,14 +134,14 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class TransferEthBlockchainKMS {\n");
-            sb.Append("  Data: ").Append(Data).Append("\n");
-            sb.Append("  Nonce: ").Append(Nonce).Append("\n");
             sb.Append("  To: ").Append(To).Append("\n");
-            sb.Append("  Currency: ").Append(Currency).Append("\n");
-            sb.Append("  Fee: ").Append(Fee).Append("\n");
             sb.Append("  Amount: ").Append(Amount).Append("\n");
+            sb.Append("  Currency: ").Append(Currency).Append("\n");
             sb.Append("  SignatureId: ").Append(SignatureId).Append("\n");
             sb.Append("  Index: ").Append(Index).Append("\n");
+            sb.Append("  Fee: ").Append(Fee).Append("\n");
+            sb.Append("  Data: ").Append(Data).Append("\n");
+            sb.Append("  Nonce: ").Append(Nonce).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -302,32 +178,18 @@ namespace Tatum.CSharp.Ethereum.Core.Model
             }
             return 
                 (
-                    this.Data == input.Data ||
-                    (this.Data != null &&
-                    this.Data.Equals(input.Data))
-                ) && 
-                (
-                    this.Nonce == input.Nonce ||
-                    this.Nonce.Equals(input.Nonce)
-                ) && 
-                (
                     this.To == input.To ||
                     (this.To != null &&
                     this.To.Equals(input.To))
                 ) && 
                 (
-                    this.Currency == input.Currency ||
-                    this.Currency.Equals(input.Currency)
-                ) && 
-                (
-                    this.Fee == input.Fee ||
-                    (this.Fee != null &&
-                    this.Fee.Equals(input.Fee))
-                ) && 
-                (
                     this.Amount == input.Amount ||
                     (this.Amount != null &&
                     this.Amount.Equals(input.Amount))
+                ) && 
+                (
+                    this.Currency == input.Currency ||
+                    this.Currency.Equals(input.Currency)
                 ) && 
                 (
                     this.SignatureId == input.SignatureId ||
@@ -337,6 +199,20 @@ namespace Tatum.CSharp.Ethereum.Core.Model
                 (
                     this.Index == input.Index ||
                     this.Index.Equals(input.Index)
+                ) && 
+                (
+                    this.Fee == input.Fee ||
+                    (this.Fee != null &&
+                    this.Fee.Equals(input.Fee))
+                ) && 
+                (
+                    this.Data == input.Data ||
+                    (this.Data != null &&
+                    this.Data.Equals(input.Data))
+                ) && 
+                (
+                    this.Nonce == input.Nonce ||
+                    this.Nonce.Equals(input.Nonce)
                 );
         }
 
@@ -349,29 +225,29 @@ namespace Tatum.CSharp.Ethereum.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Data != null)
-                {
-                    hashCode = (hashCode * 59) + this.Data.GetHashCode();
-                }
-                hashCode = (hashCode * 59) + this.Nonce.GetHashCode();
                 if (this.To != null)
                 {
                     hashCode = (hashCode * 59) + this.To.GetHashCode();
-                }
-                hashCode = (hashCode * 59) + this.Currency.GetHashCode();
-                if (this.Fee != null)
-                {
-                    hashCode = (hashCode * 59) + this.Fee.GetHashCode();
                 }
                 if (this.Amount != null)
                 {
                     hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.Currency.GetHashCode();
                 if (this.SignatureId != null)
                 {
                     hashCode = (hashCode * 59) + this.SignatureId.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.Index.GetHashCode();
+                if (this.Fee != null)
+                {
+                    hashCode = (hashCode * 59) + this.Fee.GetHashCode();
+                }
+                if (this.Data != null)
+                {
+                    hashCode = (hashCode * 59) + this.Data.GetHashCode();
+                }
+                hashCode = (hashCode * 59) + this.Nonce.GetHashCode();
                 return hashCode;
             }
         }
@@ -383,18 +259,6 @@ namespace Tatum.CSharp.Ethereum.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // Data (string) maxLength
-            if (this.Data != null && this.Data.Length > 50000)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Data, length must be less than 50000.", new [] { "Data" });
-            }
-
-            // Nonce (decimal) minimum
-            if (this.Nonce < (decimal)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Nonce, must be a value greater than or equal to 0.", new [] { "Nonce" });
-            }
-
             // To (string) maxLength
             if (this.To != null && this.To.Length > 42)
             {
@@ -418,6 +282,18 @@ namespace Tatum.CSharp.Ethereum.Core.Model
             if (this.Index < (decimal)0)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Index, must be a value greater than or equal to 0.", new [] { "Index" });
+            }
+
+            // Data (string) maxLength
+            if (this.Data != null && this.Data.Length > 50000)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Data, length must be less than 50000.", new [] { "Data" });
+            }
+
+            // Nonce (decimal) minimum
+            if (this.Nonce < (decimal)0)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Nonce, must be a value greater than or equal to 0.", new [] { "Nonce" });
             }
 
             yield break;

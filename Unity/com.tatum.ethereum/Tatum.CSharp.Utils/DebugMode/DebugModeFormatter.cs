@@ -259,7 +259,19 @@ namespace Tatum.CSharp.Utils.DebugMode
                 {
                     if (!headerValue.StartsWith("Tatum_SDK_CSharp")) continue;
 
-                    var debugUserAgent = headerValue.Replace("%2F", "_DebugMode%2F");
+                    var headerSegments = headerValue.Split(')');
+
+                    var debugUserAgent = headerValue;
+                    
+                    if (headerSegments.Length == 2 && headerSegments[1] == string.Empty)
+                    {
+                        debugUserAgent = headerValue.Replace(")", ", @DEBUG)");
+                    }
+
+                    if (headerSegments.Length > 2)
+                    {
+                        debugUserAgent = headerSegments[0] + ", @DEBUG) " + string.Join(")", headerSegments.Skip(1));
+                    }
 
                     request.Headers.Remove("User-Agent");
                     request.Headers.Add("User-Agent", debugUserAgent);
