@@ -40,38 +40,38 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomFee" /> class.
         /// </summary>
-        /// <param name="gasLimit">Gas limit for transaction in gas price. (required).</param>
-        /// <param name="gasPrice">Gas price in Gwei. (required).</param>
-        public CustomFee(string gasLimit = default(string), string gasPrice = default(string))
+        /// <param name="gasPrice">The price for one gas unit (in Gwei) (required).</param>
+        /// <param name="gasLimit">The maximum number of gas units that you are willing to spend on processing the transaction at the provided gas price (required).</param>
+        public CustomFee(string gasPrice = default(string), string gasLimit = default(string))
         {
-            // to ensure "gasLimit" is required (not null)
-            if (gasLimit == null)
-            {
-                throw new ArgumentNullException("gasLimit is a required property for CustomFee and cannot be null");
-            }
-            this.GasLimit = gasLimit;
             // to ensure "gasPrice" is required (not null)
             if (gasPrice == null)
             {
                 throw new ArgumentNullException("gasPrice is a required property for CustomFee and cannot be null");
             }
             this.GasPrice = gasPrice;
+            // to ensure "gasLimit" is required (not null)
+            if (gasLimit == null)
+            {
+                throw new ArgumentNullException("gasLimit is a required property for CustomFee and cannot be null");
+            }
+            this.GasLimit = gasLimit;
         }
 
 
         /// <summary>
-        /// Gas limit for transaction in gas price.
+        /// The price for one gas unit (in Gwei)
         /// </summary>
-        /// <value>Gas limit for transaction in gas price.</value>
-        [DataMember(Name = "gasLimit", IsRequired = true, EmitDefaultValue = true)]
-        public string GasLimit { get; set; }
-
-        /// <summary>
-        /// Gas price in Gwei.
-        /// </summary>
-        /// <value>Gas price in Gwei.</value>
+        /// <value>The price for one gas unit (in Gwei)</value>
         [DataMember(Name = "gasPrice", IsRequired = true, EmitDefaultValue = true)]
         public string GasPrice { get; set; }
+
+        /// <summary>
+        /// The maximum number of gas units that you are willing to spend on processing the transaction at the provided gas price
+        /// </summary>
+        /// <value>The maximum number of gas units that you are willing to spend on processing the transaction at the provided gas price</value>
+        [DataMember(Name = "gasLimit", IsRequired = true, EmitDefaultValue = true)]
+        public string GasLimit { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,8 +81,8 @@ namespace Tatum.CSharp.Polygon.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class CustomFee {\n");
-            sb.Append("  GasLimit: ").Append(GasLimit).Append("\n");
             sb.Append("  GasPrice: ").Append(GasPrice).Append("\n");
+            sb.Append("  GasLimit: ").Append(GasLimit).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -119,14 +119,14 @@ namespace Tatum.CSharp.Polygon.Core.Model
             }
             return 
                 (
-                    this.GasLimit == input.GasLimit ||
-                    (this.GasLimit != null &&
-                    this.GasLimit.Equals(input.GasLimit))
-                ) && 
-                (
                     this.GasPrice == input.GasPrice ||
                     (this.GasPrice != null &&
                     this.GasPrice.Equals(input.GasPrice))
+                ) && 
+                (
+                    this.GasLimit == input.GasLimit ||
+                    (this.GasLimit != null &&
+                    this.GasLimit.Equals(input.GasLimit))
                 );
         }
 
@@ -139,13 +139,13 @@ namespace Tatum.CSharp.Polygon.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.GasLimit != null)
-                {
-                    hashCode = (hashCode * 59) + this.GasLimit.GetHashCode();
-                }
                 if (this.GasPrice != null)
                 {
                     hashCode = (hashCode * 59) + this.GasPrice.GetHashCode();
+                }
+                if (this.GasLimit != null)
+                {
+                    hashCode = (hashCode * 59) + this.GasLimit.GetHashCode();
                 }
                 return hashCode;
             }
@@ -158,18 +158,18 @@ namespace Tatum.CSharp.Polygon.Core.Model
         /// <returns>Validation Result</returns>
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
         {
-            // GasLimit (string) pattern
-            Regex regexGasLimit = new Regex(@"^[+]?\\d+$", RegexOptions.CultureInvariant);
-            if (false == regexGasLimit.Match(this.GasLimit).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for GasLimit, must match a pattern of " + regexGasLimit, new [] { "GasLimit" });
-            }
-
             // GasPrice (string) pattern
             Regex regexGasPrice = new Regex(@"^[+]?\\d+$", RegexOptions.CultureInvariant);
             if (false == regexGasPrice.Match(this.GasPrice).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for GasPrice, must match a pattern of " + regexGasPrice, new [] { "GasPrice" });
+            }
+
+            // GasLimit (string) pattern
+            Regex regexGasLimit = new Regex(@"^[+]?\\d+$", RegexOptions.CultureInvariant);
+            if (false == regexGasLimit.Match(this.GasLimit).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for GasLimit, must match a pattern of " + regexGasLimit, new [] { "GasLimit" });
             }
 
             yield break;

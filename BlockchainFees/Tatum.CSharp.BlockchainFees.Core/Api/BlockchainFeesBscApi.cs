@@ -28,50 +28,50 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees
+        /// Estimate the fee for a BNB Smart Chain transaction
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
-        /// <returns>BscGasEstimation</returns>
-        BscGasEstimation BscEstimateGas(BscEstimateGas bscEstimateGas);
+        /// <returns>GasEstimated</returns>
+        GasEstimated BscEstimateGas(BscEstimateGas bscEstimateGas);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
         /// <returns>FeeETH</returns>
         FeeETH EstimateFeeBlockchain(EstimateFee estimateFee);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
         /// <returns>FeeETH</returns>
         FeeETH EstimateFeeBlockchain(EstimateFeeBatchMintNft estimateFeeBatchMintNft);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
         /// <returns>FeeETH</returns>
         FeeETH EstimateFeeBlockchain(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -87,50 +87,50 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
     {
         #region Synchronous Operations With Http Info
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees
+        /// Estimate the fee for a BNB Smart Chain transaction
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
-        /// <returns>ApiResponse of BscGasEstimation</returns>
-        ApiResponse<BscGasEstimation> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas);
+        /// <returns>ApiResponse of GasEstimated</returns>
+        ApiResponse<GasEstimated> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
         /// <returns>ApiResponse of FeeETH</returns>
         ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFee estimateFee);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
         /// <returns>ApiResponse of FeeETH</returns>
         ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeBatchMintNft estimateFeeBatchMintNft);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
         /// <returns>ApiResponse of FeeETH</returns>
         ApiResponse<FeeETH> EstimateFeeBlockchainWithHttpInfo(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet);
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -146,21 +146,21 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees
+        /// Estimate the fee for a BNB Smart Chain transaction
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of BscGasEstimation</returns>
-        System.Threading.Tasks.Task<BscGasEstimation> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of GasEstimated</returns>
+        System.Threading.Tasks.Task<GasEstimated> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -168,10 +168,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of FeeETH</returns>
         System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -179,10 +179,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of FeeETH</returns>
         System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -190,10 +190,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of FeeETH</returns>
         System.Threading.Tasks.Task<FeeETH> EstimateFeeBlockchainAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -210,21 +210,21 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
     {
         #region Asynchronous Operations With Http Info
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees
+        /// Estimate the fee for a BNB Smart Chain transaction
         /// </summary>
         /// <remarks>
-        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (BscGasEstimation)</returns>
-        System.Threading.Tasks.Task<ApiResponse<BscGasEstimation>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (GasEstimated)</returns>
+        System.Threading.Tasks.Task<ApiResponse<GasEstimated>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -232,10 +232,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of ApiResponse (FeeETH)</returns>
         System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFee estimateFee, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -243,10 +243,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of ApiResponse (FeeETH)</returns>
         System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeBatchMintNft estimateFeeBatchMintNft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -254,10 +254,10 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         /// <returns>Task of ApiResponse (FeeETH)</returns>
         System.Threading.Tasks.Task<ApiResponse<FeeETH>> EstimateFeeBlockchainWithHttpInfoAsync(EstimateFeeDeployCustodialWallet estimateFeeDeployCustodialWallet, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Estimate the fee for a transaction
+        /// Estimate the fee for a transaction on a blockchain
         /// </summary>
         /// <remarks>
-        /// 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </remarks>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -415,12 +415,12 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// Estimate the fee for a BNB Smart Chain transaction 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
-        /// <returns>BscGasEstimation</returns>
-        public BscGasEstimation BscEstimateGas(BscEstimateGas bscEstimateGas)
+        /// <returns>GasEstimated</returns>
+        public GasEstimated BscEstimateGas(BscEstimateGas bscEstimateGas)
         {
             var localVarResponse = BscEstimateGasWithHttpInfo(bscEstimateGas);
 
@@ -431,12 +431,12 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// Estimate the fee for a BNB Smart Chain transaction 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
-        /// <returns>ApiResponse of BscGasEstimation</returns>
-        public ApiResponse<BscGasEstimation> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas)
+        /// <returns>ApiResponse of GasEstimated</returns>
+        public ApiResponse<GasEstimated> BscEstimateGasWithHttpInfo(BscEstimateGas bscEstimateGas)
         {
             // verify the required parameter 'bscEstimateGas' is set
             if (bscEstimateGas == null)
@@ -468,19 +468,19 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
             }
 
             // make the HTTP request
-            var localVarResponse = Client.Post<BscGasEstimation>("/v3/bsc/gas", localVarRequestOptions, Configuration);
+            var localVarResponse = Client.Post<GasEstimated>("/v3/bsc/gas", localVarRequestOptions, Configuration);
 
             return localVarResponse;
         }
 
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// Estimate the fee for a BNB Smart Chain transaction 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of BscGasEstimation</returns>
-        public async System.Threading.Tasks.Task<BscGasEstimation> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of GasEstimated</returns>
+        public async System.Threading.Tasks.Task<GasEstimated> BscEstimateGasAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var localVarResponse = await BscEstimateGasWithHttpInfoAsync(bscEstimateGas, cancellationToken).ConfigureAwait(false);
             
@@ -491,13 +491,13 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate BNB Smart Chain transaction fees 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
+        /// Estimate the fee for a BNB Smart Chain transaction 2 credits per API call Get an estimated gas price and the number of gas units needed for a BNB Smart Chain transaction. The gas price is obtained from https://explorer.bitquery.io/bsc/gas. NOTE: The estimated gas price is returned in wei. However, when making the transaction itself and providing the custom fee, you have to provide the gas price in Gwei. Make sure to convert the estimated gas price from wei to Gwei before submitting your transaction.
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="bscEstimateGas"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (BscGasEstimation)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<BscGasEstimation>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (GasEstimated)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<GasEstimated>> BscEstimateGasWithHttpInfoAsync(BscEstimateGas bscEstimateGas, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'bscEstimateGas' is set
             if (bscEstimateGas == null)
@@ -531,13 +531,13 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
 
             // make the HTTP request
 
-            var localVarResponse = await AsynchronousClient.PostAsync<BscGasEstimation>("/v3/bsc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await AsynchronousClient.PostAsync<GasEstimated>("/v3/bsc/gas", localVarRequestOptions, Configuration, cancellationToken).ConfigureAwait(false);
 
             return localVarResponse;
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -553,7 +553,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -596,7 +596,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -613,7 +613,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFee"></param>
@@ -659,7 +659,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -675,7 +675,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -718,7 +718,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -735,7 +735,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeBatchMintNft"></param>
@@ -781,7 +781,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -797,7 +797,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -840,7 +840,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -857,7 +857,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeDeployCustodialWallet"></param>
@@ -903,7 +903,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -919,7 +919,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -962,7 +962,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
@@ -979,7 +979,7 @@ namespace Tatum.CSharp.BlockchainFees.Core.Api
         }
 
         /// <summary>
-        /// Estimate the fee for a transaction 10 credits per API call. Estimate current transaction fee for different operations. Supported blockchains: Bitcoin Litecoin Harmony.ONE The XDC Network Ethereum Celo Klaytn Binance Smart Chain Polygon
+        /// Estimate the fee for a transaction on a blockchain 10 credits per API call Estimate the current fee for different types of transactions. This API is supported for the following blockchains: Bitcoin BNB Smart Chain Celo Ethereum Harmony Klaytn Litecoin Polygon XinFin
         /// </summary>
         /// <exception cref="Tatum.CSharp.BlockchainFees.Core.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="estimateFeeTransferFromCustodial"></param>
