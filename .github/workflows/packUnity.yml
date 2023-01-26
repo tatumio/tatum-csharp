@@ -10,17 +10,8 @@ on:
 
 jobs:
   Pack_Unity:
-    strategy:
-      matrix:
-        arrays: [
-          { package: Ethereum, dependency: Evm.Local }
-        ]
-    name: ${{ matrix.arrays.package }} - Unity Package Artifact
+    name: Update Unity Packages
     runs-on: ubuntu-latest
-    env:
-      PACKAGE_NAME: Tatum.CSharp.${{ matrix.arrays.package }}
-      ARTEFACT_NAME: Unity-${{ matrix.arrays.package }}
-      PROJECT_PATH: ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.csproj
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -28,68 +19,23 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
-        run: |
-          sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_CSharp_${{ matrix.arrays.package }}/${{ inputs.version }},g" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs
-          grep -i "Tatum_SDK_CSharp" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Client/Configuration.cs   
-      - name: Propagate PackageReleaseNotes from the Core package .csproj
-        run: |
-          sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ matrix.arrays.package }}/Tatum.CSharp.${{ matrix.arrays.package }}.Core/Tatum.CSharp.${{ matrix.arrays.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
-      - name: ${{ matrix.arrays.package }} - Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: ${{ matrix.arrays.package }} - Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
-      - name: ${{ matrix.arrays.package }} - Get Dependencies
-        run: |
-          nuget install ${{ env.PACKAGE_NAME }} -Version ${{ inputs.version }} -OutputDirectory ./packages
-          nuget install System.ComponentModel.Annotations -OutputDirectory ./packages
-      - name: Gather DLLs
-        run: |
-          fromPath=./packages
-          for dir in "$fromPath"/*/; do
-            dest="$fromPath"
-            mkdir -p "$dest"
-          
-            echo "Created $dest"
-          
-            patternArray=(
-              "$dir"lib/netstandard2.0/*.dll
-              "$dir"ref/netstandard2.0/*.dll
-              "$dir"lib/netstandard*/*.dll
-              "$dir"ref/netstandard*/*.dll
-              "$dir"lib/*.dll
-            )
-          
-            ignoreArray=(
-              Newtonsoft.Json
-            )
-          
-            for source in "${patternArray[@]}"; do
-              matches=( $source )
-              match=${matches[${#matches[@]} - 1]}
-          
-              if [[ "${match}" =~ "${ignoreArray[@]}" ]]; then
-                break
-              fi
-          
-              if ls $match 1> /dev/null 2>&1; then
-                cp -v "$match" "$dest"
-                break
-              fi
-            done   
-          
-          ls -l "$dest"
-          done
-      - name: Create Unity Package Artefact
-        uses: actions/upload-artifact@v3
+      - name: Generate Bitcoin package
+        uses: ./.github/actions/pack-unity
         with:
-          name: ${{ env.ARTEFACT_NAME }}
-          path: |
-            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}
-            ./${{ matrix.arrays.package }}/${{ env.PACKAGE_NAME }}.Core
-            ./Tatum.CSharp.Utils
-            ./Tatum.CSharp.${{ matrix.arrays.dependency }}
-            ./packages/*.dll
-            !**/bin
-            !**/obj
-            !./packages/Tatum.*
+          package: Bitcoin
+          dependency: Bitcoin.Local
+          version: ${{ inputs.version }}
+      - name: Generate Ethereum package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Ethereum
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Add and push all the changes to ./Unity
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add ./Unity
+          git commit -m "Update Unity package"
+          git push
+        

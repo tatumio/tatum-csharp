@@ -6,7 +6,7 @@ using Tatum.CSharp.Utils;
 
 namespace Tatum.CSharp.Harmony.Utils
 {
-    public class HarmonyTransactionWaiter : TransactionWaiter<OneTx>
+    internal class HarmonyTransactionWaiter : TransactionWaiter<OneTx>
     {
         private const string NotFoundTransactionSearchString = ".tx.not.found";
         
