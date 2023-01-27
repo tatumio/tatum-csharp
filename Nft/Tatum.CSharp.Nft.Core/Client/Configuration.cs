@@ -109,7 +109,7 @@ namespace Tatum.CSharp.Nft.Core.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("Tatum_SDK_CSharp");
+            UserAgent = "Tatum_SDK_CSharp";
             BasePath = "https://api.tatum.io";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
