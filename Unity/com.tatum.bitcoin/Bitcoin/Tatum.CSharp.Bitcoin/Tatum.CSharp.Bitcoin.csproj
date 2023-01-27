@@ -18,7 +18,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>Tatum; BTC; Bitcoin</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fixed issue with Configuration namespace resolution on some runtimes (Unity).</PackageReleaseNotes>
+        <PackageReleaseNotes>Updated to new OAS, User-Agent header schema change.</PackageReleaseNotes>
         <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     </PropertyGroup>
 
