@@ -229,13 +229,10 @@ public class HarmonyApiTests : IAsyncDisposable
 
         var transactionHash = await _harmonyApi.HarmonyBlockchain.OneBlockchainTransferAsync(
             new TransferOneBlockchain(
-            null, 
-            TransferOneBlockchain.CurrencyEnum.ONE, 
-            0, 
-            _testData.TargetAddress,
-            null, 
-            amount.ToString("0.00000", CultureInfo.InvariantCulture), 
-            _testData.StoragePrivKey));
+                amount.ToString("0.00000", CultureInfo.InvariantCulture),
+                TransferOneBlockchain.CurrencyEnum.ONE,
+                _testData.TargetAddress,
+                _testData.StoragePrivKey));
 
         _debts.Add(_testData.TargetPrivKey, amount);
 
@@ -402,12 +399,9 @@ public class HarmonyApiTests : IAsyncDisposable
         {
             var result = await _harmonyApi.HarmonyBlockchain.OneBlockchainTransferAsync(
                 new TransferOneBlockchain(
-                    null,
-                    TransferOneBlockchain.CurrencyEnum.ONE,
-                    0,
-                    _testData.StorageAddress,
-                    null,
                     debt.Value.ToString("G"),
+                    TransferOneBlockchain.CurrencyEnum.ONE,
+                    _testData.StorageAddress,
                     debt.Key));
             
             await _harmonyApi.Utils.WaitForTransactionAsync(result.TxId);

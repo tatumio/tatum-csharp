@@ -29,12 +29,9 @@ public class BlockchainTransferExampleService
         var fromPrivKey = _someInternalPersistence[fromAddress];
 
         var transfer = new TransferOneBlockchain(
-            null,
-            TransferOneBlockchain.CurrencyEnum.ONE,
-            0,
-            toAddress, // address you would like to send to
-            null,
             amount, // amount you would like to send eg. "0.00001"
+            TransferOneBlockchain.CurrencyEnum.ONE,
+            toAddress, // address you would like to send to
             fromPrivKey);
 
 

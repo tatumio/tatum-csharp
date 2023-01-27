@@ -72,7 +72,7 @@ public class PolygonBlockchainFeesApiTests
     {
         var result = await _blockchainFeesApi.PolygonBlockchainFees.PolygonEstimateGasAsync(new PolygonEstimateGas("0xda54cb99712957c10b9f73279c2e84af4ff45ff0", "0x409eb7cafdec6aa83a8221b3af227e67841c1c0d", "1"));
 
-        result.GasLimit.Should().NotBeNullOrWhiteSpace();
+        result.GasLimit.Should().BePositive();
         result.GasPrice.Should().NotBeNullOrWhiteSpace();
     }
     
@@ -116,7 +116,7 @@ public class PolygonBlockchainFeesApiTests
     {
         var result = await _blockchainFeesApi.BscBlockchainFees.BscEstimateGasAsync(new BscEstimateGas("0x3466bc2d2b5f425a8655611eb0e526eaeb103c16", "0xd3f039d5629df5753fcb36ee7db826bdd2d574e3", "1"));
 
-        result.GasLimit.Should().NotBeNullOrWhiteSpace();
+        result.GasLimit.Should().BePositive();
         result.GasPrice.Should().NotBeNullOrWhiteSpace();
     }
 }

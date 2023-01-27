@@ -220,12 +220,9 @@ public class EthereumApiTests : IAsyncDisposable
 
         var transactionHash = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
             new TransferEthBlockchain(
-            null, 
-            0, 
+                amount.ToString("0.00000", CultureInfo.InvariantCulture), 
             _testData.TargetAddress, 
-            TransferEthBlockchain.CurrencyEnum.ETH, 
-            null, 
-            amount.ToString("0.00000", CultureInfo.InvariantCulture), 
+            Erc20Currency.ETH, 
             _testData.StoragePrivKey));
 
         _debts.Add(_testData.TargetPrivKey, amount);
@@ -426,12 +423,9 @@ public class EthereumApiTests : IAsyncDisposable
         {
             var result = await _ethereumApi.EthereumBlockchain.EthBlockchainTransferAsync(
                 new TransferEthBlockchain(
-                    null,
-                    0,
                     _testData.StorageAddress,
-                    TransferEthBlockchain.CurrencyEnum.ETH,
-                    null,
                     debt.Value.ToString("G"),
+                    Erc20Currency.ETH,
                     debt.Key));
             
             await _ethereumApi.Utils.WaitForTransactionAsync(result.TxId);
