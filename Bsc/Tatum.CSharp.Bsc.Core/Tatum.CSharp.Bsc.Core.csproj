@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/tatumio/tatum-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fixed issue with Configuration namespace resolution on some runtimes (Unity).</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to new OAS, User-Agent header schema change.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
