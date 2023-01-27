@@ -231,4 +231,4 @@ runs:
     - name: Propagate PackageReleaseNotes from the Core package .csproj
       shell: bash
       run: |
-        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/${{ env.PACKAGE_NAME }}.Core/${{ env.PACKAGE_NAME }}.Core.csproj)<\/PackageReleaseNotes>/g" ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}
+        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/${{ env.PACKAGE_NAME }}.Core/${{ env.PACKAGE_NAME }}.Core.csproj)<\/PackageReleaseNotes>/g" ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}.csproj
