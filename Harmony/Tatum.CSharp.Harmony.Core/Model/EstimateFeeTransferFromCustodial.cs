@@ -33,9 +33,9 @@ namespace Tatum.CSharp.Harmony.Core.Model
     public partial class EstimateFeeTransferFromCustodial : IEquatable<EstimateFeeTransferFromCustodial>, IValidatableObject
     {
         /// <summary>
-        /// Type of transaction
+        /// The type of the transaction
         /// </summary>
-        /// <value>Type of transaction</value>
+        /// <value>The type of the transaction</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -49,11 +49,52 @@ namespace Tatum.CSharp.Harmony.Core.Model
 
 
         /// <summary>
-        /// Type of transaction
+        /// The type of the transaction
         /// </summary>
-        /// <value>Type of transaction</value>
+        /// <value>The type of the transaction</value>
         [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
         public TypeEnum Type { get; set; }
+
+        /// <summary>
+        /// The type of the asset to transfer. Set &lt;code&gt;0&lt;/code&gt; for fungible tokens (ERC-20 or equivalent), &lt;code&gt;1&lt;/code&gt; for NFTs (ERC-721 or equivalent), &lt;code&gt;2&lt;/code&gt; for Multi Tokens (ERC-1155 or equivalent), or &lt;code&gt;3&lt;/code&gt; for native blockchain currencies.
+        /// </summary>
+        /// <value>The type of the asset to transfer. Set &lt;code&gt;0&lt;/code&gt; for fungible tokens (ERC-20 or equivalent), &lt;code&gt;1&lt;/code&gt; for NFTs (ERC-721 or equivalent), &lt;code&gt;2&lt;/code&gt; for Multi Tokens (ERC-1155 or equivalent), or &lt;code&gt;3&lt;/code&gt; for native blockchain currencies.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TokenTypeEnum
+        {
+            /// <summary>
+            /// Enum _0 for value: 0
+            /// </summary>
+            [EnumMember(Value = "0")]
+            _0 = 1,
+
+            /// <summary>
+            /// Enum _1 for value: 1
+            /// </summary>
+            [EnumMember(Value = "1")]
+            _1 = 2,
+
+            /// <summary>
+            /// Enum _2 for value: 2
+            /// </summary>
+            [EnumMember(Value = "2")]
+            _2 = 3,
+
+            /// <summary>
+            /// Enum _3 for value: 3
+            /// </summary>
+            [EnumMember(Value = "3")]
+            _3 = 4
+
+        }
+
+
+        /// <summary>
+        /// The type of the asset to transfer. Set &lt;code&gt;0&lt;/code&gt; for fungible tokens (ERC-20 or equivalent), &lt;code&gt;1&lt;/code&gt; for NFTs (ERC-721 or equivalent), &lt;code&gt;2&lt;/code&gt; for Multi Tokens (ERC-1155 or equivalent), or &lt;code&gt;3&lt;/code&gt; for native blockchain currencies.
+        /// </summary>
+        /// <value>The type of the asset to transfer. Set &lt;code&gt;0&lt;/code&gt; for fungible tokens (ERC-20 or equivalent), &lt;code&gt;1&lt;/code&gt; for NFTs (ERC-721 or equivalent), &lt;code&gt;2&lt;/code&gt; for Multi Tokens (ERC-1155 or equivalent), or &lt;code&gt;3&lt;/code&gt; for native blockchain currencies.</value>
+        [DataMember(Name = "tokenType", IsRequired = true, EmitDefaultValue = true)]
+        public TokenTypeEnum TokenType { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EstimateFeeTransferFromCustodial" /> class.
@@ -63,14 +104,14 @@ namespace Tatum.CSharp.Harmony.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EstimateFeeTransferFromCustodial" /> class.
         /// </summary>
-        /// <param name="type">Type of transaction (required).</param>
-        /// <param name="sender">Sender address (required).</param>
-        /// <param name="recipient">Blockchain address to send assets (required).</param>
-        /// <param name="contractAddress">Contract address of the token (required).</param>
-        /// <param name="custodialAddress">Contract address of custodial wallet contract (required).</param>
-        /// <param name="amount">Amount to be sent in native asset, ERC20 or ERC1155 (required).</param>
-        /// <param name="tokenType">Type of the token to transfer from gas pump wallet. 0 - ERC20, 1 - ERC721, 2 - ERC1155, 3 - native asset (required).</param>
-        public EstimateFeeTransferFromCustodial(TypeEnum type = default(TypeEnum), string sender = default(string), string recipient = default(string), string contractAddress = default(string), string custodialAddress = default(string), string amount = default(string), decimal tokenType = default(decimal))
+        /// <param name="type">The type of the transaction (required).</param>
+        /// <param name="sender">The blockchain address of the sender (required).</param>
+        /// <param name="recipient">The blockchain address of the recipient (required).</param>
+        /// <param name="custodialAddress">The blockchain address of the custodial wallet contract (required).</param>
+        /// <param name="tokenType">The type of the asset to transfer. Set &lt;code&gt;0&lt;/code&gt; for fungible tokens (ERC-20 or equivalent), &lt;code&gt;1&lt;/code&gt; for NFTs (ERC-721 or equivalent), &lt;code&gt;2&lt;/code&gt; for Multi Tokens (ERC-1155 or equivalent), or &lt;code&gt;3&lt;/code&gt; for native blockchain currencies. (required).</param>
+        /// <param name="amount">&lt;ul&gt;&lt;li&gt;If the asset to transfer is a fungible token, Multi Token, or a native blockchain currency, set this parameter to the amount to transfer.&lt;/li&gt; &lt;li&gt;If the asset to transfer is an NFT, set this parameter to &lt;code&gt;1&lt;/code&gt;.&lt;/li&gt;&lt;/ul&gt;  (required).</param>
+        /// <param name="contractAddress">(Only if the asset to transfer is a fungible token) The address of the smart contract of the token.</param>
+        public EstimateFeeTransferFromCustodial(TypeEnum type = default(TypeEnum), string sender = default(string), string recipient = default(string), string custodialAddress = default(string), TokenTypeEnum tokenType = default(TokenTypeEnum), string amount = default(string), string contractAddress = default(string))
         {
             this.Type = type;
             // to ensure "sender" is required (not null)
@@ -85,76 +126,64 @@ namespace Tatum.CSharp.Harmony.Core.Model
                 throw new ArgumentNullException("recipient is a required property for EstimateFeeTransferFromCustodial and cannot be null");
             }
             this.Recipient = recipient;
-            // to ensure "contractAddress" is required (not null)
-            if (contractAddress == null)
-            {
-                throw new ArgumentNullException("contractAddress is a required property for EstimateFeeTransferFromCustodial and cannot be null");
-            }
-            this.ContractAddress = contractAddress;
             // to ensure "custodialAddress" is required (not null)
             if (custodialAddress == null)
             {
                 throw new ArgumentNullException("custodialAddress is a required property for EstimateFeeTransferFromCustodial and cannot be null");
             }
             this.CustodialAddress = custodialAddress;
+            this.TokenType = tokenType;
             // to ensure "amount" is required (not null)
             if (amount == null)
             {
                 throw new ArgumentNullException("amount is a required property for EstimateFeeTransferFromCustodial and cannot be null");
             }
             this.Amount = amount;
-            this.TokenType = tokenType;
+            this.ContractAddress = contractAddress;
         }
 
         /// <summary>
-        /// Blockchain to estimate fee for.
+        /// The blockchain to estimate the fee for
         /// </summary>
-        /// <value>Blockchain to estimate fee for.</value>
+        /// <value>The blockchain to estimate the fee for</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public string Chain { get; } = "ONE";
 
 
         /// <summary>
-        /// Sender address
+        /// The blockchain address of the sender
         /// </summary>
-        /// <value>Sender address</value>
+        /// <value>The blockchain address of the sender</value>
         [DataMember(Name = "sender", IsRequired = true, EmitDefaultValue = true)]
         public string Sender { get; set; }
 
         /// <summary>
-        /// Blockchain address to send assets
+        /// The blockchain address of the recipient
         /// </summary>
-        /// <value>Blockchain address to send assets</value>
+        /// <value>The blockchain address of the recipient</value>
         [DataMember(Name = "recipient", IsRequired = true, EmitDefaultValue = true)]
         public string Recipient { get; set; }
 
         /// <summary>
-        /// Contract address of the token
+        /// The blockchain address of the custodial wallet contract
         /// </summary>
-        /// <value>Contract address of the token</value>
-        [DataMember(Name = "contractAddress", IsRequired = true, EmitDefaultValue = true)]
-        public string ContractAddress { get; set; }
-
-        /// <summary>
-        /// Contract address of custodial wallet contract
-        /// </summary>
-        /// <value>Contract address of custodial wallet contract</value>
+        /// <value>The blockchain address of the custodial wallet contract</value>
         [DataMember(Name = "custodialAddress", IsRequired = true, EmitDefaultValue = true)]
         public string CustodialAddress { get; set; }
 
         /// <summary>
-        /// Amount to be sent in native asset, ERC20 or ERC1155
+        /// &lt;ul&gt;&lt;li&gt;If the asset to transfer is a fungible token, Multi Token, or a native blockchain currency, set this parameter to the amount to transfer.&lt;/li&gt; &lt;li&gt;If the asset to transfer is an NFT, set this parameter to &lt;code&gt;1&lt;/code&gt;.&lt;/li&gt;&lt;/ul&gt; 
         /// </summary>
-        /// <value>Amount to be sent in native asset, ERC20 or ERC1155</value>
+        /// <value>&lt;ul&gt;&lt;li&gt;If the asset to transfer is a fungible token, Multi Token, or a native blockchain currency, set this parameter to the amount to transfer.&lt;/li&gt; &lt;li&gt;If the asset to transfer is an NFT, set this parameter to &lt;code&gt;1&lt;/code&gt;.&lt;/li&gt;&lt;/ul&gt; </value>
         [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
         public string Amount { get; set; }
 
         /// <summary>
-        /// Type of the token to transfer from gas pump wallet. 0 - ERC20, 1 - ERC721, 2 - ERC1155, 3 - native asset
+        /// (Only if the asset to transfer is a fungible token) The address of the smart contract of the token
         /// </summary>
-        /// <value>Type of the token to transfer from gas pump wallet. 0 - ERC20, 1 - ERC721, 2 - ERC1155, 3 - native asset</value>
-        [DataMember(Name = "tokenType", IsRequired = true, EmitDefaultValue = true)]
-        public decimal TokenType { get; set; }
+        /// <value>(Only if the asset to transfer is a fungible token) The address of the smart contract of the token</value>
+        [DataMember(Name = "contractAddress", EmitDefaultValue = false)]
+        public string ContractAddress { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -167,10 +196,10 @@ namespace Tatum.CSharp.Harmony.Core.Model
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Sender: ").Append(Sender).Append("\n");
             sb.Append("  Recipient: ").Append(Recipient).Append("\n");
-            sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("  CustodialAddress: ").Append(CustodialAddress).Append("\n");
-            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("  TokenType: ").Append(TokenType).Append("\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
+            sb.Append("  ContractAddress: ").Append(ContractAddress).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -221,14 +250,13 @@ namespace Tatum.CSharp.Harmony.Core.Model
                     this.Recipient.Equals(input.Recipient))
                 ) && 
                 (
-                    this.ContractAddress == input.ContractAddress ||
-                    (this.ContractAddress != null &&
-                    this.ContractAddress.Equals(input.ContractAddress))
-                ) && 
-                (
                     this.CustodialAddress == input.CustodialAddress ||
                     (this.CustodialAddress != null &&
                     this.CustodialAddress.Equals(input.CustodialAddress))
+                ) && 
+                (
+                    this.TokenType == input.TokenType ||
+                    this.TokenType.Equals(input.TokenType)
                 ) && 
                 (
                     this.Amount == input.Amount ||
@@ -236,8 +264,9 @@ namespace Tatum.CSharp.Harmony.Core.Model
                     this.Amount.Equals(input.Amount))
                 ) && 
                 (
-                    this.TokenType == input.TokenType ||
-                    this.TokenType.Equals(input.TokenType)
+                    this.ContractAddress == input.ContractAddress ||
+                    (this.ContractAddress != null &&
+                    this.ContractAddress.Equals(input.ContractAddress))
                 );
         }
 
@@ -259,19 +288,19 @@ namespace Tatum.CSharp.Harmony.Core.Model
                 {
                     hashCode = (hashCode * 59) + this.Recipient.GetHashCode();
                 }
-                if (this.ContractAddress != null)
-                {
-                    hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
-                }
                 if (this.CustodialAddress != null)
                 {
                     hashCode = (hashCode * 59) + this.CustodialAddress.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.TokenType.GetHashCode();
                 if (this.Amount != null)
                 {
                     hashCode = (hashCode * 59) + this.Amount.GetHashCode();
                 }
-                hashCode = (hashCode * 59) + this.TokenType.GetHashCode();
+                if (this.ContractAddress != null)
+                {
+                    hashCode = (hashCode * 59) + this.ContractAddress.GetHashCode();
+                }
                 return hashCode;
             }
         }
@@ -307,18 +336,6 @@ namespace Tatum.CSharp.Harmony.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Recipient, length must be greater than 42.", new [] { "Recipient" });
             }
 
-            // ContractAddress (string) maxLength
-            if (this.ContractAddress != null && this.ContractAddress.Length > 42)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 42.", new [] { "ContractAddress" });
-            }
-
-            // ContractAddress (string) minLength
-            if (this.ContractAddress != null && this.ContractAddress.Length < 42)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
-            }
-
             // CustodialAddress (string) maxLength
             if (this.CustodialAddress != null && this.CustodialAddress.Length > 42)
             {
@@ -338,16 +355,16 @@ namespace Tatum.CSharp.Harmony.Core.Model
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
             }
 
-            // TokenType (decimal) maximum
-            if (this.TokenType > (decimal)3)
+            // ContractAddress (string) maxLength
+            if (this.ContractAddress != null && this.ContractAddress.Length > 42)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenType, must be a value less than or equal to 3.", new [] { "TokenType" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be less than 42.", new [] { "ContractAddress" });
             }
 
-            // TokenType (decimal) minimum
-            if (this.TokenType < (decimal)0)
+            // ContractAddress (string) minLength
+            if (this.ContractAddress != null && this.ContractAddress.Length < 42)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TokenType, must be a value greater than or equal to 0.", new [] { "TokenType" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ContractAddress, length must be greater than 42.", new [] { "ContractAddress" });
             }
 
             yield break;

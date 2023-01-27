@@ -21,50 +21,38 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
-using FileParameter = Tatum.CSharp.Bsc.Core.Client.FileParameter;
-using OpenAPIDateConverter = Tatum.CSharp.Bsc.Core.Client.OpenAPIDateConverter;
+using FileParameter = Tatum.CSharp.Polygon.Core.Client.FileParameter;
+using OpenAPIDateConverter = Tatum.CSharp.Polygon.Core.Client.OpenAPIDateConverter;
 
-namespace Tatum.CSharp.Bsc.Core.Model
+namespace Tatum.CSharp.Polygon.Core.Model
 {
     /// <summary>
-    /// BscGasEstimation
+    /// GasEstimated
     /// </summary>
-    [DataContract(Name = "BscGasEstimation")]
-    public partial class BscGasEstimation : IEquatable<BscGasEstimation>, IValidatableObject
+    [DataContract(Name = "GasEstimated")]
+    public partial class GasEstimated : IEquatable<GasEstimated>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BscGasEstimation" /> class.
+        /// Initializes a new instance of the <see cref="GasEstimated" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected BscGasEstimation() { }
+        protected GasEstimated() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="BscGasEstimation" /> class.
+        /// Initializes a new instance of the <see cref="GasEstimated" /> class.
         /// </summary>
-        /// <param name="gasLimit">The number of the gas units needed to process the transaction at the estimated gas price (required).</param>
         /// <param name="gasPrice">The estimated price for one gas unit (in wei) (required).</param>
-        public BscGasEstimation(string gasLimit = default(string), string gasPrice = default(string))
+        /// <param name="gasLimit">The number of the gas units needed to process the transaction at the estimated gas price (required).</param>
+        public GasEstimated(string gasPrice = default(string), decimal gasLimit = default(decimal))
         {
-            // to ensure "gasLimit" is required (not null)
-            if (gasLimit == null)
-            {
-                throw new ArgumentNullException("gasLimit is a required property for BscGasEstimation and cannot be null");
-            }
-            this.GasLimit = gasLimit;
             // to ensure "gasPrice" is required (not null)
             if (gasPrice == null)
             {
-                throw new ArgumentNullException("gasPrice is a required property for BscGasEstimation and cannot be null");
+                throw new ArgumentNullException("gasPrice is a required property for GasEstimated and cannot be null");
             }
             this.GasPrice = gasPrice;
+            this.GasLimit = gasLimit;
         }
 
-
-        /// <summary>
-        /// The number of the gas units needed to process the transaction at the estimated gas price
-        /// </summary>
-        /// <value>The number of the gas units needed to process the transaction at the estimated gas price</value>
-        [DataMember(Name = "gasLimit", IsRequired = true, EmitDefaultValue = true)]
-        public string GasLimit { get; set; }
 
         /// <summary>
         /// The estimated price for one gas unit (in wei)
@@ -74,15 +62,22 @@ namespace Tatum.CSharp.Bsc.Core.Model
         public string GasPrice { get; set; }
 
         /// <summary>
+        /// The number of the gas units needed to process the transaction at the estimated gas price
+        /// </summary>
+        /// <value>The number of the gas units needed to process the transaction at the estimated gas price</value>
+        [DataMember(Name = "gasLimit", IsRequired = true, EmitDefaultValue = true)]
+        public decimal GasLimit { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class BscGasEstimation {\n");
-            sb.Append("  GasLimit: ").Append(GasLimit).Append("\n");
+            sb.Append("class GasEstimated {\n");
             sb.Append("  GasPrice: ").Append(GasPrice).Append("\n");
+            sb.Append("  GasLimit: ").Append(GasLimit).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -103,15 +98,15 @@ namespace Tatum.CSharp.Bsc.Core.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as BscGasEstimation);
+            return this.Equals(input as GasEstimated);
         }
 
         /// <summary>
-        /// Returns true if BscGasEstimation instances are equal
+        /// Returns true if GasEstimated instances are equal
         /// </summary>
-        /// <param name="input">Instance of BscGasEstimation to be compared</param>
+        /// <param name="input">Instance of GasEstimated to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(BscGasEstimation input)
+        public bool Equals(GasEstimated input)
         {
             if (input == null)
             {
@@ -119,14 +114,13 @@ namespace Tatum.CSharp.Bsc.Core.Model
             }
             return 
                 (
-                    this.GasLimit == input.GasLimit ||
-                    (this.GasLimit != null &&
-                    this.GasLimit.Equals(input.GasLimit))
-                ) && 
-                (
                     this.GasPrice == input.GasPrice ||
                     (this.GasPrice != null &&
                     this.GasPrice.Equals(input.GasPrice))
+                ) && 
+                (
+                    this.GasLimit == input.GasLimit ||
+                    this.GasLimit.Equals(input.GasLimit)
                 );
         }
 
@@ -139,14 +133,11 @@ namespace Tatum.CSharp.Bsc.Core.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.GasLimit != null)
-                {
-                    hashCode = (hashCode * 59) + this.GasLimit.GetHashCode();
-                }
                 if (this.GasPrice != null)
                 {
                     hashCode = (hashCode * 59) + this.GasPrice.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.GasLimit.GetHashCode();
                 return hashCode;
             }
         }

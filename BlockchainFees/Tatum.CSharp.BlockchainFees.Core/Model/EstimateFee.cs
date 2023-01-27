@@ -33,9 +33,9 @@ namespace Tatum.CSharp.BlockchainFees.Core.Model
     public partial class EstimateFee : IEquatable<EstimateFee>, IValidatableObject
     {
         /// <summary>
-        /// Blockchain to estimate fee for.
+        /// The blockchain to estimate the fee for
         /// </summary>
-        /// <value>Blockchain to estimate fee for.</value>
+        /// <value>The blockchain to estimate the fee for</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ChainEnum
         {
@@ -67,16 +67,16 @@ namespace Tatum.CSharp.BlockchainFees.Core.Model
 
 
         /// <summary>
-        /// Blockchain to estimate fee for.
+        /// The blockchain to estimate the fee for
         /// </summary>
-        /// <value>Blockchain to estimate fee for.</value>
+        /// <value>The blockchain to estimate the fee for</value>
         [DataMember(Name = "chain", IsRequired = true, EmitDefaultValue = true)]
         public ChainEnum Chain { get; set; }
 
         /// <summary>
-        /// Type of transaction
+        /// The type of the transaction
         /// </summary>
-        /// <value>Type of transaction</value>
+        /// <value>The type of the transaction</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -132,9 +132,9 @@ namespace Tatum.CSharp.BlockchainFees.Core.Model
 
 
         /// <summary>
-        /// Type of transaction
+        /// The type of the transaction
         /// </summary>
-        /// <value>Type of transaction</value>
+        /// <value>The type of the transaction</value>
         [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
         public TypeEnum Type { get; set; }
 
@@ -146,12 +146,12 @@ namespace Tatum.CSharp.BlockchainFees.Core.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EstimateFee" /> class.
         /// </summary>
-        /// <param name="chain">Blockchain to estimate fee for. (required).</param>
-        /// <param name="type">Type of transaction (required).</param>
-        /// <param name="sender">Sender address, if type is TRANSFER_ERC20.</param>
-        /// <param name="recipient">Blockchain address to send assets, if type is TRANSFER_ERC20.</param>
-        /// <param name="contractAddress">Contract address of ERC20 token, if type is TRANSFER_ERC20.</param>
-        /// <param name="amount">Amount to be sent in ERC20, if type is TRANSFER_ERC20.</param>
+        /// <param name="chain">The blockchain to estimate the fee for (required).</param>
+        /// <param name="type">The type of the transaction (required).</param>
+        /// <param name="sender">(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the sender address.</param>
+        /// <param name="recipient">(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the recipient address.</param>
+        /// <param name="contractAddress">(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the smart address of the fungible token.</param>
+        /// <param name="amount">(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The amount of the fungible token to be sent.</param>
         public EstimateFee(ChainEnum chain = default(ChainEnum), TypeEnum type = default(TypeEnum), string sender = default(string), string recipient = default(string), string contractAddress = default(string), string amount = default(string))
         {
             this.Chain = chain;
@@ -164,30 +164,30 @@ namespace Tatum.CSharp.BlockchainFees.Core.Model
 
 
         /// <summary>
-        /// Sender address, if type is TRANSFER_ERC20
+        /// (Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the sender address
         /// </summary>
-        /// <value>Sender address, if type is TRANSFER_ERC20</value>
+        /// <value>(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the sender address</value>
         [DataMember(Name = "sender", EmitDefaultValue = false)]
         public string Sender { get; set; }
 
         /// <summary>
-        /// Blockchain address to send assets, if type is TRANSFER_ERC20
+        /// (Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the recipient address
         /// </summary>
-        /// <value>Blockchain address to send assets, if type is TRANSFER_ERC20</value>
+        /// <value>(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the recipient address</value>
         [DataMember(Name = "recipient", EmitDefaultValue = false)]
         public string Recipient { get; set; }
 
         /// <summary>
-        /// Contract address of ERC20 token, if type is TRANSFER_ERC20
+        /// (Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the smart address of the fungible token
         /// </summary>
-        /// <value>Contract address of ERC20 token, if type is TRANSFER_ERC20</value>
+        /// <value>(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The blockchain address of the smart address of the fungible token</value>
         [DataMember(Name = "contractAddress", EmitDefaultValue = false)]
         public string ContractAddress { get; set; }
 
         /// <summary>
-        /// Amount to be sent in ERC20, if type is TRANSFER_ERC20
+        /// (Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The amount of the fungible token to be sent
         /// </summary>
-        /// <value>Amount to be sent in ERC20, if type is TRANSFER_ERC20</value>
+        /// <value>(Only if &lt;code&gt;type&#x3D;TRANSFER_ERC20&lt;/code&gt;) The amount of the fungible token to be sent</value>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
         public string Amount { get; set; }
 
