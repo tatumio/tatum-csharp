@@ -109,7 +109,7 @@ namespace Tatum.CSharp.Bitcoin.Core.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("Tatum_SDK_Unity/2.10.2 (Bitcoin)");
+            UserAgent = "Tatum_SDK_Unity/2.10.2 (Bitcoin)";
             BasePath = "https://api.tatum.io";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
