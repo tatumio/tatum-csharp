@@ -29,15 +29,11 @@ public class BlockchainTransferExampleService
         var fromPrivKey = _someInternalPersistence[fromAddress];
 
         var transfer = new TransferEthBlockchain(
-            null,
-            0,
             toAddress, // address you would like to send to
-            TransferEthBlockchain.CurrencyEnum.ETH,
-            null,
             amount, // amount you would like to send eg. "0.00001"
+            Erc20Currency.ETH,
             fromPrivKey);
-
-
+        
         TransactionHash transactionHash = await _ethereumClient.EthereumBlockchain.EthBlockchainTransferAsync(transfer);
         
         return transactionHash;
