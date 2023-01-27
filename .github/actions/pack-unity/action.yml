@@ -26,15 +26,6 @@ runs:
       run: |
         name="com.tatum.${{ inputs.package }}"
         echo "UNITY_NAME=${name,,}" >> ${GITHUB_ENV}
-    - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
-      shell: bash
-      run: |
-        sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity_${{ inputs.package }}/${{ inputs.version }},g" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs
-        grep -i "Tatum_SDK_Unity" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Client/Configuration.cs   
-    - name: Propagate PackageReleaseNotes from the Core package .csproj
-      shell: bash
-      run: |
-        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/Tatum.CSharp.${{ inputs.package }}.Core/Tatum.CSharp.${{ inputs.package }}.Core.csproj)<\/PackageReleaseNotes>/g" ${{ env.PROJECT_PATH }}
     - name: ${{ inputs.package }} - Restore dependencies
       shell: bash
       run: dotnet restore ${{ env.PROJECT_PATH }}
@@ -232,3 +223,12 @@ runs:
                 rm "$file"
             fi
         done
+    - name: Add version number to 'Tatum_CSharp_SDK' string in Configuration.cs
+      shell: bash
+      run: |
+        sed -i "s,Tatum_SDK_CSharp,Tatum_SDK_Unity/${{ inputs.version }} (${{ inputs.package }}),g" ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}.Core/Client/Configuration.cs
+        grep -i "Tatum_SDK_Unity" ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}.Core/Client/Configuration.cs   
+    - name: Propagate PackageReleaseNotes from the Core package .csproj
+      shell: bash
+      run: |
+        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>$(grep -oPm1 "(?<=<PackageReleaseNotes>)[^<]+" ./${{ inputs.package }}/${{ env.PACKAGE_NAME }}.Core/${{ env.PACKAGE_NAME }}.Core.csproj)<\/PackageReleaseNotes>/g" ./Unity/${{ env.UNITY_NAME}}/${{ inputs.package }}/${{ env.PACKAGE_NAME }}
