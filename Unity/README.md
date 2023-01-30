@@ -6,18 +6,18 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. You can find AP
 
 | Chain                       | Unity GIT URL                                                                    |
 |-----------------------------|----------------------------------------------------------------------------------|
-| [`Ethereum`](Ethereum)      | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum       |
-| [`Bitcoin`](Bitcoin)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bitcoin        |
-| [`Polygon`](Polygon)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.polygon        |
-| [`Harmony`](Harmony)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.harmony        |
-| [`Bsc`](Bsc)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bsc            |
-| [`Solana`](Solana)         | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.solana         |
-| [`Nft`](Nft)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.nft            |
-| [`FungibleTokens`](FungibleTokens) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.fungibletokens |
-| [`MultiTokens`](MultiTokens)    | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.multitokens    |
-| [`NodeRpc`](NodeRpc)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.noderpc        |
-| [`BlockchainFees`](BlockchainFees) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.blockchainfees |
-| [`Ipfs`](Ipfs)           | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ipfs           |
+| [`Ethereum`](com.tatum.ethereum)   | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum       |
+| [`Bitcoin`](com.tatum.bitcoin)     | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bitcoin        |
+| [`Polygon`](com.tatum.polygon)      | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.polygon        |
+| [`Harmony`](com.tatum.harmony)      | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.harmony        |
+| [`Bsc`](com.tatum.bsc)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bsc            |
+| [`Solana`](com.tatum.solana)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.solana         |
+| [`Nft`](com.tatum.nft)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.nft            |
+| [`FungibleTokens`](com.tatum.fungibletokens) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.fungibletokens |
+| [`MultiTokens`](com.tatum.multitokens)    | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.multitokens    |
+| [`NodeRpc`](noderpc)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.noderpc        |
+| [`BlockchainFees`](blockchainfees) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.blockchainfees |
+| [`Ipfs`](ipfs)           | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ipfs           |
 
 ## Unity Quick Start
 1. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
