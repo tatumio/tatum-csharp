@@ -1,0 +1,193 @@
+This package incorporates material as listed below or described in the code.The index number (in brackets) after the authorship attribution refers to the full text of the licence. The full text of the licence is included below. 
+________________________________________________________________________________________
+
+Materials:
+________________________________________________________________________________________
+
+1. BouncyCastle.Crypto.dll (bcgit/bc-csharp) (https://github.com/bcgit/bc-csharp)
+Copyright (c) 2000-2022 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org) (1)
+
+2. JsonSubTypes.dll (manuc66/JsonSubTypes) (https://github.com/manuc66/JsonSubTypes)
+Copyright (c) 2017 Emmanuel Counasse (2)
+
+3. Microsoft.Bcl.AsyncInterfaces.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3)
+
+4. Microsoft.Extensions.Logging.Abstractions.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3)
+
+5. System.Buffers.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3)
+
+6. System.ComponentModel.Annotations.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3) 
+
+7. System.Memory.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3)
+
+8. System.Net.Http.Json.dll (dotnet/runtime) (https://github.com/dotnet/runtime) 
+Copyright (c) .NET Foundation and Contributors (3)
+
+9. System.Numerics.Vectors.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+10. System.Runtime.CompilerServices.Unsafe.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+11. System.Text.Encodings.Web.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+12. System.Text.Json.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+13. System.Threading.Tasks.Extensions.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+14. System.ValueTuple.dll (dotnet/runtime) (https://github.com/dotnet/runtime)
+Copyright (c) .NET Foundation and Contributors (3)
+
+15. NBitcoin.dll (MetacoSA/NBitcoin) (https://github.com/MetacoSA/NBitcoin)
+Copyright (c) 2022 Metaco SA (4)
+
+16. Nethereum.ABI.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+17. Nethereum.Accounts.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+18. Nethereum.BlockchainProcessing.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+19. Nethereum.Contracts.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+20. Nethereum.HdWallet.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+21. Nethereum.Hex.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+22. Nethereum.JsonRpc.Client.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+23. Nethereum.JsonRpc.RpcClient.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+24. Nethereum.KeyStore.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+25. Nethereum.Model.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+26. Nethereum.RLP.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+27. Nethereum.RPC.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+28. Nethereum.Signer.EIP712.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+29. Nethereum.Signer.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+30. Nethereum.Util.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+31. Nethereum.Web3.dll (Nethereum/Nethereum) (https://github.com/Nethereum/Nethereum)
+Copyright (c) 2022 Metaco SA (5)
+
+________________________________________________________________________________________
+
+Licences:
+________________________________________________________________________________________
+(1):
+Copyright (c) 2000-2022 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org). Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sub license, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+________________________________________________________________________________________
+(2):
+MIT License
+
+Copyright (c) 2017 Emmanuel Counasse
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+________________________________________________________________________________________
+(3):
+The MIT License (MIT)
+
+Copyright (c) .NET Foundation and Contributors
+
+All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+________________________________________________________________________________________
+(4): 
+The MIT License (MIT)
+
+Copyright (c) 2022 Metaco SA
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+________________________________________________________________________________________
+(5): 
+The MIT License (MIT)
+
+Copyright (c) 2015-2021 Nethereum.com (Juan Blanco) , Logo by Cass (https://github.com/cassiopaia)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or ANY portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

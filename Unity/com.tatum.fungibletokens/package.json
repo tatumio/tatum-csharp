@@ -1,0 +1,16 @@
+{
+	"name": "com.tatum.fungibletokens",
+	"displayName": "Tatum FungibleTokens SDK v2",
+	"version": "2.10.3",
+	"author": "Tatum.io",
+	"description": "Tatum C# SDK v2 for Unity allows developers to interact with Tatum API.",
+	"dependencies": {
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tatumio/tatum-csharp"
+	},
+	"documentationUrl":"https://github.com/tatumio/tatum-csharp/blob/master/README.md",
+	"licensesUrl":"https://github.com/tatumio/tatum-csharp/blob/master/LICENSE.md",
+	"changelogUrl":"https://www.nuget.org/packages/Tatum.CSharp.FungibleTokens/2.10.3#release-body-tab"
+}

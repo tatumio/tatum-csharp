@@ -31,6 +31,65 @@ jobs:
           package: Ethereum
           dependency: Evm.Local
           version: ${{ inputs.version }}
+      - name: Generate Polygon package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Polygon
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Harmony package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Harmony
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Bsc package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Bsc
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Solana package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Solana
+          version: ${{ inputs.version }}
+      - name: Generate Nft package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Nft
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate FungibleTokens package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: FungibleTokens
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate MultiTokens package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: MultiTokens
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate BlockchainFees package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: BlockchainFees
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate NodeRpc package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: NodeRpc
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
+      - name: Generate Ipfs package
+        uses: ./.github/actions/pack-unity
+        with:
+          package: Ipfs
+          dependency: Evm.Local
+          version: ${{ inputs.version }}
       - name: Add and push all the changes to ./Unity
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
