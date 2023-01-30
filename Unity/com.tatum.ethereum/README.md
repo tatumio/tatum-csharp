@@ -4,10 +4,20 @@ Tatum C# SDK v2 allows C# developers to interact with Tatum API. You can find AP
 
 ## Package download
 
-| Chain                  | Unity GIT URL                                                              |
-|------------------------|----------------------------------------------------------------------------|
-| [`Ethereum`](Ethereum) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum |
-| [`Bitcoin`](Bitcoin)  | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bitcoin  |
+| Chain                       | Unity GIT URL                                                                    |
+|-----------------------------|----------------------------------------------------------------------------------|
+| [`Ethereum`](Ethereum)      | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ethereum       |
+| [`Bitcoin`](Bitcoin)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bitcoin        |
+| [`Polygon`](Polygon)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.polygon        |
+| [`Harmony`](Harmony)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.harmony        |
+| [`Bsc`](Bsc)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.bsc            |
+| [`Solana`](Solana)         | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.solana         |
+| [`Nft`](Nft)            | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.nft            |
+| [`FungibleTokens`](FungibleTokens) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.fungibletokens |
+| [`MultiTokens`](MultiTokens)    | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.multitokens    |
+| [`NodeRpc`](NodeRpc)        | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.noderpc        |
+| [`BlockchainFees`](BlockchainFees) | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.blockchainfees |
+| [`Ipfs`](Ipfs)           | https://github.com/tatumio/tatum-csharp.git?path=/Unity/com.tatum.ipfs           |
 
 ## Unity Quick Start
 1. Go to your [Tatum Dashboard](https://dashboard.tatum.io) and grab one of API KEYs (MainNet or TestNet)
