@@ -5,9 +5,9 @@
 
 Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains in various ways.
 
-> **Are you looking for Tatum.CSharp SDK v2? It has been moved to long living branch [`Tatum.CSharp SDK V2`](https://github.com/tatumio/tatum-csharp/tree/v2)**.
+> **Are you looking for Tatum.CSharp SDK v2? It has been moved to [`Tatum.CSharp SDK V2`](https://github.com/tatumio/tatum-csharp/tree/v2)**.
 
-> **Are you looking for Tatum.CSharp SDK v1? It has been moved to long living branch [`Tatum.CSharp SDK V1`](https://github.com/tatumio/tatum-csharp/tree/v1)**.
+> **Are you looking for Tatum.CSharp SDK v1? It has been moved to [`Tatum.CSharp SDK V1`](https://github.com/tatumio/tatum-csharp/tree/v1)**.
 
 ## Quick Start
 
