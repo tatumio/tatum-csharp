@@ -1,6 +1,0 @@
-﻿{
-  StatusCode: Forbidden,
-  ErrorText: Forbidden,
-  ResponseType: GeneratedAddressMatic,
-  RawContent: {"statusCode":403,"errorCode":"polygon.address.generation","message":"Unable to generate address for some random text.","cause":"Non-base58 character"}
-}

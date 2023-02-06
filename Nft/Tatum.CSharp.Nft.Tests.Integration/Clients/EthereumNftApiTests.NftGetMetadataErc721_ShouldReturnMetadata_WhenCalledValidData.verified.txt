@@ -1,3 +1,0 @@
-﻿{
-  data: https://www.something2.com
-}

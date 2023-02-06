@@ -1,3 +1,0 @@
-﻿{
-  key: 0x37e2dc0553e952d1be2c8df019e7f9ecede686f0a249da4d6c377d4fa68ae131
-}

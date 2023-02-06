@@ -1,3 +1,0 @@
-﻿{
-  Address: tb1q2kljyzaasfnc322vxcker2z2qztjrkqr8286cu
-}
