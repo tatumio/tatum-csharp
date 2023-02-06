@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Core", "Tatum.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Examples", "Tatum.CSharp.Examples\Tatum.CSharp.Examples.csproj", "{09624C48-F370-4504-AED1-4EB3B0257CA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.FeeEstimations", "Tatum.CSharp.FeeEstimations\Tatum.CSharp.FeeEstimations.csproj", "{497A79A3-70EB-48CC-9EE1-890C5C2F7323}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{09624C48-F370-4504-AED1-4EB3B0257CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09624C48-F370-4504-AED1-4EB3B0257CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09624C48-F370-4504-AED1-4EB3B0257CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497A79A3-70EB-48CC-9EE1-890C5C2F7323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497A79A3-70EB-48CC-9EE1-890C5C2F7323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497A79A3-70EB-48CC-9EE1-890C5C2F7323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497A79A3-70EB-48CC-9EE1-890C5C2F7323}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

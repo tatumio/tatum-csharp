@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Tatum.CSharp.FeeEstimations\Tatum.CSharp.FeeEstimations.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Notifications\Tatum.CSharp.Notifications.csproj" />
     </ItemGroup>
 
