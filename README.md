@@ -65,3 +65,5 @@ _client = new Tatum(new HttpClient(httpClient), apiKey);
 ## Further Examples
 
 - [Examples - Notifications](Examples/Notifications/TatumNotifications.cs)
+- [Examples - FeeEstimations](Examples/Notifications/TatumFeeEstimations.cs)
+- [Examples - Nft](Examples/Notifications/TatumNft.cs)

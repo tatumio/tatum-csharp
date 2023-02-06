@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using Tatum.CSharp.FeeEstimations;
+using Tatum.CSharp.Nft;
 using Tatum.CSharp.Notifications;
 
 namespace Tatum.CSharp
@@ -11,6 +12,7 @@ namespace Tatum.CSharp
         
         public ITatumNotifications Notifications { get; set; }
         public ITatumFeeEstimations FeeEstimations { get; set; }
+        public ITatumNft Nft { get; set; }
         
         public Tatum(string apiKey = null) : this(new HttpClient(), apiKey)
         {
@@ -28,6 +30,8 @@ namespace Tatum.CSharp
             Notifications = new TatumNotifications(httpClient);
             
             FeeEstimations = new TatumFeeEstimations(httpClient);
+            
+            Nft = new TatumNft(httpClient);
         }
     }
 }
