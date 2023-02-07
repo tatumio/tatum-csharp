@@ -21,7 +21,7 @@ public class TatumFeeEstimations
         
         var tatum = new Tatum(new HttpClient(httpClient), apiKey);
 
-        var currentFee = await tatum.FeeEstimations.GetCurrentFee(Chain.ETH);
+        var currentFee = await tatum.Fees.GetCurrentFee(Chain.ETH);
 
         currentFee.Should().NotBeNull();
         currentFee.SlowGasPriceGwei.Should().MatchRegex("^\\d*\\.?\\d*$");
@@ -53,7 +53,7 @@ public class TatumFeeEstimations
             Amount = "1"
         };
         
-        var estimatedFee = await tatum.FeeEstimations.EstimateFeeForBlockchainTransaction(transactionDataForFeeEstimation);
+        var estimatedFee = await tatum.Fees.EstimateFeeForBlockchainTransaction(transactionDataForFeeEstimation);
 
         estimatedFee.Should().NotBeNull();
         estimatedFee.GasLimit.Should().MatchRegex("^\\d*\\.?\\d*$");

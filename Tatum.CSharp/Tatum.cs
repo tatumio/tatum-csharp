@@ -11,7 +11,7 @@ namespace Tatum.CSharp
         private const string BaseUrl = "https://api.tatum.io";
         
         public ITatumNotifications Notifications { get; set; }
-        public ITatumFeeEstimations FeeEstimations { get; set; }
+        public ITatumFeeEstimations Fees { get; set; }
         public ITatumNft Nft { get; set; }
         
         public Tatum(string apiKey = null) : this(new HttpClient(), apiKey)
@@ -29,7 +29,7 @@ namespace Tatum.CSharp
             
             Notifications = new TatumNotifications(httpClient);
             
-            FeeEstimations = new TatumFeeEstimations(httpClient);
+            Fees = new TatumFeeEstimations(httpClient);
             
             Nft = new TatumNft(httpClient);
         }
