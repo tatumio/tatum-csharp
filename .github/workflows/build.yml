@@ -1,7 +1,9 @@
 name: Build
 
 on: 
-  push:
+  push: 
+    branches:
+      - v3
 
 jobs:
   Test:
