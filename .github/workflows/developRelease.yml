@@ -21,6 +21,7 @@ concurrency:
 env:
   PROJECT_PATH: ./Tatum.CSharp/Tatum.CSharp.csproj
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
+  SDK_ERROR_MESSAGES_VERSION: "master"
 
 jobs:
 
@@ -35,6 +36,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - name: Download SDK error messages
+        uses: wei/curl@v1.1.1
+        with:
+          args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.CSharp.Core/Resources/errorMessages.json
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
