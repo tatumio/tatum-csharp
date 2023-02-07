@@ -1,7 +1,7 @@
 # [Tatum C# SDK v3](http://tatum.com/)
 
 ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Smrecz/7c96c30e8017c8dfb57b88e323f8114b/raw/csharp-sdk-test-summary.json)
-[![RC Version](https://github.com/tatumio/tatum-csharp/actions/workflows/developRelease.yml/badge.svg?branch=develop)](https://github.com/tatumio/tatum-csharp/actions/workflows/dotnet.yml)
+[![Build](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml/badge.svg?branch=v3)](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml)
 
 Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains in various ways.
 
