@@ -53,8 +53,8 @@ jobs:
      uses: ./.github/workflows/package.yml
      with:
       error_messages_version: ${{ env.SDK_ERROR_MESSAGES_VERSION }}
-      package_version: ${{ needs.Build_Version.outputs.version }}
-      version:  ${{needs.release.outputs.version}}
+      package_version:  ${{needs.release.outputs.version}}
+      release_public: true
     secrets:
       publish_api_key: ${{ secrets.NUGET_PUBLISH_KEY }}
       github_token: ${{ secrets.GITHUB_TOKEN }}
