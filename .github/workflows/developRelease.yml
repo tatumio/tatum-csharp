@@ -29,27 +29,35 @@ jobs:
     name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
 
-
   preparePackage:
-    name: Build & Publish
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Download SDK error messages
-        uses: wei/curl@v1.1.1
-        with:
-          args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.CSharp.Core/Resources/errorMessages.json
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-      - name: Add package source
-        run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"   
-      - name: ${{ inputs.package }} - Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: ${{ inputs.package }} - Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.Build_Version.outputs.version }} --output .
-      - name: ${{ inputs.package }} - Push to Github Packages
-        run: dotnet nuget push "./Tatum.CSharp.${{ needs.Build_Version.outputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
+    uses: ./.github/workflows/package.yml
     needs: Build_Version
+    with:
+      error_messages_version: ${{ env.SDK_ERROR_MESSAGES_VERSION }}
+      package_version: ${{ needs.Build_Version.outputs.version }}
+    secrets:
+      publish_api_key: ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+  # preparePackage:
+  #   name: Build & Publish
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v3
+  #     - name: Download SDK error messages
+  #       uses: wei/curl@v1.1.1
+  #       with:
+  #         args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.CSharp.Core/Resources/errorMessages.json
+  #     - name: Setup .NET
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: 6.0.x
+  #     - name: Add package source
+  #       run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"   
+  #     - name: ${{ inputs.package }} - Restore dependencies
+  #       run: dotnet restore ${{ env.PROJECT_PATH }}
+  #     - name: ${{ inputs.package }} - Pack
+  #       run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.Build_Version.outputs.version }} --output .
+  #     - name: ${{ inputs.package }} - Push to Github Packages
+  #       run: dotnet nuget push "./Tatum.CSharp.${{ needs.Build_Version.outputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source "github"
+  #   needs: Build_Version
