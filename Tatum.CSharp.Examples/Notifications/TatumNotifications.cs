@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
@@ -19,32 +19,29 @@ public class TatumNotifications
 
         var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
         
-        var tatum = new Tatum(new HttpClient(httpClient), apiKey);
+        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
 
-        var notification = new Notification
+        var notification = new AddressTransactionNotification
         {
-            Type = NotificationType.ADDRESS_TRANSACTION,
-            Attributes = new Dictionary<string, string>()
-            {
-                { "address", "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380" },
-                { "chain", "ETH" },
-                { "url", "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380" }
-            }
+            Chain = Chain.Ethereum,
+            Address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
+            Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
-        var createdNotification = await tatum.Notifications.Create(notification);
+        var createdNotification = await tatum.Notifications.Subscribe.AddressTransaction(notification);
         
         createdNotification.Id.Should().NotBeNullOrEmpty();
         
-        var notifications = await tatum.Notifications.ListAll();
+        var notifications = await tatum.Notifications.GetAll();
         
-        notifications.Should().NotBeNullOrEmpty();
-        notifications.Should().Contain(x => x.Id == createdNotification.Id);
+        notifications.Should().NotBeNull();
+        notifications.AddressTransactions.Should().NotBeEmpty();
+        notifications.AddressTransactions.Should().Contain(x => x.Id == createdNotification.Id);
         
-        await tatum.Notifications.Delete(createdNotification.Id);
+        await tatum.Notifications.Unsubscribe(createdNotification.Id);
         
-        notifications = await tatum.Notifications.ListAll();
+        notifications = await tatum.Notifications.GetAll();
         
-        notifications.Should().NotContain(x => x.Id == createdNotification.Id);
+        notifications.AddressTransactions.Should().NotContain(x => x.Id == createdNotification.Id);
     }
 }

@@ -8,4 +8,8 @@
       <ProjectReference Include="..\Tatum.CSharp.Core\Tatum.CSharp.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\Requests" />
+    </ItemGroup>
+
 </Project>
