@@ -31,7 +31,7 @@ namespace Tatum.CSharp.Utils.DebugMode
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($">>>>>>>>>>>>>>> Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
+            sb.AppendLine(">>>>>>>>>>>>>>> Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
 
             var requestUri = request.RequestUri?.ToString();
             
@@ -85,7 +85,7 @@ namespace Tatum.CSharp.Utils.DebugMode
                 sb.AppendLine($"-d '{Truncate(content)}'");
             }
 
-            sb.AppendLine($">>>>>>>>>>>>>>> /Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
+            sb.AppendLine(">>>>>>>>>>>>>>> /Tatum API REQUEST TestNet >>>>>>>>>>>>>>>>>");
             
             return sb;
         }
@@ -191,13 +191,13 @@ namespace Tatum.CSharp.Utils.DebugMode
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"<<<<<<<<<<<<<<< Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
+            sb.AppendLine("<<<<<<<<<<<<<<< Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 
             sb.AppendLine($"Status code: {response.StatusCode}");
 
             if (response.Headers != null)
             {
-                sb.AppendLine($"Headers:");
+                sb.AppendLine("Headers:");
                 foreach (var header in response.Headers)
                 {
                     sb.AppendLine($"{header.Key}: {string.Join(",", header.Value)}");
@@ -231,7 +231,7 @@ namespace Tatum.CSharp.Utils.DebugMode
 
             sb.AppendLine($"Body: {Truncate(content)}");
 
-            sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
+            sb.AppendLine("<<<<<<<<<<<<<<< /Tatum API RESPONSE TestNet <<<<<<<<<<<<<<<<<");
 
             return sb;
         }
@@ -240,13 +240,13 @@ namespace Tatum.CSharp.Utils.DebugMode
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"<<<<<<<<<<<<<<< Tatum API EXCEPTION <<<<<<<<<<<<<<<<<");
+            sb.AppendLine("<<<<<<<<<<<<<<< Tatum API EXCEPTION <<<<<<<<<<<<<<<<<");
 
             sb.AppendLine($"Message: {e.Message}");
 
             sb.AppendLine($"StackTrace: {e.StackTrace}");
 
-            sb.AppendLine($"<<<<<<<<<<<<<<< /Tatum API RESPONSE <<<<<<<<<<<<<<<<<");
+            sb.AppendLine("<<<<<<<<<<<<<<< /Tatum API RESPONSE <<<<<<<<<<<<<<<<<");
             
             return sb;
         }

@@ -12,16 +12,21 @@ namespace Tatum.CSharp.Examples.Nft;
 
 public class TatumNft
 {
+    private readonly TatumSdk _tatumSdk;
+    
+    public TatumNft()
+    {
+        var debugModeHandler = new DebugModeHandler();
+        debugModeHandler.InnerHandler = new HttpClientHandler();
+        
+        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+        
+        _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
+    }
+    
     [Fact]
     public async Task Balance_Single()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         const string address = "0x7968ac1f93e1967492d78701b88004074891e9a1";
         
         var nftBalanceDetails = new NftBalanceDetails
@@ -33,7 +38,7 @@ public class TatumNft
             }
         };
 
-        var balances = await tatum.Nft.Balance(nftBalanceDetails);
+        var balances = await _tatumSdk.Nft.Balance(nftBalanceDetails);
 
         balances.Should().NotBeNull();
         balances.ChainNftBalances.Should().ContainKey(Chain.Ethereum);
@@ -52,13 +57,6 @@ public class TatumNft
     [Fact]
     public async Task Balance_Many()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         const string address = "0x7968ac1f93e1967492d78701b88004074891e9a1";
         
         var nftBalanceDetails = new NftBalanceDetails
@@ -70,7 +68,7 @@ public class TatumNft
             }
         };
 
-        var balances = await tatum.Nft.Balance(new []{nftBalanceDetails});
+        var balances = await _tatumSdk.Nft.Balance(new []{nftBalanceDetails});
 
         balances.Should().NotBeNull();
         balances.ChainNftBalances.Should().ContainKey(Chain.Ethereum);
@@ -89,13 +87,6 @@ public class TatumNft
     [Fact]
     public async Task GetNftMetadata_Single()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         var getNftMetadataDetails = new GetNftMetadataDetails
         {
             Chain = Chain.Ethereum,
@@ -103,7 +94,7 @@ public class TatumNft
             TokenId = "23100000000000"
         };
 
-        var nftMetadata = await tatum.Nft.GetNftMetadata(getNftMetadataDetails);
+        var nftMetadata = await _tatumSdk.Nft.GetNftMetadata(getNftMetadataDetails);
         
         nftMetadata.Should().NotBeNull();
         nftMetadata.ChainNftMetadata.Should().ContainKey(Chain.Ethereum);
@@ -118,13 +109,6 @@ public class TatumNft
     [Fact]
     public async Task GetNftMetadata_Many()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         var getNftMetadataDetails = new GetNftMetadataDetails
         {
             Chain = Chain.Ethereum,
@@ -132,7 +116,7 @@ public class TatumNft
             TokenId = "10"
         };
 
-        var nftMetadata = await tatum.Nft.GetNftMetadata(new []{getNftMetadataDetails});
+        var nftMetadata = await _tatumSdk.Nft.GetNftMetadata(new []{getNftMetadataDetails});
         
         nftMetadata.Should().NotBeNull();
         nftMetadata.ChainNftMetadata.Should().ContainKey(Chain.Ethereum);
@@ -147,13 +131,6 @@ public class TatumNft
     [Fact]
     public async Task GetAllNftTransactions()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         var getAllNftTransactionsQuery = new GetAllNftTransactionsQuery
         {
             GetAllNftTransactionsDetails = new List<GetAllNftTransactionDetails>()
@@ -167,7 +144,7 @@ public class TatumNft
             }
         };
 
-        var transactions = await tatum.Nft.GetAllNftTransactions(getAllNftTransactionsQuery);
+        var transactions = await _tatumSdk.Nft.GetAllNftTransactions(getAllNftTransactionsQuery);
         
         transactions.Should().NotBeNull();
         transactions.ChainNftTransactions.Should().ContainKey(Chain.Ethereum);
@@ -184,13 +161,6 @@ public class TatumNft
     [Fact]
     public async Task Collection_GetAllNfts()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         const string contractAddress = "0x211500d1960bdb7ba3390347ffd8ad486b897a18";
         
         var getAllNftsQuery = new GetAllNftsQuery()
@@ -205,7 +175,7 @@ public class TatumNft
             }
         };
         
-        var nftsInCollections = await tatum.Nft.Collection.GetAllNfts(getAllNftsQuery);
+        var nftsInCollections = await _tatumSdk.Nft.Collection.GetAllNfts(getAllNftsQuery);
 
         nftsInCollections.Should().NotBeNull();
         nftsInCollections.ChainNftsInCollection.Should().ContainKey(Chain.Ethereum);

@@ -11,17 +11,22 @@ namespace Tatum.CSharp.Examples.FeeEstimations;
 
 public class TatumFeeEstimations
 {
+    private readonly TatumSdk _tatumSdk;
+    
+    public TatumFeeEstimations()
+    {
+        var debugModeHandler = new DebugModeHandler();
+        debugModeHandler.InnerHandler = new HttpClientHandler();
+        
+        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+        
+        _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
+    }
+    
     [Fact]
     public async Task GetCurrent_Single()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
-        var currentFee = await tatum.Fees.GetCurrent(Chain.Ethereum);
+        var currentFee = await _tatumSdk.Fees.GetCurrent(Chain.Ethereum);
 
         currentFee.Should().NotBeNull();
         currentFee.SlowGasPriceGwei.Should().MatchRegex("^\\d*\\.?\\d*$");
@@ -35,14 +40,7 @@ public class TatumFeeEstimations
     [Fact]
     public async Task GetCurrent_Many()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
-        var currentFee = await tatum.Fees.GetCurrent(new []{Chain.Ethereum});
+        var currentFee = await _tatumSdk.Fees.GetCurrent(new []{Chain.Ethereum});
 
         currentFee.Should().NotBeNull();
         currentFee.Should().ContainKey(Chain.Ethereum);
@@ -60,13 +58,6 @@ public class TatumFeeEstimations
     [Fact]
     public async Task Estimate_Single()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         var transactionDataForFeeEstimation = new NativeTransferFeeEstimationDetails
         {
             Chain = Chain.Ethereum,
@@ -75,7 +66,7 @@ public class TatumFeeEstimations
             Value = "1"
         };
         
-        var estimatedFee = await tatum.Fees.Estimate(transactionDataForFeeEstimation);
+        var estimatedFee = await _tatumSdk.Fees.Estimate(transactionDataForFeeEstimation);
 
         estimatedFee.Should().NotBeNull();
         estimatedFee.ChainNativeTransferFeeEstimations.Should().ContainKey(Chain.Ethereum);
@@ -95,13 +86,6 @@ public class TatumFeeEstimations
     [Fact]
     public async Task Estimate_Many()
     {
-        var httpClient = new DebugModeHandler();
-        httpClient.InnerHandler = new HttpClientHandler();
-
-        var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
-        
-        var tatum = new TatumSdk(new HttpClient(httpClient), apiKey);
-
         var transactionDataForFeeEstimation = new NativeTransferFeeEstimationDetails
         {
             Chain = Chain.Ethereum,
@@ -110,7 +94,7 @@ public class TatumFeeEstimations
             Value = "1"
         };
         
-        var estimatedFee = await tatum.Fees.Estimate(new []{transactionDataForFeeEstimation});
+        var estimatedFee = await _tatumSdk.Fees.Estimate(new []{transactionDataForFeeEstimation});
 
         estimatedFee.Should().NotBeNull();
         estimatedFee.ChainNativeTransferFeeEstimations.Should().ContainKey(Chain.Ethereum);

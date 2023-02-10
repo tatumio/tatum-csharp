@@ -5,22 +5,25 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core;
+using Tatum.CSharp.Core.Configuration;
 using Tatum.CSharp.Core.Models;
+using Tatum.CSharp.Core.Serialization;
 using Tatum.CSharp.Nft.Mappers;
 using Tatum.CSharp.Nft.Models;
 using Tatum.CSharp.Nft.Models.Responses;
 
 namespace Tatum.CSharp.Nft
 {
-    public class TatumNft : ITatumNft, ITatumNftCollections
+    public class TatumNft : TatumClientBase, ITatumNft, ITatumNftCollections
     {
         private const string NftUrl = "/v3/nft";
         
-        private readonly HttpClient _httpClient;
-
-        public TatumNft(HttpClient httpClient)
+        public TatumNft(HttpClient httpClient, TatumSdkConfiguration configuration) : base(httpClient, configuration)
         {
-            _httpClient = httpClient;
+        }
+        
+        public TatumNft(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration) : base(httpClientFactory, configuration)
+        {
         }
 
         public async Task<NftBalance> Balance(IEnumerable<NftBalanceDetails> nftBalancesDetails)
@@ -31,7 +34,7 @@ namespace Tatum.CSharp.Nft
             {
                 foreach (var address in nftBalancesDetail.Addresses)
                 {
-                    var response = await _httpClient.GetFromJsonAsync<List<NftBalanceResponse>>($"{NftUrl}/address/balance/{ChainMapper.GetChainAbbreviation(nftBalancesDetail.Chain)}/{address}", TatumSerializerOptions.Default);
+                    var response = await GetClient().GetFromJsonAsync<List<NftBalanceResponse>>($"{NftUrl}/address/balance/{ChainMapper.GetChainAbbreviation(nftBalancesDetail.Chain)}/{address}", TatumSerializerOptions.Default);
                     
                     if (!response?.Any() ?? false)
                     {
@@ -88,7 +91,7 @@ namespace Tatum.CSharp.Nft
                     sb.Append($"&to={getAllNftTransactionsDetail.ToBlock}");
                 }
 
-                var response = await _httpClient.GetFromJsonAsync<List<NftTransactionResponse>>(sb.ToString(), TatumSerializerOptions.Default);
+                var response = await GetClient().GetFromJsonAsync<List<NftTransactionResponse>>(sb.ToString(), TatumSerializerOptions.Default);
                 
                 if (!response?.Any() ?? false)
                 {
@@ -112,7 +115,7 @@ namespace Tatum.CSharp.Nft
             
             foreach (var getNftMetadataDetail in getNftMetadataDetails)
             {
-                var response = await _httpClient.GetFromJsonAsync<NftMetadataResponse>($"{NftUrl}/metadata/{ChainMapper.GetChainAbbreviation(getNftMetadataDetail.Chain)}/{getNftMetadataDetail.ContractAddress}/{getNftMetadataDetail.TokenId}", TatumSerializerOptions.Default);
+                var response = await GetClient().GetFromJsonAsync<NftMetadataResponse>($"{NftUrl}/metadata/{ChainMapper.GetChainAbbreviation(getNftMetadataDetail.Chain)}/{getNftMetadataDetail.ContractAddress}/{getNftMetadataDetail.TokenId}", TatumSerializerOptions.Default);
                 
                 if (response == null)
                 {
@@ -154,7 +157,7 @@ namespace Tatum.CSharp.Nft
                     sb.Append($"&offset={getAllNftsQuery.Offset}");
                 }
 
-                var response = await _httpClient.GetFromJsonAsync<List<NftInCollectionResponse>>(sb.ToString(), TatumSerializerOptions.Default);
+                var response = await GetClient().GetFromJsonAsync<List<NftInCollectionResponse>>(sb.ToString(), TatumSerializerOptions.Default);
                 
                 if (!response?.Any() ?? false)
                 {

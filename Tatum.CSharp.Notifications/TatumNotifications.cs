@@ -4,21 +4,24 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core;
+using Tatum.CSharp.Core.Configuration;
+using Tatum.CSharp.Core.Serialization;
 using Tatum.CSharp.Notifications.Mappers;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Notifications.Models.Responses;
 
 namespace Tatum.CSharp.Notifications
 {
-    public class TatumNotifications : ITatumNotifications, ITatumNotificationSubscriptions
+    public class TatumNotifications : TatumClientBase, ITatumNotifications, ITatumNotificationSubscriptions
     {
         private const string NotificationsUrl = "/v3/subscription";
-        
-        private readonly HttpClient _httpClient;
 
-        public TatumNotifications(HttpClient httpClient)
+        public TatumNotifications(HttpClient httpClient, TatumSdkConfiguration configuration) : base(httpClient, configuration)
         {
-            _httpClient = httpClient;
+        }
+        
+        public TatumNotifications(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration) : base(httpClientFactory, configuration)
+        {
         }
 
         public async Task<Models.Notifications> GetAll(GetAllNotificationsQuery getAllNotificationsQuery)
@@ -39,7 +42,7 @@ namespace Tatum.CSharp.Notifications
                 sb.Append($"&address={getAllNotificationsQuery.Address}");
             }
 
-            var result = await _httpClient.GetFromJsonAsync<List<NotificationResponse>>(sb.ToString(), TatumSerializerOptions.Default);
+            var result = await GetClient().GetFromJsonAsync<List<NotificationResponse>>(sb.ToString(), TatumSerializerOptions.Default);
 
             return NotificationMapper.Map(result);
         }
@@ -53,7 +56,7 @@ namespace Tatum.CSharp.Notifications
         {
             var url = $"{NotificationsUrl}/{notificationId}";
             
-            await _httpClient.DeleteAsync(url);
+            await GetClient().DeleteAsync(url);
         }
 
         public ITatumNotificationSubscriptions Subscribe => this;
@@ -62,7 +65,7 @@ namespace Tatum.CSharp.Notifications
         {
             var notification = NotificationMapper.Map(addressTransactionNotification);
             
-            var result = await _httpClient.PostAsJsonAsync(NotificationsUrl, notification, TatumSerializerOptions.Default);
+            var result = await GetClient().PostAsJsonAsync(NotificationsUrl, notification, TatumSerializerOptions.Default);
 
             var notificationCreated = await result.Content.ReadFromJsonAsync<NotificationCreatedResponse>();
             

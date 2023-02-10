@@ -19,3 +19,4 @@ jobs:
         run: dotnet test
         env:
           INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
+          NOTIFICATION_TEST_APIKEY: ${{ secrets.NOTIFICATION }}

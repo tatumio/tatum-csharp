@@ -3,7 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core;
+using Tatum.CSharp.Core.Configuration;
 using Tatum.CSharp.Core.Models;
+using Tatum.CSharp.Core.Serialization;
 using Tatum.CSharp.Fees.Mappers;
 using Tatum.CSharp.Fees.Models;
 using Tatum.CSharp.Fees.Models.Requests;
@@ -11,15 +13,16 @@ using Tatum.CSharp.Fees.Models.Responses;
 
 namespace Tatum.CSharp.Fees
 {
-    public class TatumFees : ITatumFees
+    public class TatumFees : TatumClientBase, ITatumFees
     {
         private const string FeeEstimationsUrl = "/v3/blockchain";
 
-        private readonly HttpClient _httpClient;
-
-        public TatumFees(HttpClient httpClient)
+        public TatumFees(HttpClient httpClient, TatumSdkConfiguration configuration) : base(httpClient, configuration)
         {
-            _httpClient = httpClient;
+        }
+        
+        public TatumFees(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration) : base(httpClientFactory, configuration)
+        {
         }
 
         public async Task<Dictionary<Chain, ChainCurrentFee>> GetCurrent(IEnumerable<Chain> chains)
@@ -28,7 +31,7 @@ namespace Tatum.CSharp.Fees
             
             foreach (var chain in chains)
             {
-                var currentFeeResponse = await _httpClient.GetFromJsonAsync<CurrentFeeResponse>($"{FeeEstimationsUrl}/fee/{ChainMapper.GetChainAbbreviation(chain)}", TatumSerializerOptions.Default);
+                var currentFeeResponse = await GetClient().GetFromJsonAsync<CurrentFeeResponse>($"{FeeEstimationsUrl}/fee/{ChainMapper.GetChainAbbreviation(chain)}", TatumSerializerOptions.Default);
 
                 if (!currentFees.ContainsKey(chain))
                 {
@@ -73,7 +76,7 @@ namespace Tatum.CSharp.Fees
                             Estimations = chainEstimationRequest.Value
                         };
                         
-                        var result = await _httpClient.PostAsJsonAsync("/v3/ethereum/gas/batch", estimationsRequest, TatumSerializerOptions.Default);
+                        var result = await GetClient().PostAsJsonAsync("/v3/ethereum/gas/batch", estimationsRequest, TatumSerializerOptions.Default);
             
                         var estimatedFeeResponse = await result.Content.ReadFromJsonAsync<EstimatedFeeResponse>();
                         
