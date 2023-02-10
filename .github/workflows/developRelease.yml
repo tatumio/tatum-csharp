@@ -21,7 +21,6 @@ concurrency:
 env:
   PROJECT_PATH: ./Tatum.CSharp/Tatum.CSharp.csproj
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
-  SDK_ERROR_MESSAGES_VERSION: "master"
 
 jobs:
 
@@ -33,11 +32,10 @@ jobs:
     uses: ./.github/workflows/package.yml
     needs: Build_Version
     with:
-      error_messages_version: ${{ env.SDK_ERROR_MESSAGES_VERSION }}
       package_version: ${{ needs.Build_Version.outputs.version }}
     secrets:
       publish_api_key: ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }}
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
   # preparePackage:
   #   name: Build & Publish
   #   runs-on: ubuntu-latest

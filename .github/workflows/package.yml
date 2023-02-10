@@ -21,7 +21,7 @@ on:
     secrets:
       publish_api_key:
         required: true
-      github_token:
+      gh_token:
         required: false
       
 env:
@@ -31,7 +31,7 @@ env:
 
 jobs:
   package:
-    name: Build and publish: ${{ inputs.version }}
+    name: Build and publish - ${{ inputs.package_version }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -46,12 +46,12 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add package source
         if: ${{ ! inputs.release_public }}
-        run: dotnet nuget add source --username tatumio --password ${{ secrets.github_token }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
+        run: dotnet nuget add source --username tatumio --password ${{ secrets.gh_token }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: Set package source
         id: set_source
         run: |
           if [ "${{ inputs.release_public }}" == "true" ]; then
-            echo "pkg_src=${{ PUB_PACKAGE_SOURCE }}" >> $GITHUB_OUTPUT
+            echo "pkg_src=${{ env.PUB_PACKAGE_SOURCE }}" >> $GITHUB_OUTPUT
             echo "pkg_src_short_name=nuget.org" >> $GITHUB_OUTPUT
           else
             echo "pkg_src=github" >> $GITHUB_OUTPUT
@@ -59,7 +59,7 @@ jobs:
           fi
       - name: Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
-      - name: Create package - ${{ inputs.version }}
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ inputs.configuration }} /p:Version=${{ inputs.version }} --output .
-      - name: Push to ${{ steps.outputs.pkg_src_short_name }}
-        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.publish_api_key }} --source ${{ steps.outputs.pkg_src }}
+      - name: Create package - ${{ inputs.package_version }}
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ inputs.configuration }} /p:Version=${{ inputs.package_version }} --output .
+      - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
+        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.publish_api_key }} --source ${{ steps.set_source.outputs.pkg_src }}
