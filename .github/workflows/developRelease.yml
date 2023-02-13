@@ -31,7 +31,9 @@ jobs:
   preparePackage:
     # uses: ./.github/workflows/package.yml
     needs: Build_Version
-    run: echo ${{ needs.Build_Version.outputs.version }}
+    steps:      
+      - run: echo ${{ needs.Build_Version.outputs.version }}
+        name: Dump
     # with:
     #   package_version: ${{ needs.Build_Version.outputs.version }}
     # secrets:
