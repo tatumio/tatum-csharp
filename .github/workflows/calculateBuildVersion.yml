@@ -2,6 +2,11 @@ name: Calculate Build Version
 
 on:
   workflow_call:
+    inputs:
+      official_release:
+        required: false
+        type: boolean
+        default: false
     outputs:
       version:
         description: "New build version number"
@@ -11,16 +16,20 @@ jobs:
   calculate_version:
     name: Calculate Build Version
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{steps.versionStep.outputs.version}}
     steps:
     - name: Check out code
       uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
+    - name: Get version
+      id: get_version
+      run: |
+        stat .version > /dev/null && echo "version=$(<.version)" >> $GITHUB_OUTPUT
     - name: Generate build version
-      id: versionStep
-      shell: bash
-      run: echo "version=3.0.0-alpha${{ github.run_id }}" >> $GITHUB_OUTPUT
+      id: generate_version
+      run: |
+        if [ "${{ inputs.official_release }}" == "true" ]; then
+          echo "version=${{ steps.get_version.outputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "version=${{ steps.get_version.outputs.version }}-alpha${{ github.run_id }}" >> $GITHUB_OUTPUT
+        fi
+    outputs:
+      output1: ${{steps.generate_version.outputs.version}}
