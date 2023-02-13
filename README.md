@@ -64,6 +64,6 @@ _client = new Tatum(new HttpClient(httpClient), apiKey);
 
 ## Further Examples
 
-- [Examples - Notifications](Examples/Notifications/TatumNotifications.cs)
-- [Examples - FeeEstimations](Examples/Fees/TatumFeeEstimations.cs)
-- [Examples - Nft](Examples/Nft/TatumNft.cs)
+- [Examples - Notifications](Tatum.CSharp.Examples/Notifications/TatumNotifications.cs)
+- [Examples - FeeEstimations](Tatum.CSharp.Examples/Fees/TatumFeeEstimations.cs)
+- [Examples - Nft](Tatum.CSharp.Examples/Nft/TatumNft.cs)
