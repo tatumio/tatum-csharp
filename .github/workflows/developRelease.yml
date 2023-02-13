@@ -3,7 +3,7 @@ run-name: ${{ inputs.source }}
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", v3-test-publish ]
   pull_request:
     branches: [ "develop" ]
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
   Build_Version:
     name: Get Version
     uses: ./.github/workflows/calculateBuildVersion.yml
-
+#
   preparePackage:
     uses: ./.github/workflows/package.yml
     needs: Build_Version
