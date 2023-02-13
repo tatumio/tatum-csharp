@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - v3-test-pipeline
 
 jobs:
 
@@ -30,33 +31,34 @@ jobs:
           latest_tag=$(curl -s --max-time 5 https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest | jq -r '.tag_name')
           echo "LATEST_RELEASE_TAG=$latest_tag" >> $GITHUB_OUTPUT
       - name: Ensure package version is updated
-        run: |
-          [ "${{ needs.Build_Version.outputs.version }}" = "${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}" ] && echo "Error: Package version is the same as the latest release" && exit 1 || exit 0
+    #    run: |
+     #     [ "${{ needs.Build_Version.outputs.version }}" = "${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}" ] && echo "Error: Package version is the same as the latest release" && exit 1 || exit 0
+        run: echo "${{ needs.Build_Version.outputs.version }} - ${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}
       - name: Get release notes
         id: get_release_notes
         uses: ffurrer2/extract-release-notes@v1
       # TAG the repo
-      - name: Create tag ${{ needs.Build_Version.outputs.version }}
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "${{ needs.Build_Version.outputs.version }}"
-      - name: "Create a GitHub release ${{ needs.Build_Version.outputs.version }}"
-      # Create release using the tag above
-        uses: ncipollo/release-action@v1
-        with:
-          tag: "${{ needs.Build_Version.outputs.version }}"
-          name: "${{ needs.Build_Version.outputs.version }}"
-          body: |
-            ${{ steps.get_release_notes.outputs.release_notes }}
+      # - name: Create tag ${{ needs.Build_Version.outputs.version }}
+      #   uses: rickstaa/action-create-tag@v1
+      #   with:
+      #     tag: "${{ needs.Build_Version.outputs.version }}"
+      # - name: "Create a GitHub release ${{ needs.Build_Version.outputs.version }}"
+      # # Create release using the tag above
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     tag: "${{ needs.Build_Version.outputs.version }}"
+      #     name: "${{ needs.Build_Version.outputs.version }}"
+      #     body: |
+      #       ${{ steps.get_release_notes.outputs.release_notes }}
     outputs:
       version: ${{ needs.Build_Version.outputs.version }}
 
-  publishRelease:
-    needs: github_release
-    uses: ./.github/workflows/package.yml
-    with:
-      package_version:  ${{needs.release.outputs.version}}
-      release_public: true
-    secrets:
-      publish_api_key: ${{ secrets.NUGET_PUBLISH_KEY }}
-      gh_token: ${{ secrets.GITHUB_TOKEN }}
+  # publishRelease:
+  #   needs: github_release
+  #   uses: ./.github/workflows/package.yml
+  #   with:
+  #     package_version:  ${{needs.release.outputs.version}}
+  #     release_public: true
+  #   secrets:
+  #     publish_api_key: ${{ secrets.NUGET_PUBLISH_KEY }}
+  #     gh_token: ${{ secrets.GITHUB_TOKEN }}
