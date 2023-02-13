@@ -62,4 +62,4 @@ jobs:
       - name: Create package - ${{ inputs.package_version }}
         run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ inputs.configuration }} /p:Version=${{ inputs.package_version }} --output .
       - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
-        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.version }}.nupkg" --skip-duplicate --api-key ${{ secrets.publish_api_key }} --source ${{ steps.set_source.outputs.pkg_src }}
+        run: dotnet nuget push "./Tatum.CSharp.${{ inputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.publish_api_key }} --source ${{ steps.set_source.outputs.pkg_src }}
