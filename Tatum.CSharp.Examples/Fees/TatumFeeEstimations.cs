@@ -7,7 +7,7 @@ using Tatum.CSharp.Fees.Models;
 using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
-namespace Tatum.CSharp.Examples.FeeEstimations;
+namespace Tatum.CSharp.Examples.Fees;
 
 public class TatumFeeEstimations
 {
