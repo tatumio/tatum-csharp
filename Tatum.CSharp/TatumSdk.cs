@@ -6,7 +6,7 @@ using Tatum.CSharp.Notifications;
 
 namespace Tatum.CSharp
 {
-    public class TatumSdk
+    public class TatumSdk : ITatumSdk
     {
         public ITatumNotifications Notifications { get; }
         public ITatumFees Fees { get; }

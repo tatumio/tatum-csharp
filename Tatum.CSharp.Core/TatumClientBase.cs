@@ -29,7 +29,7 @@ namespace Tatum.CSharp.Core
                 return _httpClient;
             }
             
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
 
             _configuration.ConfigureHttpClient(client);
                 

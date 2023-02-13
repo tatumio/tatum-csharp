@@ -1,6 +1,5 @@
 # [Tatum C# SDK v3](http://tatum.com/)
 
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Smrecz/7c96c30e8017c8dfb57b88e323f8114b/raw/csharp-sdk-test-summary.json)
 [![Build](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml/badge.svg?branch=v3)](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml)
 
 Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains in various ways.
@@ -13,25 +12,25 @@ Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains i
 
 1. Include tatum package in your project:
 
+
    `dotnet add ${your_project} package Tatum.CSharp`
+
 
 2. Register Tatum Client in the DI container by calling `IServiceCollection` method `AddHttpClient`:
 
 ```cs
 // In Program.cs or Startup.cs
-
-builder.Services
-    .AddHttpClient<ITatum, Tatum>(httpClient => new Tatum(httpClient, apiKey));
+builder.Services.AddTatumSdk(true, apiKey);
 ```
 3. Inject Tatum Client to the class of your choice:
 
 ```cs
 // EthereumController.cs
-private readonly ITatum _tatum;
+private readonly ITatumSdk _tatumSdk;
 
-public EthereumController(ITatum tatum)
+public SomeController(ITatumSdk tatumSdk)
 {
-    _tatum = tatum;
+    _tatumSdk = tatumSdk;
 }
 ```
 
@@ -46,20 +45,15 @@ If there ever is a need to see what is going on under the hood you can use the D
 To use debug mode simply add this handler when registering Tatum Client:
 ```cs
 // In Program.cs or Startup.cs
-builder.Services
-    .AddSingleton<DebugModeHandler>();
-
-builder.Services
-    .AddHttpClient<ITatum, Tatum>(httpClient => new Tatum(httpClient, apiKey))
-    .AddHttpMessageHandler<DebugModeHandler>();
+builder.Services.AddTatumSdkWithDebug(true, apiKey);
 ```
 
 or if using HttpClient directly:
 ```cs
-var httpClient = new DebugModeHandler();
-httpClient.InnerHandler = new HttpClientHandler();
-        
-_client = new Tatum(new HttpClient(httpClient), apiKey);
+var debugModeHandler = new DebugModeHandler();
+debugModeHandler.InnerHandler = new HttpClientHandler();
+
+_tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
 ```
 
 ## Further Examples
