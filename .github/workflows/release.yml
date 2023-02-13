@@ -33,7 +33,7 @@ jobs:
       - name: Ensure package version is updated
     #    run: |
      #     [ "${{ needs.Build_Version.outputs.version }}" = "${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}" ] && echo "Error: Package version is the same as the latest release" && exit 1 || exit 0
-        run: echo "${{ needs.Build_Version.outputs.version }} - ${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}
+        run: echo "${{ needs.Build_Version.outputs.version }} - ${{ steps.get_latest_release.outputs.LATEST_RELEASE_TAG }}"
       - name: Get release notes
         id: get_release_notes
         uses: ffurrer2/extract-release-notes@v1
