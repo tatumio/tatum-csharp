@@ -31,6 +31,7 @@ jobs:
   preparePackage:
     # uses: ./.github/workflows/package.yml
     needs: Build_Version
+    runs-on: ubuntu-latest
     steps:      
       - run: echo ${{ needs.Build_Version.outputs.version }}
         name: Dump
