@@ -25,10 +25,7 @@ namespace Tatum.CSharp.Core.Configuration
             {
                 return;
             }
-            
-            client.BaseAddress = new Uri(configuration.BaseUrl);
-            client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
-            
+
             var versionResponse = await client.GetFromJsonAsync<VersionResponse>("v3/tatum/version/", TatumSerializerOptions.Default);
 
             if (versionResponse == null)
@@ -40,12 +37,6 @@ namespace Tatum.CSharp.Core.Configuration
             {
                 throw new InvalidOperationException("Testnet configuration does not match the testnet status of the Tatum API key.");
             }
-        }
-        
-        public static async Task Validate(this TatumSdkConfiguration configuration, IHttpClientFactory httpClientFactory)
-        {
-            var client = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
-            await configuration.Validate(client);
         }
     }
 }

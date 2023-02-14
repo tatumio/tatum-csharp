@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Tatum.CSharp.Core;
 using Tatum.CSharp.Core.Configuration;
 using Tatum.CSharp.Notifications;
 
@@ -12,11 +13,19 @@ namespace Tatum.CSharp
         {
             configuration.ConfigureHttpClient(httpClient);
             
+            configuration.Validate(httpClient).GetAwaiter().GetResult();
+            
             Notifications = new TatumNotifications(httpClient, configuration);
         }
         
         private TatumSdk(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration)
         {
+            var httpClient = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
+            
+            configuration.ConfigureHttpClient(httpClient);
+            
+            configuration.Validate(httpClient).GetAwaiter().GetResult();
+            
             Notifications = new TatumNotifications(httpClientFactory, configuration);
         }
         
@@ -73,8 +82,6 @@ namespace Tatum.CSharp
             configuration.IsTestnet = isTestnet;
             configuration.ApiKey = apiKey;
 
-            configuration.Validate(client).GetAwaiter().GetResult();
-
             return new TatumSdk(client, configuration);
         }
         
@@ -102,8 +109,6 @@ namespace Tatum.CSharp
             
             configuration.IsTestnet = isTestnet;
             configuration.ApiKey = apiKey;
-            
-            configuration.Validate(httpClientFactory).GetAwaiter().GetResult();
 
             return new TatumSdk(httpClientFactory, configuration);
         }
