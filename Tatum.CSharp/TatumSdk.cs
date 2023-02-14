@@ -1,7 +1,5 @@
 using System.Net.Http;
 using Tatum.CSharp.Core.Configuration;
-using Tatum.CSharp.Fees;
-using Tatum.CSharp.Nft;
 using Tatum.CSharp.Notifications;
 
 namespace Tatum.CSharp
@@ -9,23 +7,17 @@ namespace Tatum.CSharp
     public class TatumSdk : ITatumSdk
     {
         public ITatumNotifications Notifications { get; }
-        public ITatumFees Fees { get; }
-        public ITatumNft Nft { get; }
 
         private TatumSdk(HttpClient httpClient, TatumSdkConfiguration configuration)
         {
             configuration.ConfigureHttpClient(httpClient);
             
             Notifications = new TatumNotifications(httpClient, configuration);
-            Fees = new TatumFees(httpClient, configuration);
-            Nft = new TatumNft(httpClient, configuration);
         }
         
         private TatumSdk(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration)
         {
             Notifications = new TatumNotifications(httpClientFactory, configuration);
-            Fees = new TatumFees(httpClientFactory, configuration);
-            Nft = new TatumNft(httpClientFactory, configuration);
         }
         
         public static TatumSdk Init(TatumSdkConfiguration configuration = null)

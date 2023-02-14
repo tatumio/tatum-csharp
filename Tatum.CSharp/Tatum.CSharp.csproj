@@ -5,8 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tatum.CSharp.Fees\Tatum.CSharp.Fees.csproj" />
-      <ProjectReference Include="..\Tatum.CSharp.Nft\Tatum.CSharp.Nft.csproj" />
       <ProjectReference Include="..\Tatum.CSharp.Notifications\Tatum.CSharp.Notifications.csproj" />
     </ItemGroup>
 

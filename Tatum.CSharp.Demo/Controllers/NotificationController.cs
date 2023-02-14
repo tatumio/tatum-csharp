@@ -1,23 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Tatum.CSharp.Core.Models;
-using Tatum.CSharp.Fees.Models;
 
 namespace Tatum.CSharp.Demo.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class FeeController : ControllerBase
+public class NotificationController : ControllerBase
 {
     private readonly ITatumSdk _tatumSdk;
 
-    public FeeController(ITatumSdk tatumSdk)
+    public NotificationController(ITatumSdk tatumSdk)
     {
         _tatumSdk = tatumSdk;
     }
 
     [HttpGet(Name = "GetCurrent")]
-    public async Task<ChainCurrentFee> GetCurrent()
+    public async Task<Notifications.Models.Notifications> GetAll()
     {
-        return await _tatumSdk.Fees.GetCurrent(Chain.Ethereum);
+        return await _tatumSdk.Notifications.GetAll();
     }
 }

@@ -1,4 +1,3 @@
-using Tatum.CSharp;
 using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Extensions;
 using Tatum.CSharp.Extensions.ServiceCollection;

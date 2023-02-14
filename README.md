@@ -64,5 +64,3 @@ _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
 [Demo App (.NET API)](Tatum.CSharp.Demo)
 
 - [Examples - Notifications](Tatum.CSharp.Examples/Notifications/TatumNotifications.cs)
-- [Examples - FeeEstimations](Tatum.CSharp.Examples/Fees/TatumFeeEstimations.cs)
-- [Examples - Nft](Tatum.CSharp.Examples/Nft/TatumNft.cs)
