@@ -81,6 +81,8 @@ namespace Tatum.CSharp
             configuration.IsTestnet = isTestnet;
             configuration.ApiKey = apiKey;
 
+            configuration.Validate(client).GetAwaiter().GetResult();
+
             return new TatumSdk(client, configuration);
         }
         
@@ -108,6 +110,8 @@ namespace Tatum.CSharp
             
             configuration.IsTestnet = isTestnet;
             configuration.ApiKey = apiKey;
+            
+            configuration.Validate(httpClientFactory).GetAwaiter().GetResult();
 
             return new TatumSdk(httpClientFactory, configuration);
         }

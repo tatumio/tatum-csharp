@@ -371,3 +371,5 @@ FodyWeavers.xsd
 # Unity
 !Unity/**/*.meta
 !Unity/**/*.dll
+
+launchSettings.json

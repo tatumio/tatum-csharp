@@ -20,7 +20,7 @@ Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains i
 
 ```cs
 // In Program.cs or Startup.cs
-builder.Services.AddTatumSdk(true, apiKey);
+builder.Services.AddTatumSdk(Network.Testnet, apiKey);
 ```
 3. Inject Tatum Client to the class of your choice:
 
@@ -48,7 +48,7 @@ If there ever is a need to see what is going on under the hood you can use the D
 To use debug mode simply register Tatum SDK like this:
 ```cs
 // In Program.cs or Startup.cs
-builder.Services.AddTatumSdkWithDebug(true, apiKey);
+builder.Services.AddTatumSdkWithDebug(Network.Testnet, apiKey);
 ```
 
 or if using HttpClient directly:

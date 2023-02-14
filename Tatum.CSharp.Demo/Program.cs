@@ -1,4 +1,5 @@
 using Tatum.CSharp;
+using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Extensions;
 using Tatum.CSharp.Extensions.ServiceCollection;
 using Tatum.CSharp.Utils.DebugMode;
@@ -14,9 +15,9 @@ builder.Services.AddSwaggerGen();
 
 // ************** Tatum SDK **************
 
-var apiKey = Environment.GetEnvironmentVariable("INTEGRATION_TEST_APIKEY");
+var apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
-builder.Services.AddTatumSdkWithDebug(true, apiKey);
+builder.Services.AddTatumSdkWithDebug(Network.Testnet, apiKey);
 
 // ************** /Tatum SDK **************
 
