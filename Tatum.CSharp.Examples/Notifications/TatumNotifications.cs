@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.CSharp.Core;
-using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Notifications.Models.Notifications;
 using Tatum.CSharp.Utils.DebugMode;
@@ -26,13 +25,24 @@ public class TatumNotifications
         _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
     }
 
-    [Fact]
-    public async Task AddressTransaction_Create_Get_Delete()
+    [Theory]
+    [InlineData(AddressTransactionChain.Ethereum, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
+    [InlineData(AddressTransactionChain.Solana, "8Kvnpupqf2hPrMDJ4mK2kXnSSMihh1AjFg7RiF5Vn8wX")]
+    [InlineData(AddressTransactionChain.Polygon, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
+    [InlineData(AddressTransactionChain.Celo, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
+    [InlineData(AddressTransactionChain.Klaytn, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
+    [InlineData(AddressTransactionChain.Bitcoin, "tb1qjzjyd3l3vh8an8w4mkr6dwur59lan60367kr04")]
+    [InlineData(AddressTransactionChain.Litecoin, "mxz6DCurdU65oyzfUnE36enNUFG8soaRXi")]
+    [InlineData(AddressTransactionChain.BitcoinCash, "bchtest:qrg27kw32qkeym2q8mdhw0lcqu2x7gw5fghy405gn7")]
+    [InlineData(AddressTransactionChain.Dogecoin, "ndz9RPmJWwNiNt1aRvgxhG4G5xMgr61Wn8")]
+    [InlineData(AddressTransactionChain.Tron, "TLZirVxP5m37d2ZEWDtmvk97KMJXiBsWGZ")]
+    [InlineData(AddressTransactionChain.BinanceSmartChain, "0x58107193278ea4bb56c390185f4755e0a4239d68")]
+    public async Task AddressTransaction_Create_Get_Delete(AddressTransactionChain chain, string address)
     {
         var notification = new AddressTransactionNotification
         {
-            Chain = Chain.Ethereum,
-            Address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
+            Chain = chain,
+            Address = address,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
@@ -47,7 +57,7 @@ public class TatumNotifications
     {
         var notification = new ContractLogEventNotification
         {
-            Chain = Chain.Ethereum,
+            Chain = ContractLogEventChain.Ethereum,
             Event = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
@@ -63,7 +73,7 @@ public class TatumNotifications
     {
         var notification = new ContractNftTxsPerBlockNotification()
         {
-            Chain = Chain.Ethereum,
+            Chain = ContractNftTxsPerBlockChain.Ethereum,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
@@ -78,7 +88,7 @@ public class TatumNotifications
     {
         var notification = new ContractMultitokenTxsPerBlockNotification
         {
-            Chain = Chain.Ethereum,
+            Chain = ContractMultitokenTxsPerBlockChain.Ethereum,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
@@ -222,8 +232,11 @@ public class TatumNotifications
     private async Task Create_Get_Delete<T>(T notification, Func<T, Task<Result<T>>> createFunc, Func<NotificationsList, List<T>> getNotificationListFunc) where T : Notification
     {
         var createdNotificationResult = await createFunc(notification);
-        
-        createdNotificationResult.Success.Should().BeTrue();
+
+        if (!createdNotificationResult.Success)
+        {
+            Assert.True(false, createdNotificationResult.ErrorMessage);
+        }
 
         var createdNotification = createdNotificationResult.Value;
         

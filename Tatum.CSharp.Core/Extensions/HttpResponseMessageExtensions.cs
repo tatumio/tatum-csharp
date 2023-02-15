@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -20,7 +21,7 @@ namespace Tatum.CSharp.Core.Extensions
 
             var error = await httpResponseMessage.Content.ReadFromJsonAsync<TatumError>(TatumSerializerOptions.Default);
 
-            if (error == null)
+            if (error?.ErrorCode == null)
             {
                 var rawMessage = await httpResponseMessage.Content.ReadAsStringAsync();
                 return new Result<TValue>(rawMessage);
@@ -28,6 +29,11 @@ namespace Tatum.CSharp.Core.Extensions
             
             var errorMessage = ErrorMessageStore.ErrorMessages.TryGetValue(error.ErrorCode, out var message) ? message : error.Message;
 
+            if(error.Data != null && error.Data.Any())
+            {
+                errorMessage += $": {string.Join(", ", error.Data)}";
+            }
+            
             return new Result<TValue>(errorMessage);
         }
 

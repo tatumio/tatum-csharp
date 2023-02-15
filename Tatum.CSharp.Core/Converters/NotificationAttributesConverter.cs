@@ -11,13 +11,33 @@ namespace Tatum.CSharp.Core.Converters
         private static ReadOnlyDictionary<string, string> chainNameMappingsRead = new ReadOnlyDictionary<string, string>(
             new Dictionary<string, string>()
             {
-                {"ETH", "Ethereum" }
+                {"ETH", "Ethereum" },
+                {"MATIC", "Polygon" },
+                {"CELO", "Celo" },
+                {"KLAY", "Klaytn" },
+                {"BTC", "Bitcoin" },
+                {"LTC", "Litecoin" },
+                {"BCH", "BitcoinCash" },
+                {"DOGE", "Dogecoin" },
+                {"TRON", "Tron" },
+                {"BSC", "BinanceSmartChain" },
+                {"SOL", "Solana" },
             });
         
         private static ReadOnlyDictionary<string, string> chainNameMappingsWrite = new ReadOnlyDictionary<string, string>(
             new Dictionary<string, string>()
             {
-                {"Ethereum", "ETH" }
+                {"Ethereum", "ETH" },
+                {"Polygon", "MATIC" },
+                {"Celo", "CELO" },
+                {"Klaytn", "KLAY" },
+                {"Bitcoin", "BTC" },
+                {"Litecoin", "LTC" },
+                {"BitcoinCash", "BCH" },
+                {"Dogecoin", "DOGE" },
+                {"Tron", "TRON" },
+                {"BinanceSmartChain", "BSC" },
+                {"Solana", "SOL" },
             });
 
         public override Dictionary<string, string> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

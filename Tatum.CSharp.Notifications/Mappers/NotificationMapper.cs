@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Notifications.Models.Notifications;
 using Tatum.CSharp.Notifications.Models.Responses;
@@ -66,7 +65,7 @@ namespace Tatum.CSharp.Notifications.Mappers
         public static AddressTransactionNotification MapAddressTransaction(NotificationResponse notificationResponse)
         {
             notificationResponse.Attributes.TryGetValue("chain", out var chainString);
-            Enum.TryParse(chainString, out Chain chain);
+            Enum.TryParse(chainString, out AddressTransactionChain chain);
             
             notificationResponse.Attributes.TryGetValue("address", out var address);
             notificationResponse.Attributes.TryGetValue("url", out var url);
@@ -84,7 +83,7 @@ namespace Tatum.CSharp.Notifications.Mappers
         public static ContractLogEventNotification MapContractLogEvent(NotificationResponse notificationResponse)
         {
             notificationResponse.Attributes.TryGetValue("chain", out var chainString);
-            Enum.TryParse(chainString, out Chain chain);
+            Enum.TryParse(chainString, out ContractLogEventChain chain);
             
             notificationResponse.Attributes.TryGetValue("event", out var eventData);
             notificationResponse.Attributes.TryGetValue("url", out var url);
@@ -101,7 +100,7 @@ namespace Tatum.CSharp.Notifications.Mappers
         private static ContractMultitokenTxsPerBlockNotification MapContractMultitokenTxsPerBlock(NotificationResponse notificationResponse)
         {
             notificationResponse.Attributes.TryGetValue("chain", out var chainString);
-            Enum.TryParse(chainString, out Chain chain);
+            Enum.TryParse(chainString, out ContractMultitokenTxsPerBlockChain chain);
             
             notificationResponse.Attributes.TryGetValue("url", out var url);
 
@@ -116,7 +115,7 @@ namespace Tatum.CSharp.Notifications.Mappers
         private static ContractNftTxsPerBlockNotification MapContractNftTxsPerBlock(NotificationResponse notificationResponse)
         {
             notificationResponse.Attributes.TryGetValue("chain", out var chainString);
-            Enum.TryParse(chainString, out Chain chain);
+            Enum.TryParse(chainString, out ContractNftTxsPerBlockChain chain);
             
             notificationResponse.Attributes.TryGetValue("url", out var url);
 

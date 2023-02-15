@@ -1,11 +1,14 @@
-using Tatum.CSharp.Core.Models;
-
 namespace Tatum.CSharp.Notifications.Models.Notifications
 {
     public class ContractMultitokenTxsPerBlockNotification : Notification
     {
-        public Chain Chain { get; set; }
+        public ContractMultitokenTxsPerBlockChain Chain { get; set; }
 
         public string Url { get; set; }
+    }
+
+    public enum ContractMultitokenTxsPerBlockChain
+    {
+        Ethereum = 1
     }
 }
