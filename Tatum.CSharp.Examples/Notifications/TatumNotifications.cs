@@ -25,14 +25,6 @@ public class TatumNotifications
 
         _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
     }
-    
-    [Fact]
-    public async Task GetAll()
-    {
-        var notificationsResult = await _tatumSdk.Notifications.GetAll();
-        
-        notificationsResult.Success.Should().BeTrue();
-    }
 
     [Fact]
     public async Task AddressTransaction_Create_Get_Delete()

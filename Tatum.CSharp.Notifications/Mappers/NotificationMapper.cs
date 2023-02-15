@@ -65,16 +65,17 @@ namespace Tatum.CSharp.Notifications.Mappers
         
         public static AddressTransactionNotification MapAddressTransaction(NotificationResponse notificationResponse)
         {
-            notificationResponse.Attributes.TryGetValue("chain", out var chainAbbreviation);
+            notificationResponse.Attributes.TryGetValue("chain", out var chainString);
+            Enum.TryParse(chainString, out Chain chain);
+            
             notificationResponse.Attributes.TryGetValue("address", out var address);
             notificationResponse.Attributes.TryGetValue("url", out var url);
 
-            Enum.TryParse(chainAbbreviation, out ChainAbbreviation chain);
-
+            
             return new AddressTransactionNotification
             {
                 Id = notificationResponse.Id,
-                Chain = ChainMapper.GetChainName(chain),
+                Chain = chain,
                 Address = address,
                 Url = url
             };
@@ -82,16 +83,16 @@ namespace Tatum.CSharp.Notifications.Mappers
         
         public static ContractLogEventNotification MapContractLogEvent(NotificationResponse notificationResponse)
         {
-            notificationResponse.Attributes.TryGetValue("chain", out var chainAbbreviation);
+            notificationResponse.Attributes.TryGetValue("chain", out var chainString);
+            Enum.TryParse(chainString, out Chain chain);
+            
             notificationResponse.Attributes.TryGetValue("event", out var eventData);
             notificationResponse.Attributes.TryGetValue("url", out var url);
-
-            Enum.TryParse(chainAbbreviation, out ChainAbbreviation chain);
 
             return new ContractLogEventNotification
             {
                 Id = notificationResponse.Id,
-                Chain = ChainMapper.GetChainName(chain),
+                Chain = chain,
                 Event = eventData,
                 Url = url
             };
@@ -99,30 +100,30 @@ namespace Tatum.CSharp.Notifications.Mappers
         
         private static ContractMultitokenTxsPerBlockNotification MapContractMultitokenTxsPerBlock(NotificationResponse notificationResponse)
         {
-            notificationResponse.Attributes.TryGetValue("chain", out var chainAbbreviation);
+            notificationResponse.Attributes.TryGetValue("chain", out var chainString);
+            Enum.TryParse(chainString, out Chain chain);
+            
             notificationResponse.Attributes.TryGetValue("url", out var url);
-
-            Enum.TryParse(chainAbbreviation, out ChainAbbreviation chain);
 
             return new ContractMultitokenTxsPerBlockNotification
             {
                 Id = notificationResponse.Id,
-                Chain = ChainMapper.GetChainName(chain),
+                Chain = chain,
                 Url = url
             };
         }
 
         private static ContractNftTxsPerBlockNotification MapContractNftTxsPerBlock(NotificationResponse notificationResponse)
         {
-            notificationResponse.Attributes.TryGetValue("chain", out var chainAbbreviation);
+            notificationResponse.Attributes.TryGetValue("chain", out var chainString);
+            Enum.TryParse(chainString, out Chain chain);
+            
             notificationResponse.Attributes.TryGetValue("url", out var url);
-
-            Enum.TryParse(chainAbbreviation, out ChainAbbreviation chain);
 
             return new ContractNftTxsPerBlockNotification
             {
                 Id = notificationResponse.Id,
-                Chain = ChainMapper.GetChainName(chain),
+                Chain = chain,
                 Url = url
             };
         }
@@ -168,7 +169,6 @@ namespace Tatum.CSharp.Notifications.Mappers
 
         private static KmsFailedTxNotification MapKmsFailedTx(NotificationResponse notificationResponse)
         {
-            notificationResponse.Attributes.TryGetValue("chain", out var chainAbbreviation);
             notificationResponse.Attributes.TryGetValue("url", out var url);
 
             return new KmsFailedTxNotification
@@ -285,7 +285,7 @@ namespace Tatum.CSharp.Notifications.Mappers
                 Attributes = new Dictionary<string, string>()
                 {
                     { "address", addressTransactionNotification.Address },
-                    { "chain", ChainMapper.GetChainAbbreviation(addressTransactionNotification.Chain).ToString() },
+                    { "chain", addressTransactionNotification.Chain.ToString() },
                     { "url", addressTransactionNotification.Url }
                 }
             };
@@ -300,7 +300,7 @@ namespace Tatum.CSharp.Notifications.Mappers
                 Attributes = new Dictionary<string, string>()
                 {
                     { "event", contractLogEventNotification.Event },
-                    { "chain", ChainMapper.GetChainAbbreviation(contractLogEventNotification.Chain).ToString() },
+                    { "chain", contractLogEventNotification.Chain.ToString() },
                     { "url", contractLogEventNotification.Url }
                 }
             };
@@ -314,7 +314,7 @@ namespace Tatum.CSharp.Notifications.Mappers
                 Type = NotificationType.CONTRACT_NFT_TXS_PER_BLOCK,
                 Attributes = new Dictionary<string, string>()
                 {
-                    { "chain", ChainMapper.GetChainAbbreviation(contractNftTxsPerBlockNotification.Chain).ToString() },
+                    { "chain", contractNftTxsPerBlockNotification.Chain.ToString() },
                     { "url", contractNftTxsPerBlockNotification.Url }
                 }
             };
@@ -328,7 +328,7 @@ namespace Tatum.CSharp.Notifications.Mappers
                 Type = NotificationType.CONTRACT_MULTITOKEN_TXS_PER_BLOCK,
                 Attributes = new Dictionary<string, string>()
                 {
-                    { "chain", ChainMapper.GetChainAbbreviation(contractMultitokenTxsPerBlockNotification.Chain).ToString() },
+                    { "chain", contractMultitokenTxsPerBlockNotification.Chain.ToString() },
                     { "url", contractMultitokenTxsPerBlockNotification.Url }
                 }
             };
