@@ -1,7 +1,5 @@
 using Tatum.CSharp.Core.Models;
-using Tatum.CSharp.Extensions;
 using Tatum.CSharp.Extensions.ServiceCollection;
-using Tatum.CSharp.Utils.DebugMode;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Tatum.CSharp.Core.Models;
+using Tatum.CSharp.Notifications.Models;
 
 namespace Tatum.CSharp.Demo.Controllers;
 
@@ -15,8 +15,15 @@ public class NotificationController : ControllerBase
     }
 
     [HttpGet(Name = "GetCurrent")]
-    public async Task<Notifications.Models.Notifications> GetAll()
+    public async Task<NotificationsList> GetAll()
     {
-        return await _tatumSdk.Notifications.GetAll();
+        var result = await _tatumSdk.Notifications.GetAll();
+
+        if (result.Success)
+        {
+            return result.Value;
+        }
+
+        throw new Exception(result.ErrorMessage);
     }
 }
