@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Tatum.CSharp.Core.Models
@@ -12,5 +13,8 @@ namespace Tatum.CSharp.Core.Models
         
         [JsonPropertyName("message")]
         public string Message { get; set; }
+        
+        [JsonPropertyName("data")]
+        public List<string> Data { get; set; }
     }
 }
