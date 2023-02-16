@@ -61,6 +61,47 @@ namespace Tatum.CSharp.Notifications
             return await GetAll(new GetAllNotificationsQuery());
         }
 
+        public async Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery)
+        {
+            var sb = new StringBuilder();
+            
+            sb.Append(NotificationsUrl);
+            sb.Append("/webhook");
+            
+            sb.Append($"?pageSize={getAllExecutedWebhooksQuery.PageSize}");
+            
+            if (getAllExecutedWebhooksQuery.Offset > 0)
+            {
+                sb.Append($"&offset={getAllExecutedWebhooksQuery.Offset}");
+            }
+            
+            if (getAllExecutedWebhooksQuery.SortingDirection != SortingDirection.Default)
+            {
+                sb.Append($"&direction={getAllExecutedWebhooksQuery.SortingDirection.ToString().ToLower()}");
+            }
+            
+            if (getAllExecutedWebhooksQuery.FilterFailed != null)
+            {
+                sb.Append($"&failed={(getAllExecutedWebhooksQuery.FilterFailed.Value ? "true" : "false")}");
+            }
+
+            var response = await GetClient().GetAsync(sb.ToString());
+
+            var result = await response.ToResultAsync<List<WebhookExecutionResponse>>();
+
+            if (result.Success)
+            {
+                return result;
+            }
+
+            return new Result<List<WebhookExecutionResponse>>(result.ErrorMessage);
+        }
+
+        public Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks()
+        {
+            return GetAllExecutedWebhooks(new GetAllExecutedWebhooksQuery());
+        }
+
         public async Task Unsubscribe(string notificationId)
         {
             var url = $"{NotificationsUrl}/{notificationId}";

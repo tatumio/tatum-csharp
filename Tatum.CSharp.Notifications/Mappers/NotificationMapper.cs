@@ -8,6 +8,22 @@ namespace Tatum.CSharp.Notifications.Mappers
 {
     public static class NotificationMapper
     {
+        public static List<WebhookExecution> Map(List<WebhookExecutionResponse> webhookExecutionResponses)
+        {
+            var webhookExecutions = new List<WebhookExecution>();
+            foreach (var webhookExecutionResponse in webhookExecutionResponses)
+            {
+                webhookExecutions.Add(Map(webhookExecutionResponse));
+            }
+
+            return webhookExecutions;
+        }
+        
+        public static WebhookExecution Map(WebhookExecutionResponse webhookExecutionResponse)
+        {
+            return new WebhookExecution();
+        }
+        
         public static NotificationsList Map(List<NotificationResponse> notificationList)
         {
             var notifications = new NotificationsList();

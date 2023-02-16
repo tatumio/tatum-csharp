@@ -25,6 +25,28 @@ public class TatumNotifications
         _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
     }
 
+    [Fact]
+    public async Task GetAllExecutedWebhooks()
+    {
+        var getAllExecutedWebhooksQuery = new GetAllExecutedWebhooksQuery
+        {
+            PageSize = 15,
+            Offset = 1,
+            SortingDirection = SortingDirection.Asc
+        };
+        
+        var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(getAllExecutedWebhooksQuery);
+        
+        result.Should().NotBeNull();
+        
+        if (!result.Success)
+        {
+            Assert.True(false, result.ErrorMessage);
+        }
+        
+        result.Value.Should().NotBeEmpty();
+    }
+    
     [Theory]
     [InlineData(AddressTransactionChain.Ethereum, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
     [InlineData(AddressTransactionChain.Solana, "8Kvnpupqf2hPrMDJ4mK2kXnSSMihh1AjFg7RiF5Vn8wX")]
