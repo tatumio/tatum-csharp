@@ -281,7 +281,10 @@ public class TatumNotifications
 
         var notificationsResult = await _tatumSdk.Notifications.GetAll();
         
-        notificationsResult.Success.Should().BeTrue();
+        if (!notificationsResult.Success)
+        {
+            Assert.True(false, notificationsResult.ErrorMessage);
+        }
         
         var notifications = notificationsResult.Value;
 
@@ -293,7 +296,10 @@ public class TatumNotifications
         
         notificationsResult = await _tatumSdk.Notifications.GetAll();
         
-        notificationsResult.Success.Should().BeTrue();
+        if (!notificationsResult.Success)
+        {
+            Assert.True(false, notificationsResult.ErrorMessage);
+        }
         
         notifications = notificationsResult.Value;
         
