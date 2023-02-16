@@ -11,6 +11,10 @@ namespace Tatum.CSharp.Notifications.Models.Notifications
     
     public enum ContractLogEventChain
     {
-        Ethereum = 1
+        Ethereum = 1,
+        Polygon,
+        Celo,
+        Klaytn,
+        BinanceSmartChain
     }
 }

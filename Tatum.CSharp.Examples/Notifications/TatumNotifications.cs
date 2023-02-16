@@ -52,12 +52,17 @@ public class TatumNotifications
             x => x.AddressTransactions);
     }
     
-    [Fact]
-    public async Task ContractLogEvent_Create_Get_Delete()
+    [Theory]
+    [InlineData(ContractLogEventChain.Celo)]
+    [InlineData(ContractLogEventChain.Ethereum)]
+    [InlineData(ContractLogEventChain.Klaytn)]
+    [InlineData(ContractLogEventChain.Polygon)]
+    [InlineData(ContractLogEventChain.BinanceSmartChain)]
+    public async Task ContractLogEvent_Create_Get_Delete(ContractLogEventChain chain)
     {
         var notification = new ContractLogEventNotification
         {
-            Chain = ContractLogEventChain.Ethereum,
+            Chain = chain,
             Event = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
@@ -68,12 +73,17 @@ public class TatumNotifications
             x => x.ContractLogEvents);
     }
     
-    [Fact]
-    public async Task ContractNftTxsPerBlock_Create_Get_Delete()
+    [Theory]
+    [InlineData(ContractNftTxsPerBlockChain.Celo)]
+    [InlineData(ContractNftTxsPerBlockChain.Ethereum)]
+    [InlineData(ContractNftTxsPerBlockChain.Klaytn)]
+    [InlineData(ContractNftTxsPerBlockChain.Polygon)]
+    [InlineData(ContractNftTxsPerBlockChain.BinanceSmartChain)]
+    public async Task ContractNftTxsPerBlock_Create_Get_Delete(ContractNftTxsPerBlockChain chain)
     {
         var notification = new ContractNftTxsPerBlockNotification()
         {
-            Chain = ContractNftTxsPerBlockChain.Ethereum,
+            Chain = chain,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
@@ -83,12 +93,17 @@ public class TatumNotifications
             x => x.ContractNftTxsPerBlock);
     }
     
-    [Fact]
-    public async Task ContractMultitokenTxsPerBlock_Create_Get_Delete()
+    [Theory]
+    [InlineData(ContractMultitokenTxsPerBlockChain.Celo)]
+    [InlineData(ContractMultitokenTxsPerBlockChain.Ethereum)]
+    [InlineData(ContractMultitokenTxsPerBlockChain.Klaytn)]
+    [InlineData(ContractMultitokenTxsPerBlockChain.Polygon)]
+    [InlineData(ContractMultitokenTxsPerBlockChain.BinanceSmartChain)]
+    public async Task ContractMultitokenTxsPerBlock_Create_Get_Delete(ContractMultitokenTxsPerBlockChain chain)
     {
         var notification = new ContractMultitokenTxsPerBlockNotification
         {
-            Chain = ContractMultitokenTxsPerBlockChain.Ethereum,
+            Chain = chain,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 

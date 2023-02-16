@@ -10,5 +10,9 @@ namespace Tatum.CSharp.Notifications.Models.Notifications
     public enum ContractNftTxsPerBlockChain
     {
         Ethereum = 1,
+        Polygon,
+        Celo,
+        Klaytn,
+        BinanceSmartChain
     }
 }
