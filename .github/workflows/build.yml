@@ -61,11 +61,11 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-#      - name : Restore dependencies
-#        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name : Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: Create package - ${{ needs.metadata.outputs.package_version }}
 #        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output .
-        run: nuget pack ${{ env.PROJECT_PATH }} -Version ${{ needs.metadata.outputs.package_version }} -OutputDirectory . -Properties Configuration=Release -IncludeReferencedProjects -Build
+        run: nuget pack ${{ env.PROJECT_PATH }} -Version ${{ needs.metadata.outputs.package_version }} -OutputDirectory . -Properties Configuration=Release -Build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
