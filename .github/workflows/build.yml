@@ -88,7 +88,7 @@ jobs:
       - name: Add source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: Push
-        run: dotnet nuget push "Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }}
+        run: dotnet nuget push "Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source github
 
   release:
     if: needs.metadata.outputs.current_branch == 'master'
