@@ -26,7 +26,7 @@ namespace Tatum.CSharp.Core.Configuration
                 return;
             }
 
-            var versionResponse = await client.GetFromJsonAsync<VersionResponse>("v3/tatum/version/", TatumSerializerOptions.Default);
+            var versionResponse = await client.GetFromJsonAsync<VersionResponse>("v3/tatum/version", TatumSerializerOptions.Default);
 
             if (versionResponse == null)
             {
