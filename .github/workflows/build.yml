@@ -130,12 +130,13 @@ jobs:
     if: needs.metadata.outputs.current_branch == 'master'
     runs-on: ubuntu-latest
     needs: [metadata, build]
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - uses: actions/download-artifact@v3
-      with:
-        name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
-    - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
-      run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - uses: actions/download-artifact@v3
+        with:
+          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+      - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
+        run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
