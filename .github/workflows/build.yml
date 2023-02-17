@@ -22,7 +22,7 @@ jobs:
         uses: tj-actions/branch-names@v6
       - name: Get package version
         id: package-version
-        run: 
+        run: |
           stat .version > /dev/null && echo "version=$(<.version)"
           if [[ ${{ steps.branch-name.outputs.current_branch }} == "develop" || ${{ steps.branch-name.outputs.current_branch }} == "v3" ]]; then
             version=$version-alpha${{ github.run_id }}
