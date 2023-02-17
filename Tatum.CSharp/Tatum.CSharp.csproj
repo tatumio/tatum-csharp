@@ -23,7 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tatum.CSharp.Notifications\Tatum.CSharp.Notifications.csproj" />
+      <ProjectReference Include="..\Tatum.CSharp.Notifications\Tatum.CSharp.Notifications.csproj" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
