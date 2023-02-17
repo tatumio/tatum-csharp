@@ -17,19 +17,15 @@
         <repository type="git" url="https://github.com/tatumio/tatum-csharp.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Microsoft.AspNetCore.WebUtilities" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Configuration.Binder" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.DependencyInjection" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Logging" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Options" version="2.2.0" />
-                <dependency id="Microsoft.Extensions.Primitives" version="2.2.0" />
-                <dependency id="Newtonsoft.Json" version="12.0.3" />
-                <dependency id="System.Net.Http" version="4.3.4" />
-                <dependency id="Microsoft.Extensions.Http" version="7.0.3" />
-                <dependency id="Polly.Extensions.Http" version="3.0.0" />
+                <dependency id="Microsoft.Extensions.Http.Polly" version="7.0.3" />
+                <dependency id="Microsoft.Extensions.Http" version="7.0.0" />
                 <dependency id="Polly" version="7.2.3" />
+                <dependency id="Polly.Contrib.WaitAndRetry" version="1.1.1" />
+                <dependency id="Polly.Extensions.Http" version="3.0.0" />
+                <dependency id="System.Net.Http" version="4.3.4" />
+                <dependency id="System.Net.Http.Json" version="7.0.0" />
+                <dependency id="System.Text.Json" version="7.0.1" />
+                <dependency id="Newtonsoft.Json" version="13.0.2" />
             </group>
         </dependencies>
     </metadata>
