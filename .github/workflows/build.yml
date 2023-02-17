@@ -52,6 +52,7 @@ jobs:
     steps:    
       - name: Checkout code
         uses: actions/checkout@v3
+      - uses: nuget/setup-nuget@v1
       - name: Download SDK error messages
         uses: wei/curl@v1.1.1
         with:
@@ -63,7 +64,8 @@ jobs:
       - name : Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: Create package - ${{ needs.metadata.outputs.package_version }}
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output .
+#        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output .
+        run: nuget pack ${{ env.PROJECT_PATH }} -Version ${{ needs.metadata.outputs.package_version }} -OutputDirectory . -Properties Configuration=Release -IncludeReferencedProjects
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
