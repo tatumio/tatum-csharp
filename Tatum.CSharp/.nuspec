@@ -17,9 +17,6 @@
         <repository type="git" url="https://github.com/tatumio/tatum-csharp.git" />
     </metadata>
     <files>
-        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.dll" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.pdb" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.xml" target="lib/netstandard2.0" />
         <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.dll" target="lib/netstandard2.0" />
         <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.pdb" target="lib/netstandard2.0" />
         <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.xml" target="lib/netstandard2.0" />
