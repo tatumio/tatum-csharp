@@ -2,12 +2,37 @@ name: Build
 
 on: 
   push: 
-    branches:
-      - v3
+
+env:
+  SDK_ERROR_MESSAGES_VERSION: "master"
+  PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
+  PUB_PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
+  PROJECT_PATH: ./Tatum.CSharp/Tatum.CSharp.csproj
 
 jobs:
-  Test:
+  metadata:
     runs-on: ubuntu-latest
+    outputs:
+      current_branch: ${{ steps.branch-name.outputs.current_branch }}
+      package_version: ${{ steps.package-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+      - name: Get package version
+        id: package-version
+        run: 
+          stat .version > /dev/null && echo "version=$(<.version)"
+          if [[ ${{ steps.branch-name.outputs.current_branch }} == "develop" || ${{ steps.branch-name.outputs.current_branch }} == "v3" ]]; then
+            version=$version-alpha${{ github.run_id }}
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [metadata]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -20,3 +45,97 @@ jobs:
         env:
           INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
           NOTIFICATION_TEST_APIKEY: ${{ secrets.NOTIFICATION_TEST_APIKEY }}
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [metadata, test]
+    steps:    
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Download SDK error messages
+        uses: wei/curl@v1.1.1
+        with:
+          args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.CSharp.Core/Resources/errorMessages.json
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name : Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: Create package - ${{ needs.metadata.outputs.package_version }}
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output .
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+          path: ./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+          retention-days: 7
+        if: |
+          contains(fromJSON('["master", "develop", "v3"]'), needs.metadata.outputs.current_branch)
+
+  nuget_github:
+    needs: [metadata, build]
+    if: contains(fromJSON('["develop", "v3"]'), needs.metadata.outputs.current_branch)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - uses: actions/download-artifact@v3
+        with:
+          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+      - name: Add source
+        run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
+      - name: Push
+        run: dotnet nuget push "Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }}
+
+  release:
+    if: needs.metadata.outputs.current_branch == 'master'
+    runs-on: ubuntu-latest
+    needs: [metadata, build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Git config
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
+      - name: Get latest release
+        id: get_latest_release
+        run: |
+          latest_tag=$(curl -s --max-time 5 https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest | jq -r '.tag_name')
+          echo "LATEST_RELEASE_TAG=$latest_tag" >> $GITHUB_ENV
+      - name: Ensure package version is updated
+        run: |
+          [ "${{needs.metadata.outputs.package_version}}" = "${{env.LATEST_RELEASE_TAG}}" ] && echo "Error: Package version is the same as the latest release" && exit 1 || exit 0
+      - name: Get release notes
+        id: get_release_notes
+        uses: ffurrer2/extract-release-notes@v1
+      # TAG the repo
+      - name: Create tag ${{ needs.metadata.outputs.package_version }}
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "${{ needs.metadata.outputs.package_version }}"
+      - name: "Create a GitHub release ${{ needs.metadata.outputs.package_version }}"
+      # Create release using the tag above
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "${{needs.metadata.outputs.package_version}}"
+          name: "${{needs.metadata.outputs.package_version}}"
+          body: |
+            ${{ steps.get_release_notes.outputs.release_notes }}
+    
+  nuget:
+    if: needs.metadata.outputs.current_branch == 'master'
+    runs-on: ubuntu-latest
+    needs: [metadata, build]
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - uses: actions/download-artifact@v3
+      with:
+        name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+    - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
+      run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
