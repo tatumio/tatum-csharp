@@ -61,10 +61,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - name : Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: Create package - ${{ needs.metadata.outputs.package_version }}
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output .
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release /p:Version=${{ needs.metadata.outputs.package_version }} --output . -p:TargetFrameworks=netstandard2.0
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
