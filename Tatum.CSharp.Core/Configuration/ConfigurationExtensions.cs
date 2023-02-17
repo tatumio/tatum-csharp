@@ -17,6 +17,7 @@ namespace Tatum.CSharp.Core.Configuration
             {
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
             }
+            client.DefaultRequestHeaders.Add("User-Agent", "Tatum_SDK_CSharp/3.0.0");
         }
         
         public static async Task Validate(this TatumSdkConfiguration configuration, HttpClient client)
