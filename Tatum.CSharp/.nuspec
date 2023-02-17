@@ -17,14 +17,14 @@
         <repository type="git" url="https://github.com/tatumio/tatum-csharp.git" />
     </metadata>
     <files>
-        <file src="Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.dll" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.pdb" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.xml" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.dll" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.pdb" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.xml" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.dll" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.pdb" target="lib/netstandard2.0" />
-        <file src="Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.xml" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Notifications/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.xml" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Core/bin/Release/netstandard2.0/Tatum.CSharp.Core.xml" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.CSharp.Utils/bin/Release/netstandard2.0/Tatum.CSharp.Utils.xml" target="lib/netstandard2.0" />
     </files>
 </package>
