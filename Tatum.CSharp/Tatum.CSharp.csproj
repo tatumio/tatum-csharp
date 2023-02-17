@@ -8,7 +8,7 @@
         <AssemblyName>Tatum.CSharp</AssemblyName>
         <OutputType>Library</OutputType>
         <Company>Tatum</Company>
-        <NuspecFile>..\Tatum.CSharp\Tatum.CSharp.nuspec</NuspecFile>
+        <NuspecFile>..\Tatum.CSharp\.nuspec</NuspecFile>
     </PropertyGroup>
 
     <ItemGroup>
