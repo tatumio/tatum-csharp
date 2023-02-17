@@ -117,6 +117,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
 
         private static void RegisterHttpClient(IServiceCollection services, TatumSdkConfiguration configuration)
         {
+            services.AddSingleton<NoApiKeyNetworkHandler>();
             services.AddHttpClient(TatumConstants.TatumHttpClientName)
                 .AddHttpMessageHandler<NoApiKeyNetworkHandler>()
                 .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(configuration.RetryPolicy));
@@ -125,6 +126,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
         private static void RegisterHttpClientWithDebug(IServiceCollection services, TatumSdkConfiguration configuration)
         {
             services.AddSingleton<DebugModeHandler>();
+            services.AddSingleton<NoApiKeyNetworkHandler>();
             services.AddHttpClient(TatumConstants.TatumHttpClientName)
                 .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(configuration.RetryPolicy))
                 .AddHttpMessageHandler<NoApiKeyNetworkHandler>()
