@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Tatum.CSharp</id>
+        <version>3.0.0</version>
+        <authors>Tatum</authors>
+        <owners>Tatum</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Tatum C# SDK</description>
+        <releaseNotes>Tatum SKD v3 initial release</releaseNotes>
+        <language>en-US</language>
+        <projectUrl>http://xunit.codeplex.com/</projectUrl>
+        <license type="expression">MIT</license>
+        <tags>Tatum; Blockchain; Ethereum; ETH;</tags>
+        <copyright>Copyright (c) 2023 Tatum</copyright>
+        <title>Tatum SDK</title>
+        <repository type="git" url="https://github.com/tatumio/tatum-csharp.git" />
+    </metadata>
+    <files>
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.dll" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.pdb" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.xml" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.dll" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.pdb" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Notifications.xml" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Core.dll" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Core.pdb" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Core.xml" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Utils.dll" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Utils.pdb" target="lib/netstandard2.0" />
+        <file src="Tatum.CSharp/bin/Release/netstandard2.0/Tatum.CSharp.Utils.xml" target="lib/netstandard2.0" />
+    </files>
+</package>
