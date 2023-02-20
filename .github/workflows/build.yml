@@ -102,8 +102,10 @@ jobs:
           dotnet-version: 6.0.x
       - name: Add source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
-      - name: Add package
-        run: dotnet add ${{ env.DEMO_APP_PATH }} package Tatum.CSharp --no-restore --version ${{ needs.metadata.outputs.package_version }}
+      - name: Switch dependency to nuget package
+        run: |
+          dotnet remove ${{ env.DEMO_APP_PATH }} reference ${{ PROJECT_PATH }}
+          dotnet add ${{ env.DEMO_APP_PATH }} package Tatum.CSharp --no-restore --version ${{ needs.metadata.outputs.package_version }}
       - name: Build
         run: dotnet build ${{ env.DEMO_APP_PATH }}
       - name: Run healtcheck on Demo app
