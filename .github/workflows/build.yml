@@ -8,6 +8,7 @@ env:
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
   PUB_PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
   PROJECT_PATH: ./Tatum.CSharp/Tatum.CSharp.csproj
+  DEMO_APP_PATH: ./Tatum.CSharp.Demo/Tatum.CSharp.Demo.csproj
 
 jobs:
   metadata:
@@ -44,23 +45,6 @@ jobs:
         run: dotnet test
         env:
           INTEGRATION_TEST_APIKEY: ${{ secrets.INTEGRATION_TEST_APIKEY }}
-          NOTIFICATION_TEST_APIKEY: ${{ secrets.NOTIFICATION_TEST_APIKEY }}
-
-  test_healthcheck:
-    runs-on: ubuntu-latest
-    if: contains(fromJSON('["master", "v3"]'), needs.metadata.outputs.current_branch)
-    needs: [metadata]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-      - name: Build
-        run: dotnet build
-      - name: Run healtcheck on Demo app
-        run: ./app_hck.sh
-        env:
           NOTIFICATION_TEST_APIKEY: ${{ secrets.NOTIFICATION_TEST_APIKEY }}
 
   build:
@@ -105,6 +89,28 @@ jobs:
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: Push
         run: dotnet nuget push "Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source github
+
+  test_healthcheck:
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["master", "v3"]'), needs.metadata.outputs.current_branch)
+    needs: [metadata, nuget_github]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Add source
+        run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
+      - name: Add package
+        run: dotnet add ${{ env.DEMO_APP_PATH }} package Tatum.CSharp --no-restore --version ${{ needs.metadata.outputs.package_version }}
+      - name: Build
+        run: dotnet build ${{ env.DEMO_APP_PATH }}
+      - name: Run healtcheck on Demo app
+        run: ./app_hck.sh
+        env:
+          NOTIFICATION_TEST_APIKEY: ${{ secrets.NOTIFICATION_TEST_APIKEY }}
+
 
   release:
     if: needs.metadata.outputs.current_branch == 'master'
