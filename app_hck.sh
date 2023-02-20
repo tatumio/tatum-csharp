@@ -14,6 +14,7 @@ code=$?
 
 if [[ $code -ne 0 ]]; then
   echo "Probe failed with error code $code"
+  cat .hck_debug
   kill_and_exit 1
 fi
 
