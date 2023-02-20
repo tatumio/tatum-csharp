@@ -373,3 +373,5 @@ FodyWeavers.xsd
 !Unity/**/*.dll
 
 launchSettings.json
+
+.hck_debug
