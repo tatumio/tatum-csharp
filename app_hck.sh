@@ -7,7 +7,7 @@ function kill_and_exit() {
 
 dotnet run --no-build --project Tatum.CSharp.Demo > .hck_debug 2>&1 &
 
-sleep 5
+sleep 8
 
 http_code=$(curl --max-time 5 https://127.0.0.1:7285/notification -o /dev/null -k -s -w %{http_code})
 code=$?
