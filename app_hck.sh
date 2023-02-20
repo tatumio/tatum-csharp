@@ -5,7 +5,7 @@ function kill_and_exit() {
     exit $1
 }
 
-dotnet run --no-build --project Tatum.CSharp.Demo &
+dotnet run --no-build --project Tatum.CSharp.Demo > .hck_debug 2>&1 &
 
 sleep 5
 
@@ -14,7 +14,7 @@ code=$?
 
 if [[ $code -ne 0 ]]; then
   echo "Probe failed with error code $code"
-  #cat .hck_debug
+  cat .hck_debug
   kill_and_exit 1
 fi
 
