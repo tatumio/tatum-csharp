@@ -5,7 +5,7 @@ function kill_and_exit() {
     exit $1
 }
 
-dotnet run --project Tatum.CSharp.Demo > .hck_debug 2>&1 &
+dotnet run --no-build --project Tatum.CSharp.Demo > .hck_debug 2>&1 &
 
 sleep 3
 
