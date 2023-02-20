@@ -7,14 +7,14 @@ function kill_and_exit() {
 
 dotnet run --no-build --project Tatum.CSharp.Demo &
 
-sleep 3
+sleep 5
 
 http_code=$(curl --max-time 5 https://127.0.0.1:7285/notification -o /dev/null -k -s -w %{http_code})
 code=$?
 
 if [[ $code -ne 0 ]]; then
   echo "Probe failed with error code $code"
-  cat .hck_debug
+  #cat .hck_debug
   kill_and_exit 1
 fi
 
