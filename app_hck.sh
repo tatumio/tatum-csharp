@@ -20,7 +20,7 @@ fi
 
 if [[ $http_code != "200" ]]; then
   echo -e "Endpoint failed with http response code: $http_code\nLog:"
-  tail -n 20 .hck_debug
+  cat .hck_debug
   kill_and_exit 1
 else
   echo "SUCCESS"
