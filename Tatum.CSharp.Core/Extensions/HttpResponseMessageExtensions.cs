@@ -15,15 +15,15 @@ namespace Tatum.CSharp.Core.Extensions
         {
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var content = await httpResponseMessage.Content.ReadFromJsonAsync<TValue>(TatumSerializerOptions.Default);
+                var content = await httpResponseMessage.Content.ReadFromJsonAsync<TValue>(TatumSerializerOptions.Default).ConfigureAwait(false);
                 return content;
             }
 
-            var error = await httpResponseMessage.Content.ReadFromJsonAsync<TatumError>(TatumSerializerOptions.Default);
+            var error = await httpResponseMessage.Content.ReadFromJsonAsync<TatumError>(TatumSerializerOptions.Default).ConfigureAwait(false);
 
             if (error?.ErrorCode == null)
             {
-                var rawMessage = await httpResponseMessage.Content.ReadAsStringAsync();
+                var rawMessage = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return new Result<TValue>(rawMessage);
             }
             

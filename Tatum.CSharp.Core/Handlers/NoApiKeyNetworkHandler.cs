@@ -29,10 +29,10 @@ namespace Tatum.CSharp.Core.Handlers
                     request.RequestUri = new Uri($"{request.RequestUri}&type=testnet");
                 }
                 
-                return await base.SendAsync(request, cancellationToken);
+                return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
             }
             
-            return await base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }
 }

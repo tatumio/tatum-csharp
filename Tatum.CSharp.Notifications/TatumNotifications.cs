@@ -44,9 +44,9 @@ namespace Tatum.CSharp.Notifications
                 sb.Append($"&address={getAllNotificationsQuery.Address}");
             }
 
-            var response = await GetClient().GetAsync(sb.ToString());
+            var response = await GetClient().GetAsync(sb.ToString()).ConfigureAwait(false);
 
-            var result = await response.ToResultAsync<List<NotificationResponse>>();
+            var result = await response.ToResultAsync<List<NotificationResponse>>().ConfigureAwait(false);
 
             if (result.Success)
             {
@@ -58,7 +58,7 @@ namespace Tatum.CSharp.Notifications
 
         public async Task<Result<NotificationsList>> GetAll()
         {
-            return await GetAll(new GetAllNotificationsQuery());
+            return await GetAll(new GetAllNotificationsQuery()).ConfigureAwait(false);
         }
 
         public async Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery)
@@ -85,9 +85,9 @@ namespace Tatum.CSharp.Notifications
                 sb.Append($"&failed={(getAllExecutedWebhooksQuery.FilterFailed.Value ? "true" : "false")}");
             }
 
-            var response = await GetClient().GetAsync(sb.ToString());
+            var response = await GetClient().GetAsync(sb.ToString()).ConfigureAwait(false);
 
-            var result = await response.ToResultAsync<List<WebhookExecutionResponse>>();
+            var result = await response.ToResultAsync<List<WebhookExecutionResponse>>().ConfigureAwait(false);
 
             if (result.Success)
             {
@@ -106,80 +106,80 @@ namespace Tatum.CSharp.Notifications
         {
             var url = $"{NotificationsUrl}/{notificationId}";
             
-            await GetClient().DeleteAsync(url);
+            await GetClient().DeleteAsync(url).ConfigureAwait(false);
         }
 
         public ITatumNotificationSubscriptions Subscribe => this;
 
         public async Task<Result<AddressTransactionNotification>> AddressTransaction(AddressTransactionNotification addressTransactionNotification)
         {
-            return await CreateNotification(addressTransactionNotification);
+            return await CreateNotification(addressTransactionNotification).ConfigureAwait(false);
         }
         
         public async Task<Result<ContractLogEventNotification>> ContractLogEvent(ContractLogEventNotification contractLogEventNotification)
         {
-            return await CreateNotification(contractLogEventNotification);
+            return await CreateNotification(contractLogEventNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<ContractNftTxsPerBlockNotification>> ContractNftTxsPerBlock(ContractNftTxsPerBlockNotification contractNftTxsPerBlockNotification)
         {
-            return await CreateNotification(contractNftTxsPerBlockNotification);
+            return await CreateNotification(contractNftTxsPerBlockNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<ContractMultitokenTxsPerBlockNotification>> ContractMultitokenTxsPerBlock(ContractMultitokenTxsPerBlockNotification contractMultitokenTxsPerBlockNotification)
         {
-            return await CreateNotification(contractMultitokenTxsPerBlockNotification);
+            return await CreateNotification(contractMultitokenTxsPerBlockNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<AccountIncomingBlockchainTransactionNotification>> AccountIncomingBlockchainTransaction(
             AccountIncomingBlockchainTransactionNotification accountIncomingBlockchainTransactionNotification)
         {
-            return await CreateNotification(accountIncomingBlockchainTransactionNotification);
+            return await CreateNotification(accountIncomingBlockchainTransactionNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<AccountPendingBlockchainTransactionNotification>> AccountPendingBlockchainTransaction(
             AccountPendingBlockchainTransactionNotification accountPendingBlockchainTransactionNotification)
         {
-            return await CreateNotification(accountPendingBlockchainTransactionNotification);
+            return await CreateNotification(accountPendingBlockchainTransactionNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<CustomerTradeMatchNotification>> CustomerTradeMatch(CustomerTradeMatchNotification customerTradeMatchNotification)
         {
-            return await CreateNotification(customerTradeMatchNotification);
+            return await CreateNotification(customerTradeMatchNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<CustomerPartialTradeMatchNotification>> CustomerPartialTradeMatch(CustomerPartialTradeMatchNotification customerPartialTradeMatchNotification)
         {
-            return await CreateNotification(customerPartialTradeMatchNotification);
+            return await CreateNotification(customerPartialTradeMatchNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<TransactionInTheBlockNotification>> TransactionInTheBlock(TransactionInTheBlockNotification transactionInTheBlockNotification)
         {
-            return await CreateNotification(transactionInTheBlockNotification);
+            return await CreateNotification(transactionInTheBlockNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<KmsFailedTxNotification>> KmsFailedTx(KmsFailedTxNotification kmsFailedTxNotification)
         {
-            return await CreateNotification(kmsFailedTxNotification);
+            return await CreateNotification(kmsFailedTxNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<KmsCompletedTxNotification>> KmsCompletedTx(KmsCompletedTxNotification kmsCompletedTxNotification)
         {
-            return await CreateNotification(kmsCompletedTxNotification);
+            return await CreateNotification(kmsCompletedTxNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<AccountBalanceLimitNotification>> AccountBalanceLimit(AccountBalanceLimitNotification accountBalanceLimitNotification)
         {
-            return await CreateNotification(accountBalanceLimitNotification);
+            return await CreateNotification(accountBalanceLimitNotification).ConfigureAwait(false);
         }
 
         public async Task<Result<TransactionHistoryReportNotification>> TransactionHistoryReport(TransactionHistoryReportNotification transactionHistoryReportNotification)
         {
             var notificationRequest = NotificationMapper.Map(transactionHistoryReportNotification);
             
-            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default);
+            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default).ConfigureAwait(false);
 
-            var result = await responseMessage.ToResultAsync<TransactionHistoryReportNotification>();
+            var result = await responseMessage.ToResultAsync<TransactionHistoryReportNotification>().ConfigureAwait(false);
 
             if (result.Success)
             {
@@ -194,9 +194,9 @@ namespace Tatum.CSharp.Notifications
         {
             var notificationRequest = NotificationMapper.Map(notification);
             
-            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default);
+            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default).ConfigureAwait(false);
 
-            var result = await responseMessage.ToResultAsync<T>();
+            var result = await responseMessage.ToResultAsync<T>().ConfigureAwait(false);
 
             if (result.Success)
             {

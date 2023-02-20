@@ -37,13 +37,13 @@ namespace Tatum.CSharp.Utils.DebugMode
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            var requestLog = await DebugModeFormatter.PrepareRequestLog(request, _hideSecrets);
+            var requestLog = await DebugModeFormatter.PrepareRequestLog(request, _hideSecrets).ConfigureAwait(false);
 
             HttpResponseMessage response;
 
             try
             {
-                response = await base.SendAsync(request, cancellationToken);
+                response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -56,7 +56,7 @@ namespace Tatum.CSharp.Utils.DebugMode
                 throw;
             }
 
-            var responseLog = await DebugModeFormatter.PrepareResponseLog(response, _hideSecrets);
+            var responseLog = await DebugModeFormatter.PrepareResponseLog(response, _hideSecrets).ConfigureAwait(false);
 
             requestLog.AppendLine(responseLog.ToString());
 

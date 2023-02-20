@@ -58,7 +58,7 @@ namespace Tatum.CSharp.Utils.DebugMode
 
             if (request.Content != null)
             {
-                var content = await request.Content.ReadAsStringAsync();
+                var content = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 var mediaType = request.Content.Headers.ContentType.MediaType;
 
@@ -206,7 +206,7 @@ namespace Tatum.CSharp.Utils.DebugMode
 
             var mediaType = response.Content.Headers?.ContentType?.MediaType;
 
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             
             switch (mediaType)
             {

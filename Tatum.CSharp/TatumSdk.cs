@@ -109,37 +109,37 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, (string)null, configuration);
+            return await InitAsync(Network.Mainnet, (string)null, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, apiKey, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(network, (string)null, configuration);
+            return await InitAsync(network, (string)null, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(network, apiKey, new HttpClient(), configuration);
+            return await InitAsync(network, apiKey, new HttpClient(), configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, null, client, configuration);
+            return await InitAsync(Network.Mainnet, null, client, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, apiKey, client, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, client, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(network, null, client, configuration);
+            return await InitAsync(network, null, client, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
@@ -161,17 +161,17 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, null, httpClientFactory, configuration);
+            return await InitAsync(Network.Mainnet, null, httpClientFactory, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(Network.Mainnet, apiKey, httpClientFactory, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, httpClientFactory, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(network, null, httpClientFactory, configuration);
+            return await InitAsync(network, null, httpClientFactory, configuration).ConfigureAwait(false);
         }
         
         public static async Task<TatumSdk> InitAsync(Network network, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
