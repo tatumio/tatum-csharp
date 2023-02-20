@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core;
 using Tatum.CSharp.Core.Configuration;
+using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications;
 
 namespace Tatum.CSharp
@@ -22,47 +23,47 @@ namespace Tatum.CSharp
         
         public static TatumSdk Init(TatumSdkConfiguration configuration = null)
         {
-            return Init(false, (string)null, configuration);
+            return Init(Network.Mainnet, (string)null, configuration);
         }
         
         public static TatumSdk Init(string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return Init(false, apiKey, configuration);
+            return Init(Network.Mainnet, apiKey, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, TatumSdkConfiguration configuration = null)
         {
-            return Init(isTestnet, (string)null, configuration);
+            return Init(network, (string)null, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, string apiKey, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return Init(isTestnet, apiKey, new HttpClient(), configuration);
+            return Init(network, apiKey, new HttpClient(), configuration);
         }
         
         public static TatumSdk Init(HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return Init(false, null, client, configuration);
+            return Init(Network.Mainnet, null, client, configuration);
         }
         
         public static TatumSdk Init(string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return Init(false, apiKey, client, configuration);
+            return Init(Network.Mainnet, apiKey, client, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, HttpClient client, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return Init(isTestnet, null, client, configuration);
+            return Init(network, null, client, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
                 configuration = new DefaultTatumSdkConfiguration();
             }
             
-            configuration.IsTestnet = isTestnet;
+            configuration.Network = network;
             configuration.ApiKey = apiKey;
 
             configuration.ConfigureHttpClient(client);
@@ -74,27 +75,27 @@ namespace Tatum.CSharp
         
         public static TatumSdk Init(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return Init(false, null, httpClientFactory, configuration);
+            return Init(Network.Mainnet, null, httpClientFactory, configuration);
         }
         
         public static TatumSdk Init(string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return Init(false, apiKey, httpClientFactory, configuration);
+            return Init(Network.Mainnet, apiKey, httpClientFactory, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return Init(isTestnet, null, httpClientFactory, configuration);
+            return Init(network, null, httpClientFactory, configuration);
         }
         
-        public static TatumSdk Init(bool isTestnet, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
+        public static TatumSdk Init(Network network, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
                 configuration = new DefaultTatumSdkConfiguration();
             }
             
-            configuration.IsTestnet = isTestnet;
+            configuration.Network = network;
             configuration.ApiKey = apiKey;
             
             var httpClient = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
@@ -108,47 +109,47 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, (string)null, configuration);
+            return await InitAsync(Network.Mainnet, (string)null, configuration);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, apiKey, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(isTestnet, (string)null, configuration);
+            return await InitAsync(network, (string)null, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, string apiKey, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, string apiKey, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(isTestnet, apiKey, new HttpClient(), configuration);
+            return await InitAsync(network, apiKey, new HttpClient(), configuration);
         }
         
         public static async Task<TatumSdk> InitAsync(HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, null, client, configuration);
+            return await InitAsync(Network.Mainnet, null, client, configuration);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, apiKey, client, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, client, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, HttpClient client, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(isTestnet, null, client, configuration);
+            return await InitAsync(network, null, client, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
                 configuration = new DefaultTatumSdkConfiguration();
             }
             
-            configuration.IsTestnet = isTestnet;
+            configuration.Network = network;
             configuration.ApiKey = apiKey;
 
             configuration.ConfigureHttpClient(client);
@@ -160,27 +161,27 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, null, httpClientFactory, configuration);
+            return await InitAsync(Network.Mainnet, null, httpClientFactory, configuration);
         }
         
         public static async Task<TatumSdk> InitAsync(string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(false, apiKey, httpClientFactory, configuration);
+            return await InitAsync(Network.Mainnet, apiKey, httpClientFactory, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            return await InitAsync(isTestnet, null, httpClientFactory, configuration);
+            return await InitAsync(network, null, httpClientFactory, configuration);
         }
         
-        public static async Task<TatumSdk> InitAsync(bool isTestnet, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
+        public static async Task<TatumSdk> InitAsync(Network network, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
                 configuration = new DefaultTatumSdkConfiguration();
             }
             
-            configuration.IsTestnet = isTestnet;
+            configuration.Network = network;
             configuration.ApiKey = apiKey;
             
             var httpClient = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);

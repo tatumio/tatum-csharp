@@ -20,7 +20,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
             
             RegisterHttpClient(services, configuration);
             
-            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network == Network.Testnet, apiKey, srv.GetService<IHttpClientFactory>(), configuration));
+            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network, apiKey, srv.GetService<IHttpClientFactory>(), configuration));
             return services;
         }
 
@@ -46,7 +46,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
 
             RegisterHttpClient(services, configuration);
             
-            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network == Network.Testnet, srv.GetService<IHttpClientFactory>(), configuration));
+            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network, srv.GetService<IHttpClientFactory>(), configuration));
             return services;
         }
 
@@ -72,7 +72,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
 
             RegisterHttpClientWithDebug(services, configuration);
 
-            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network == Network.Testnet, apiKey, srv.GetService<IHttpClientFactory>(), configuration));
+            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network, apiKey, srv.GetService<IHttpClientFactory>(), configuration));
             return services;
         }
 
@@ -98,7 +98,7 @@ namespace Tatum.CSharp.Extensions.ServiceCollection
 
             RegisterHttpClientWithDebug(services, configuration);
 
-            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network == Network.Testnet, srv.GetService<IHttpClientFactory>(), configuration));
+            services.AddSingleton<ITatumSdk>(srv => TatumSdk.Init(network, srv.GetService<IHttpClientFactory>(), configuration));
             return services;
         }
 

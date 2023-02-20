@@ -3,6 +3,7 @@ using System.Net.Http;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
+using Tatum.CSharp.Core.Models;
 
 namespace Tatum.CSharp.Core.Configuration
 {
@@ -10,7 +11,7 @@ namespace Tatum.CSharp.Core.Configuration
     {
         public DefaultTatumSdkConfiguration()
         {
-            IsTestnet = false;
+            Network = Network.Mainnet;
             BaseUrl = TatumConstants.BaseUrl;
             ApiKey = null;
             RetryPolicy = Policy<HttpResponseMessage>.Handle<HttpRequestException>().OrTransientHttpStatusCode().WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 3));

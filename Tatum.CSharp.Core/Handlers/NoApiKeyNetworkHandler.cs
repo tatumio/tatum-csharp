@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core.Configuration;
+using Tatum.CSharp.Core.Models;
 
 namespace Tatum.CSharp.Core.Handlers
 {
@@ -17,7 +18,7 @@ namespace Tatum.CSharp.Core.Handlers
         
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (_configuration.IsTestnet && string.IsNullOrWhiteSpace(_configuration.ApiKey))
+            if (_configuration.Network == Network.Testnet && string.IsNullOrWhiteSpace(_configuration.ApiKey))
             {
                 if (string.IsNullOrWhiteSpace(request.RequestUri.Query))
                 {

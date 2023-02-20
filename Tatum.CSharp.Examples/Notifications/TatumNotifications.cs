@@ -6,6 +6,7 @@ using FluentAssertions;
 using Tatum.CSharp.Core;
 using Tatum.CSharp.Core.Configuration;
 using Tatum.CSharp.Core.Handlers;
+using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Notifications.Models.Notifications;
 using Tatum.CSharp.Utils.DebugMode;
@@ -26,7 +27,7 @@ public class TatumNotifications
         
         var apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
-        _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
+        _tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, new HttpClient(debugModeHandler));
     }
 
     [Fact]

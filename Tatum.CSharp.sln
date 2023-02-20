@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Examples", "Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Demo", "Tatum.CSharp.Demo\Tatum.CSharp.Demo.csproj", "{C76E4250-29A0-4E33-8C2C-ED0A92673120}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.CSharp.Demo.Console", "Tatum.CSharp.Demo.Console\Tatum.CSharp.Demo.Console.csproj", "{1926328D-8FE2-4FD7-A963-88A68381D399}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{C76E4250-29A0-4E33-8C2C-ED0A92673120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C76E4250-29A0-4E33-8C2C-ED0A92673120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C76E4250-29A0-4E33-8C2C-ED0A92673120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1926328D-8FE2-4FD7-A963-88A68381D399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1926328D-8FE2-4FD7-A963-88A68381D399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1926328D-8FE2-4FD7-A963-88A68381D399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1926328D-8FE2-4FD7-A963-88A68381D399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
