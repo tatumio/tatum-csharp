@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -75,8 +74,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.AddressTransaction,
-            x => x.AddressTransactions);
+            _tatumSdk.Notifications.Subscribe.AddressTransaction);
     }
     
     [Theory]
@@ -96,8 +94,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.ContractLogEvent,
-            x => x.ContractLogEvents);
+            _tatumSdk.Notifications.Subscribe.ContractLogEvent);
     }
     
     [Theory]
@@ -116,8 +113,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.ContractNftTxsPerBlock,
-            x => x.ContractNftTxsPerBlock);
+            _tatumSdk.Notifications.Subscribe.ContractNftTxsPerBlock);
     }
     
     [Theory]
@@ -136,8 +132,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.ContractMultitokenTxsPerBlock,
-            x => x.ContractMultitokenTxsPerBlock);
+            _tatumSdk.Notifications.Subscribe.ContractMultitokenTxsPerBlock);
     }
     
     [Fact]
@@ -151,8 +146,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.AccountIncomingBlockchainTransaction,
-            x => x.AccountIncomingBlockchainTransactions);
+            _tatumSdk.Notifications.Subscribe.AccountIncomingBlockchainTransaction);
     }
     
     [Fact]
@@ -166,8 +160,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.AccountPendingBlockchainTransaction,
-            x => x.AccountPendingBlockchainTransactions);
+            _tatumSdk.Notifications.Subscribe.AccountPendingBlockchainTransaction);
     }
     
     [Fact]
@@ -181,8 +174,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.CustomerTradeMatch,
-            x => x.CustomerTradeMatches);
+            _tatumSdk.Notifications.Subscribe.CustomerTradeMatch);
     }
     
     [Fact]
@@ -196,8 +188,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.CustomerPartialTradeMatch,
-            x => x.CustomerPartialTradeMatches);
+            _tatumSdk.Notifications.Subscribe.CustomerPartialTradeMatch);
     }
     
     [Fact]
@@ -210,8 +201,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.TransactionInTheBlock,
-            x => x.TransactionInTheBlocks);
+            _tatumSdk.Notifications.Subscribe.TransactionInTheBlock);
     }
     
     [Fact]
@@ -224,8 +214,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.KmsFailedTx,
-            x => x.KmsFailedTxs);
+            _tatumSdk.Notifications.Subscribe.KmsFailedTx);
     }
     
     [Fact]
@@ -238,8 +227,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.KmsCompletedTx,
-            x => x.KmsCompletedTxs);
+            _tatumSdk.Notifications.Subscribe.KmsCompletedTx);
     }
     
     [Fact]
@@ -253,8 +241,7 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.AccountBalanceLimit,
-            x => x.AccountBalanceLimits);
+            _tatumSdk.Notifications.Subscribe.AccountBalanceLimit);
     }
     
     [Fact]
@@ -267,11 +254,10 @@ public class TatumNotifications
 
         await Create_Get_Delete(
             notification, 
-            _tatumSdk.Notifications.Subscribe.TransactionHistoryReport,
-            x => x.TransactionHistoryReports);
+            _tatumSdk.Notifications.Subscribe.TransactionHistoryReport);
     }
 
-    private async Task Create_Get_Delete<T>(T notification, Func<T, Task<Result<T>>> createFunc, Func<NotificationsList, List<T>> getNotificationListFunc) where T : Notification
+    private async Task Create_Get_Delete<T>(T notification, Func<T, Task<Result<T>>> createFunc) where T : Notification
     {
         var createdNotificationResult = await createFunc(notification);
 
@@ -294,8 +280,8 @@ public class TatumNotifications
         var notifications = notificationsResult.Value;
 
         notifications.Should().NotBeNull();
-        getNotificationListFunc(notifications).Should().NotBeEmpty();
-        getNotificationListFunc(notifications).Should().Contain(x => x.Id == createdNotification.Id);
+        notifications.Should().NotBeEmpty();
+        notifications.Should().Contain(x => x.Id == createdNotification.Id);
         
         await _tatumSdk.Notifications.Unsubscribe(createdNotification.Id);
         
@@ -308,6 +294,6 @@ public class TatumNotifications
         
         notifications = notificationsResult.Value;
         
-        getNotificationListFunc(notifications).Should().NotContain(x => x.Id == createdNotification.Id);
+        notifications.Should().NotContain(x => x.Id == createdNotification.Id);
     }
 }

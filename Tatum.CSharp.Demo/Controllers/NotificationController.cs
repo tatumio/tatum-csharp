@@ -15,7 +15,7 @@ public class NotificationController : ControllerBase
     }
 
     [HttpGet(Name = "GetCurrent")]
-    public async Task<NotificationsList> GetAll()
+    public async Task<List<INotification>> GetAll()
     {
         var result = await _tatumSdk.Notifications.GetAll();
 

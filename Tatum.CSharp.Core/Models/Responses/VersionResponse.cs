@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Tatum.CSharp.Core.Converters;
 
 namespace Tatum.CSharp.Core.Models.Responses
 {
@@ -15,6 +16,7 @@ namespace Tatum.CSharp.Core.Models.Responses
         [JsonPropertyName("planCode")]
         public string PlanCode { get; set; }
         [JsonPropertyName("price")]
+        [JsonConverter(typeof(StringToNumberConverter))]
         public int Price { get; set; }
         [JsonPropertyName("expiration")]
         public long Expiration { get; set; }

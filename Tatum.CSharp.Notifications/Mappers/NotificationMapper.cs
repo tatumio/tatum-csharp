@@ -6,7 +6,7 @@ using Tatum.CSharp.Notifications.Models.Responses;
 
 namespace Tatum.CSharp.Notifications.Mappers
 {
-    public static class NotificationMapper
+    internal static class NotificationMapper
     {
         public static List<WebhookExecution> Map(List<WebhookExecutionResponse> webhookExecutionResponses)
         {
@@ -24,52 +24,52 @@ namespace Tatum.CSharp.Notifications.Mappers
             return new WebhookExecution();
         }
         
-        public static NotificationsList Map(List<NotificationResponse> notificationList)
+        public static List<INotification> Map(List<NotificationResponse> notificationList)
         {
-            var notifications = new NotificationsList();
+            var notifications = new List<INotification>();
 
             foreach (var notification in notificationList)
             {
                 switch (notification.Type)
                 {
                     case NotificationType.ADDRESS_TRANSACTION:
-                        notifications.AddressTransactions.Add(MapAddressTransaction(notification));
+                        notifications.Add(MapAddressTransaction(notification));
                         break;
                     case NotificationType.CONTRACT_LOG_EVENT:
-                        notifications.ContractLogEvents.Add(MapContractLogEvent(notification));
+                        notifications.Add(MapContractLogEvent(notification));
                         break;
                     case NotificationType.ACCOUNT_INCOMING_BLOCKCHAIN_TRANSACTION:
-                        notifications.AccountIncomingBlockchainTransactions.Add(MapAccountIncomingBlockchainTransaction(notification));
+                        notifications.Add(MapAccountIncomingBlockchainTransaction(notification));
                         break;
                     case NotificationType.ACCOUNT_PENDING_BLOCKCHAIN_TRANSACTION:
-                        notifications.AccountPendingBlockchainTransactions.Add(MapAccountPendingBlockchainTransaction(notification));
+                        notifications.Add(MapAccountPendingBlockchainTransaction(notification));
                         break;
                     case NotificationType.CUSTOMER_TRADE_MATCH:
-                        notifications.CustomerTradeMatches.Add(MapCustomerTradeMatch(notification));
+                        notifications.Add(MapCustomerTradeMatch(notification));
                         break;
                     case NotificationType.CUSTOMER_PARTIAL_TRADE_MATCH:
-                        notifications.CustomerPartialTradeMatches.Add(MapCustomerPartialTradeMatch(notification));
+                        notifications.Add(MapCustomerPartialTradeMatch(notification));
                         break;
                     case NotificationType.TRANSACTION_IN_THE_BLOCK:
-                        notifications.TransactionInTheBlocks.Add(MapTransactionInTheBlock(notification));
+                        notifications.Add(MapTransactionInTheBlock(notification));
                         break;
                     case NotificationType.KMS_FAILED_TX:
-                        notifications.KmsFailedTxs.Add(MapKmsFailedTx(notification));
+                        notifications.Add(MapKmsFailedTx(notification));
                         break;
                     case NotificationType.KMS_COMPLETED_TX:
-                        notifications.KmsCompletedTxs.Add(MapKmsCompletedTx(notification));
+                        notifications.Add(MapKmsCompletedTx(notification));
                         break;
                     case NotificationType.ACCOUNT_BALANCE_LIMIT:
-                        notifications.AccountBalanceLimits.Add(MapAccountBalanceLimit(notification));
+                        notifications.Add(MapAccountBalanceLimit(notification));
                         break;
                     case NotificationType.TRANSACTION_HISTORY_REPORT:
-                        notifications.TransactionHistoryReports.Add(MapTransactionHistoryReport(notification));
+                        notifications.Add(MapTransactionHistoryReport(notification));
                         break;
                     case NotificationType.CONTRACT_NFT_TXS_PER_BLOCK:
-                        notifications.ContractNftTxsPerBlock.Add(MapContractNftTxsPerBlock(notification));
+                        notifications.Add(MapContractNftTxsPerBlock(notification));
                         break;
                     case NotificationType.CONTRACT_MULTITOKEN_TXS_PER_BLOCK:
-                        notifications.ContractMultitokenTxsPerBlock.Add(MapContractMultitokenTxsPerBlock(notification));
+                        notifications.Add(MapContractMultitokenTxsPerBlock(notification));
                         break;
                 }
             }

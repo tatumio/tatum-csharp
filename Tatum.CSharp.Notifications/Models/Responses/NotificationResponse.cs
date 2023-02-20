@@ -4,7 +4,7 @@ using Tatum.CSharp.Core.Converters;
 
 namespace Tatum.CSharp.Notifications.Models.Responses
 {
-    public class NotificationResponse
+    internal class NotificationResponse
     {
         [JsonPropertyName("id")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

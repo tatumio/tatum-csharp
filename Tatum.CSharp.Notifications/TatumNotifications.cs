@@ -26,7 +26,7 @@ namespace Tatum.CSharp.Notifications
         {
         }
 
-        public async Task<Result<NotificationsList>> GetAll(GetAllNotificationsQuery getAllNotificationsQuery)
+        public async Task<Result<List<INotification>>> GetAll(GetAllNotificationsQuery getAllNotificationsQuery)
         {
             var sb = new StringBuilder();
             
@@ -53,10 +53,10 @@ namespace Tatum.CSharp.Notifications
                 return NotificationMapper.Map(result.Value);
             }
 
-            return new Result<NotificationsList>(result.ErrorMessage);
+            return new Result<List<INotification>>(result.ErrorMessage);
         }
 
-        public async Task<Result<NotificationsList>> GetAll()
+        public async Task<Result<List<INotification>>> GetAll()
         {
             return await GetAll(new GetAllNotificationsQuery()).ConfigureAwait(false);
         }

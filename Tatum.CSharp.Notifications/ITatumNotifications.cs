@@ -8,8 +8,8 @@ namespace Tatum.CSharp.Notifications
 {
     public interface ITatumNotifications
     {
-        Task<Result<NotificationsList>> GetAll(GetAllNotificationsQuery getAllNotificationsQuery);
-        Task<Result<NotificationsList>> GetAll();
+        Task<Result<List<INotification>>> GetAll(GetAllNotificationsQuery getAllNotificationsQuery);
+        Task<Result<List<INotification>>> GetAll();
         Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery);
         Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks();
         Task Unsubscribe(string notificationId);
