@@ -36,7 +36,7 @@ public SomeController(ITatumSdk tatumSdk)
 
 4. You are ready to use Tatum API!
 ```cs
-var currentFees = await _tatumSdk.Fees.GetCurrent(Chain.Ethereum);
+var allNotificationsResult = await _tatumSdk.Notifications.GetAll();
 ```
 
 ## Debug Mode
