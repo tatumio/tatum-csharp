@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="tatum.csharp" Version="3.0.0-alpha4205377568" />
+      <ProjectReference Include="..\Tatum.CSharp\Tatum.CSharp.csproj" />
     </ItemGroup>
 
 </Project>
