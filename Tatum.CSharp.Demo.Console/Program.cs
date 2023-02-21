@@ -1,27 +1,12 @@
 ﻿using System.Text.Json;
 using Tatum.CSharp;
+using Tatum.CSharp.Core;
 using Tatum.CSharp.Core.Models;
-using Tatum.CSharp.Notifications.Models.Notifications;
+using Tatum.CSharp.Notifications.Models.Responses;
 
-var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, "<YOUR_API_KEY>");
+// Initialize Tatum SDK
+TatumSdk tatumSdk = await TatumSdk.InitAsync(Network.Testnet, "798811c7-5e96-471a-8244-98f750dd8512_100");
 
-var subscriptionResult = await tatumSdk
-    .Notifications
-    .Subscribe
-    .AddressTransaction(new AddressTransactionNotification
-{
-    Chain = AddressTransactionChain.Ethereum,
-    Address = "invalid-address",
-    Url = "https://<YOUR_WEBHOOK_URL>"
-});
+Result<List<WebhookExecutionResponse>> executedWebhooks = await tatumSdk.Notifications.GetAllExecutedWebhooks();
 
-if (subscriptionResult.Success) {
-    // Process subscription result
-    var valueString = JsonSerializer.Serialize(subscriptionResult.Value);
-    Console.WriteLine(valueString);
-} 
-else
-{
-    // Print error
-    Console.WriteLine(subscriptionResult.ErrorMessage);
-}
+Console.WriteLine(JsonSerializer.Serialize(executedWebhooks.Value, new JsonSerializerOptions() { WriteIndented = true}));

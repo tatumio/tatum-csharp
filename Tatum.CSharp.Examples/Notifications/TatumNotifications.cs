@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -8,6 +9,7 @@ using Tatum.CSharp.Core.Handlers;
 using Tatum.CSharp.Core.Models;
 using Tatum.CSharp.Notifications.Models;
 using Tatum.CSharp.Notifications.Models.Notifications;
+using Tatum.CSharp.Notifications.Models.Responses;
 using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
@@ -19,12 +21,12 @@ public class TatumNotifications
     
     public TatumNotifications()
     {
-        var debugModeHandler = new DebugModeHandler();
-        var noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        DebugModeHandler debugModeHandler = new DebugModeHandler();
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
         
-        var apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
+        string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
         _tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, new HttpClient(debugModeHandler));
     }
@@ -32,14 +34,14 @@ public class TatumNotifications
     [Fact]
     public async Task GetAllExecutedWebhooks()
     {
-        var getAllExecutedWebhooksQuery = new GetAllExecutedWebhooksQuery
+        GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery = new GetAllExecutedWebhooksQuery
         {
             PageSize = 15,
             Offset = 1,
             SortingDirection = SortingDirection.Asc
         };
         
-        var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(getAllExecutedWebhooksQuery);
+        Result<List<WebhookExecutionResponse>> result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(getAllExecutedWebhooksQuery);
         
         result.Should().NotBeNull();
         
@@ -65,7 +67,7 @@ public class TatumNotifications
     [InlineData(AddressTransactionChain.BinanceSmartChain, "0x58107193278ea4bb56c390185f4755e0a4239d68")]
     public async Task AddressTransaction_Create_Get_Delete(AddressTransactionChain chain, string address)
     {
-        var notification = new AddressTransactionNotification
+        AddressTransactionNotification notification = new AddressTransactionNotification
         {
             Chain = chain,
             Address = address,
@@ -85,7 +87,7 @@ public class TatumNotifications
     [InlineData(ContractLogEventChain.BinanceSmartChain)]
     public async Task ContractLogEvent_Create_Get_Delete(ContractLogEventChain chain)
     {
-        var notification = new ContractLogEventNotification
+        ContractLogEventNotification notification = new ContractLogEventNotification
         {
             Chain = chain,
             Event = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
@@ -105,7 +107,7 @@ public class TatumNotifications
     [InlineData(ContractNftTxsPerBlockChain.BinanceSmartChain)]
     public async Task ContractNftTxsPerBlock_Create_Get_Delete(ContractNftTxsPerBlockChain chain)
     {
-        var notification = new ContractNftTxsPerBlockNotification()
+        ContractNftTxsPerBlockNotification notification = new ContractNftTxsPerBlockNotification()
         {
             Chain = chain,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
@@ -124,7 +126,7 @@ public class TatumNotifications
     [InlineData(ContractMultitokenTxsPerBlockChain.BinanceSmartChain)]
     public async Task ContractMultitokenTxsPerBlock_Create_Get_Delete(ContractMultitokenTxsPerBlockChain chain)
     {
-        var notification = new ContractMultitokenTxsPerBlockNotification
+        ContractMultitokenTxsPerBlockNotification notification = new ContractMultitokenTxsPerBlockNotification
         {
             Chain = chain,
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
@@ -138,7 +140,7 @@ public class TatumNotifications
     [Fact]
     public async Task AccountIncomingBlockchainTransaction_Create_Get_Delete()
     {
-        var notification = new AccountIncomingBlockchainTransactionNotification
+        AccountIncomingBlockchainTransactionNotification notification = new AccountIncomingBlockchainTransactionNotification
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             AccountId = "63ecc4c0cb3835070afffa88"
@@ -152,7 +154,7 @@ public class TatumNotifications
     [Fact]
     public async Task AccountPendingBlockchainTransaction_Create_Get_Delete()
     {
-        var notification = new AccountPendingBlockchainTransactionNotification()
+        AccountPendingBlockchainTransactionNotification notification = new AccountPendingBlockchainTransactionNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             AccountId = "63ecc4c0cb3835070afffa88"
@@ -166,7 +168,7 @@ public class TatumNotifications
     [Fact]
     public async Task CustomerTradeMatch_Create_Get_Delete()
     {
-        var notification = new CustomerTradeMatchNotification()
+        CustomerTradeMatchNotification notification = new CustomerTradeMatchNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             AccountId = "63ecc583ec2dbb9649bc86c2"
@@ -180,7 +182,7 @@ public class TatumNotifications
     [Fact]
     public async Task CustomerPartialTradeMatch_Create_Get_Delete()
     {
-        var notification = new CustomerPartialTradeMatchNotification()
+        CustomerPartialTradeMatchNotification notification = new CustomerPartialTradeMatchNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             AccountId = "63ecc583ec2dbb9649bc86c2"
@@ -194,7 +196,7 @@ public class TatumNotifications
     [Fact]
     public async Task TransactionInTheBlock_Create_Get_Delete()
     {
-        var notification = new TransactionInTheBlockNotification()
+        TransactionInTheBlockNotification notification = new TransactionInTheBlockNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
@@ -207,7 +209,7 @@ public class TatumNotifications
     [Fact]
     public async Task KmsFailedTx_Create_Get_Delete()
     {
-        var notification = new KmsFailedTxNotification()
+        KmsFailedTxNotification notification = new KmsFailedTxNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
@@ -220,7 +222,7 @@ public class TatumNotifications
     [Fact]
     public async Task KmsCompletedTx_Create_Get_Delete()
     {
-        var notification = new KmsCompletedTxNotification()
+        KmsCompletedTxNotification notification = new KmsCompletedTxNotification()
         {
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
@@ -233,7 +235,7 @@ public class TatumNotifications
     [Fact]
     public async Task AccountBalanceLimit_Create_Get_Delete()
     {
-        var notification = new AccountBalanceLimitNotification
+        AccountBalanceLimitNotification notification = new AccountBalanceLimitNotification
         {
             Limit = "100",
             TypeOfBalance = BalanceType.account
@@ -247,7 +249,7 @@ public class TatumNotifications
     [Fact]
     public async Task TransactionHistoryReport_Create_Get_Delete()
     {
-        var notification = new TransactionHistoryReportNotification()
+        TransactionHistoryReportNotification notification = new TransactionHistoryReportNotification()
         {
             Interval = 1
         };
@@ -259,25 +261,25 @@ public class TatumNotifications
 
     private async Task Create_Get_Delete<T>(T notification, Func<T, Task<Result<T>>> createFunc) where T : Notification
     {
-        var createdNotificationResult = await createFunc(notification);
+        Result<T> createdNotificationResult = await createFunc(notification);
 
         if (!createdNotificationResult.Success)
         {
             Assert.True(false, createdNotificationResult.ErrorMessage);
         }
 
-        var createdNotification = createdNotificationResult.Value;
+        T createdNotification = createdNotificationResult.Value;
         
         createdNotification.Id.Should().NotBeNullOrEmpty();
 
-        var notificationsResult = await _tatumSdk.Notifications.GetAll();
+        Result<List<INotification>> notificationsResult = await _tatumSdk.Notifications.GetAll();
         
         if (!notificationsResult.Success)
         {
             Assert.True(false, notificationsResult.ErrorMessage);
         }
         
-        var notifications = notificationsResult.Value;
+        List<INotification> notifications = notificationsResult.Value;
 
         notifications.Should().NotBeNull();
         notifications.Should().NotBeEmpty();
