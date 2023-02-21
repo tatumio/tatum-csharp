@@ -36,6 +36,31 @@ namespace Tatum.CSharp.Core.Extensions
             
             return new Result<TValue>(errorMessage);
         }
+        
+        public static async Task<EmptyResult> ToEmptyResultAsync(this HttpResponseMessage httpResponseMessage, JsonSerializerOptions options = null)
+        {
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                return new EmptyResult();
+            }
+
+            var error = await httpResponseMessage.Content.ReadFromJsonAsync<TatumError>(TatumSerializerOptions.Default).ConfigureAwait(false);
+
+            if (error?.ErrorCode == null)
+            {
+                var rawMessage = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return new EmptyResult(rawMessage);
+            }
+            
+            var errorMessage = ErrorMessageStore.ErrorMessages.TryGetValue(error.ErrorCode, out var message) ? message : error.Message;
+
+            if(error.Data != null && error.Data.Any())
+            {
+                errorMessage += $": {string.Join(", ", error.Data)}";
+            }
+            
+            return new EmptyResult(errorMessage);
+        }
 
     }
 }

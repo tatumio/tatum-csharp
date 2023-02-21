@@ -12,7 +12,7 @@ namespace Tatum.CSharp.Notifications
         Task<Result<List<INotification>>> GetAll();
         Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery);
         Task<Result<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks();
-        Task Unsubscribe(string notificationId);
+        Task<EmptyResult> Unsubscribe(string notificationId);
         ITatumNotificationSubscriptions Subscribe { get; }
     }
 }

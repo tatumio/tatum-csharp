@@ -102,11 +102,13 @@ namespace Tatum.CSharp.Notifications
             return GetAllExecutedWebhooks(new GetAllExecutedWebhooksQuery());
         }
 
-        public async Task Unsubscribe(string notificationId)
+        public async Task<EmptyResult> Unsubscribe(string notificationId)
         {
             var url = $"{NotificationsUrl}/{notificationId}";
             
-            await GetClient().DeleteAsync(url).ConfigureAwait(false);
+            var responseMessage = await GetClient().DeleteAsync(url).ConfigureAwait(false);
+            
+            return await responseMessage.ToEmptyResultAsync().ConfigureAwait(false);
         }
 
         public ITatumNotificationSubscriptions Subscribe => this;

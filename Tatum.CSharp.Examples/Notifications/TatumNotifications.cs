@@ -285,7 +285,9 @@ public class TatumNotifications
         notifications.Should().NotBeEmpty();
         notifications.Should().Contain(x => x.Id == createdNotification.Id);
         
-        await _tatumSdk.Notifications.Unsubscribe(createdNotification.Id);
+        var unsubscribeResult = await _tatumSdk.Notifications.Unsubscribe(createdNotification.Id);
+
+        unsubscribeResult.Success.Should().BeTrue();
         
         notificationsResult = await _tatumSdk.Notifications.GetAll();
         
