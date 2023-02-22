@@ -151,7 +151,7 @@ jobs:
             ${{ steps.get_release_notes.outputs.release_notes }}
     
   nuget:
-    if: needs.metadata.outputs.current_branch == 'master'
+    if: contains(fromJSON('["master", "v3-rc-initial-push"]'), needs.metadata.outputs.current_branch)
     runs-on: ubuntu-latest
     needs: [metadata, build, test_healthcheck]
     steps:
