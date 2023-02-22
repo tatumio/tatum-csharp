@@ -9,7 +9,7 @@ dotnet run --no-build --verbosity diag --project Tatum.Demo > .hck_debug 2>&1 &
 
 sleep 8
 
-http_code=$(curl --max-time 5 https://127.0.0.1:7285/notification/GetAll -o /dev/null -k -s -w %{http_code})
+http_code=$(curl --max-time 5 https://127.0.0.1:5000/notification/GetAll -o /dev/null -k -s -w %{http_code})
 code=$?
 
 if [[ $code -ne 0 ]]; then
