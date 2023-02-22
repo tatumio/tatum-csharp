@@ -1,12 +1,6 @@
-# [Tatum C# SDK v3](http://tatum.com/)
+# [Tatum C# SDK](http://tatum.com/)
 
 [![Build](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml/badge.svg?branch=v3)](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml)
-
-Tatum C# SDK v3 allows C# developers to use Tatum to interact with blockchains in various ways.
-
-> **Are you looking for Tatum.CSharp SDK v2? It has been moved to [`Tatum.CSharp SDK V2`](https://github.com/tatumio/tatum-csharp/tree/v2)**.
-
-> **Are you looking for Tatum.CSharp SDK v1? It has been moved to [`Tatum.CSharp SDK V1`](https://github.com/tatumio/tatum-csharp/tree/v1)**.
 
 ## Quick Start
 

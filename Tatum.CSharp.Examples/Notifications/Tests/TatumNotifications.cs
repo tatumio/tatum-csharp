@@ -13,8 +13,9 @@ using Tatum.CSharp.Notifications.Models.Responses;
 using Tatum.CSharp.Utils.DebugMode;
 using Xunit;
 
-namespace Tatum.CSharp.Examples.Notifications;
+namespace Tatum.CSharp.Examples.Notifications.Tests;
 
+[Collection("Notification")]
 public class TatumNotifications
 {
     private readonly TatumSdk _tatumSdk;

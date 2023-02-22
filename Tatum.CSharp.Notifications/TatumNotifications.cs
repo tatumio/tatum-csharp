@@ -16,7 +16,7 @@ namespace Tatum.CSharp.Notifications
 {
     public class TatumNotifications : TatumClientBase, ITatumNotifications, ITatumNotificationSubscriptions
     {
-        private const string NotificationsUrl = "/v3/subscription";
+        private const string NotificationsUrl = "/v1/subscription";
 
         public TatumNotifications(HttpClient httpClient, TatumSdkConfiguration configuration) : base(httpClient, configuration)
         {
