@@ -71,11 +71,11 @@ jobs:
           path: ./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
           retention-days: 7
         if: |
-          contains(fromJSON('["master", "develop", "v3"]'), needs.metadata.outputs.current_branch)
+          contains(fromJSON('["master", "develop", "v3", "v3-rc-initial-push"]'), needs.metadata.outputs.current_branch)
 
   nuget_github:
     needs: [metadata, build]
-    if: contains(fromJSON('["develop", "v3"]'), needs.metadata.outputs.current_branch)
+    if: contains(fromJSON('["develop", "v3", "v3-rc-initial-push"]'), needs.metadata.outputs.current_branch)
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET
@@ -92,7 +92,7 @@ jobs:
 
   test_healthcheck:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["master", "v3"]'), needs.metadata.outputs.current_branch)
+    if: contains(fromJSON('["master", "v3", "v3-rc-initial-push"]'), needs.metadata.outputs.current_branch)
     needs: [metadata, nuget_github]
     steps:
       - uses: actions/checkout@v3
@@ -163,4 +163,4 @@ jobs:
         with:
           name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
       - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
-        run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
+        run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY_NEW }} --source ${{ env.PUB_PACKAGE_SOURCE }}
