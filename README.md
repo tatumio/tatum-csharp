@@ -7,7 +7,7 @@
 1. Include tatum package in your project:
 
 
-   `dotnet add ${your_project} package Tatum.CSharp`
+   `dotnet add ${your_project} package Tatum`
 
 
 2. Register Tatum Client in the DI container by calling `IServiceCollection` method `AddHttpClient`:
@@ -55,6 +55,6 @@ _tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
 
 ## Further Examples
 
-[Demo App (.NET API)](Tatum.CSharp.Demo)
+[Demo App (.NET API)](Tatum.Demo)
 
-- [Examples - Notifications](Tatum.CSharp.Examples/Notifications/TatumNotifications.cs)
+- [Examples - Notifications](Tatum.Examples/Notifications/TatumNotifications.cs)

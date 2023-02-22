@@ -7,8 +7,8 @@ env:
   SDK_ERROR_MESSAGES_VERSION: "master"
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
   PUB_PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
-  PROJECT_PATH: ./Tatum.CSharp/Tatum.CSharp.csproj
-  DEMO_APP_PATH: ./Tatum.CSharp.Demo/Tatum.CSharp.Demo.csproj
+  PROJECT_PATH: ./Tatum/Tatum.csproj
+  DEMO_APP_PATH: ./Tatum.Demo/Tatum.Demo.csproj
 
 jobs:
   metadata:
@@ -57,7 +57,7 @@ jobs:
       - name: Download SDK error messages
         uses: wei/curl@v1.1.1
         with:
-          args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.CSharp.Core/Resources/errorMessages.json
+          args: https://raw.githubusercontent.com/tatumio/tatum-sdk-error-mesages/$SDK_ERROR_MESSAGES_VERSION/error-messages.json --output Tatum.Core/Resources/errorMessages.json
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -67,8 +67,8 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
-          path: ./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+          name: Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
+          path: ./Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
           retention-days: 7
         if: |
           contains(fromJSON('["master", "develop", "v3"]'), needs.metadata.outputs.current_branch)
@@ -84,11 +84,11 @@ jobs:
           dotnet-version: 6.0.x
       - uses: actions/download-artifact@v3
         with:
-          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+          name: Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
       - name: Add source
         run: dotnet nuget add source --username tatumio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "${{ env.PACKAGE_SOURCE }}"
       - name: Push
-        run: dotnet nuget push "Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source github
+        run: dotnet nuget push "Tatum.${{ needs.metadata.outputs.package_version }}.nupkg"  --skip-duplicate --api-key ${{ secrets.ACTIONS_PACKAGE_SOURCE_PAT }} --source github
 
   test_healthcheck:
     runs-on: ubuntu-latest
@@ -105,7 +105,7 @@ jobs:
       - name: Switch dependency to nuget package
         run: |
           dotnet remove ${{ env.DEMO_APP_PATH }} reference ${{ env.PROJECT_PATH }}
-          dotnet add ${{ env.DEMO_APP_PATH }} package Tatum.CSharp --no-restore --version ${{ needs.metadata.outputs.package_version }}
+          dotnet add ${{ env.DEMO_APP_PATH }} package Tatum --no-restore --version ${{ needs.metadata.outputs.package_version }}
       - name: Build
         run: dotnet build ${{ env.DEMO_APP_PATH }}
       - name: Run healtcheck on Demo app
@@ -161,6 +161,6 @@ jobs:
           dotnet-version: 6.0.x
       - uses: actions/download-artifact@v3
         with:
-          name: Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg
+          name: Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
       - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
-        run: dotnet nuget push "./Tatum.CSharp.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
+        run: dotnet nuget push "./Tatum.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
