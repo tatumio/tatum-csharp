@@ -1,4 +1,6 @@
+using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tatum.CSharp.Core;
 using Tatum.CSharp.Core.Configuration;
@@ -58,14 +60,8 @@ namespace Tatum.CSharp
         
         public static TatumSdk Init(Network network, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            if(configuration == null)
-            {
-                configuration = new DefaultTatumSdkConfiguration();
-            }
+            configuration = ResolveConfiguration(network, apiKey, configuration);
             
-            configuration.Network = network;
-            configuration.ApiKey = apiKey;
-
             configuration.ConfigureHttpClient(client);
             
             configuration.Validate(client).GetAwaiter().GetResult();
@@ -90,13 +86,7 @@ namespace Tatum.CSharp
         
         public static TatumSdk Init(Network network, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            if(configuration == null)
-            {
-                configuration = new DefaultTatumSdkConfiguration();
-            }
-            
-            configuration.Network = network;
-            configuration.ApiKey = apiKey;
+            configuration = ResolveConfiguration(network, apiKey, configuration);
             
             var httpClient = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
             
@@ -144,13 +134,7 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(Network network, string apiKey, HttpClient client, TatumSdkConfiguration configuration = null)
         {
-            if(configuration == null)
-            {
-                configuration = new DefaultTatumSdkConfiguration();
-            }
-            
-            configuration.Network = network;
-            configuration.ApiKey = apiKey;
+            configuration = ResolveConfiguration(network, apiKey, configuration);
 
             configuration.ConfigureHttpClient(client);
             
@@ -176,14 +160,8 @@ namespace Tatum.CSharp
         
         public static async Task<TatumSdk> InitAsync(Network network, string apiKey, IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration = null)
         {
-            if(configuration == null)
-            {
-                configuration = new DefaultTatumSdkConfiguration();
-            }
-            
-            configuration.Network = network;
-            configuration.ApiKey = apiKey;
-            
+            configuration = ResolveConfiguration(network, apiKey, configuration);
+
             var httpClient = httpClientFactory.CreateClient(TatumConstants.TatumHttpClientName);
             
             configuration.ConfigureHttpClient(httpClient);
@@ -191,6 +169,32 @@ namespace Tatum.CSharp
             await configuration.Validate(httpClient).ConfigureAwait(false);
 
             return new TatumSdk(httpClientFactory, configuration);
+        }
+
+        private static TatumSdkConfiguration ResolveConfiguration(Network network, string apiKey,
+            TatumSdkConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                configuration = new DefaultTatumSdkConfiguration();
+            }
+
+            configuration.Network = network;
+            configuration.ApiKey = apiKey;
+            
+            configuration.Version = GetVersion();
+
+            return configuration;
+        }
+
+        private static string GetVersion()
+        {
+            const string versionLocation = "Tatum.CSharp..version";
+            
+            var assembly = Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream(versionLocation);
+            using var reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Tatum.CSharp.Core.Configuration
         public Network Network { get; set; }
         public string BaseUrl { get; set; }
         public string ApiKey { get; set; }
+        public string Version { get; set; }
         
         public AsyncRetryPolicy<HttpResponseMessage> RetryPolicy { get; set; }
 
