@@ -8,7 +8,7 @@ using Xunit;
 namespace Tatum.CSharp.Examples.Notifications.Examples;
 
 [Collection("Notification")]
-public class Subscribe : IAsyncDisposable
+public class Subscribe : IDisposable, IAsyncDisposable
 {
     [Fact]
     public async Task Subscribe_Example()
@@ -62,5 +62,10 @@ public class Subscribe : IAsyncDisposable
                 throw new Exception("Failed to unsubscribe.");
             }
         }
+    }
+
+    public void Dispose()
+    {
+        DisposeAsync().GetAwaiter().GetResult();
     }
 }
