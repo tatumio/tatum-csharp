@@ -18,14 +18,14 @@ public class Subscribe : IDisposable, IAsyncDisposable
 
         var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, apiKey);
         
-        AddressTransactionNotification notification = new AddressTransactionNotification
+        AddressEventNotification notification = new AddressEventNotification
         {
             Chain = AddressTransactionChain.Ethereum,
             Address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
-        var result = await tatumSdk.Notifications.Subscribe.AddressTransaction(notification);
+        var result = await tatumSdk.Notifications.Subscribe.AddressEvent(notification);
 
         if (result.Success)
         {

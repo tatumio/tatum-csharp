@@ -43,9 +43,9 @@ public class NotificationController : ControllerBase
     }
     
     [HttpPost(Name = "Subscribe")]
-    public async Task<AddressTransactionNotification> Subscribe(AddressTransactionNotification addressTransactionNotification)
+    public async Task<AddressTransactionNotification> Subscribe(AddressTransactionNotification addressEventNotification)
     {
-        var result = await _tatumSdk.Notifications.Subscribe.AddressTransaction(addressTransactionNotification);
+        var result = await _tatumSdk.Notifications.Subscribe.AddressTransaction(addressEventNotification);
 
         if (result.Success)
         {

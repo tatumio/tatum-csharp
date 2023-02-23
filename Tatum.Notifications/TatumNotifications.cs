@@ -113,85 +113,11 @@ namespace Tatum.Notifications
 
         public ITatumNotificationSubscriptions Subscribe => this;
 
-        public async Task<Result<AddressTransactionNotification>> AddressTransaction(AddressTransactionNotification addressTransactionNotification)
+        public async Task<Result<AddressEventNotification>> AddressEvent(AddressEventNotification addressEventNotification)
         {
-            return await CreateNotification(addressTransactionNotification).ConfigureAwait(false);
+            return await CreateNotification(addressEventNotification).ConfigureAwait(false);
         }
         
-        public async Task<Result<ContractLogEventNotification>> ContractLogEvent(ContractLogEventNotification contractLogEventNotification)
-        {
-            return await CreateNotification(contractLogEventNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<ContractNftTxsPerBlockNotification>> ContractNftTxsPerBlock(ContractNftTxsPerBlockNotification contractNftTxsPerBlockNotification)
-        {
-            return await CreateNotification(contractNftTxsPerBlockNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<ContractMultitokenTxsPerBlockNotification>> ContractMultitokenTxsPerBlock(ContractMultitokenTxsPerBlockNotification contractMultitokenTxsPerBlockNotification)
-        {
-            return await CreateNotification(contractMultitokenTxsPerBlockNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<AccountIncomingBlockchainTransactionNotification>> AccountIncomingBlockchainTransaction(
-            AccountIncomingBlockchainTransactionNotification accountIncomingBlockchainTransactionNotification)
-        {
-            return await CreateNotification(accountIncomingBlockchainTransactionNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<AccountPendingBlockchainTransactionNotification>> AccountPendingBlockchainTransaction(
-            AccountPendingBlockchainTransactionNotification accountPendingBlockchainTransactionNotification)
-        {
-            return await CreateNotification(accountPendingBlockchainTransactionNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<CustomerTradeMatchNotification>> CustomerTradeMatch(CustomerTradeMatchNotification customerTradeMatchNotification)
-        {
-            return await CreateNotification(customerTradeMatchNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<CustomerPartialTradeMatchNotification>> CustomerPartialTradeMatch(CustomerPartialTradeMatchNotification customerPartialTradeMatchNotification)
-        {
-            return await CreateNotification(customerPartialTradeMatchNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<TransactionInTheBlockNotification>> TransactionInTheBlock(TransactionInTheBlockNotification transactionInTheBlockNotification)
-        {
-            return await CreateNotification(transactionInTheBlockNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<KmsFailedTxNotification>> KmsFailedTx(KmsFailedTxNotification kmsFailedTxNotification)
-        {
-            return await CreateNotification(kmsFailedTxNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<KmsCompletedTxNotification>> KmsCompletedTx(KmsCompletedTxNotification kmsCompletedTxNotification)
-        {
-            return await CreateNotification(kmsCompletedTxNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<AccountBalanceLimitNotification>> AccountBalanceLimit(AccountBalanceLimitNotification accountBalanceLimitNotification)
-        {
-            return await CreateNotification(accountBalanceLimitNotification).ConfigureAwait(false);
-        }
-
-        public async Task<Result<TransactionHistoryReportNotification>> TransactionHistoryReport(TransactionHistoryReportNotification transactionHistoryReportNotification)
-        {
-            var notificationRequest = NotificationMapper.Map(transactionHistoryReportNotification);
-            
-            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default).ConfigureAwait(false);
-
-            var result = await responseMessage.ToResultAsync<TransactionHistoryReportNotification>().ConfigureAwait(false);
-
-            if (result.Success)
-            {
-                transactionHistoryReportNotification.Id = result.Value.Id;
-                return transactionHistoryReportNotification;
-            }
-
-            return result;
-        }
-
         private async Task<Result<T>> CreateNotification<T>(T notification) where T : Notification
         {
             var notificationRequest = NotificationMapper.Map(notification);

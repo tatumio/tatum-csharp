@@ -1,6 +1,6 @@
 namespace Tatum.Notifications.Models.Notifications
 {
-    public class AddressTransactionNotification : Notification
+    public class AddressEventNotification : Notification
     {
         public AddressTransactionChain Chain { get; set; }
 
