@@ -1,8 +1,12 @@
 using System;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Tatum.Core.Configuration;
+using Tatum.Core.Handlers;
 using Tatum.Core.Models;
 using Tatum.Notifications.Models.Notifications;
+using Tatum.Utils.DebugMode;
 using Xunit;
 
 namespace Tatum.Examples.Notifications.Examples;
@@ -14,9 +18,14 @@ public class Subscribe : IDisposable, IAsyncDisposable
     public async Task Subscribe_Example()
     {
         // Your API key should go here.
-        string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
+        //string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, apiKey);
+        DebugModeHandler debugModeHandler = new DebugModeHandler();
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
+        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
+        
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
         
         AddressEventNotification notification = new AddressEventNotification
         {

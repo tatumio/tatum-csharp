@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Tatum.Core.Exceptions;
 using Tatum.Core.Models;
@@ -20,6 +22,20 @@ namespace Tatum.Core.Configuration
             }
 
             client.DefaultRequestHeaders.Add("User-Agent", $"Tatum_SDK_CSharp/{configuration.Version}");
+            client.DefaultRequestHeaders.Add("cf-connecting-ip", GetLocalIPAddress());
+        }
+        
+        private static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
         
         public static async Task Validate(this TatumSdkConfiguration configuration, HttpClient client)
@@ -29,7 +45,16 @@ namespace Tatum.Core.Configuration
                 return;
             }
 
-            var versionResponse = await client.GetFromJsonAsync<VersionResponse>("v1/tatum/version", TatumSerializerOptions.Default).ConfigureAwait(false);
+            VersionResponse versionResponse;
+            
+            try
+            {
+                versionResponse = await client.GetFromJsonAsync<VersionResponse>("v1/tatum/version", TatumSerializerOptions.Default).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                throw new ValidateSdkException("Unable to initialize Tatum SDK, Tatum API not available.");
+            }
 
             if (versionResponse == null)
             {
