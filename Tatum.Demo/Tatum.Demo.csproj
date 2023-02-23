@@ -8,7 +8,10 @@
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageReference Include="Tatum" Version="1.0.0-alpha4243466070" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Tatum\Tatum.csproj" />
     </ItemGroup>
 
 </Project>
