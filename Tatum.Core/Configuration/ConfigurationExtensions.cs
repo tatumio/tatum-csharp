@@ -22,20 +22,17 @@ namespace Tatum.Core.Configuration
             }
 
             client.DefaultRequestHeaders.Add("User-Agent", $"Tatum_SDK_CSharp/{configuration.Version}");
-            client.DefaultRequestHeaders.Add("cf-connecting-ip", GetLocalIPAddress());
+            client.DefaultRequestHeaders.Add("cf-connecting-ip", GetExternalIPAddress().GetAwaiter().GetResult());
         }
         
-        private static string GetLocalIPAddress()
+        private static async Task<string> GetExternalIPAddress()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            using (var client = new HttpClient())
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
+                var response = await client.GetAsync("https://api.ipify.org");
+                var ipAddress = await response.Content.ReadAsStringAsync();
+                return ipAddress;
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
         
         public static async Task Validate(this TatumSdkConfiguration configuration, HttpClient client)
