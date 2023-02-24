@@ -1,8 +1,6 @@
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using Tatum.Core.Exceptions;
 using Tatum.Core.Models;
@@ -16,7 +14,7 @@ namespace Tatum.Core.Configuration
         public static void ConfigureHttpClient(this TatumSdkConfiguration configuration, HttpClient client)
         {
             client.BaseAddress = new Uri(configuration.BaseUrl);
-            if(configuration.ApiKey != null)
+            if(!string.IsNullOrWhiteSpace(configuration.ApiKey))
             {
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
             }
@@ -60,12 +58,12 @@ namespace Tatum.Core.Configuration
             
             if(versionResponse.Testnet && configuration.Network == Network.Mainnet)
             {
-                throw new InvalidOperationException("Tatum API key is not valid for Testnet.");
+                throw new ValidateSdkException("Tatum API key is not valid for Mainnet.");
             }
             
             if(!versionResponse.Testnet && configuration.Network == Network.Testnet)
             {
-                throw new InvalidOperationException("Tatum API key is not valid for Mainnet.");
+                throw new ValidateSdkException("Tatum API key is not valid for Testnet.");
             }
         }
     }

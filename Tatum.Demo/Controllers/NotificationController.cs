@@ -58,6 +58,11 @@ public class NotificationController : ControllerBase
     [HttpDelete(Name = "Unsubscribe")]
     public async Task Unsubscribe(string notificationId)
     {
-        await _tatumSdk.Notifications.Unsubscribe(notificationId);
+        var result = await _tatumSdk.Notifications.Unsubscribe(notificationId);
+        
+        if (!result.Success)
+        {
+            throw new Exception(result.ErrorMessage);
+        }
     }
 }
