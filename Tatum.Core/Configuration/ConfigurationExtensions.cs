@@ -53,7 +53,7 @@ namespace Tatum.Core.Configuration
             }
             catch (Exception e)
             {
-                throw new ValidateSdkException("Unable to initialize Tatum SDK, Tatum API not available.");
+                throw new ValidateSdkException($"Unable to initialize Tatum SDK, Tatum API not available: {e.Message}", e);
             }
 
             if (versionResponse == null)

@@ -7,5 +7,9 @@ namespace Tatum.Core.Exceptions
         public ValidateSdkException(string message) : base(message)
         {
         }
+        
+        public ValidateSdkException(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }
