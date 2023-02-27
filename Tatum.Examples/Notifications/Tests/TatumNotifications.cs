@@ -53,7 +53,16 @@ public class TatumNotifications
         
         result.Value.Should().NotBeEmpty();
     }
+    
+    [Fact]
+    public async Task Unsubscribe_ShouldFailOnNonExisting()
+    {
+        var result = await _tatumSdk.Notifications.Unsubscribe("6398ded68bfa23a9709b1b17");
 
+        result.Should().NotBeNull();
+        result.Success.Should().BeFalse();
+    }
+    
     [Theory]
     [InlineData(AddressTransactionChain.Ethereum, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
     [InlineData(AddressTransactionChain.Solana, "8Kvnpupqf2hPrMDJ4mK2kXnSSMihh1AjFg7RiF5Vn8wX")]
