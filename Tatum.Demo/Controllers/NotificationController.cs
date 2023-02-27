@@ -5,21 +5,39 @@ using Tatum.Notifications.Models.Responses;
 
 namespace Tatum.Demo.Controllers;
 
+/// <summary>
+/// Demo controller for Tatum SDK Notifications.
+/// </summary>
 [ApiController]
 [Route("[controller]/[action]")]
 public class NotificationController : ControllerBase
 {
     private readonly ITatumSdk _tatumSdk;
 
+    /// <summary>
+    /// Create an instance of the controller.
+    /// </summary>
+    /// <param name="tatumSdk">TatumSdk instance.</param>
     public NotificationController(ITatumSdk tatumSdk)
     {
         _tatumSdk = tatumSdk;
     }
 
+    /// <summary>
+    /// Gets all existing notifications.
+    /// </summary>
+    /// <param name="pageSize">Number of returned records.</param>
+    /// <param name="offset">Offset of returned records.</param>
+    /// <param name="address">Filter to get notifications by address,</param>
     [HttpGet(Name = "GetAll")]
-    public async Task<List<INotification>> GetAll()
+    public async Task<List<INotification>> GetAll(int pageSize = 10, int offset = 0, string? address = null)
     {
-        var result = await _tatumSdk.Notifications.GetAll();
+        var result = await _tatumSdk.Notifications.GetAll(new GetAllNotificationsQuery
+        {
+            PageSize = pageSize,
+            Offset = offset,
+            Address = address
+        });
 
         if (result.Success)
         {
@@ -29,10 +47,23 @@ public class NotificationController : ControllerBase
         throw new Exception(result.ErrorMessage);
     }
     
+    /// <summary>
+    /// Gets list of executed webhooks.
+    /// </summary>
+    /// <param name="pageSize">Number of returned records.</param>
+    /// <param name="offset">Offset of returned records.</param>
+    /// <param name="sortingDirection">Direction in which records should be sorted.</param>
+    /// <param name="filterFailed">Filter returned results by failed field.</param>
     [HttpGet(Name = "GetAllExecutedWebhooks")]
-    public async Task<List<WebhookExecutionResponse>> GetAllExecutedWebhooks()
+    public async Task<List<WebhookExecutionResponse>> GetAllExecutedWebhooks(int pageSize = 10, int offset = 0, SortingDirection sortingDirection = SortingDirection.Default, bool? filterFailed = null)
     {
-        var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks();
+        var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(new GetAllExecutedWebhooksQuery
+        {
+            PageSize = pageSize,
+            Offset = offset,
+            SortingDirection = sortingDirection,
+            FilterFailed = filterFailed
+        });
 
         if (result.Success)
         {
@@ -41,11 +72,21 @@ public class NotificationController : ControllerBase
 
         throw new Exception(result.ErrorMessage);
     }
-    
+    /// <summary>
+    /// Endpoint used to subscribe to a new webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
     [HttpPost(Name = "Subscribe")]
-    public async Task<AddressEventNotification> Subscribe(AddressEventNotification addressEventNotification)
+    public async Task<AddressEventNotification> Subscribe(AddressTransactionChain chain = AddressTransactionChain.Ethereum, string? address = null, string? url = null)
     {
-        var result = await _tatumSdk.Notifications.Subscribe.AddressEvent(addressEventNotification);
+        var result = await _tatumSdk.Notifications.Subscribe.AddressEvent(new AddressEventNotification
+        {
+            Chain = chain,
+            Address = address,
+            Url = url
+        });
 
         if (result.Success)
         {
@@ -55,6 +96,10 @@ public class NotificationController : ControllerBase
         throw new Exception(result.ErrorMessage);
     }
     
+    /// <summary>
+    /// Removes existing subscription.
+    /// </summary>
+    /// <param name="notificationId">Id of subscription to remove.</param>
     [HttpDelete(Name = "Unsubscribe")]
     public async Task Unsubscribe(string notificationId)
     {
