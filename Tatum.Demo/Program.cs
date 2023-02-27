@@ -16,7 +16,7 @@ builder.Services
 });
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "Tatum", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "Tatum SDK Demo", Version = "v1" });
     var filePath = Path.Combine(System.AppContext.BaseDirectory, "Tatum.Demo.xml");
     c.IncludeXmlComments(filePath);
 });
