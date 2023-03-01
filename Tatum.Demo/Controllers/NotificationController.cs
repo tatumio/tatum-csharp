@@ -30,7 +30,7 @@ public class NotificationController : ControllerBase
     /// <param name="offset">Offset of returned records.</param>
     /// <param name="address">Filter to get notifications by address,</param>
     [HttpGet(Name = "GetAll")]
-    public async Task<List<INotification>> GetAll(int pageSize = 10, int offset = 0, string? address = null)
+    public async Task<ActionResult<List<INotification>>> GetAll(int pageSize = 10, int offset = 0, string? address = null)
     {
         var result = await _tatumSdk.Notifications.GetAll(new GetAllNotificationsQuery
         {
@@ -41,10 +41,10 @@ public class NotificationController : ControllerBase
 
         if (result.Success)
         {
-            return result.Value;
+            return Ok(result.Value);
         }
 
-        throw new Exception(result.ErrorMessage);
+        return BadRequest(result.ErrorMessage);
     }
     
     /// <summary>
@@ -55,7 +55,7 @@ public class NotificationController : ControllerBase
     /// <param name="sortingDirection">Direction in which records should be sorted.</param>
     /// <param name="filterFailed">Filter returned results by failed field.</param>
     [HttpGet(Name = "GetAllExecutedWebhooks")]
-    public async Task<List<WebhookExecutionResponse>> GetAllExecutedWebhooks(int pageSize = 10, int offset = 0, SortingDirection sortingDirection = SortingDirection.Default, bool? filterFailed = null)
+    public async Task<ActionResult<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(int pageSize = 10, int offset = 0, SortingDirection sortingDirection = SortingDirection.Default, bool? filterFailed = null)
     {
         var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(new GetAllExecutedWebhooksQuery
         {
@@ -67,10 +67,10 @@ public class NotificationController : ControllerBase
 
         if (result.Success)
         {
-            return result.Value;
+            return Ok(result.Value);
         }
 
-        throw new Exception(result.ErrorMessage);
+        return BadRequest(result.ErrorMessage);
     }
     /// <summary>
     /// Endpoint used to subscribe to a new webhook notification.
@@ -79,7 +79,7 @@ public class NotificationController : ControllerBase
     /// <param name="address">Blockchain address on which events will trigger notification.</param>
     /// <param name="url">Url that should be called on event trigger.</param>
     [HttpPost(Name = "Subscribe")]
-    public async Task<AddressEventNotification> Subscribe(AddressTransactionChain chain = AddressTransactionChain.Ethereum, string? address = null, string? url = null)
+    public async Task<ActionResult<AddressEventNotification>> Subscribe(AddressTransactionChain chain = AddressTransactionChain.Ethereum, string? address = null, string? url = null)
     {
         var result = await _tatumSdk.Notifications.Subscribe.AddressEvent(new AddressEventNotification
         {
@@ -90,10 +90,10 @@ public class NotificationController : ControllerBase
 
         if (result.Success)
         {
-            return result.Value;
+            return Ok(result.Value);
         }
 
-        throw new Exception(result.ErrorMessage);
+        return BadRequest(result.ErrorMessage);
     }
     
     /// <summary>
@@ -101,13 +101,15 @@ public class NotificationController : ControllerBase
     /// </summary>
     /// <param name="notificationId">Id of subscription to remove.</param>
     [HttpDelete(Name = "Unsubscribe")]
-    public async Task Unsubscribe(string notificationId)
+    public async Task<IActionResult> Unsubscribe(string notificationId)
     {
         var result = await _tatumSdk.Notifications.Unsubscribe(notificationId);
         
         if (!result.Success)
         {
-            throw new Exception(result.ErrorMessage);
+            return BadRequest(result.ErrorMessage);
         }
+
+        return NoContent();
     }
 }
