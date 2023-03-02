@@ -14,8 +14,4 @@
       <PackageReference Include="System.Text.Json" Version="7.0.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Tatum.Utils\Tatum.Utils.csproj" />
-    </ItemGroup>
-
 </Project>

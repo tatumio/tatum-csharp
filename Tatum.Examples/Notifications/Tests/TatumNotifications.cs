@@ -35,6 +35,14 @@ public class TatumNotifications
     [Fact]
     public async Task GetAllExecutedWebhooks()
     {
+        DebugModeHandler debugModeHandler = new DebugModeHandler();
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
+        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
+        
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
+
+        
         GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery = new GetAllExecutedWebhooksQuery
         {
             PageSize = 15,
@@ -42,7 +50,29 @@ public class TatumNotifications
             SortingDirection = SortingDirection.Asc
         };
         
-        Result<List<WebhookExecutionResponse>> result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(getAllExecutedWebhooksQuery);
+        Result<List<WebhookExecutionResponse>> result = await tatumSdk.Notifications.GetAllExecutedWebhooks(getAllExecutedWebhooksQuery);
+        
+        result.Should().NotBeNull();
+        
+        if (!result.Success)
+        {
+            Assert.True(false, result.ErrorMessage);
+        }
+        
+        result.Value.Should().NotBeEmpty();
+    }
+    
+    [Fact]
+    public async Task GetAll()
+    {
+        DebugModeHandler debugModeHandler = new DebugModeHandler();
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
+        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
+        
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
+        
+        var result = await tatumSdk.Notifications.GetAll();
         
         result.Should().NotBeNull();
         

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Tatum.Core;
 
 namespace Tatum.Utils.DebugMode
 {
@@ -253,7 +254,7 @@ namespace Tatum.Utils.DebugMode
         
         private static void ReplaceDebugUserAgent(HttpRequestMessage request)
         {
-            if (request.Headers.TryGetValues("User-Agent", out var userAgent))
+            if (request.Headers.TryGetValues(TatumConstants.TatumUserAgentHeader, out var userAgent))
             {
                 foreach (var headerValue in userAgent)
                 {
@@ -273,8 +274,8 @@ namespace Tatum.Utils.DebugMode
                         debugUserAgent = headerSegments[0] + ", @DEBUG) " + string.Join(")", headerSegments.Skip(1));
                     }
 
-                    request.Headers.Remove("User-Agent");
-                    request.Headers.Add("User-Agent", debugUserAgent);
+                    request.Headers.Remove(TatumConstants.TatumUserAgentHeader);
+                    request.Headers.Add(TatumConstants.TatumUserAgentHeader, debugUserAgent);
                     return;
                 }
             }

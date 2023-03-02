@@ -19,7 +19,7 @@ namespace Tatum.Core.Configuration
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
             }
 
-            client.DefaultRequestHeaders.Add("User-Agent", $"Tatum_SDK_CSharp/{configuration.Version}");
+            client.DefaultRequestHeaders.Add(TatumConstants.TatumUserAgentHeader, $"Tatum_SDK_CSharp/{configuration.Version}");
             client.DefaultRequestHeaders.Add("cf-connecting-ip", GetExternalIPAddress().GetAwaiter().GetResult());
         }
         

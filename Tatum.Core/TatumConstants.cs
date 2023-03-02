@@ -4,5 +4,6 @@ namespace Tatum.Core
     {
         public const string BaseUrl = "https://api-acceptance.sandbox.tatum.dev";
         public const string TatumHttpClientName = "TatumSdkHttpClient";
+        public const string TatumUserAgentHeader = "x-user-agent";
     }
 }

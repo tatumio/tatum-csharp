@@ -8,18 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(opts =>
 {
     opts.SerializerSettings.Converters.Add(new StringEnumConverter());
 });
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Tatum SDK Demo", Version = "v1" });
     var filePath = Path.Combine(System.AppContext.BaseDirectory, "Tatum.Demo.xml");
     c.IncludeXmlComments(filePath);
 });
+
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 
 

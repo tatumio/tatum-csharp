@@ -30,7 +30,7 @@ public class TatumSdkInit
     [Theory]
     [InlineData(Network.Mainnet, "Test")]
     [InlineData(Network.Testnet, "Main")]
-    public async Task Initialize_Wrong_Network_Key_Combination(Network network, string key)
+    public void Initialize_Wrong_Network_Key_Combination(Network network, string key)
     {
         Action result = () => TatumSdk.Init(network, _apiKeys[key], new HttpClient());
 

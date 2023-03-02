@@ -1,8 +1,11 @@
 using System.Text.Json.Serialization;
 using Tatum.Core.Converters;
+using Tatum.Notifications.Converters;
+using Tatum.Notifications.Models.NotificationExecutions;
 
 namespace Tatum.Notifications.Models.Responses
 {
+    [JsonConverter(typeof(WebhookExecutionResponseConverter))]
     public class WebhookExecutionResponse
     {
         [JsonPropertyName("type")]
@@ -20,7 +23,7 @@ namespace Tatum.Notifications.Models.Responses
         
         [JsonPropertyName("data")]
         [JsonConverter(typeof(MetadataToStringConverter))]
-        public string Data { get; set; }
+        public IWebhookExecution Data { get; set; }
         
         [JsonPropertyName("nextTime")]
         public long NextTime { get; set; }
@@ -36,6 +39,5 @@ namespace Tatum.Notifications.Models.Responses
         
         [JsonPropertyName("response")]
         public WebhookResponse Response { get; set; }
-
     }
 }
