@@ -72,11 +72,11 @@ jobs:
           path: ./Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
           retention-days: 7
         if: |
-          contains(fromJSON('["master", "develop", "v3"]'), needs.metadata.outputs.current_branch)
+          contains(fromJSON('["master", "develop", "v3", "v3-release-1-3-0-rc"]'), needs.metadata.outputs.current_branch)
 
   nuget_github:
     needs: [metadata, build]
-    if: contains(fromJSON('["develop", "v3"]'), needs.metadata.outputs.current_branch)
+    if: contains(fromJSON('["develop", "v3", "v3-release-1-3-0-rc"]'), needs.metadata.outputs.current_branch)
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET
@@ -93,7 +93,7 @@ jobs:
 
   test_healthcheck:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["master", "v3"]'), needs.metadata.outputs.current_branch)
+    if: contains(fromJSON('["master", "v3", "v3-release-1-3-0-rc"]'), needs.metadata.outputs.current_branch)
     needs: [metadata, nuget_github]
     steps:
       - uses: actions/checkout@v3
@@ -152,7 +152,7 @@ jobs:
             ${{ steps.get_release_notes.outputs.release_notes }}
     
   nuget:
-    if: needs.metadata.outputs.current_branch == 'master'
+    if: contains(fromJSON('["master", "v3-release-1-3-0-rc"]'), needs.metadata.outputs.current_branch)
     runs-on: ubuntu-latest
     needs: [metadata, build, test_healthcheck]
     steps:
@@ -164,4 +164,4 @@ jobs:
         with:
           name: Tatum.${{ needs.metadata.outputs.package_version }}.nupkg
       - name: Push to ${{ steps.set_source.outputs.pkg_src_short_name }}
-        run: dotnet nuget push "./Tatum.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source ${{ env.PUB_PACKAGE_SOURCE }}
+        run: dotnet nuget push "./Tatum.${{ needs.metadata.outputs.package_version }}.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_PUBLISH_KEY_NEW }} --source ${{ env.PUB_PACKAGE_SOURCE }}
