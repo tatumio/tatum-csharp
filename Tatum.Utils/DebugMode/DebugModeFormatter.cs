@@ -42,9 +42,8 @@ namespace Tatum.Utils.DebugMode
             }
             
             sb.AppendLine($"curl -i -X {request.Method.Method} '{requestUri}' \\");
-
-            // TODO: uncomment when implemented on core-api side
-            //request.Headers.Add(TatumConstants.TatumSdkDebugHeader, "enabled");
+            
+            request.Headers.Add(TatumConstants.TatumSdkDebugHeader, "enabled");
 
             foreach (var header in request.Headers)
             {

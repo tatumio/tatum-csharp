@@ -18,23 +18,11 @@ namespace Tatum.Core.Configuration
             {
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
             }
+            
+            client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkVersionHeader, configuration.Version);
+            client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkProductHeader, TatumConstants.TatumCSharpSdkProduct);
+        }
 
-            // TODO: uncomment when implemented on core-api side
-            //client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkVersionHeader, configuration.Version);
-            //client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkProductHeader, TatumConstants.TatumCSharpSdkProduct);
-            //client.DefaultRequestHeaders.Add("cf-connecting-ip", GetExternalIPAddress().GetAwaiter().GetResult());
-        }
-        
-        private static async Task<string> GetExternalIPAddress()
-        {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync("https://api.ipify.org");
-                var ipAddress = await response.Content.ReadAsStringAsync();
-                return ipAddress;
-            }
-        }
-        
         public static async Task Validate(this TatumSdkConfiguration configuration, HttpClient client)
         {
             if(string.IsNullOrWhiteSpace(configuration.ApiKey))
