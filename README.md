@@ -47,7 +47,7 @@ builder.Services.AddTatumSdkWithDebug(Network.Testnet, apiKey);
 
 or if using simple init:
 ```cs
-var tatumSdk = TatumSdk.Init(true, apiKey, config => config.EnableDebugMode = true);
+var tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, config => config.EnableDebugMode = true);
 ```
 
 ## Further Examples
