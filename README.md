@@ -45,12 +45,9 @@ To use debug mode simply register Tatum SDK like this:
 builder.Services.AddTatumSdkWithDebug(Network.Testnet, apiKey);
 ```
 
-or if using HttpClient directly:
+or if using simple init:
 ```cs
-var debugModeHandler = new DebugModeHandler();
-debugModeHandler.InnerHandler = new HttpClientHandler();
-
-_tatumSdk = TatumSdk.Init(true, apiKey, new HttpClient(debugModeHandler));
+var tatumSdk = TatumSdk.Init(true, apiKey, config => config.EnableDebugMode = true);
 ```
 
 ## Further Examples
