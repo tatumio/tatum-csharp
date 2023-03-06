@@ -11,7 +11,7 @@ namespace Tatum.Extensions.ServiceCollection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddTatumSdk(this IServiceCollection services, Network network, string apiKey, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdk(this IServiceCollection services, Network network, string apiKey, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -24,7 +24,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdk(this IServiceCollection services, string apiKey, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdk(this IServiceCollection services, string apiKey, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -37,7 +37,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdk(this IServiceCollection services, Network network, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdk(this IServiceCollection services, Network network, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -50,7 +50,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdk(this IServiceCollection services, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdk(this IServiceCollection services, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -63,7 +63,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, Network network, string apiKey, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, Network network, string apiKey, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -76,7 +76,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, string apiKey, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, string apiKey, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -89,7 +89,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, Network network, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, Network network, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -102,7 +102,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, TatumSdkConfiguration configuration = null)
+        public static IServiceCollection AddTatumSdkWithDebug(this IServiceCollection services, ITatumSdkConfiguration configuration = null)
         {
             if(configuration == null)
             {
@@ -115,7 +115,7 @@ namespace Tatum.Extensions.ServiceCollection
             return services;
         }
 
-        private static void RegisterHttpClient(IServiceCollection services, TatumSdkConfiguration configuration)
+        private static void RegisterHttpClient(IServiceCollection services, ITatumSdkConfiguration configuration)
         {
             services.AddTransient(x => new NoApiKeyNetworkHandler(configuration));
             services.AddHttpClient(TatumConstants.TatumHttpClientName)
@@ -123,7 +123,7 @@ namespace Tatum.Extensions.ServiceCollection
                 .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(configuration.RetryPolicy));
         }
 
-        private static void RegisterHttpClientWithDebug(IServiceCollection services, TatumSdkConfiguration configuration)
+        private static void RegisterHttpClientWithDebug(IServiceCollection services, ITatumSdkConfiguration configuration)
         {
             services.AddTransient<DebugModeHandler>();
             services.AddTransient(x => new NoApiKeyNetworkHandler(configuration));

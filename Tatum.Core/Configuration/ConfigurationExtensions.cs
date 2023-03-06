@@ -11,7 +11,7 @@ namespace Tatum.Core.Configuration
 {
     public static class ConfigurationExtensions
     {
-        public static void ConfigureHttpClient(this TatumSdkConfiguration configuration, HttpClient client)
+        public static void ConfigureHttpClient(this ITatumSdkConfiguration configuration, HttpClient client)
         {
             client.BaseAddress = new Uri(configuration.BaseUrl);
             if(!string.IsNullOrWhiteSpace(configuration.ApiKey))
@@ -23,7 +23,7 @@ namespace Tatum.Core.Configuration
             client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkProductHeader, TatumConstants.TatumCSharpSdkProduct);
         }
 
-        public static async Task Validate(this TatumSdkConfiguration configuration, HttpClient client)
+        public static async Task Validate(this ITatumSdkConfiguration configuration, HttpClient client)
         {
             if(string.IsNullOrWhiteSpace(configuration.ApiKey))
             {

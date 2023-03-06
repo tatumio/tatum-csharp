@@ -22,26 +22,13 @@ public class TatumNotifications
     
     public TatumNotifications()
     {
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-        
-        string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
-
-        _tatumSdk = TatumSdk.Init(Network.Testnet, new HttpClient(debugModeHandler));
+        _tatumSdk = TatumSdk.Init(Network.Testnet, config => config.EnableDebugMode = true);
     }
 
     [Fact]
     public async Task GetAllExecutedWebhooks()
     {
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-        
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
-
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
         
         GetAllExecutedWebhooksQuery getAllExecutedWebhooksQuery = new GetAllExecutedWebhooksQuery
         {
@@ -65,12 +52,7 @@ public class TatumNotifications
     [Fact]
     public async Task GetAll()
     {
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-        
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
         
         var result = await tatumSdk.Notifications.GetAll();
         

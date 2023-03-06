@@ -32,7 +32,7 @@ public class TatumSdkInit
     [InlineData(Network.Testnet, "Main")]
     public void Initialize_Wrong_Network_Key_Combination(Network network, string key)
     {
-        Action result = () => TatumSdk.Init(network, _apiKeys[key], new HttpClient());
+        Action result = () => TatumSdk.Init(network, _apiKeys[key], config => config.EnableDebugMode = true);
 
         result.Should().Throw<ValidateSdkException>().WithMessage($"Tatum API key is not valid for {(network == Network.Mainnet ? "Main" : "Test")}net.");
     }
@@ -44,12 +44,7 @@ public class TatumSdkInit
     [InlineData(Network.Testnet, "Empty")]
     public async Task Initialize_Proper_Network_Key_Combination(Network network, string key)
     {
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-
-        var tatumSdk = TatumSdk.Init(network, _apiKeys[key], new HttpClient(debugModeHandler));
+        var tatumSdk = TatumSdk.Init(network, _apiKeys[key], config => config.EnableDebugMode = true);
         
         AddressEventNotification notification = new AddressEventNotification
         {

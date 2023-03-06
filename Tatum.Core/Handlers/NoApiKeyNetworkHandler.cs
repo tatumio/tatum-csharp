@@ -9,9 +9,9 @@ namespace Tatum.Core.Handlers
 {
     public class NoApiKeyNetworkHandler : DelegatingHandler
     {
-        private readonly TatumSdkConfiguration _configuration;
+        private readonly ITatumSdkConfiguration _configuration;
 
-        public NoApiKeyNetworkHandler(TatumSdkConfiguration configuration)
+        public NoApiKeyNetworkHandler(ITatumSdkConfiguration configuration)
         {
             _configuration = configuration;
         }

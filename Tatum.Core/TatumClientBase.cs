@@ -6,16 +6,16 @@ namespace Tatum.Core
     public abstract class TatumClientBase
     {
         private readonly HttpClient _httpClient;
-        private readonly TatumSdkConfiguration _configuration;
+        private readonly ITatumSdkConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        protected TatumClientBase(HttpClient httpClient, TatumSdkConfiguration configuration)
+        protected TatumClientBase(HttpClient httpClient, ITatumSdkConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;
         }
 
-        protected TatumClientBase(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration)
+        protected TatumClientBase(IHttpClientFactory httpClientFactory, ITatumSdkConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;

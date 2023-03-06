@@ -18,14 +18,7 @@ public class Subscribe : IDisposable, IAsyncDisposable
     public async Task Subscribe_Example()
     {
         // Your API key should go here.
-        //string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
-
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-        
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
         
         AddressEventNotification notification = new AddressEventNotification
         {
@@ -52,13 +45,7 @@ public class Subscribe : IDisposable, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
-        DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
-        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
-        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
-        
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
 
         var notifications = await tatumSdk.Notifications.GetAll();
 

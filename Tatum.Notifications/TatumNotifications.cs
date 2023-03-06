@@ -18,11 +18,11 @@ namespace Tatum.Notifications
     {
         private const string NotificationsUrl = "/v1/subscription";
 
-        public TatumNotifications(HttpClient httpClient, TatumSdkConfiguration configuration) : base(httpClient, configuration)
+        public TatumNotifications(HttpClient httpClient, ITatumSdkConfiguration configuration) : base(httpClient, configuration)
         {
         }
         
-        public TatumNotifications(IHttpClientFactory httpClientFactory, TatumSdkConfiguration configuration) : base(httpClientFactory, configuration)
+        public TatumNotifications(IHttpClientFactory httpClientFactory, ITatumSdkConfiguration configuration) : base(httpClientFactory, configuration)
         {
         }
 
