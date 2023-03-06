@@ -29,6 +29,12 @@ namespace Tatum.Notifications.Models.NotificationExecutions
     public enum AddressEventExecutionType
     {
         native = 1,
-        token
+        token,
+        erc721,
+        erc1155,
+        @internal,
+        fee,
+        trc10,
+        trc20
     }
 }

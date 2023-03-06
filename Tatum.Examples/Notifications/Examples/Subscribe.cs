@@ -21,7 +21,7 @@ public class Subscribe : IDisposable, IAsyncDisposable
         //string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
         DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
         
@@ -53,7 +53,12 @@ public class Subscribe : IDisposable, IAsyncDisposable
     public async ValueTask DisposeAsync()
     {
         string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
-        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, apiKey);
+        DebugModeHandler debugModeHandler = new DebugModeHandler();
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
+        debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
+        noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
+        
+        var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, new HttpClient(debugModeHandler));
 
         var notifications = await tatumSdk.Notifications.GetAll();
 

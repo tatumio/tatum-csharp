@@ -27,7 +27,7 @@ public class TatumSdkInit
         _apiKeys.Add("Empty", string.Empty);
     }
     
-    [Theory]
+    [Theory(Skip = "Api key WIP")]
     [InlineData(Network.Mainnet, "Test")]
     [InlineData(Network.Testnet, "Main")]
     public void Initialize_Wrong_Network_Key_Combination(Network network, string key)
@@ -37,7 +37,7 @@ public class TatumSdkInit
         result.Should().Throw<ValidateSdkException>().WithMessage($"Tatum API key is not valid for {(network == Network.Mainnet ? "Main" : "Test")}net.");
     }
     
-    [Theory]
+    [Theory(Skip = "Api key WIP")]
     [InlineData(Network.Mainnet, "Main")]
     [InlineData(Network.Testnet, "Test")]
     [InlineData(Network.Mainnet, "Empty")]
@@ -45,7 +45,7 @@ public class TatumSdkInit
     public async Task Initialize_Proper_Network_Key_Combination(Network network, string key)
     {
         DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
 

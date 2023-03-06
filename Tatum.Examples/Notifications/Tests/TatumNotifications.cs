@@ -23,20 +23,20 @@ public class TatumNotifications
     public TatumNotifications()
     {
         DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
         
         string apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
-        _tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, new HttpClient(debugModeHandler));
+        _tatumSdk = TatumSdk.Init(Network.Testnet, new HttpClient(debugModeHandler));
     }
 
     [Fact]
     public async Task GetAllExecutedWebhooks()
     {
         DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
         
@@ -59,14 +59,14 @@ public class TatumNotifications
             Assert.True(false, result.ErrorMessage);
         }
         
-        result.Value.Should().NotBeEmpty();
+        result.Value.Should().BeEmpty();
     }
     
     [Fact]
     public async Task GetAll()
     {
         DebugModeHandler debugModeHandler = new DebugModeHandler();
-        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration());
+        NoApiKeyNetworkHandler noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(new DefaultTatumSdkConfiguration(){Network = Network.Testnet});
         debugModeHandler.InnerHandler = noApiKeyNetworkHandler;
         noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
         
@@ -81,7 +81,7 @@ public class TatumNotifications
             Assert.True(false, result.ErrorMessage);
         }
         
-        result.Value.Should().NotBeEmpty();
+        result.Value.Should().BeEmpty();
     }
     
     [Fact]

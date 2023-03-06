@@ -43,7 +43,8 @@ namespace Tatum.Utils.DebugMode
             
             sb.AppendLine($"curl -i -X {request.Method.Method} '{requestUri}' \\");
 
-            ReplaceDebugUserAgent(request);
+            // TODO: uncomment when implemented on core-api side
+            //request.Headers.Add(TatumConstants.TatumSdkDebugHeader, "enabled");
 
             foreach (var header in request.Headers)
             {
@@ -250,35 +251,6 @@ namespace Tatum.Utils.DebugMode
             sb.AppendLine("<<<<<<<<<<<<<<< /Tatum API RESPONSE <<<<<<<<<<<<<<<<<");
             
             return sb;
-        }
-        
-        private static void ReplaceDebugUserAgent(HttpRequestMessage request)
-        {
-            if (request.Headers.TryGetValues(TatumConstants.TatumUserAgentHeader, out var userAgent))
-            {
-                foreach (var headerValue in userAgent)
-                {
-                    if (!headerValue.StartsWith("Tatum_SDK_CSharp")) continue;
-
-                    var headerSegments = headerValue.Split(')');
-
-                    var debugUserAgent = headerValue;
-                    
-                    if (headerSegments.Length == 2 && headerSegments[1] == string.Empty)
-                    {
-                        debugUserAgent = headerValue.Replace(")", ", @DEBUG)");
-                    }
-
-                    if (headerSegments.Length > 2)
-                    {
-                        debugUserAgent = headerSegments[0] + ", @DEBUG) " + string.Join(")", headerSegments.Skip(1));
-                    }
-
-                    request.Headers.Remove(TatumConstants.TatumUserAgentHeader);
-                    request.Headers.Add(TatumConstants.TatumUserAgentHeader, debugUserAgent);
-                    return;
-                }
-            }
         }
 
         private static string Truncate(string value)

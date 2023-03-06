@@ -19,8 +19,10 @@ namespace Tatum.Core.Configuration
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
             }
 
-            client.DefaultRequestHeaders.Add(TatumConstants.TatumUserAgentHeader, $"Tatum_SDK_CSharp/{configuration.Version}");
-            client.DefaultRequestHeaders.Add("cf-connecting-ip", GetExternalIPAddress().GetAwaiter().GetResult());
+            // TODO: uncomment when implemented on core-api side
+            //client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkVersionHeader, configuration.Version);
+            //client.DefaultRequestHeaders.Add(TatumConstants.TatumSdkProductHeader, TatumConstants.TatumCSharpSdkProduct);
+            //client.DefaultRequestHeaders.Add("cf-connecting-ip", GetExternalIPAddress().GetAwaiter().GetResult());
         }
         
         private static async Task<string> GetExternalIPAddress()
