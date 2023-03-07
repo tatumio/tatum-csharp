@@ -129,8 +129,11 @@ public class TatumNotifications
         
         var unsubscribeResult = await _tatumSdk.Notifications.Unsubscribe(createdNotification.Id);
 
-        unsubscribeResult.Success.Should().BeTrue();
-        
+        if (!unsubscribeResult.Success)
+        {
+            Assert.True(false, unsubscribeResult.ErrorMessage);
+        }
+
         notificationsResult = await _tatumSdk.Notifications.GetAll();
         
         if (!notificationsResult.Success)
