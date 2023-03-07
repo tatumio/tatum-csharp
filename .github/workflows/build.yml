@@ -4,7 +4,7 @@ on:
   push: 
 
 env:
-  SDK_ERROR_MESSAGES_VERSION: "main"
+  SDK_ERROR_MESSAGES_VERSION: "master"
   PACKAGE_SOURCE: https://nuget.pkg.github.com/tatumio/index.json
   PUB_PACKAGE_SOURCE: https://api.nuget.org/v3/index.json
   PROJECT_PATH: ./Tatum/Tatum.csproj
