@@ -76,7 +76,7 @@ jobs:
 
   nuget_github:
     needs: [metadata, build]
-    if: contains(fromJSON('["develop", "v3"]'), needs.metadata.outputs.current_branch)
+    if: contains(fromJSON('["main", "develop", "v3"]'), needs.metadata.outputs.current_branch)
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET
