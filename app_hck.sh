@@ -7,7 +7,7 @@ function kill_and_exit() {
 
 dotnet run --no-build --verbosity diag --project Tatum.Demo > .hck_debug 2>&1 &
 
-sleep 8
+sleep 15
 
 http_code=$(curl --max-time 5 http://127.0.0.1:5000/notification/GetAll -o /dev/null -k -L -s -w %{http_code})
 code=$?
