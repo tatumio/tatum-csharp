@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Tatum</id>
+        <version>1.3.0</version>
+        <authors>Tatum</authors>
+        <owners>Tatum</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Tatum C# SDK</description>
+        <releaseNotes>Tatum SKD initial release</releaseNotes>
+        <language>en-US</language>
+        <projectUrl>https://www.tatum.com</projectUrl>
+        <license type="expression">MIT</license>
+        <tags>Tatum; Blockchain; Ethereum; ETH;</tags>
+        <readme>docs/README.md</readme>
+        <icon>images/icon.png</icon>
+        <copyright>Copyright (c) 2023 Tatum</copyright>
+        <title>Tatum SDK</title>
+        <repository type="git" url="https://github.com/tatumio/tatum-csharp.git" />
+        <dependencies>
+            <group targetFramework=".NETStandard2.0">
+                <dependency id="Microsoft.Extensions.Http.Polly" version="7.0.3" />
+                <dependency id="Microsoft.Extensions.Http" version="7.0.0" />
+                <dependency id="Polly" version="7.2.3" />
+                <dependency id="Polly.Contrib.WaitAndRetry" version="1.1.1" />
+                <dependency id="Polly.Extensions.Http" version="3.0.0" />
+                <dependency id="System.Net.Http" version="4.3.4" />
+                <dependency id="System.Net.Http.Json" version="7.0.0" />
+                <dependency id="System.Text.Json" version="7.0.1" />
+                <dependency id="Newtonsoft.Json" version="13.0.2" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="../Tatum/bin/Release/netstandard2.0/Tatum.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum/bin/Release/netstandard2.0/Tatum.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.Notifications/bin/Release/netstandard2.0/Tatum.Notifications.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.Notifications/bin/Release/netstandard2.0/Tatum.Notifications.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.Core/bin/Release/netstandard2.0/Tatum.Core.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.Core/bin/Release/netstandard2.0/Tatum.Core.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum.Utils/bin/Release/netstandard2.0/Tatum.Utils.dll" target="lib/netstandard2.0" />
+        <file src="../Tatum.Utils/bin/Release/netstandard2.0/Tatum.Utils.pdb" target="lib/netstandard2.0" />
+        <file src="../Tatum/bin/Release/netstandard2.0/README.md" target="docs/" />
+        <file src="../Tatum/bin/Release/netstandard2.0/icon.png" target="images/" />
+    </files>
+</package>
