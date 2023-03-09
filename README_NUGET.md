@@ -1,7 +1,5 @@
 # [Tatum C# SDK](http://tatum.com/)
 
-[![Build](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/tatumio/tatum-csharp/actions/workflows/build.yml)
-
 ## Quick Start
 
 1. Include tatum package in your project:
@@ -51,9 +49,3 @@ or if using simple init:
 ```cs
 var tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, config => config.EnableDebugMode = true);
 ```
-
-## Further Examples
-
-[Demo App (.NET API)](Tatum.Demo)
-
-- [Examples - Notifications](Tatum.Examples/Notifications/TatumNotifications.cs)

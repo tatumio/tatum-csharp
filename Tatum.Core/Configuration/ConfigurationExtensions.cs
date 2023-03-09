@@ -14,6 +14,7 @@ namespace Tatum.Core.Configuration
         public static void ConfigureHttpClient(this ITatumSdkConfiguration configuration, HttpClient client)
         {
             client.BaseAddress = new Uri(configuration.BaseUrl);
+            
             if(!string.IsNullOrWhiteSpace(configuration.ApiKey))
             {
                 client.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
@@ -46,14 +47,12 @@ namespace Tatum.Core.Configuration
                 throw new ValidateSdkException("Tatum API is not available, could not connect to check version.");
             }
             
-            if(versionResponse.Testnet && configuration.Network == Network.Mainnet)
+            switch (versionResponse.Testnet)
             {
-                throw new ValidateSdkException("Tatum API key is not valid for Mainnet.");
-            }
-            
-            if(!versionResponse.Testnet && configuration.Network == Network.Testnet)
-            {
-                throw new ValidateSdkException("Tatum API key is not valid for Testnet.");
+                case true when configuration.Network == Network.Mainnet:
+                    throw new ValidateSdkException("Tatum API key is not valid for Mainnet.");
+                case false when configuration.Network == Network.Testnet:
+                    throw new ValidateSdkException("Tatum API key is not valid for Testnet.");
             }
         }
     }
