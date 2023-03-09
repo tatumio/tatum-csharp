@@ -34,6 +34,10 @@
         <Link>README.md</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="..\README_NUGET.md">
+        <Link>README_NUGET.md</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
