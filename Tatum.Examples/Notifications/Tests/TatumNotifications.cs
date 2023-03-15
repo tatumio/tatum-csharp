@@ -33,7 +33,7 @@ public class TatumNotifications
             RetryPolicy = Policy<HttpResponseMessage>
                 .Handle<HttpRequestException>()
                 .OrTransientHttpStatusCode()
-                .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 5))
+                .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 10))
         };
         
         _tatumSdk = TatumSdk.Init(Network.Testnet, config);
