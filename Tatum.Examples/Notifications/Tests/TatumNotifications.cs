@@ -97,12 +97,12 @@ public class TatumNotifications
     }
     
     [Theory]
-    [InlineData(FailedTxPerBlockChain.Ethereum, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
-    [InlineData(FailedTxPerBlockChain.Polygon, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
-    [InlineData(FailedTxPerBlockChain.Celo, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
-    [InlineData(FailedTxPerBlockChain.Klaytn, "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380")]
-    [InlineData(FailedTxPerBlockChain.BinanceSmartChain, "0x58107193278ea4bb56c390185f4755e0a4239d68")]
-    public async Task FailedTxPerBlock_Create_Get_Delete(FailedTxPerBlockChain chain, string address)
+    [InlineData(FailedTxPerBlockChain.Ethereum)]
+    [InlineData(FailedTxPerBlockChain.Polygon)]
+    [InlineData(FailedTxPerBlockChain.Celo)]
+    [InlineData(FailedTxPerBlockChain.Klaytn)]
+    [InlineData(FailedTxPerBlockChain.BinanceSmartChain)]
+    public async Task FailedTxPerBlock_Create_Get_Delete(FailedTxPerBlockChain chain)
     {
         BlockBasedNotification<FailedTxPerBlockChain> notification = new BlockBasedNotification<FailedTxPerBlockChain>
         {
