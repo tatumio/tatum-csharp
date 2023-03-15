@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Http;
 using Tatum.Core;
 using Tatum.Core.Configuration;
 using Tatum.Core.Handlers;
@@ -355,8 +356,11 @@ namespace Tatum
 
         private static DelegatingHandler PrepareDelegatingHandler(ITatumSdkConfiguration configuration)
         {
+            var retryPolicyHandler = new PolicyHttpMessageHandler(configuration.RetryPolicy);
+            retryPolicyHandler.InnerHandler = new HttpClientHandler();
+            
             var noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(configuration);
-            noApiKeyNetworkHandler.InnerHandler = new HttpClientHandler();
+            noApiKeyNetworkHandler.InnerHandler = retryPolicyHandler;
 
             if (configuration.EnableDebugMode)
             {

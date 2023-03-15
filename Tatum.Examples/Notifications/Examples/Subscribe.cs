@@ -14,7 +14,6 @@ public class Subscribe : IDisposable, IAsyncDisposable
     [Fact]
     public async Task Subscribe_Example()
     {
-        // Your API key should go here.
         var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
         
         AddressBasedNotification<AddressEventChain> notification = new AddressBasedNotification<AddressEventChain>()
