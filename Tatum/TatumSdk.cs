@@ -346,6 +346,7 @@ namespace Tatum
                 configuration = new DefaultTatumSdkConfiguration();
             }
 
+            configuration.BaseUrl = TatumConstants.BaseUrl;
             configuration.Network = network;
             configuration.ApiKey = apiKey;
             
