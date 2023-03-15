@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -31,9 +32,9 @@ public class TatumNotifications
             EnableDebugMode = true,
             // Because of the speed of tests we need to increase retry count to avoid throttling on the API side.
             RetryPolicy = Policy<HttpResponseMessage>
-                .Handle<HttpRequestException>()
-                .OrTransientHttpStatusCode()
-                .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(2), 10))
+                .HandleResult(response => response.StatusCode == HttpStatusCode.TooManyRequests)
+                .OrTransientHttpError()
+                .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 5))
         };
         
         _tatumSdk = TatumSdk.Init(Network.Testnet, config);
