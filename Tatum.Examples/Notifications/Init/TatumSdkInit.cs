@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Tatum.Core;
-using Tatum.Core.Configuration;
 using Tatum.Core.Exceptions;
-using Tatum.Core.Handlers;
 using Tatum.Core.Models;
 using Tatum.Notifications.Models;
 using Tatum.Notifications.Models.Notifications;
-using Tatum.Utils.DebugMode;
+using Tatum.Notifications.Models.Notifications.SupportedChains;
 using Xunit;
 
 namespace Tatum.Examples.Notifications.Init;
@@ -46,21 +43,21 @@ public class TatumSdkInit
     {
         var tatumSdk = TatumSdk.Init(network, _apiKeys[key], config => config.EnableDebugMode = true);
         
-        AddressEventNotification notification = new AddressEventNotification
+        AddressBasedNotification<AddressEventChain> notification = new AddressBasedNotification<AddressEventChain>
         {
-            Chain = AddressTransactionChain.Ethereum,
+            Chain = AddressEventChain.Ethereum,
             Address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
 
-        Result<AddressEventNotification> createdNotificationResult = await tatumSdk.Notifications.Subscribe.AddressEvent(notification);
+        Result<AddressBasedNotification<AddressEventChain>> createdNotificationResult = await tatumSdk.Notifications.Subscribe.AddressEvent(notification);
 
         if (!createdNotificationResult.Success)
         {
             Assert.True(false, createdNotificationResult.ErrorMessage);
         }
 
-        AddressEventNotification createdNotification = createdNotificationResult.Value;
+        AddressBasedNotification<AddressEventChain> createdNotification = createdNotificationResult.Value;
         
         createdNotification.Id.Should().NotBeNullOrEmpty();
 

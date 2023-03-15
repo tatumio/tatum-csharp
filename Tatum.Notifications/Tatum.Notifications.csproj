@@ -2,14 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
-
+    
     <ItemGroup>
       <ProjectReference Include="..\Tatum.Core\Tatum.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Models\Requests" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>Tatum.Examples</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
 
 </Project>

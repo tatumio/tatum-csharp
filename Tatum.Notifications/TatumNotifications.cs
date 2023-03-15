@@ -10,6 +10,7 @@ using Tatum.Core.Serialization;
 using Tatum.Notifications.Mappers;
 using Tatum.Notifications.Models;
 using Tatum.Notifications.Models.Notifications;
+using Tatum.Notifications.Models.Notifications.SupportedChains;
 using Tatum.Notifications.Models.Responses;
 
 namespace Tatum.Notifications
@@ -113,18 +114,100 @@ namespace Tatum.Notifications
 
         public ITatumNotificationSubscriptions Subscribe => this;
 
-        public async Task<Result<AddressEventNotification>> AddressEvent(AddressEventNotification addressEventNotification)
+        public async Task<Result<AddressBasedNotification<AddressEventChain>>> AddressEvent(AddressBasedNotification<AddressEventChain> addressBasedNotification)
         {
-            return await CreateNotification(addressEventNotification).ConfigureAwait(false);
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
         }
-        
-        private async Task<Result<T>> CreateNotification<T>(T notification) where T : Notification
+
+        public async Task<Result<BlockBasedNotification<FailedTxPerBlockChain>>> FailedTxPerBlock(BlockBasedNotification<FailedTxPerBlockChain> addressBasedNotification)
+        {
+            return await CreateBlockBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<IncomingNativeTxChain>>> IncomingNativeTx(AddressBasedNotification<IncomingNativeTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingNativeTxChain>>> OutgoingNativeTx(AddressBasedNotification<OutgoingNativeTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingFailedTxChain>>> OutgoingFailedTx(AddressBasedNotification<OutgoingFailedTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<PaidFeeChain>>> PaidFee(AddressBasedNotification<PaidFeeChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<IncomingInternalTxChain>>> IncomingInternalTx(AddressBasedNotification<IncomingInternalTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingInternalTxChain>>> OutgoingInternalTx(AddressBasedNotification<OutgoingInternalTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<IncomingFungibleTxChain>>> IncomingFungibleTx(AddressBasedNotification<IncomingFungibleTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingFungibleTxChain>>> OutgoingFungibleTx(AddressBasedNotification<OutgoingFungibleTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<IncomingNftTxChain>>> IncomingNftTx(AddressBasedNotification<IncomingNftTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingNftTxChain>>> OutgoingNftTx(AddressBasedNotification<OutgoingNftTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<IncomingMultitokenTxChain>>> IncomingMultitokenTx(AddressBasedNotification<IncomingMultitokenTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        public async Task<Result<AddressBasedNotification<OutgoingMultitokenTxChain>>> OutgoingMultitokenTx(AddressBasedNotification<OutgoingMultitokenTxChain> addressBasedNotification)
+        {
+            return await CreateAddressBasedNotification(addressBasedNotification).ConfigureAwait(false);
+        }
+
+        private async Task<Result<AddressBasedNotification<TChainEnum>>> CreateAddressBasedNotification<TChainEnum>(AddressBasedNotification<TChainEnum> notification)
         {
             var notificationRequest = NotificationMapper.Map(notification);
             
             var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default).ConfigureAwait(false);
 
-            var result = await responseMessage.ToResultAsync<T>().ConfigureAwait(false);
+            var result = await responseMessage.ToResultAsync<AddressBasedNotification<TChainEnum>>().ConfigureAwait(false);
+
+            if (result.Success)
+            {
+                notification.Id = result.Value.Id;
+                return notification;
+            }
+
+            return result;
+        }
+        
+        private async Task<Result<BlockBasedNotification<TChainEnum>>> CreateBlockBasedNotification<TChainEnum>(BlockBasedNotification<TChainEnum> notification)
+        {
+            var notificationRequest = NotificationMapper.Map(notification);
+            
+            var responseMessage = await GetClient().PostAsJsonAsync(NotificationsUrl, notificationRequest, TatumSerializerOptions.Default).ConfigureAwait(false);
+
+            var result = await responseMessage.ToResultAsync<BlockBasedNotification<TChainEnum>>().ConfigureAwait(false);
 
             if (result.Success)
             {

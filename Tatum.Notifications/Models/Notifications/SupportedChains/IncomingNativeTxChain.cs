@@ -1,17 +1,15 @@
-namespace Tatum.Core.Models
+namespace Tatum.Notifications.Models.Notifications.SupportedChains
 {
-    public enum Chain
+    public enum IncomingNativeTxChain
     {
         Ethereum = 1,
-        Solana,
+        BinanceSmartChain,
         Polygon,
         Celo,
         Klaytn,
         Bitcoin,
         Litecoin,
-        BitcoinCash,
         Dogecoin,
         Tron,
-        BinanceSmartChain
     }
 }

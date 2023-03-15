@@ -1,6 +1,6 @@
-namespace Tatum.Core.Models
+namespace Tatum.Notifications.Models.Notifications.SupportedChains
 {
-    public enum Chain
+    public enum AddressEventChain
     {
         Ethereum = 1,
         Solana,

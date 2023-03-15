@@ -1,12 +1,9 @@
 using System;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Tatum.Core.Configuration;
-using Tatum.Core.Handlers;
 using Tatum.Core.Models;
 using Tatum.Notifications.Models.Notifications;
-using Tatum.Utils.DebugMode;
+using Tatum.Notifications.Models.Notifications.SupportedChains;
 using Xunit;
 
 namespace Tatum.Examples.Notifications.Examples;
@@ -20,9 +17,9 @@ public class Subscribe : IDisposable, IAsyncDisposable
         // Your API key should go here.
         var tatumSdk = await TatumSdk.InitAsync(Network.Testnet, config => config.EnableDebugMode = true);
         
-        AddressEventNotification notification = new AddressEventNotification
+        AddressBasedNotification<AddressEventChain> notification = new AddressBasedNotification<AddressEventChain>()
         {
-            Chain = AddressTransactionChain.Ethereum,
+            Chain = AddressEventChain.Ethereum,
             Address = "0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380",
             Url = "https://webhook.site/0x2be3e0a7fc9c0d0592ea49b05dde7f28baf8e380"
         };
