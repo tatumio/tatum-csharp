@@ -4,6 +4,8 @@ using Tatum.Extensions.ServiceCollection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var network = args.Length > 0 && args[0] == "Mainnet" ? Network.Mainnet : Network.Testnet;
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -30,7 +32,7 @@ builder.Services.AddSwaggerGenNewtonsoftSupport();
 
 var apiKey = Environment.GetEnvironmentVariable("NOTIFICATION_TEST_APIKEY");
 
-builder.Services.AddTatumSdkWithDebug(Network.Testnet, apiKey);
+builder.Services.AddTatumSdkWithDebug(network, apiKey);
 
 // ************** /Tatum SDK **************
 
