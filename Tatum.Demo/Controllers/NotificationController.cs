@@ -92,7 +92,7 @@ public class NotificationController : ControllerBase
     /// <param name="chain">Blockchain of choice.</param>
     /// <param name="url">Url that should be called on event trigger.</param>
     [HttpPost(Name = "SubscribeFailedTxPerBlock")]
-    public async Task<ActionResult<BlockBasedNotification<FailedTxPerBlockChain>>> SubscribeFailedTxPerBlock([Required] FailedTxPerBlockChain chain, string? url) 
+    public async Task<ActionResult<BlockBasedNotification<FailedTxPerBlockChain>>> SubscribeFailedTxPerBlock([Required] FailedTxPerBlockChain chain,[Required] string url) 
         => await SubscribeBlock(chain, url, _tatumSdk.Notifications.Subscribe.FailedTxPerBlock);
     
     /// <summary>
