@@ -195,6 +195,7 @@ namespace Tatum.Notifications
             if (result.Success)
             {
                 notification.Id = result.Value.Id;
+                notification.Type = notificationRequest.Type;
                 return notification;
             }
 
@@ -212,6 +213,7 @@ namespace Tatum.Notifications
             if (result.Success)
             {
                 notification.Id = result.Value.Id;
+                notification.Type = notificationRequest.Type;
                 return notification;
             }
 
