@@ -10,13 +10,21 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\Requests" />
-    </ItemGroup>
-
-    <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
             <_Parameter1>Tatum.Examples</_Parameter1>
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models\Requests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Models\Requests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Models\Requests\**" />
     </ItemGroup>
 
 </Project>

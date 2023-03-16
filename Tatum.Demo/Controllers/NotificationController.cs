@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Tatum.Core;
 using Tatum.Notifications.Models;
 using Tatum.Notifications.Models.Notifications;
+using Tatum.Notifications.Models.Notifications.SupportedChains;
 using Tatum.Notifications.Models.Responses;
 
 namespace Tatum.Demo.Controllers;
@@ -72,19 +74,168 @@ public class NotificationController : ControllerBase
 
         return BadRequest(result.ErrorMessage);
     }
+    
     /// <summary>
-    /// Endpoint used to subscribe to a new webhook notification.
+    /// Endpoint used to subscribe to a new AddressEvent webhook notification.
     /// </summary>
     /// <param name="chain">Blockchain of choice.</param>
     /// <param name="address">Blockchain address on which events will trigger notification.</param>
     /// <param name="url">Url that should be called on event trigger.</param>
-    [HttpPost(Name = "Subscribe")]
-    public async Task<ActionResult<AddressEventNotification>> Subscribe(AddressTransactionChain chain = AddressTransactionChain.Ethereum, string? address = null, string? url = null)
+    [HttpPost(Name = "SubscribeAddressEvent")]
+    public async Task<ActionResult<AddressBasedNotification<AddressEventChain>>> SubscribeAddressEvent(AddressEventChain chain = AddressEventChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.AddressEvent);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new FailedTxPerBlock webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeFailedTxPerBlock")]
+    public async Task<ActionResult<BlockBasedNotification<FailedTxPerBlockChain>>> SubscribeFailedTxPerBlock(FailedTxPerBlockChain chain = FailedTxPerBlockChain.Ethereum, string? url = null) 
+        => await SubscribeBlock(chain, url, _tatumSdk.Notifications.Subscribe.FailedTxPerBlock);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new IncomingNativeTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeIncomingNativeTx")]
+    public async Task<ActionResult<AddressBasedNotification<IncomingNativeTxChain>>> SubscribeIncomingNativeTx(IncomingNativeTxChain chain = IncomingNativeTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.IncomingNativeTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingNativeTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingNativeTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingNativeTxChain>>> SubscribeOutgoingNativeTx(OutgoingNativeTxChain chain = OutgoingNativeTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingNativeTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingFailedTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingFailedTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingFailedTxChain>>> SubscribeOutgoingFailedTx(OutgoingFailedTxChain chain = OutgoingFailedTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingFailedTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new PaidFee webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribePaidFee")]
+    public async Task<ActionResult<AddressBasedNotification<PaidFeeChain>>> SubscribePaidFee(PaidFeeChain chain = PaidFeeChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.PaidFee);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new IncomingInternalTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeIncomingInternalTx")]
+    public async Task<ActionResult<AddressBasedNotification<IncomingInternalTxChain>>> SubscribeIncomingInternalTx(IncomingInternalTxChain chain = IncomingInternalTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.IncomingInternalTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingInternalTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingInternalTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingInternalTxChain>>> SubscribeOutgoingInternalTx(OutgoingInternalTxChain chain = OutgoingInternalTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingInternalTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new IncomingFungibleTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeIncomingFungibleTx")]
+    public async Task<ActionResult<AddressBasedNotification<IncomingFungibleTxChain>>> SubscribeIncomingFungibleTx(IncomingFungibleTxChain chain = IncomingFungibleTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.IncomingFungibleTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingFungibleTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingFungibleTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingFungibleTxChain>>> SubscribeOutgoingFungibleTx(OutgoingFungibleTxChain chain = OutgoingFungibleTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingFungibleTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new IncomingNftTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeIncomingNftTx")]
+    public async Task<ActionResult<AddressBasedNotification<IncomingNftTxChain>>> SubscribeIncomingNftTx(IncomingNftTxChain chain = IncomingNftTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.IncomingNftTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingNftTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingNftTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingNftTxChain>>> SubscribeOutgoingNftTx(OutgoingNftTxChain chain = OutgoingNftTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingNftTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new IncomingMultitokenTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeIncomingMultitokenTx")]
+    public async Task<ActionResult<AddressBasedNotification<IncomingMultitokenTxChain>>> SubscribeIncomingMultitokenTx(IncomingMultitokenTxChain chain = IncomingMultitokenTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.IncomingMultitokenTx);
+    
+    /// <summary>
+    /// Endpoint used to subscribe to a new OutgoingMultitokenTx webhook notification.
+    /// </summary>
+    /// <param name="chain">Blockchain of choice.</param>
+    /// <param name="address">Blockchain address on which events will trigger notification.</param>
+    /// <param name="url">Url that should be called on event trigger.</param>
+    [HttpPost(Name = "SubscribeOutgoingMultitokenTx")]
+    public async Task<ActionResult<AddressBasedNotification<OutgoingMultitokenTxChain>>> SubscribeOutgoingMultitokenTx(OutgoingMultitokenTxChain chain = OutgoingMultitokenTxChain.Ethereum, string? address = null, string? url = null) 
+        => await SubscribeAddress(chain, address, url, _tatumSdk.Notifications.Subscribe.OutgoingMultitokenTx);
+
+    private async Task<ActionResult<AddressBasedNotification<T>>> SubscribeAddress<T>(T chain, string? address, string? url, Func<AddressBasedNotification<T>, Task<Result<AddressBasedNotification<T>>>> subscribeFunc)
     {
-        var result = await _tatumSdk.Notifications.Subscribe.AddressEvent(new AddressEventNotification
+        var result = await subscribeFunc(new AddressBasedNotification<T>
         {
             Chain = chain,
             Address = address,
+            Url = url
+        });
+
+        if (result.Success)
+        {
+            return Ok(result.Value);
+        }
+
+        return BadRequest(result.ErrorMessage);
+    }
+    
+    private async Task<ActionResult<BlockBasedNotification<T>>> SubscribeBlock<T>(T chain, string? url, Func<BlockBasedNotification<T>, Task<Result<BlockBasedNotification<T>>>> subscribeFunc)
+    {
+        var result = await subscribeFunc(new BlockBasedNotification<T>
+        {
+            Chain = chain,
             Url = url
         });
 
