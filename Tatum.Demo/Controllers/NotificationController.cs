@@ -58,7 +58,7 @@ public class NotificationController : ControllerBase
     /// <param name="sortingDirection">Direction in which records should be sorted.</param>
     /// <param name="filterFailed">Filter returned results by failed field.</param>
     [HttpGet(Name = "GetAllExecutedWebhooks")]
-    public async Task<ActionResult<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(int pageSize = 10, int offset = 0, SortingDirection sortingDirection = SortingDirection.Default, bool? filterFailed = null)
+    public async Task<ActionResult<List<WebhookExecutionResponse>>> GetAllExecutedWebhooks(int pageSize = 10, int offset = 0, [Required] SortingDirection sortingDirection = SortingDirection.Desc, bool? filterFailed = null)
     {
         var result = await _tatumSdk.Notifications.GetAllExecutedWebhooks(new GetAllExecutedWebhooksQuery
         {

@@ -4,14 +4,13 @@ namespace Tatum.Notifications.Models
     {
         public int PageSize { get; set; } = 10;
         public int Offset { get; set; }
-        public SortingDirection SortingDirection { get; set; } = SortingDirection.Default;
+        public SortingDirection SortingDirection { get; set; }
         public bool? FilterFailed { get; set; }
     }
     
     public enum SortingDirection
     {
-        Default,
-        Asc,
-        Desc
+        Desc,
+        Asc
     }
 }

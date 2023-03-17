@@ -71,16 +71,13 @@ namespace Tatum.Notifications
             
             sb.Append($"?pageSize={getAllExecutedWebhooksQuery.PageSize}");
             
+            sb.Append($"&direction={getAllExecutedWebhooksQuery.SortingDirection.ToString().ToLower()}");
+            
             if (getAllExecutedWebhooksQuery.Offset > 0)
             {
                 sb.Append($"&offset={getAllExecutedWebhooksQuery.Offset}");
             }
-            
-            if (getAllExecutedWebhooksQuery.SortingDirection != SortingDirection.Default)
-            {
-                sb.Append($"&direction={getAllExecutedWebhooksQuery.SortingDirection.ToString().ToLower()}");
-            }
-            
+
             if (getAllExecutedWebhooksQuery.FilterFailed != null)
             {
                 sb.Append($"&failed={(getAllExecutedWebhooksQuery.FilterFailed.Value ? "true" : "false")}");
