@@ -47,7 +47,7 @@ public class Subscribe : IDisposable, IAsyncDisposable
 
         if (!notifications.Success)
         {
-            throw new Exception("Failed to get notifications.");
+            throw new Exception($"Failed to get notifications: {notifications.ErrorMessage}");
         }
         
         foreach (var notification in notifications.Value)
@@ -56,7 +56,7 @@ public class Subscribe : IDisposable, IAsyncDisposable
 
             if (!unsubscribe.Success)
             {
-                throw new Exception("Failed to unsubscribe.");
+                throw new Exception($"Failed to unsubscribe: {unsubscribe.ErrorMessage}");
             }
         }
     }
