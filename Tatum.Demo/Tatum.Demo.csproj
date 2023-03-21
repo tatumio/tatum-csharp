@@ -17,9 +17,7 @@
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+        <PackageReference Include="Tatum" Version="*-*" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Tatum\Tatum.csproj" />
-    </ItemGroup>
 </Project>
