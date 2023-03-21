@@ -11,6 +11,7 @@ namespace Tatum.Notifications.Models.Responses
         public string Id { get; set; }
         
         [JsonPropertyName("type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public NotificationType Type { get; set; }
         
         [JsonPropertyName("attr")]

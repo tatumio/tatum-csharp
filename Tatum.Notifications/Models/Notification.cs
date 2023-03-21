@@ -6,5 +6,9 @@ namespace Tatum.Notifications.Models
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
+        
+        [JsonPropertyName("type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public NotificationType Type { get; set; }
     }
 }

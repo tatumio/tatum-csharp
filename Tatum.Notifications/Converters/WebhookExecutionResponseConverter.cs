@@ -49,6 +49,45 @@ namespace Tatum.Notifications.Converters
                             case NotificationType.ADDRESS_EVENT:
                                 response.Data = JsonSerializer.Deserialize<AddressEventExecution>(ref reader, options);
                                 break;
+                            case NotificationType.INCOMING_NATIVE_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataAssetTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_NATIVE_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataAssetTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_FAILED_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookData>(ref reader, options);
+                                break;
+                            case NotificationType.PAID_FEE:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataAssetTx>(ref reader, options);
+                                break;
+                            case NotificationType.INCOMING_INTERNAL_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataAssetTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_INTERNAL_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataAssetTx>(ref reader, options);
+                                break;
+                            case NotificationType.INCOMING_FUNGIBLE_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataFungibleTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_FUNGIBLE_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataFungibleTx>(ref reader, options);
+                                break;
+                            case NotificationType.INCOMING_NFT_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataNftMultitokenTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_NFT_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataNftMultitokenTx>(ref reader, options);
+                                break;
+                            case NotificationType.INCOMING_MULTITOKEN_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataNftMultitokenTx>(ref reader, options);
+                                break;
+                            case NotificationType.OUTGOING_MULTITOKEN_TX:
+                                response.Data = JsonSerializer.Deserialize<WebhookDataNftMultitokenTx>(ref reader, options);
+                                break;
+                            case NotificationType.FAILED_TXS_PER_BLOCK:
+                                response.Data = JsonSerializer.Deserialize<WebhookBlockData>(ref reader, options);
+                                break;
                             default:
                                 throw new JsonException($"Unknown notification type: {response.Type}");
                         }
