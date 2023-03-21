@@ -9,7 +9,6 @@ namespace Tatum.Notifications.Models.Notifications.SupportedChains
         Klaytn,
         Bitcoin,
         Litecoin,
-        Dogecoin,
-        Tron,
+        Dogecoin
     }
 }
