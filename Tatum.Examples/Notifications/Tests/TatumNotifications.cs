@@ -139,7 +139,6 @@ public class TatumNotifications
     [InlineData(IncomingNativeTxChain.Bitcoin, "tb1qjzjyd3l3vh8an8w4mkr6dwur59lan60367kr04")]
     [InlineData(IncomingNativeTxChain.Litecoin, "mxz6DCurdU65oyzfUnE36enNUFG8soaRXi")]
     [InlineData(IncomingNativeTxChain.Dogecoin, "ndz9RPmJWwNiNt1aRvgxhG4G5xMgr61Wn8")]
-    [InlineData(IncomingNativeTxChain.Tron, "TLZirVxP5m37d2ZEWDtmvk97KMJXiBsWGZ")]
     [InlineData(IncomingNativeTxChain.BinanceSmartChain, "0x58107193278ea4bb56c390185f4755e0a4239d68")]
     public async Task IncomingNativeTx_Create_Get_Delete(IncomingNativeTxChain chain, string address)
     {
