@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Tatum.Notifications.Models
 {
     public interface INotification

@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,11 +21,11 @@ namespace Tatum.Core.Handlers
             {
                 if (string.IsNullOrWhiteSpace(request.RequestUri.Query))
                 {
-                    request.RequestUri = new Uri($"{request.RequestUri}?type=testnet");
+                    //request.RequestUri = new Uri($"{request.RequestUri.OriginalString}?type=testnet");
                 }
                 else
                 {
-                    request.RequestUri = new Uri($"{request.RequestUri}&type=testnet");
+                    //request.RequestUri = new Uri($"{request.RequestUri.OriginalString}&type=testnet");
                 }
                 
                 return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

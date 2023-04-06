@@ -14,6 +14,6 @@ namespace Tatum.Core.Configuration
         public bool EnableDebugMode { get; set; }
         
         public AsyncRetryPolicy<HttpResponseMessage> RetryPolicy { get; set; }
-
+        public IRpcConfiguration Rpc { get; set; }
     }
 }

@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Tatum.Notifications\Tatum.Notifications.csproj" />
+      <ProjectReference Include="..\Tatum.Rpc\Tatum.Rpc.csproj" />
       <ProjectReference Include="..\Tatum.Utils\Tatum.Utils.csproj" />
     </ItemGroup>
 

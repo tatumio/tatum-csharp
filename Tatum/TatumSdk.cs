@@ -9,6 +9,7 @@ using Tatum.Core.Configuration;
 using Tatum.Core.Handlers;
 using Tatum.Core.Models;
 using Tatum.Notifications;
+using Tatum.Rpc;
 using Tatum.Utils.DebugMode;
 
 namespace Tatum
@@ -16,15 +17,18 @@ namespace Tatum
     public class TatumSdk : ITatumSdk
     {
         public ITatumNotifications Notifications { get; }
+        public ITatumRpc Rpc { get; }
 
         private TatumSdk(HttpClient httpClient, ITatumSdkConfiguration configuration)
         {
             Notifications = new TatumNotifications(httpClient, configuration);
+            Rpc = new TatumRpc(httpClient, configuration);
         }
         
         private TatumSdk(IHttpClientFactory httpClientFactory, ITatumSdkConfiguration configuration)
         {
             Notifications = new TatumNotifications(httpClientFactory, configuration);
+            Rpc = new TatumRpc(httpClientFactory, configuration);
         }
         
         public static TatumSdk Init()
@@ -357,8 +361,10 @@ namespace Tatum
 
         private static DelegatingHandler PrepareDelegatingHandler(ITatumSdkConfiguration configuration)
         {
+            var baseHandler = new HttpClientHandler();
+
             var retryPolicyHandler = new PolicyHttpMessageHandler(configuration.RetryPolicy);
-            retryPolicyHandler.InnerHandler = new HttpClientHandler();
+            retryPolicyHandler.InnerHandler = baseHandler;
             
             var noApiKeyNetworkHandler = new NoApiKeyNetworkHandler(configuration);
             noApiKeyNetworkHandler.InnerHandler = retryPolicyHandler;

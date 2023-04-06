@@ -18,6 +18,12 @@ namespace Tatum.Core.Extensions
                 var content = await httpResponseMessage.Content.ReadFromJsonAsync<TValue>(TatumSerializerOptions.Default).ConfigureAwait(false);
                 return content;
             }
+            
+            // check if response has any content
+            if (httpResponseMessage.Content == null)
+            {
+                return new Result<TValue>("No content found.");
+            }
 
             var error = await httpResponseMessage.Content.ReadFromJsonAsync<TatumError>(TatumSerializerOptions.Default).ConfigureAwait(false);
 

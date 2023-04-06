@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.Demo", "Tatum.Demo\Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.Demo.Console", "Tatum.Demo.Console\Tatum.Demo.Console.csproj", "{1926328D-8FE2-4FD7-A963-88A68381D399}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatum.Rpc", "Tatum.Rpc\Tatum.Rpc.csproj", "{5FC0BF19-01C4-44AD-87B8-043BE3F758A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{1926328D-8FE2-4FD7-A963-88A68381D399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1926328D-8FE2-4FD7-A963-88A68381D399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1926328D-8FE2-4FD7-A963-88A68381D399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC0BF19-01C4-44AD-87B8-043BE3F758A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC0BF19-01C4-44AD-87B8-043BE3F758A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC0BF19-01C4-44AD-87B8-043BE3F758A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC0BF19-01C4-44AD-87B8-043BE3F758A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
