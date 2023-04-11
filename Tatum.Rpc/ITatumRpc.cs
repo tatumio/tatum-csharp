@@ -7,6 +7,7 @@ namespace Tatum.Rpc
     public interface ITatumRpcChain
     {
         Task<Result<object>> Call(JsonRpcCall request);
+        Task<Result<T>> Call<T>(JsonRpcCall request);
     }
     
     public interface ITatumRpc

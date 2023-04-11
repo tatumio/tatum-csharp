@@ -58,7 +58,9 @@ namespace Tatum.Rpc
             };
         }
 
-        public async Task<Result<object>> Call(JsonRpcCall request)
+        public async Task<Result<object>> Call(JsonRpcCall request) => await Call<object>(request);
+        
+        public async Task<Result<T>> Call<T>(JsonRpcCall request)
         {
             if (!_initialised)
             {
@@ -76,7 +78,7 @@ namespace Tatum.Rpc
                     .PostAsJsonAsync(_activeNode.Url, request, TatumSerializerOptions.Default)
                     .ConfigureAwait(false);
                 
-                return await responseMessage.ToResultAsync<object>().ConfigureAwait(false);
+                return await responseMessage.ToResultAsync<T>().ConfigureAwait(false);
             }
             catch
             {
@@ -90,7 +92,7 @@ namespace Tatum.Rpc
 
                 _activeNode = _nodes.Min;
                 
-                return await Call(request);
+                return await Call<T>(request);
             }
         }
 

@@ -25,11 +25,6 @@ namespace Tatum.Core.Configuration
         int AllowedBlocksBehind { get; set; }
 
         /// <summary>
-        /// In case this is set to `true`, the SDK will use list of provided URL addresses from the configuration instead of OpenRCP ones. Defaults to `false`.
-        /// </summary>
-        bool UseStaticUrls { get; set; }
-
-        /// <summary>
         /// In case this is set to `true`, the SDK will not automatically load balance and failover between available nodes and will use fixed first available URL. Defaults to `false`.
         /// </summary>
         bool IgnoreLoadBalancing { get; set; }
