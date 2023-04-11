@@ -6,6 +6,7 @@ namespace Tatum.Rpc.Models
         Litecoin,
         Polygon,
         Ethereum,
-        Monero
+        Monero,
+        Tron
     }
 }

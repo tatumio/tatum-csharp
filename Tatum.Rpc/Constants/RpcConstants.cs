@@ -12,6 +12,7 @@ namespace Tatum.Rpc.Constants
             { RpcChain.Ethereum, "https://ethereum.cdn.openrpc.io" },
             { RpcChain.Polygon, "https://polygon.cdn.openrpc.io" },
             { RpcChain.Monero, "https://monero.cdn.openrpc.io" },
+            { RpcChain.Tron, "https://tron.cdn.openrpc.io" },
         };
     }
 }

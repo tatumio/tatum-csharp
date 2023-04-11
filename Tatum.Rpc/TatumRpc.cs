@@ -13,6 +13,7 @@ namespace Tatum.Rpc
             Polygon = new TatumRpcChain(RpcChain.Polygon, httpClient, configuration);
             Ethereum = new TatumRpcChain(RpcChain.Ethereum, httpClient, configuration);
             Monero = new TatumRpcChain(RpcChain.Monero, httpClient, configuration);
+            Tron = new TatumRpcChain(RpcChain.Tron, httpClient, configuration);
         }
         
         public TatumRpc(IHttpClientFactory httpClientFactory, ITatumSdkConfiguration configuration)
@@ -22,6 +23,7 @@ namespace Tatum.Rpc
             Polygon = new TatumRpcChain(RpcChain.Polygon, httpClientFactory, configuration);
             Ethereum = new TatumRpcChain(RpcChain.Ethereum, httpClientFactory, configuration);
             Monero = new TatumRpcChain(RpcChain.Monero, httpClientFactory, configuration);
+            Tron = new TatumRpcChain(RpcChain.Tron, httpClientFactory, configuration);
         }
 
         public ITatumRpcChain Bitcoin { get; }
@@ -33,5 +35,7 @@ namespace Tatum.Rpc
         public ITatumRpcChain Ethereum { get; }
 
         public ITatumRpcChain Monero { get; }
+        
+        public ITatumRpcChain Tron { get; }
     }
 }
