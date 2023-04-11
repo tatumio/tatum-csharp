@@ -82,13 +82,24 @@ namespace Tatum.Rpc
             }
             catch
             {
-                if (_nodes.Count == 0) 
-                    throw;
+                if (_nodes.Count == 0)
+                {
+                    if (_initialised)
+                    {
+                        throw;
+                    }
+                    
+                    await InitialiseInternal();
+                    _initialised = true;
+                    return await Call<T>(request);
+                }
 
                 _nodes.Remove(_activeNode);
                 
                 if (_nodes.Count == 0)
+                {
                     throw new TatumOpenRpcException($"All nodes for {_chain} are down");
+                }
 
                 _activeNode = _nodes.Min;
                 

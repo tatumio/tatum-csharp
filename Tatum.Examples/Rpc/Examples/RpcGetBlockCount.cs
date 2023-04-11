@@ -1,8 +1,5 @@
-using System;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Tatum.Core.Models;
-using Tatum.Rpc;
 using Tatum.Rpc.Models;
 using Xunit;
 
@@ -44,6 +41,24 @@ public class RpcGetBlockCount
 
         Assert.True(result.Success);
         Assert.True(result.Value.Result > 0);
+    }
+    
+    [Fact]
+    public async Task GetBlockCount_Example_WithParams()
+    {
+        var tatumSdk = await TatumSdk.InitAsync(config => config.EnableDebugMode = true);
+
+        var rpcCall = new JsonRpcCall
+        {
+            Id = "1",
+            JsonRpc = "2.0",
+            Method = "eth_getBlockByNumber",
+            Params = new object[] {"latest", true}
+        };
+
+        var result = await tatumSdk.Rpc.Ethereum.Call(rpcCall);
+
+        Assert.True(result.Success);
     }
     
     private class StatusResponse
