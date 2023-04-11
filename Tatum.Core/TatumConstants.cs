@@ -8,5 +8,6 @@ namespace Tatum.Core
         public const string TatumSdkProductHeader = "x-ttm-sdk-product";
         public const string TatumSdkDebugHeader = "x-ttm-sdk-debug";
         public const string TatumCSharpSdkProduct = "CSharp";
+        public const string TatumBypassApiKeyHandlerHeader = "X-Bypass-ApiKeyHandler";
     }
 }

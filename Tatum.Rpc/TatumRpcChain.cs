@@ -68,7 +68,11 @@ namespace Tatum.Rpc
 
             try
             {
-                var responseMessage = await GetClient()
+                var client = GetClient();
+
+                client.DefaultRequestHeaders.Add(TatumConstants.TatumBypassApiKeyHandlerHeader, "true");
+                
+                var responseMessage = await client
                     .PostAsJsonAsync(_activeNode.Url, request, TatumSerializerOptions.Default)
                     .ConfigureAwait(false);
                 
