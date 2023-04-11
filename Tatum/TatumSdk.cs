@@ -345,11 +345,10 @@ namespace Tatum
 
         private static ITatumSdkConfiguration ResolveConfiguration(Network network, string apiKey, ITatumSdkConfiguration configuration)
         {
-            if (configuration == null)
-            {
-                configuration = new DefaultTatumSdkConfiguration();
-            }
+            configuration ??= new DefaultTatumSdkConfiguration();
 
+            configuration.Rpc ??= new DefaultRpcConfiguration();
+            
             configuration.BaseUrl = TatumConstants.BaseUrl;
             configuration.Network = network;
             configuration.ApiKey = apiKey;
