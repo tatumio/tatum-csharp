@@ -62,3 +62,7 @@ var tatumSdk = TatumSdk.Init(Network.Testnet, apiKey, config => config.EnableDeb
 [Demo App (.NET API)](Tatum.Demo)
 
 - [Examples - Notifications](Tatum.Examples/Notifications/Examples/Subscribe.cs)
+
+## Troubleshooting
+
+Should you face any issues, feel free to contribute to our troubleshooting process by forking the SDK and submitting pull requests for any changes. For reporting issues and tracking progress, create new issues within this GitHub repository.
