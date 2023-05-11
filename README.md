@@ -42,8 +42,6 @@ Please find SDK related documentation [here](https://docs.tatum.com/).
 
 If there ever is a need to see what is going on under the hood you can use the Debug Mode to output underlying `request curl` and `response content` to the `Debug` console.
 
-**When contacting Tatum support providing those logs can help us identifying the issue faster.**
-
 To use debug mode simply register Tatum SDK like this:
 
 ```cs
